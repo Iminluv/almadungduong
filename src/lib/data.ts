@@ -133,3 +133,47 @@ export const blogPosts: BlogPost[] = [
   }
 ];
 
+export interface Review {
+  id: string;
+  userName: string;
+  rating: number;
+  comment: string;
+  date: string;
+  isVerifiedPurchase?: boolean;
+}
+
+export const allReviews: Review[] = [
+  {
+    id: "rev-1",
+    userName: "Minh Anh",
+    rating: 5,
+    comment: "Sản phẩm xịt dưỡng rất dịu nhe, dùng xong da mướt hơn hẳn. Rất hài lòng với dịch vụ chăm sóc khách hàng của Alma.",
+    date: "15/04/2026",
+    isVerifiedPurchase: true
+  },
+  {
+    id: "rev-2",
+    userName: "Hoàng Long",
+    rating: 4,
+    comment: "Sữa rửa mặt dùng tốt, sạch sâu mà không khô da. Giao hàng hơi chậm một chút nhưng đóng gói rất kỹ.",
+    date: "12/04/2026",
+    isVerifiedPurchase: true
+  },
+  {
+    id: "rev-3",
+    userName: "Thanh Hằng",
+    rating: 5,
+    comment: "Mình đã dùng qua nhiều loại mỹ phẩm nhưng Alma thực sự làm mình bất ngờ. Da nhạy cảm của mình không hề bị kích ứng.",
+    date: "10/04/2026",
+    isVerifiedPurchase: true
+  },
+  {
+    id: "rev-4",
+    userName: "Ngọc Mai",
+    rating: 5,
+    comment: "Kem chống nắng lên tone rất tự nhiên, không bị bóng dầu. Sẽ tiếp tục ủng hộ sản phẩm của shop.",
+    date: "05/04/2026",
+    isVerifiedPurchase: true
+  }
+];
+

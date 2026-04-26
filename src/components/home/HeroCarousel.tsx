@@ -51,6 +51,14 @@ export function HeroCarousel() {
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
@@ -58,123 +66,145 @@ export function HeroCarousel() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="relative min-h-[95vh] h-screen overflow-hidden bg-bg" ref={emblaRef}>
-      <div className="flex h-full">
-        {slides.map((slide, index) => (
-          <div key={slide.id} className="relative flex-[0_0_100%] h-full flex items-center">
-            {/* Background Image Layer */}
-            <div className="absolute inset-0 z-0">
-              <Image
-                src={slide.image}
-                alt={slide.title.join(" ")}
-                fill
-                className="object-cover opacity-20 grayscale-[10%]"
-                priority={index === 0}
-              />
-              <div 
-                className="absolute inset-0" 
-                style={{ 
-                  background: 'linear-gradient(to right, rgba(250,248,245,0.92) 45%, transparent 85%)' 
-                }} 
-              />
-            </div>
+    <section className="relative min-h-[95vh] h-screen overflow-hidden bg-bg">
+      <div className="embla h-full" ref={emblaRef}>
+        <div className="embla__container flex h-full">
+          {slides.map((slide, index) => (
+            <div key={slide.id} className="embla__slide relative flex-[0_0_100%] h-full flex items-center">
+              {/* Background Image Layer */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src={slide.image}
+                  alt={slide.title.join(" ")}
+                  fill
+                  className="object-cover opacity-20 grayscale-[10%]"
+                  priority={index === 0}
+                />
+                <div 
+                  className="absolute inset-0" 
+                  style={{ 
+                    background: 'linear-gradient(to right, rgba(250,248,245,0.92) 45%, transparent 85%)' 
+                  }} 
+                />
+              </div>
 
-            <div className="container-custom relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
-              {/* Text Content */}
-              <div className="max-w-2xl space-y-8">
+              <div className="container-custom relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+                {/* Text Content */}
+                <div className="max-w-2xl space-y-8">
+                  <AnimatePresence mode="wait">
+                    {selectedIndex === index && (
+                      <motion.div
+                        key={slide.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <div className="space-y-4">
+                          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1]">
+                            <motion.span 
+                              initial={{ opacity: 0, y: 30 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.8, delay: 0.1 }}
+                              className="block"
+                            >
+                              {slide.title[0]}
+                            </motion.span>
+                            <motion.span 
+                              initial={{ opacity: 0, y: 30 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.8, delay: 0.2 }}
+                              className="block"
+                            >
+                              {slide.title[1]}
+                            </motion.span>
+                            <motion.span 
+                              initial={{ opacity: 0, y: 30 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.8, delay: 0.3 }}
+                              className={`block ${slide.accent}`}
+                            >
+                              {slide.title[2]}
+                            </motion.span>
+                          </h1>
+
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.8 }}
+                            className="space-y-2 text-muted text-lg border-l-2 border-surface pl-6"
+                          >
+                            {slide.description.map((desc, i) => (
+                              <p key={i}>{desc}</p>
+                            ))}
+                          </motion.div>
+                        </div>
+
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 1.1 }}
+                          className="flex flex-wrap gap-6 items-center mt-10"
+                        >
+                          <Button variant="primary" size="lg">
+                            Mua ngay
+                          </Button>
+                          <Button variant="text" size="lg" className="group">
+                            Tìm hiểu thêm <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                          </Button>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Product Highlight Image */}
                 <AnimatePresence mode="wait">
                   {selectedIndex === index && (
-                    <motion.div
-                      key={slide.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.5 }}
+                    <motion.div 
+                      key={`img-${slide.id}`}
+                      initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                      animate={{ opacity: 1, scale: 1, x: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, x: -20 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      className="relative aspect-[4/5] max-w-sm ml-auto hidden lg:block"
                     >
-                      <div className="space-y-4">
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1]">
-                          <motion.span 
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.1 }}
-                            className="block"
-                          >
-                            {slide.title[0]}
-                          </motion.span>
-                          <motion.span 
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="block"
-                          >
-                            {slide.title[1]}
-                          </motion.span>
-                          <motion.span 
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                            className={`block ${slide.accent}`}
-                          >
-                            {slide.title[2]}
-                          </motion.span>
-                        </h1>
-
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.8 }}
-                          className="space-y-2 text-muted text-lg border-l-2 border-surface pl-6"
-                        >
-                          {slide.description.map((desc, i) => (
-                            <p key={i}>{desc}</p>
-                          ))}
-                        </motion.div>
+                      <div className="absolute inset-0 bg-surface rounded-sm -rotate-2" />
+                      <div className="relative z-10 w-full h-full overflow-hidden rounded-sm border border-surface shadow-lg">
+                        <Image
+                          src={slide.productImage}
+                          alt="Featured Product"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
-
-                      <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 1.1 }}
-                        className="flex flex-wrap gap-6 items-center mt-10"
-                      >
-                        <Button variant="primary" size="lg">
-                          Mua ngay
-                        </Button>
-                        <Button variant="text" size="lg" className="group">
-                          Tìm hiểu thêm <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                        </Button>
-                      </motion.div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-
-              {/* Product Highlight Image */}
-              <AnimatePresence mode="wait">
-                {selectedIndex === index && (
-                  <motion.div 
-                    key={`img-${slide.id}`}
-                    initial={{ opacity: 0, scale: 0.95, x: 20 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, x: -20 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="relative aspect-[4/5] max-w-sm ml-auto hidden lg:block"
-                  >
-                    <div className="absolute inset-0 bg-surface rounded-sm -rotate-2" />
-                    <div className="relative z-10 w-full h-full overflow-hidden rounded-sm border border-surface shadow-lg">
-                      <Image
-                        src={slide.productImage}
-                        alt="Featured Product"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      {/* Manual Navigation Arrows */}
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-30 px-4 md:px-8 pointer-events-none hidden lg:block">
+        <div className="flex justify-between w-full">
+          <button
+            onClick={scrollPrev}
+            className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-text/80 hover:bg-white/20 hover:text-text transition-all pointer-events-auto"
+            aria-label="Previous slide"
+          >
+            <span className="text-xl">←</span>
+          </button>
+          <button
+            onClick={scrollNext}
+            className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-text/80 hover:bg-white/20 hover:text-text transition-all pointer-events-auto"
+            aria-label="Next slide"
+          >
+            <span className="text-xl">→</span>
+          </button>
+        </div>
       </div>
 
       {/* Pagination dots */}

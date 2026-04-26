@@ -2,9 +2,10 @@
 
 import { use, useState, useEffect } from "react";
 import Image from "next/image";
-import { products } from "@/lib/data";
+import { products, allReviews } from "@/lib/data";
 import { useCart } from "@/lib/store/useCart";
 import { Button } from "@/components/ui/Button";
+import { ReviewCard } from "@/components/products/ReviewCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { notFound } from "next/navigation";
 
@@ -27,7 +28,7 @@ export default function ProductDetailPage({ params }: PageProps) {
   // Mock thumbnails if not present
   const images = product.images || [product.image, product.image, product.image];
 
-  const formatPrice = (p: number) => 
+  const formatPrice = (p: number) =>
     new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p);
 
   return (
@@ -65,15 +66,14 @@ export default function ProductDetailPage({ params }: PageProps) {
                 </motion.div>
               </AnimatePresence>
             </div>
-            
+
             <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
               {images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImage(idx)}
-                  className={`relative w-20 aspect-square bg-surface rounded-sm overflow-hidden border-b-2 transition-all ${
-                    activeImage === idx ? "border-accent opacity-100" : "border-transparent opacity-60 hover:opacity-100"
-                  }`}
+                  className={`relative w-20 aspect-square bg-surface rounded-sm overflow-hidden border-b-2 transition-all ${activeImage === idx ? "border-accent opacity-100" : "border-transparent opacity-60 hover:opacity-100"
+                    }`}
                 >
                   <Image src={img} alt={`${product.title} ${idx}`} fill className="object-cover" />
                 </button>
@@ -107,11 +107,10 @@ export default function ProductDetailPage({ params }: PageProps) {
                     <button
                       key={v}
                       onClick={() => setSelectedVariant(v)}
-                      className={`px-6 py-2.5 text-sm font-medium border transition-all rounded-sm ${
-                        selectedVariant === v 
-                          ? "bg-text text-bg border-text" 
+                      className={`px-6 py-2.5 text-sm font-medium border transition-all rounded-sm ${selectedVariant === v
+                          ? "bg-text text-bg border-text"
                           : "bg-bg text-text border-surface hover:border-text/40"
-                      }`}
+                        }`}
                     >
                       {v}
                     </button>
@@ -126,14 +125,14 @@ export default function ProductDetailPage({ params }: PageProps) {
                 <div className="space-y-3">
                   <p className="text-xs font-bold uppercase tracking-widest text-muted">Số lượng</p>
                   <div className="flex items-center border border-surface rounded-sm w-fit">
-                    <button 
+                    <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       className="px-4 py-2 hover:bg-surface transition-colors"
                     >
                       −
                     </button>
                     <span className="w-12 text-center font-semibold">{quantity}</span>
-                    <button 
+                    <button
                       onClick={() => setQuantity(quantity + 1)}
                       className="px-4 py-2 hover:bg-surface transition-colors"
                     >
@@ -141,32 +140,32 @@ export default function ProductDetailPage({ params }: PageProps) {
                     </button>
                   </div>
                 </div>
-                
+
                 <div className="space-y-1 mt-6">
-                   <div className="flex items-baseline gap-3">
-                      <p className="text-3xl font-bold text-text">{formatPrice(product.price)}</p>
-                      {product.originalPrice && (
-                        <p className="text-lg text-muted line-through">{formatPrice(product.originalPrice)}</p>
-                      )}
-                   </div>
-                   {product.originalPrice && (
-                     <p className="text-xs font-bold text-accent uppercase tracking-wider">Tiết kiệm {Math.round((1 - product.price/product.originalPrice)*100)}%</p>
-                   )}
+                  <div className="flex items-baseline gap-3">
+                    <p className="text-3xl font-bold text-text">{formatPrice(product.price)}</p>
+                    {product.originalPrice && (
+                      <p className="text-lg text-muted line-through">{formatPrice(product.originalPrice)}</p>
+                    )}
+                  </div>
+                  {product.originalPrice && (
+                    <p className="text-xs font-bold text-accent uppercase tracking-wider">Tiết kiệm {Math.round((1 - product.price / product.originalPrice) * 100)}%</p>
+                  )}
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button 
-                  variant="primary" 
-                  size="lg" 
+                <Button
+                  variant="primary"
+                  size="lg"
                   className="flex-1"
                   onClick={() => addItem({ id: product.id, title: product.title, price: product.price, image: product.image, variant: selectedVariant }, quantity)}
                 >
                   Thêm vào giỏ hàng
                 </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
+                <Button
+                  variant="outline"
+                  size="lg"
                   className="flex-1"
                 >
                   Mua ngay / COD
@@ -179,29 +178,29 @@ export default function ProductDetailPage({ params }: PageProps) {
 
             {/* Trust Badges */}
             <div className="space-y-4">
-               <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="w-5 text-accent text-center">✓</span>
-                    <p className="text-text">FREE SHIP đơn từ 1.000.000đ</p>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="w-5 text-accent text-center">✓</span>
-                    <p className="text-text">Đồng hành 1:1 miễn phí đến khi da đẹp</p>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="w-5 text-accent text-center">✓</span>
-                    <p className="text-text">Đổi trả trong 7 ngày nếu không hiệu quả</p>
-                  </div>
-               </div>
-               
-               <div className="pt-4 flex gap-4">
-                  <div className="bg-navy text-white text-[10px] font-bold uppercase tracking-[0.1em] px-3 py-1.5 rounded-sm">
-                    Chứng nhận EWG
-                  </div>
-                  <div className="bg-navy text-white text-[10px] font-bold uppercase tracking-[0.1em] px-3 py-1.5 rounded-sm">
-                    FDA Approved
-                  </div>
-               </div>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 text-accent text-center">✓</span>
+                  <p className="text-text">FREE SHIP đơn từ 1.000.000đ</p>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 text-accent text-center">✓</span>
+                  <p className="text-text">Đồng hành 1:1 miễn phí đến khi da đẹp</p>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 text-accent text-center">✓</span>
+                  <p className="text-text">Đổi trả trong 7 ngày nếu không hiệu quả</p>
+                </div>
+              </div>
+
+              <div className="pt-4 flex gap-4">
+                <div className="bg-navy text-white text-[10px] font-bold uppercase tracking-[0.1em] px-3 py-1.5 rounded-sm">
+                  Chứng nhận EWG
+                </div>
+                <div className="bg-navy text-white text-[10px] font-bold uppercase tracking-[0.1em] px-3 py-1.5 rounded-sm">
+                  FDA Approved
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -209,74 +208,98 @@ export default function ProductDetailPage({ params }: PageProps) {
         {/* Tabs Section */}
         <div className="mt-24">
           <div className="flex border-b border-surface overflow-x-auto scrollbar-hide">
-            {["mô tả", "thành phần", "hướng dẫn dùng", `đánh giá (${product.reviewsCount})`].map((tab) => (
+            {["mô tả", "thành phần", "hướng dẫn dùng", `đánh giá (${allReviews.length})`].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-4 px-8 text-sm font-semibold uppercase tracking-widest whitespace-nowrap border-b-2 transition-all ${
-                  activeTab === tab ? "border-text text-text" : "border-transparent text-muted hover:text-text"
-                }`}
+                className={`py-4 px-8 text-sm font-semibold uppercase tracking-widest whitespace-nowrap border-b-2 transition-all ${activeTab === tab || (tab.includes("đánh giá") && activeTab.includes("đánh giá"))
+                    ? "border-text text-text"
+                    : "border-transparent text-muted hover:text-text"
+                  }`}
               >
                 {tab}
               </button>
             ))}
           </div>
-          
+
           <div className="py-12 max-w-4xl">
-             <AnimatePresence mode="wait">
-               <motion.div
-                 key={activeTab}
-                 initial={{ opacity: 0 }}
-                 animate={{ opacity: 1 }}
-                 exit={{ opacity: 0 }}
-                 transition={{ duration: 0.2 }}
-                 className="text-text/80 leading-relaxed space-y-6"
-               >
-                 {activeTab === "mô tả" && (
-                   <div className="space-y-6">
-                     <p className="text-lg font-serif italic text-text">Sản phẩm mỹ phẩm vi sinh tiên phong giúp cân bằng hệ vi sinh trên da, phục hồi hàng rào bảo vệ tự nhiên.</p>
-                     <p>{product.description}</p>
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
-                        <div className="bg-surface p-8 rounded-sm">
-                           <h4 className="font-display font-bold text-xl mb-4">Công dụng chính</h4>
-                           <ul className="space-y-3 list-disc pl-5 text-sm">
-                              <li>Phục hồi da nhạy cảm, kích ứng</li>
-                              <li>Cân bằng độ ẩm và dầu trên da</li>
-                              <li>Tăng cường lợi khuẩn, ức chế hại khuẩn</li>
-                              <li>Làm sáng da tự nhiên từ sâu bên trong</li>
-                           </ul>
-                        </div>
-                        <div className="bg-accent/5 p-8 rounded-sm border border-accent/10">
-                           <h4 className="font-display font-bold text-xl mb-4 text-accent">Loại da phù hợp</h4>
-                           <p className="text-sm">Phù hợp cho mọi loại da, đặc biệt là da đang gặp vấn đề về mụn, nhạy cảm hoặc bị tổn thương do lạm dụng hóa chất.</p>
-                        </div>
-                     </div>
-                   </div>
-                 )}
-                 {activeTab === "thành phần" && (
-                   <div className="space-y-6">
-                     <p className="font-medium text-text">Bảng thành phần tối giản, 100% minh bạch:</p>
-                     <table className="w-full border-collapse">
-                        <tbody>
-                          <tr className="border-b border-surface">
-                            <td className="py-3 font-semibold w-1/3">Peptide Vi sinh</td>
-                            <td className="py-3">Hoạt chất độc quyền giúp tái cấu trúc hệ vi sinh.</td>
-                          </tr>
-                          <tr className="border-b border-surface">
-                            <td className="py-3 font-semibold">Chiết xuất Hoa Ngân</td>
-                            <td className="py-3">Kháng viêm mạnh mẽ, làm dịu da tức thì.</td>
-                          </tr>
-                          <tr className="border-b border-surface">
-                            <td className="py-3 font-semibold">Hyaluronic Acid</td>
-                            <td className="py-3">Cấp ẩm sâu đa tầng.</td>
-                          </tr>
-                        </tbody>
-                     </table>
-                     <p className="text-xs text-muted italic">Cam kết không cồn, không paraben, không hương liệu tổng hợp.</p>
-                   </div>
-                 )}
-               </motion.div>
-             </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="text-text/80 leading-relaxed space-y-6"
+              >
+                {activeTab === "mô tả" && (
+                  <div className="space-y-6">
+                    <p className="text-lg font-serif italic text-text">Sản phẩm mỹ phẩm vi sinh tiên phong giúp cân bằng hệ vi sinh trên da, phục hồi hàng rào bảo vệ tự nhiên.</p>
+                    <p>{product.description}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+                      <div className="bg-surface p-8 rounded-sm">
+                        <h4 className="font-display font-bold text-xl mb-4">Công dụng chính</h4>
+                        <ul className="space-y-3 list-disc pl-5 text-sm">
+                          <li>Phục hồi da nhạy cảm, kích ứng</li>
+                          <li>Cân bằng độ ẩm và dầu trên da</li>
+                          <li>Tăng cường lợi khuẩn, ức chế hại khuẩn</li>
+                          <li>Làm sáng da tự nhiên từ sâu bên trong</li>
+                        </ul>
+                      </div>
+                      <div className="bg-accent/5 p-8 rounded-sm border border-accent/10">
+                        <h4 className="font-display font-bold text-xl mb-4 text-accent">Loại da phù hợp</h4>
+                        <p className="text-sm">Phù hợp cho mọi loại da, đặc biệt là da đang gặp vấn đề về mụn, nhạy cảm hoặc bị tổn thương do lạm dụng hóa chất.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {activeTab === "thành phần" && (
+                  <div className="space-y-6">
+                    <p className="font-medium text-text">Bảng thành phần tối giản, 100% minh bạch:</p>
+                    <table className="w-full border-collapse">
+                      <tbody>
+                        <tr className="border-b border-surface">
+                          <td className="py-3 font-semibold w-1/3">Peptide Vi sinh</td>
+                          <td className="py-3">Hoạt chất độc quyền giúp tái cấu trúc hệ vi sinh.</td>
+                        </tr>
+                        <tr className="border-b border-surface">
+                          <td className="py-3 font-semibold">Chiết xuất Hoa Ngân</td>
+                          <td className="py-3">Kháng viêm mạnh mẽ, làm dịu da tức thì.</td>
+                        </tr>
+                        <tr className="border-b border-surface">
+                          <td className="py-3 font-semibold">Hyaluronic Acid</td>
+                          <td className="py-3">Cấp ẩm sâu đa tầng.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p className="text-xs text-muted italic">Cam kết không cồn, không paraben, không hương liệu tổng hợp.</p>
+                  </div>
+                )}
+                {activeTab.includes("đánh giá") && (
+                  <div className="space-y-12">
+                    {/* Reviews List */}
+                    <div className="space-y-2">
+                      <h3 className="font-display font-bold text-2xl mb-8">Phản hồi khách hàng ({allReviews.length})</h3>
+                      <div className="divide-y divide-surface">
+                        {allReviews.map((rev) => (
+                          <ReviewCard key={rev.id} review={rev} />
+                        ))}
+                      </div>
+                    </div>
+                    {/* Login Requirement for Submission */}
+                    <div className="bg-surface/50 p-6 md:p-10 rounded-sm border border-surface text-center space-y-4">
+                      <h4 className="font-display font-medium text-xl text-text">Dành cho cộng đồng Alma</h4>
+                      <p className="text-muted text-sm max-w-sm mx-auto">Chia sẻ trải nghiệm của bạn để giúp chúng tôi hoàn thiện hơn và giúp những khách hàng khác tìm được giải pháp phù hợp.</p>
+                      <div className="pt-2">
+                        <span className="text-accent font-semibold tracking-wide uppercase text-xs border-b border-accent pb-1">
+                          Hãy đăng nhập để đánh giá
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
