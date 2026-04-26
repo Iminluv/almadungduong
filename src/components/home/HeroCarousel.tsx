@@ -188,21 +188,43 @@ export function HeroCarousel() {
       </div>
 
       {/* Manual Navigation Arrows */}
-      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-30 px-4 md:px-8 pointer-events-none hidden lg:block">
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-30 px-2 pointer-events-none hidden lg:block">
         <div className="flex justify-between w-full">
           <button
             onClick={scrollPrev}
-            className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-text/80 hover:bg-white/20 hover:text-text transition-all pointer-events-auto"
+            className="group flex items-center justify-center p-2 text-text/30 hover:text-text transition-all duration-300 pointer-events-auto"
             aria-label="Previous slide"
           >
-            <span className="text-xl">←</span>
+            <div className="transform group-hover:-translate-x-2 transition-transform duration-300">
+              <svg 
+                width="40" 
+                height="80" 
+                viewBox="0 0 40 80" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="stroke-current stroke-[1px]"
+              >
+                <path d="M35 5L5 40L35 75" />
+              </svg>
+            </div>
           </button>
           <button
             onClick={scrollNext}
-            className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-text/80 hover:bg-white/20 hover:text-text transition-all pointer-events-auto"
+            className="group flex items-center justify-center p-4 text-text/30 hover:text-text transition-all duration-300 pointer-events-auto"
             aria-label="Next slide"
           >
-            <span className="text-xl">→</span>
+            <div className="transform group-hover:translate-x-2 transition-transform duration-300">
+              <svg 
+                width="40" 
+                height="80" 
+                viewBox="0 0 40 80" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="stroke-current stroke-[1px]"
+              >
+                <path d="M5 5L35 40L5 75" />
+              </svg>
+            </div>
           </button>
         </div>
       </div>

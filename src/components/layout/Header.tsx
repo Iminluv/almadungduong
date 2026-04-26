@@ -20,7 +20,7 @@ const navLinks = [
   },
   { label: "Kết quả", href: "/ket-qua" },
   { label: "Về chúng tôi", href: "/ve-chung-toi" },
-  { label: "Sharing", href: "/sharing-is-caring" },
+  { label: "Khách hàng thân thiết", href: "/khach-hang-than-thiet" },
 ];
 
 

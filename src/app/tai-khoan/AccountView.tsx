@@ -66,6 +66,32 @@ export default function AccountPage() {
                 >
                   {authMode === "login" ? "Truy cập ngay" : "Tạo tài khoản"}
                 </button>
+
+                <div className="mt-6 text-center text-sm text-muted">
+                  {authMode === "login" ? (
+                    <p>
+                      Chưa có tài khoản?{" "}
+                      <button 
+                        type="button" 
+                        onClick={() => setAuthMode("register")} 
+                        className="text-text hover:text-accent font-bold transition-colors"
+                      >
+                        Đăng ký tại đây
+                      </button>
+                    </p>
+                  ) : (
+                    <p>
+                      Đã có tài khoản?{" "}
+                      <button 
+                        type="button" 
+                        onClick={() => setAuthMode("login")} 
+                        className="text-text hover:text-accent font-bold transition-colors"
+                      >
+                        Đăng nhập tại đây
+                      </button>
+                    </p>
+                  )}
+                </div>
               </form>
 
             </div>
