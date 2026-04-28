@@ -6,7 +6,7 @@ import { skinConcerns } from "@/lib/data";
 import { Button } from "@/components/ui/Button";
 
 export function ProductsFeatures() {
-  const [openId, setOpenId] = useState<string | null>("viem-mun");
+  const [openId, setOpenId] = useState<string | null>("da-mun");
 
   return (
     <section className="py-20 md:py-32 bg-bg">

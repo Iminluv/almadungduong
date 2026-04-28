@@ -16,6 +16,8 @@ interface ProductCardProps {
   reviewsCount: number;
   price: number;
   originalPrice?: number;
+  flag?: string;
+  volume?: string;
   onAddToCart?: () => void;
 }
 
@@ -28,6 +30,8 @@ export function ProductCard({
   reviewsCount,
   price,
   originalPrice,
+  flag,
+  volume,
   onAddToCart,
 }: ProductCardProps) {
   const { addItem } = useCart();
@@ -49,6 +53,11 @@ export function ProductCard({
     <Link href={`/san-pham/${id}`} className="group relative flex flex-col border border-transparent hover:border-[#1C1C1A19] transition-all duration-200">
       {/* Product Image */}
       <div className="aspect-[4/5] bg-surface relative overflow-hidden">
+        {flag && (
+          <div className="absolute top-2 left-2 z-10 bg-accent text-bg text-[9px] uppercase font-bold tracking-wider px-2 py-1 rounded-sm">
+            {flag}
+          </div>
+        )}
         <Image
           src={image}
           alt={title}
@@ -67,9 +76,9 @@ export function ProductCard({
 
       {/* Info */}
       <div className="flex flex-col p-4 pt-3">
-        {category && (
+        {(category || volume) && (
           <span className="text-[10px] uppercase font-semibold text-accent mb-1 tracking-wider">
-            {category}
+            {category}{category && volume && " • "}{volume}
           </span>
         )}
         <h3 className="font-semibold text-base text-text mb-1 line-clamp-2">

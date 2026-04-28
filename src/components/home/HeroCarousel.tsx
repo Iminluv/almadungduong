@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import AutoPlay from "embla-carousel-autoplay";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
@@ -43,27 +42,67 @@ const slides = [
 ];
 
 export function HeroCarousel() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [AutoPlay({ delay: 6000 })]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
+  const startAutoplay = useCallback(() => {
+    if (autoplayRef.current) clearInterval(autoplayRef.current);
+    autoplayRef.current = setInterval(() => {
+      if (emblaApi) {
+        if (emblaApi.canScrollNext()) {
+          emblaApi.scrollNext();
+        } else {
+          emblaApi.scrollTo(0);
+        }
+      }
+    }, 6000);
   }, [emblaApi]);
 
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) {
+        if (emblaApi.canScrollPrev()) {
+            emblaApi.scrollPrev();
+        } else {
+            emblaApi.scrollTo(slides.length - 1);
+        }
+        startAutoplay();
+    }
+  }, [emblaApi, startAutoplay]);
+
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+    if (emblaApi) {
+        if (emblaApi.canScrollNext()) {
+            emblaApi.scrollNext();
+        } else {
+            emblaApi.scrollTo(0);
+        }
+        startAutoplay();
+    }
+  }, [emblaApi, startAutoplay]);
 
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
     emblaApi.on("select", onSelect);
-  }, [emblaApi, onSelect]);
+    emblaApi.on("pointerDown", () => {
+        if (autoplayRef.current) clearInterval(autoplayRef.current);
+    });
+    emblaApi.on("settle", () => {
+        startAutoplay();
+    });
+
+    startAutoplay();
+
+    return () => {
+        if (autoplayRef.current) clearInterval(autoplayRef.current);
+    };
+  }, [emblaApi, onSelect, startAutoplay]);
 
   return (
     <section className="relative min-h-[95vh] h-screen overflow-hidden bg-bg">
@@ -234,7 +273,10 @@ export function HeroCarousel() {
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => emblaApi?.scrollTo(i)}
+            onClick={() => {
+                emblaApi?.scrollTo(i);
+                startAutoplay();
+            }}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${selectedIndex === i ? 'bg-accent w-8' : 'bg-muted/40'}`}
             aria-label={`Go to slide ${i + 1}`}
           />

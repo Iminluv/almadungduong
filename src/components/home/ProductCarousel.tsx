@@ -69,6 +69,8 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
                   originalPrice={product.originalPrice}
                   rating={product.rating}
                   reviewsCount={product.reviewsCount}
+                  flag={product.flag}
+                  volume={product.volume}
                 />
               </div>
             ))}

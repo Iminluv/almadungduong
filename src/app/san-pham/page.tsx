@@ -109,6 +109,8 @@ function ProductsContent() {
                     originalPrice={product.originalPrice}
                     rating={product.rating}
                     reviewsCount={product.reviewsCount}
+                    flag={product.flag}
+                    volume={product.volume}
                   />
                 ))}
               </div>
