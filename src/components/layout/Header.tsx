@@ -33,6 +33,12 @@ export function Header() {
   
   const { toggleCart, getItemCount } = useCart();
   const [isMounted, setIsMounted] = useState(false);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+  const messages = [
+    "FREE SHIP cho đơn từ 1.000.000đ  ·  Đồng hành 1:1 miễn phí đến khi da đẹp",
+    "Nhận quà ngay khi Đăng ký thành viên tại đây"
+  ];
 
   useEffect(() => {
     setIsMounted(true);
@@ -56,6 +62,15 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isAnnouncementVisible) {
+      const interval = setInterval(() => {
+        setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isAnnouncementVisible, messages.length]);
+
   const handleCloseAnnouncement = () => {
     setIsAnnouncementVisible(false);
     sessionStorage.setItem("announcement-closed", "true");
@@ -76,9 +91,29 @@ export function Header() {
             >
               <div className="h-[40px] flex items-center justify-between px-4 sm:px-12 relative">
                 <div className="flex-1 flex justify-center overflow-hidden">
-                  <div className="whitespace-nowrap md:animate-none animate-[marquee_18s_linear_infinite] hover:[animation-play-state:paused] text-[13px] font-normal tracking-wide">
-                    FREE SHIP cho đơn từ 1.000.000đ  ·  Đồng hành 1:1 miễn phí đến khi da đẹp
-                  </div>
+                <div className="flex justify-center items-center w-full relative">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentMessageIndex}
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -10, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-[13px] font-normal tracking-wide text-center"
+                    >
+                      {currentMessageIndex === 0 ? (
+                        messages[0]
+                      ) : (
+                        <>
+                          Nhận quà ngay khi Đăng ký thành viên{" "}
+                          <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
+                            tại đây
+                          </Link>
+                        </>
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
                 </div>
                 <button
                   onClick={handleCloseAnnouncement}

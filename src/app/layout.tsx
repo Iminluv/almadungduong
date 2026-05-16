@@ -7,7 +7,6 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { ToastNotification } from "@/components/ui/ToastNotification";
 import { ChatWidget } from "@/components/layout/ChatWidget";
 
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 
 
 const inter = Inter({
