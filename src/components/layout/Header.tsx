@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Trang chủ", href: "/" },
-  { 
-    label: "Sản phẩm", 
-    href: "/san-pham", 
+  {
+    label: "Sản phẩm",
+    href: "/san-pham",
     hasDropdown: true,
     dropdownItems: [
       { label: "Khuyến mãi", href: "/san-pham?category=Khuyến mãi" },
@@ -30,7 +30,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(false);
-  
+
   const { toggleCart, getItemCount } = useCart();
   const [isMounted, setIsMounted] = useState(false);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
@@ -58,7 +58,7 @@ export function Header() {
         clearTimeout(timer);
       };
     }
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -91,29 +91,29 @@ export function Header() {
             >
               <div className="h-[40px] flex items-center justify-between px-4 sm:px-12 relative">
                 <div className="flex-1 flex justify-center overflow-hidden">
-                <div className="flex justify-center items-center w-full relative">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentMessageIndex}
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -10, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-[13px] font-normal tracking-wide text-center"
-                    >
-                      {currentMessageIndex === 0 ? (
-                        messages[0]
-                      ) : (
-                        <>
-                          Nhận quà ngay khi Đăng ký thành viên{" "}
-                          <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
-                            tại đây
-                          </Link>
-                        </>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
+                  <div className="flex justify-center items-center w-full relative">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentMessageIndex}
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -10, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-[13px] font-normal tracking-wide text-center"
+                      >
+                        {currentMessageIndex === 0 ? (
+                          messages[0]
+                        ) : (
+                          <>
+                            Nhận quà ngay khi Đăng ký thành viên{" "}
+                            <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
+                              tại đây
+                            </Link>
+                          </>
+                        )}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
                 <button
                   onClick={handleCloseAnnouncement}
@@ -131,8 +131,8 @@ export function Header() {
         <div
           className={cn(
             "w-full transition-all duration-300 ease-in-out pointer-events-auto",
-            isScrolled 
-              ? "bg-[#FAF8F5F5] backdrop-blur-xl border-b border-surface h-14 md:h-16" 
+            isScrolled
+              ? "bg-[#FAF8F5F5] backdrop-blur-xl border-b border-surface h-14 md:h-16"
               : "bg-transparent h-16 md:h-20"
           )}
         >
@@ -179,21 +179,21 @@ export function Header() {
               <Link href="/blog" className="hidden lg:block text-sm font-medium text-text/70 hover:text-text">
                 Blog
               </Link>
-              <button 
+              <button
                 onClick={() => toggleCart(true)}
                 className="text-[12px] md:text-[13px] font-semibold tracking-[0.06em] hover:bg-surface px-2 py-1.5 rounded transition-colors flex items-center gap-1"
               >
                 GIỎ ({isMounted ? getItemCount() : 0})
               </button>
-              <Link 
-                href="/tai-khoan" 
+              <Link
+                href="/tai-khoan"
                 className="hidden md:block text-[13px] font-semibold tracking-[0.06em] hover:bg-surface px-2 py-1.5 rounded transition-colors"
               >
-                TK
+                TÀI KHOẢN
               </Link>
-              
+
               {/* Mobile Menu Toggle */}
-              <button 
+              <button
                 className="md:hidden text-xs font-semibold tracking-[0.06em] border border-surface px-2 py-1 rounded-sm"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
@@ -207,14 +207,14 @@ export function Header() {
       {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/30 md:hidden z-[60]"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <motion.div 
+            <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
