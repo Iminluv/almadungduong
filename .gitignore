@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -42,3 +43,23 @@ next-env.d.ts
 
 #agent
 .agent
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Prisma generated client (auto-generated, not source of truth)
+prisma/generated/
+
+# OS & editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
