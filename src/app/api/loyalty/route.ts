@@ -19,7 +19,7 @@ export async function GET() {
     const config = await prisma.loyaltyConfig.findMany();
     
     // Transform config array into an object for easier consumption
-    const configMap = config.reduce<Record<string, string>>((acc, curr) => {
+    const configMap = config.reduce((acc: Record<string, string>, curr: { key: string; value: string }) => {
       acc[curr.key] = curr.value;
       return acc;
     }, {});
