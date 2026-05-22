@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 const trustItems = [
   "Khoa học vi sinh",
   "Thảo dược Việt Nam",
-  "Kiểm nghiệm lâm sàng",
-  "Chứng nhận EWG/FDA",
-  "COD toàn quốc"
+  "Không hoá chất độc hại",
+  "Cam kết hiệu quả",
+  "Đồng hành trọn đời"
 ];
 
 export function TrustStrip() {
@@ -35,17 +35,17 @@ export function TrustStrip() {
 
         {/* Mobile Marquee */}
         <div className="md:hidden">
-          <motion.div 
+          <motion.div
             className="flex whitespace-nowrap gap-8"
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity, 
-              ease: "linear" 
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear"
             }}
           >
             {[...trustItems, ...trustItems].map((item, index) => (
-              <div 
+              <div
                 key={`${item}-${index}`}
                 className="flex items-center gap-4 text-[13px] font-medium tracking-[0.05em] uppercase text-text/80"
               >

@@ -23,8 +23,8 @@ const slides = [
   },
   {
     id: 3,
-    title: ["Liệu pháp", "tối giản không xâm lấn", "KHÁNG CAO"],
-    subHeadline: "Bằng hệ lợi khuẩn kháng cao",
+    title: ["Liệu pháp", "tối giản không xâm lấn", "ĐỀ KHÁNG CAO"],
+    subHeadline: "Bằng hệ lợi khuẩn đề kháng cao",
     description: ["Tập trung phục hồi cốt lõi sâu bên dưới", "Da khỏe đẹp bền vững từ bên trong"],
     productImage: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?q=80&w=800&auto=format&fit=crop",
     accent: "#2D3A2F"
@@ -91,7 +91,7 @@ export function HeroCarousel() {
   }, [startAutoplay]);
 
   return (
-    <section 
+    <section
       className="relative min-h-[95vh] h-screen overflow-hidden bg-[#F2F0ED] select-none flex items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -346,7 +346,7 @@ function BranchStream({ selectedIndex }: BranchStreamProps) {
           <stop offset="50%" stopColor="#243328" />
           <stop offset="100%" stopColor="#35483B" />
         </linearGradient>
-        
+
         {/* Rich, multi-tone leaf gradient */}
         <linearGradient id="leafGradient" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#1E3123" />
@@ -402,7 +402,7 @@ function BranchStream({ selectedIndex }: BranchStreamProps) {
         animate={{ pathLength: 1 }}
         transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
       />
-      
+
       {/* Twig 2 */}
       <motion.path
         d="M920 330 Q 870 340, 840 320"
@@ -455,15 +455,15 @@ function BranchStream({ selectedIndex }: BranchStreamProps) {
       {/* Node 1: Near base, top right */}
       <Leaf x={1320} y={80} rotate={-15} scale={1.1} delay={0.4} />
       <Leaf x={1320} y={80} rotate={45} scale={0.8} delay={0.6} />
-      
+
       {/* Node 1b: Twig 1 tip */}
       <Leaf x={1080} y={90} rotate={-45} scale={0.9} delay={1.1} />
       <Leaf x={1080} y={90} rotate={-15} scale={0.7} delay={1.3} />
-      
+
       {/* Node 2: Along main branch */}
       <Leaf x={1020} y={230} rotate={35} scale={1.05} delay={0.9} />
       <Leaf x={1020} y={230} rotate={-110} scale={0.75} delay={1.1} />
-      
+
       {/* Node 2b: Twig 2 tip */}
       <Leaf x={840} y={320} rotate={-60} scale={0.95} delay={1.6} />
       <Leaf x={840} y={320} rotate={-20} scale={0.75} delay={1.8} />
@@ -471,7 +471,7 @@ function BranchStream({ selectedIndex }: BranchStreamProps) {
       {/* Node 3: Along main branch */}
       <Leaf x={780} y={395} rotate={-25} scale={1.1} delay={1.3} />
       <Leaf x={780} y={395} rotate={140} scale={0.8} delay={1.5} />
-      
+
       {/* Node 3b: Twig 3 tip */}
       <Leaf x={550} y={450} rotate={45} scale={0.9} delay={2.1} />
       <Leaf x={550} y={450} rotate={15} scale={0.7} delay={2.3} />
@@ -479,7 +479,7 @@ function BranchStream({ selectedIndex }: BranchStreamProps) {
       {/* Node 4: Along main branch */}
       <Leaf x={500} y={490} rotate={15} scale={1.05} delay={1.7} />
       <Leaf x={500} y={490} rotate={-130} scale={0.75} delay={1.9} />
-      
+
       {/* Node 4b: Twig 4 tip */}
       <Leaf x={310} y={570} rotate={-35} scale={0.9} delay={2.5} />
       <Leaf x={310} y={570} rotate={-5} scale={0.7} delay={2.7} />
@@ -487,7 +487,7 @@ function BranchStream({ selectedIndex }: BranchStreamProps) {
       {/* Node 5: Along main branch */}
       <Leaf x={280} y={630} rotate={-45} scale={1.1} delay={2.1} />
       <Leaf x={280} y={630} rotate={120} scale={0.8} delay={2.3} />
-      
+
       {/* Node 5b: Twig 5 tip */}
       <Leaf x={110} y={710} rotate={30} scale={0.95} delay={2.8} />
       <Leaf x={110} y={710} rotate={70} scale={0.75} delay={3.0} />
@@ -513,65 +513,65 @@ function Leaf({ x, y, rotate, scale, delay }: LeafProps) {
       <motion.g
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: scale, opacity: 0.95 }}
-        transition={{ 
-          delay: delay, 
-          duration: 1.2, 
-          ease: [0.34, 1.56, 0.64, 1] 
+        transition={{
+          delay: delay,
+          duration: 1.2,
+          ease: [0.34, 1.56, 0.64, 1]
         }}
         style={{ transformOrigin: "0px 0px" }}
       >
         {/* Leaf Stem connecting to branch */}
-        <path 
-          d="M -8 3 Q -4 1, 0 0" 
-          stroke="#2D3A2F" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
+        <path
+          d="M -8 3 Q -4 1, 0 0"
+          stroke="#2D3A2F"
+          strokeWidth="2"
+          strokeLinecap="round"
           opacity="0.6"
         />
-        
+
         {/* Leaf blade shape */}
-        <path 
-          d="M 0 0 C 15 -20, 50 -25, 80 0 C 50 25, 15 20, 0 0 Z" 
-          fill="url(#leafGradient)" 
+        <path
+          d="M 0 0 C 15 -20, 50 -25, 80 0 C 50 25, 15 20, 0 0 Z"
+          fill="url(#leafGradient)"
         />
-        
+
         {/* Delicate center vein */}
-        <path 
-          d="M 0 0 C 20 -2, 55 -2, 78 0" 
-          stroke="#A7C2AE" 
-          strokeWidth="1.2" 
+        <path
+          d="M 0 0 C 20 -2, 55 -2, 78 0"
+          stroke="#A7C2AE"
+          strokeWidth="1.2"
           strokeLinecap="round"
-          opacity="0.6" 
+          opacity="0.6"
         />
-        
+
         {/* Delicate side veins */}
-        <path 
-          d="M 20 -2 Q 25 -10, 32 -11" 
-          stroke="#A7C2AE" 
-          strokeWidth="0.8" 
+        <path
+          d="M 20 -2 Q 25 -10, 32 -11"
+          stroke="#A7C2AE"
+          strokeWidth="0.8"
           strokeLinecap="round"
-          opacity="0.35" 
+          opacity="0.35"
         />
-        <path 
-          d="M 40 -1 Q 47 -9, 55 -10" 
-          stroke="#A7C2AE" 
-          strokeWidth="0.8" 
+        <path
+          d="M 40 -1 Q 47 -9, 55 -10"
+          stroke="#A7C2AE"
+          strokeWidth="0.8"
           strokeLinecap="round"
-          opacity="0.35" 
+          opacity="0.35"
         />
-        <path 
-          d="M 20 2 Q 25 10, 32 11" 
-          stroke="#A7C2AE" 
-          strokeWidth="0.8" 
+        <path
+          d="M 20 2 Q 25 10, 32 11"
+          stroke="#A7C2AE"
+          strokeWidth="0.8"
           strokeLinecap="round"
-          opacity="0.35" 
+          opacity="0.35"
         />
-        <path 
-          d="M 40 1 Q 47 9, 55 10" 
-          stroke="#A7C2AE" 
-          strokeWidth="0.8" 
+        <path
+          d="M 40 1 Q 47 9, 55 10"
+          stroke="#A7C2AE"
+          strokeWidth="0.8"
           strokeLinecap="round"
-          opacity="0.35" 
+          opacity="0.35"
         />
       </motion.g>
     </g>

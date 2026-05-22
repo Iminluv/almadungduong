@@ -11,15 +11,15 @@ export function Footer() {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <span className="font-display font-bold text-xl tracking-tight text-white block">ALMA DUNGDUONG</span>
-              <span className="text-xs tracking-[0.12em] uppercase opacity-60">Mỹ phẩm Vi sinh Hoa Ngân</span>
+              <span className="text-xs tracking-[0.12em] uppercase opacity-60">Dung dưỡng làn da khỏe mạnh từ bên trong</span>
             </div>
-            
+
             <p className="font-serif italic text-lg text-white/60 max-w-sm mb-8">
-              "Làn da khỏe không cần hoàn hảo, nhưng cần được yêu thương đúng cách."
+              "Một làn da khỏe không cần hoàn hảo, nhưng cần được yêu thương đúng cách."
             </p>
 
             <div className="inline-block bg-white text-navy px-3 py-1.5 rounded-[2px] text-[11px] font-semibold tracking-wider">
-              ĐẠI LÝ CHÍNH HÃNG HOA NGÂN
+              ĐẠI LÝ CHÍNH HÃNG MỸ PHẨM VI SINH HOA NGÂN
             </div>
           </div>
 

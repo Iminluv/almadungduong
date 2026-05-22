@@ -655,6 +655,21 @@ export const categories = [
   "Sản phẩm dưỡng sinh",
 ];
 
+export interface SkinConcernGroup {
+  id: string;
+  label: string;
+  count: number;
+  issues: string[];
+}
+
+export const skinConcernGroups: SkinConcernGroup[] = [
+  { id: "do-am", label: "Độ ẩm", count: 4, issues: ["Da khô, bong tróc", "Da tiết dầu do thiếu ẩm (oil imbalance)", "Lỗ chân lông to do mất nước", "Da xỉn màu, thiếu sức sống"] },
+  { id: "viem-mun", label: "Viêm mụn", count: 8, issues: ["Bóng nhờn, tắc nghẽn lỗ chân lông", "Mụn cám, mụn đầu đen", "Mụn viêm nhẹ, viêm nang, bọc mủ", "Mụn ẩn", "Viêm nang lông", "Viêm da tiếp xúc, dị ứng", "Viêm da tiết bã", "Bệnh lý gây mụn khác (dậy thì, nội tiết,...)"] },
+  { id: "da-nhay-cam", label: "Da nhạy cảm", count: 5, issues: ["Da mỏng yếu", "Đỏ da", "Giãn mao mạch", "Nhạy cảm cơ địa", "Kích ứng da"] },
+  { id: "sac-to-da", label: "Sắc tố da", count: 7, issues: ["Sạm da", "Da không đều màu", "Thâm mụn", "Tàn nhang, đồi mồi", "Nám", "Rám da / Tăng sắc tố do đi nắng / Sử dụng lột tẩy,...", "Da bị sạm do dùng kem trộn / mỹ phẩm kém chất lượng / corticoid,..."] },
+  { id: "lao-hoa-da", label: "Lão hóa da", count: 4, issues: ["Dày sừng, lỗ chân lông to, giãn cấu trúc bề mặt", "Nếp nhăn li ti, Nếp nhăn sâu", "Lão hóa Collagen/Elastin", "Lão hóa cơ, kém săn chắc (Chảy xệ)"] },
+];
+
 export interface BlogPost {
   id: string;
   title: string;
