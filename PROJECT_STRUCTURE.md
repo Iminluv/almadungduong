@@ -25,6 +25,7 @@ almadungduong/
 │   │   ├── api/              # Route handlers / backend endpoints
 │   │   │   └── loyalty/      # Loyalty Program API endpoints
 │   │   ├── blog/             # Brand blog page & article details
+│   │   ├── chung-chi/         # Quality certifications and reports page
 │   │   ├── ket-qua/          # Checkout results / order status
 │   │   ├── khach-hang-than-thiet/ # Loyalty program views
 │   │   ├── san-pham/         # Product catalog and detail views
@@ -110,6 +111,7 @@ Standard Next.js App Router structure. Each subfolder maps to a page endpoint:
 *   `blog/`:
     *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/page.tsx) / [BlogView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/BlogView.tsx): Displays published articles list.
     *   `[slug]/`: Dynamic routes displaying full details of individual articles ([page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/page.tsx) / [BlogDetailView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/BlogDetailView.tsx)).
+*   `chung-chi/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/chung-chi/page.tsx) / [ChungChiView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/chung-chi/ChungChiView.tsx): Displays full certification profiles, registration documents, and SPF/skin irritation test results.
 *   `ket-qua/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ket-qua/page.tsx) / [ResultsView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ket-qua/ResultsView.tsx): Landing point displaying success banners after transactions.
 *   `khach-hang-than-thiet/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/khach-hang-than-thiet/page.tsx) / [LoyaltyView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/khach-hang-than-thiet/LoyaltyView.tsx): Renders the customer loyalty dashboard, program tier information, points calculations, and benefit lists.
 *   `san-pham/`:
