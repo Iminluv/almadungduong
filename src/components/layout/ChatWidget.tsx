@@ -69,13 +69,28 @@ export function ChatWidget() {
 
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="bg-navy text-white px-6 py-4 rounded-sm shadow-xl flex items-center gap-3 group transition-all"
+                className="bg-navy text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center group hover:bg-[#00255c] hover:scale-105 transition-all duration-300 relative"
+                aria-label="Hỗ trợ tư vấn 1:1"
               >
-                <span className="text-xs font-bold uppercase tracking-[0.15em]">
-                  {isOpen ? "Đóng" : "Hỗ trợ 1:1"}
-                </span>
-                {!isOpen && (
-                  <span className="text-accent animate-pulse">●</span>
+                {isOpen ? (
+                  <span className="text-lg leading-none font-light">×</span>
+                ) : (
+                  <>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white group-hover:rotate-12 transition-transform duration-300"
+                    >
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-accent border border-navy animate-pulse" />
+                  </>
                 )}
               </button>
             </motion.div>

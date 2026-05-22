@@ -8,12 +8,13 @@
   --color-surface: #F0EDE8;
   --color-text: #1C1C1A;
   --color-muted: #8A8680;
-  --color-accent: #2E6B4F;
+  --color-accent: #1A4331;
   --color-navy: #00347D;
 
   --font-display: var(--font-playfair);
   --font-body: var(--font-inter);
   --font-serif: var(--font-lora);
+  --font-cormorant: var(--font-cormorant);
 }
 
 @keyframes marquee {
@@ -31,7 +32,7 @@
   --surface: #F0EDE8;
   --text: #1C1C1A;
   --muted: #8A8680;
-  --accent: #2E6B4F;
+  --accent: #1A4331;
   --navy: #00347D;
 }
 

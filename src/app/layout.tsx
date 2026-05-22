@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Lora } from "next/font/google";
+import { Inter, Playfair_Display, Lora, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -10,20 +10,28 @@ import { ChatWidget } from "@/components/layout/ChatWidget";
 
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   variable: "--font-inter",
   display: "swap",
 });
 
 const playfair = Playfair_Display({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   variable: "--font-playfair",
   display: "swap",
 });
 
 const lora = Lora({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   variable: "--font-lora",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-cormorant",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -65,13 +73,13 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body
-        className={`${inter.variable} ${playfair.variable} ${lora.variable} antialiased bg-bg text-text font-body selection:bg-accent selection:text-white`}
+        className={`${inter.variable} ${playfair.variable} ${lora.variable} ${cormorant.variable} antialiased bg-bg text-text font-body selection:bg-accent selection:text-white`}
       >
         <Header />
         <CartDrawer />
         <ToastNotification />
         <ChatWidget />
-        <main className="min-h-screen pt-[64px] md:pt-[80px]">
+        <main className="min-h-screen pt-[64px]">
           {children}
         </main>
         <Footer />

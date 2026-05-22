@@ -11,7 +11,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = "inline-flex items-center justify-center transition-colors duration-200 uppercase tracking-[0.06em] font-semibold text-sm rounded-[2px]";
     
     const variants = {
-      primary: "bg-accent text-white hover:bg-[#25573F]",
+      primary: "bg-accent text-white hover:bg-[#112C20]",
       outline: "border-[1.5px] border-navy text-navy hover:bg-navy hover:text-white",
       ghost: "hover:bg-surface text-text",
       text: "text-navy border-b border-navy hover:opacity-70 !rounded-none !p-0",
