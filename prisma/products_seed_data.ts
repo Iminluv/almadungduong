@@ -276,7 +276,8 @@ export const products: Product[] = [
     "flag": "Được yêu thích",
     "fullDescription": "Xịt khoáng thảo dược không chỉ đơn thuần là “cấp nước”, mà là một bước nuôi dưỡng – làm dịu – cân bằng độ ẩm cho da mỗi ngày. Khi được trồng theo phương pháp hữu cơ, các hoạt chất thực vật giữ được độ tinh khiết cao, giúp làn da hấp thụ trọn vẹn giá trị tự nhiên.\n\nToner Hoa hồng ược chưng cất từ cánh hoa hồng hữu cơ, giàu vitamin và chất chống oxy hóa, giúp làn da luôn mềm mại và tươi tắn.\n\nCông dụng nổi bật:\n\n- Cấp ẩm nhanh, làm dịu da tức thì\n- Cân bằng pH tự nhiên của da\n- Hỗ trợ se khít lỗ chân lông, làm sáng da\n- Mang lại cảm giác thư giãn với hương hoa nhẹ nhàng\n\n👉 Nước hoa hồng tự nhiên thường giúp làm dịu, cân bằng và phục hồi độ ẩm cho da một cách nhẹ nhàng",
     "ingredients": "Nước cất từ cánh hoa hồng hữu cơ",
-    "usage": "Cách sử dụng\n- Xịt cách mặt 20–30cm, nhắm mắt và xịt đều 2–3 lần\n- Vỗ nhẹ để dưỡng chất thẩm thấu\n- Có thể dùng sau bước rửa mặt, trước serum hoặc trong ngày\n\nSử dụng khi nào\n- Khi da khô, mất nước, ngồi điều hòa nhiều\n- Sau khi rửa mặt để cân bằng pH\n- Trước makeup để tạo độ ẩm nền, sau makeup để “set” lớp nền\n\nPhù hợp với ai\n- Da thường, da khô, da thiếu sức sống\n- Người muốn dưỡng ẩm nhẹ nhàng mỗi ngày\n- Người làm việc văn phòng, da dễ mất nước"
+    "usage": "Cách sử dụng\n- Xịt cách mặt 20–30cm, nhắm mắt và xịt đều 2–3 lần\n- Vỗ nhẹ để dưỡng chất thẩm thấu\n- Có thể dùng sau bước rửa mặt, trước serum hoặc trong ngày\n\nSử dụng khi nào\n- Khi da khô, mất nước, ngồi điều hòa nhiều\n- Sau khi rửa mặt để cân bằng pH\n- Trước makeup để tạo độ ẩm nền, sau makeup để “set” lớp nền\n\nPhù hợp với ai\n- Da thường, da khô, da thiếu sức sống\n- Người muốn dưỡng ẩm nhẹ nhàng mỗi ngày\n- Người làm việc văn phòng, da dễ mất nước",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "toner-tia-to",
@@ -294,7 +295,8 @@ export const products: Product[] = [
     "flag": "Được yêu thích",
     "fullDescription": "Xịt khoáng thảo dược không chỉ đơn thuần là “cấp nước”, mà là một bước nuôi dưỡng – làm dịu – cân bằng độ ẩm cho da mỗi ngày. Khi được trồng theo phương pháp hữu cơ, các hoạt chất thực vật giữ được độ tinh khiết cao, giúp làn da hấp thụ trọn vẹn giá trị tự nhiên.\n\nChiết xuất từ lá tía tô hữu cơ – một loại thảo dược quen thuộc trong y học phương Đông, giàu chất chống oxy hóa và kháng viêm tự nhiên.\n\nCông dụng nổi bật:\n\n- Hỗ trợ kháng viêm, giảm mụn\n- Thanh lọc da, kiểm soát dầu nhờn\n- Làm sáng da và cải thiện sắc tố\n- Giúp da khỏe và ổn định hơn",
     "ingredients": "Nước cất từ cánh hoa hồng tía tô",
-    "usage": "Cách sử dụng\n- Xịt 2–3 lần lên toàn mặt hoặc vùng da mụn\n- Có thể dùng nhiều lần trong ngày để kiểm soát dầu\n- Dùng trước serum để tăng khả năng thẩm thấu\n\nSử dụng khi nào\n- Khi da đổ dầu, bí tắc lỗ chân lông\n- Khi da đang có mụn viêm nhẹ, mụn ẩn\n- Khi cần “refresh” da giữa ngày mà không làm bí da\n\nPhù hợp với ai\n- Da dầu, da hỗn hợp thiên dầu\n- Da mụn, da dễ viêm\n- Người sống trong môi trường ô nhiễm, dễ bít tắc lỗ chân lông"
+    "usage": "Cách sử dụng\n- Xịt 2–3 lần lên toàn mặt hoặc vùng da mụn\n- Có thể dùng nhiều lần trong ngày để kiểm soát dầu\n- Dùng trước serum để tăng khả năng thẩm thấu\n\nSử dụng khi nào\n- Khi da đổ dầu, bí tắc lỗ chân lông\n- Khi da đang có mụn viêm nhẹ, mụn ẩn\n- Khi cần “refresh” da giữa ngày mà không làm bí da\n\nPhù hợp với ai\n- Da dầu, da hỗn hợp thiên dầu\n- Da mụn, da dễ viêm\n- Người sống trong môi trường ô nhiễm, dễ bít tắc lỗ chân lông",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "toner-hoa-cuc",
@@ -312,7 +314,8 @@ export const products: Product[] = [
     "flag": "Được yêu thích",
     "fullDescription": "Xịt khoáng thảo dược không chỉ đơn thuần là “cấp nước”, mà là một bước nuôi dưỡng – làm dịu – cân bằng độ ẩm cho da mỗi ngày. Khi được trồng theo phương pháp hữu cơ, các hoạt chất thực vật giữ được độ tinh khiết cao, giúp làn da hấp thụ trọn vẹn giá trị tự nhiên.\n\nToner Hoa cúc được Chiết xuất từ giống hoa cúc cổ canh tác hữu cơ, nổi bật với khả năng làm dịu và kháng viêm mạnh mẽ.\n\nCông dụng nổi bật:\n- Làm dịu da kích ứng, giảm đỏ nhanh\n- Hỗ trợ phục hồi da nhạy cảm, da sau treatment\n- Cấp ẩm nhẹ, giúp da mềm mại hơn\n- Tăng cường hàng rào bảo vệ da\n\n👉 Xịt khoáng hoa cúc được biết đến với khả năng làm dịu, dưỡng ẩm và cân bằng da nhạy cảm",
     "ingredients": "Nước cất từ cánh hoa hồng hoa cúc",
-    "usage": "Cách sử dụng\n- Xịt trực tiếp lên vùng da cần làm dịu hoặc toàn mặt\n- Có thể xịt nhiều lớp (layer) khi da đang nhạy cảm\n- Kết hợp với bông tẩy trang để làm lotion mask 3–5 phút\n\nSử dụng khi nào\n- Khi da bị kích ứng, đỏ, ngứa hoặc sau nắng\n- Sau các liệu trình treatment (peel, lăn kim nhẹ…)\n- Khi da “biểu tình”, cần làm dịu ngay\n\nPhù hợp với ai\n- Da nhạy cảm, da yếu, da dễ kích ứng\n- Da sau treatment, da đang phục hồi\n- Người theo routine skincare tối giản – lành tính"
+    "usage": "Cách sử dụng\n- Xịt trực tiếp lên vùng da cần làm dịu hoặc toàn mặt\n- Có thể xịt nhiều lớp (layer) khi da đang nhạy cảm\n- Kết hợp với bông tẩy trang để làm lotion mask 3–5 phút\n\nSử dụng khi nào\n- Khi da bị kích ứng, đỏ, ngứa hoặc sau nắng\n- Sau các liệu trình treatment (peel, lăn kim nhẹ…)\n- Khi da “biểu tình”, cần làm dịu ngay\n\nPhù hợp với ai\n- Da nhạy cảm, da yếu, da dễ kích ứng\n- Da sau treatment, da đang phục hồi\n- Người theo routine skincare tối giản – lành tính",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "nuoc-tay-trang-tia-to-hoa-hong",
@@ -329,7 +332,8 @@ export const products: Product[] = [
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "fullDescription": "Công dụng: \n- Làm sạch sâu lỗ chân lông, tẩy tế bào chết trên da, loại bỏ dầu thừa\n- Thư giãn, dưỡng ẩm cho da để làn da trông rạng rỡ, sáng hồng hơn\n- Giúp làm thông thoáng, se khít lỗ chân lông \n- Giúp ngăn ngừa mụn, giảm nếp nhăn cho da, giúp da khỏe hơn, săn chắc hơn",
     "ingredients": "Chiết xuất tía tô, Chiết xuất hoa hồng, muối epsom, dầu hạt chanh",
-    "usage": "Nhỏ vào bông tẩy trang sau đó lau sạch lợp bụi bẩn hoặc lớp trang điểm trên da. Có thể dùng thay sữa rửa mặt nếu không trang điểm và dùng như 1 loại toner"
+    "usage": "Nhỏ vào bông tẩy trang sau đó lau sạch lợp bụi bẩn hoặc lớp trang điểm trên da. Có thể dùng thay sữa rửa mặt nếu không trang điểm và dùng như 1 loại toner",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "xa-bong-nghe-hoa-hong",
@@ -347,7 +351,8 @@ export const products: Product[] = [
     "flag": "Được yêu thích",
     "fullDescription": "🌿 Xà bông Nghệ Mật Ong – Làm sạch dịu nhẹ, nuôi dưỡng làn da khỏe tự nhiên\n\nĐược tạo nên từ những nguyên liệu thiên nhiên giàu dưỡng chất, xà bông Nghệ Mật Ong là sự kết hợp giữa làm sạch lành tính và phục hồi da theo hướng tự nhiên. Không chỉ làm sạch bụi bẩn và dầu thừa, sản phẩm còn hỗ trợ nuôi dưỡng hàng rào bảo vệ da, giúp da mềm mại và khỏe hơn mỗi ngày.\n\n✨ Thành phần nổi bật\nDầu dừa ép lạnh: Giúp làm sạch dịu nhẹ, giữ độ ẩm tự nhiên cho da\nDầu Sachi Inchi: Giàu Omega 3-6-9, hỗ trợ phục hồi và chống oxy hóa cho da\nNước cất hoa hồng: Làm dịu, cân bằng và mang lại cảm giác tươi mát\nMật ong: Dưỡng ẩm, hỗ trợ kháng khuẩn và làm mềm da\nBột Nghệ: Hỗ trợ làm sáng da, giảm thâm và cải thiện tình trạng da không đều màu\nBột tía tô: Thanh lọc, hỗ trợ giảm viêm và làm dịu da mụn\nTinh dầu sả hoa hồng: Mang hương thơm thư giãn tự nhiên, hỗ trợ làm sạch và cân bằng da\n💛 Công dụng nổi bật\nLàm sạch da nhẹ nhàng mà không gây khô căng\nHỗ trợ giảm dầu thừa và thanh lọc da\nGiúp da mềm mại, ẩm mịn sau khi rửa\nHỗ trợ cải thiện thâm mụn và làm đều màu da\nMang lại cảm giác thư giãn với hương thảo mộc tự nhiên\n🌱 Phù hợp với\n- Da dầu, da hỗn hợp, da dễ nổi mụn, da dễ kích ứng với các sản phẩm công nghiệp \n- Da bị mụn lưng/mông, sần sùi, khô ráp \n- Da trẻ em\n- Phụ nữ mang thai \n✨ Điểm khác biệt\n\nKhông chỉ là một bánh xà bông làm sạch, đây là sự kết hợp giữa thảo dược – dầu thực vật – dưỡng chất tự nhiên, giúp làn da được chăm sóc theo cách tối giản nhưng bền vững hơn mỗi ngày.\n\n💧 Mỗi lần rửa mặt không chỉ là làm sạch da, mà còn là một bước nhỏ đưa làn da trở về trạng thái cân bằng và khỏe mạnh tự nhiên",
     "ingredients": "Dầu dừa ép lạnh, Dầu Sachi Inchi, Nước cất hoa hồng, Mật ong, Bột Nghệ, Bột tía tô, Tinh dầu sả hoa hồng",
-    "usage": "✨ Hướng dẫn sử dụng\n- Làm ướt da và bánh xà bông\n- Cho xà bông vào túi lưới tạo bọt, xoa nhẹ để tạo lớp bọt mịn\n- Dùng phần bọt massage nhẹ nhàng lên mặt hoặc cơ thể theo chuyển động tròn\n- Thư giãn trên da khoảng 30 giây – 1 phút\n- Rửa sạch lại với nước\n\n🌿 Sử dụng cho da mặt\n\n- Nên dùng lớp bọt mịn thay vì chà trực tiếp bánh xà bông lên mặt\n- Massage nhẹ nhàng để làm sạch dầu thừa và bụi bẩn\n- Phù hợp sử dụng 1–2 lần/ngày\n\n🛁 Sử dụng cho cơ thể\n- Có thể dùng trực tiếp với túi lưới tạo bọt để làm sạch toàn thân\n- Đặc biệt phù hợp cho vùng da dễ đổ dầu, bí tắc hoặc cần thư giãn cơ thể\n\n✨ Tips để sử dụng hiệu quả hơn\n- Treo khô xà bông sau khi dùng để kéo dài thời gian sử dụng\n- Kết hợp cùng massage nhẹ để tăng lưu thông và thư giãn da\n- Sau khi rửa, nên dùng thêm xịt khoáng hoặc dưỡng ẩm để da mềm mịn hơn\n\n\n💛 Lớp bọt mềm từ túi lưới không chỉ giúp tiết kiệm xà bông, mà còn mang lại cảm giác làm sạch nhẹ nhàng như một bước spa chăm sóc da mỗi ngày."
+    "usage": "✨ Hướng dẫn sử dụng\n- Làm ướt da và bánh xà bông\n- Cho xà bông vào túi lưới tạo bọt, xoa nhẹ để tạo lớp bọt mịn\n- Dùng phần bọt massage nhẹ nhàng lên mặt hoặc cơ thể theo chuyển động tròn\n- Thư giãn trên da khoảng 30 giây – 1 phút\n- Rửa sạch lại với nước\n\n🌿 Sử dụng cho da mặt\n\n- Nên dùng lớp bọt mịn thay vì chà trực tiếp bánh xà bông lên mặt\n- Massage nhẹ nhàng để làm sạch dầu thừa và bụi bẩn\n- Phù hợp sử dụng 1–2 lần/ngày\n\n🛁 Sử dụng cho cơ thể\n- Có thể dùng trực tiếp với túi lưới tạo bọt để làm sạch toàn thân\n- Đặc biệt phù hợp cho vùng da dễ đổ dầu, bí tắc hoặc cần thư giãn cơ thể\n\n✨ Tips để sử dụng hiệu quả hơn\n- Treo khô xà bông sau khi dùng để kéo dài thời gian sử dụng\n- Kết hợp cùng massage nhẹ để tăng lưu thông và thư giãn da\n- Sau khi rửa, nên dùng thêm xịt khoáng hoặc dưỡng ẩm để da mềm mịn hơn\n\n\n💛 Lớp bọt mềm từ túi lưới không chỉ giúp tiết kiệm xà bông, mà còn mang lại cảm giác làm sạch nhẹ nhàng như một bước spa chăm sóc da mỗi ngày.",
+    "subcategory": "Chăm sóc da cơ thể"
   },
   {
     "id": "xa-bong-gung-tram-que",
@@ -365,7 +370,8 @@ export const products: Product[] = [
     "flag": "Được yêu thích",
     "fullDescription": "🌿 Xà bông Gừng Tràm Quế – Làm sạch ấm nóng, thanh lọc và phục hồi làn da tự nhiên\n\nXà bông Gừng Tràm Quế là sự hòa quyện giữa các thảo dược phương Đông và dầu thực vật dưỡng da, mang đến cảm giác làm sạch sâu nhưng vẫn dịu nhẹ. Với hương thơm ấm từ gừng – quế – tràm, sản phẩm không chỉ chăm sóc làn da mà còn giúp thư giãn và “đánh thức” cơ thể sau một ngày dài.\n\n✨ Thành phần \nDầu dừa ép lạnh: Làm sạch nhẹ nhàng, hỗ trợ giữ ẩm tự nhiên cho da\nDầu Sachi Inchi: Giàu Omega 3-6-9 giúp nuôi dưỡng và phục hồi hàng rào bảo vệ da\nNước cốt gừng tươi: Làm ấm da, hỗ trợ lưu thông và thanh lọc da tự nhiên\nMật ong: Dưỡng ẩm, giúp da mềm mại và hỗ trợ kháng khuẩn\nBột nghệ: Hỗ trợ làm sáng da, giảm thâm và cải thiện sắc tố da không đều màu\nBột quế: Giúp làm sạch, hỗ trợ giảm dầu thừa và mang lại cảm giác ấm nóng dễ chịu\nTinh dầu tràm: Hỗ trợ kháng khuẩn, làm sạch da và tạo hương thơm thư giãn tự nhiên\n\n💛 Công dụng nổi bật\n- Làm sạch da mà không gây khô căng\n- Hỗ trợ giảm dầu thừa, thanh lọc và làm thông thoáng lỗ chân lông\n- Giúp da mềm mại, mịn màng hơn sau khi sử dụng\n- Hỗ trợ giảm mùi cơ thể và tạo cảm giác sạch thoáng\n- Mang lại cảm giác thư giãn, ấm cơ thể với hương thảo mộc tự nhiên\n\n🌱 Phù hợp với\n- Da dầu, da hỗn hợp, da dễ nổi mụn, da dễ kích ứng với các sản phẩm công nghiệp \n- Da bị mụn lưng/mông, sần sùi, khô ráp \n- Da trẻ em\n- Phụ nữ mang thai \n✨ Điểm khác biệt\n\nKhông chỉ là xà bông làm sạch thông thường, Gừng Tràm Quế kết hợp giữa thảo dược làm ấm – dầu dưỡng thực vật – tinh dầu thiên nhiên, mang lại trải nghiệm chăm sóc cơ thể vừa sạch sâu vừa thư giãn như một liệu pháp spa tại nhà.\n\n💧 Mỗi lần sử dụng là một lần cơ thể được làm sạch, sưởi ấm và tái tạo năng lượng từ những nguyên liệu thiên nhiên nguyên bản.",
     "ingredients": "Dầu dừa ép lạnh, Dầu Sachi Inchi, Nước cốt gừng tươi, Mật ong, Bột nghệ, Bột quế, Tinh dầu tràm",
-    "usage": "✨ Hướng dẫn sử dụng\n- Làm ướt da và bánh xà bông\n- Cho xà bông vào túi lưới tạo bọt, xoa nhẹ để tạo lớp bọt mịn\n- Dùng phần bọt massage nhẹ nhàng lên mặt hoặc cơ thể theo chuyển động tròn\n- Thư giãn trên da khoảng 30 giây – 1 phút\n- Rửa sạch lại với nước\n\n🌿 Sử dụng cho da mặt\n\n- Nên dùng lớp bọt mịn thay vì chà trực tiếp bánh xà bông lên mặt\n- Massage nhẹ nhàng để làm sạch dầu thừa và bụi bẩn\n- Phù hợp sử dụng 1–2 lần/ngày\n\n🛁 Sử dụng cho cơ thể\n- Có thể dùng trực tiếp với túi lưới tạo bọt để làm sạch toàn thân\n- Đặc biệt phù hợp cho vùng da dễ đổ dầu, bí tắc hoặc cần thư giãn cơ thể\n\n✨ Tips để sử dụng hiệu quả hơn\n- Treo khô xà bông sau khi dùng để kéo dài thời gian sử dụng\n- Kết hợp cùng massage nhẹ để tăng lưu thông và thư giãn da\n- Sau khi rửa, nên dùng thêm xịt khoáng hoặc dưỡng ẩm để da mềm mịn hơn\n\n\n💛 Lớp bọt mềm từ túi lưới không chỉ giúp tiết kiệm xà bông, mà còn mang lại cảm giác làm sạch nhẹ nhàng như một bước spa chăm sóc da mỗi ngày."
+    "usage": "✨ Hướng dẫn sử dụng\n- Làm ướt da và bánh xà bông\n- Cho xà bông vào túi lưới tạo bọt, xoa nhẹ để tạo lớp bọt mịn\n- Dùng phần bọt massage nhẹ nhàng lên mặt hoặc cơ thể theo chuyển động tròn\n- Thư giãn trên da khoảng 30 giây – 1 phút\n- Rửa sạch lại với nước\n\n🌿 Sử dụng cho da mặt\n\n- Nên dùng lớp bọt mịn thay vì chà trực tiếp bánh xà bông lên mặt\n- Massage nhẹ nhàng để làm sạch dầu thừa và bụi bẩn\n- Phù hợp sử dụng 1–2 lần/ngày\n\n🛁 Sử dụng cho cơ thể\n- Có thể dùng trực tiếp với túi lưới tạo bọt để làm sạch toàn thân\n- Đặc biệt phù hợp cho vùng da dễ đổ dầu, bí tắc hoặc cần thư giãn cơ thể\n\n✨ Tips để sử dụng hiệu quả hơn\n- Treo khô xà bông sau khi dùng để kéo dài thời gian sử dụng\n- Kết hợp cùng massage nhẹ để tăng lưu thông và thư giãn da\n- Sau khi rửa, nên dùng thêm xịt khoáng hoặc dưỡng ẩm để da mềm mịn hơn\n\n\n💛 Lớp bọt mềm từ túi lưới không chỉ giúp tiết kiệm xà bông, mà còn mang lại cảm giác làm sạch nhẹ nhàng như một bước spa chăm sóc da mỗi ngày.",
+    "subcategory": "Chăm sóc da cơ thể"
   },
   {
     "id": "mat-na-hoa-hong",
@@ -381,7 +387,8 @@ export const products: Product[] = [
     "description": "Mặt nạ Hoa Hồng là sự kết hợp giữa cánh hoa hồng thiên nhiên và các loại dầu thực vật giàu dưỡng chất, giúp làn da được cấp ẩm, thư giãn và phục hồi nhẹ nhàng.",
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "fullDescription": "Mặt nạ Hoa Hồng là sự kết hợp giữa cánh hoa hồng thiên nhiên và các loại dầu thực vật giàu dưỡng chất, giúp làn da được cấp ẩm, thư giãn và phục hồi nhẹ nhàng. Với hương hoa dịu nhẹ cùng kết cấu giàu dưỡng, sản phẩm mang đến cảm giác chăm sóc da như một nghi thức spa thư giãn tại nhà.\n\n✨ Thành phần nổi bật\nBột cánh hoa hồng: Giúp làm dịu, hỗ trợ cân bằng da và mang lại vẻ tươi tắn tự nhiên\nMật ong: Dưỡng ẩm, làm mềm da và hỗ trợ bảo vệ da khỏi khô ráp\nDầu Sachi Inchi: Giàu Omega 3-6-9 giúp phục hồi và nuôi dưỡng hàng rào bảo vệ da\nDầu bơ: Cấp ẩm sâu, giúp da mềm mại và căng mịn hơn sau khi sử dụng\n💗 Công dụng nổi bật\n- Cấp ẩm và giúp da mềm mại, mịn màng hơn\n- Làm dịu da khô, da mệt mỏi hoặc thiếu sức sống\n- Hỗ trợ cải thiện độ đàn hồi và độ căng bóng tự nhiên của da\n- Giúp da tươi sáng và đều màu hơn\n- Mang lại cảm giác thư giãn với hương hoa hồng tự nhiên nhẹ nhàng\n\n🌱 Phù hợp với\n- Da khô, da thiếu nước\n- Da nhạy cảm cần làm dịu nhẹ nhàng\n- Da xỉn màu, thiếu sức sống\n✨ Điểm khác biệt\n\nKhông đơn thuần là mặt nạ dưỡng ẩm, Mặt nạ Hoa Hồng tập trung vào trải nghiệm “nuôi dưỡng và làm dịu” — giúp làn da không chỉ mềm hơn sau khi dùng, mà còn cảm nhận được sự thư thái và cân bằng tự nhiên.\n\n💧 Từng cánh hoa hồng như mang theo độ ẩm và sự dịu dàng của thiên nhiên, giúp làn da được nghỉ ngơi, phục hồi và tỏa sáng theo cách nhẹ nhàng nhất.",
-    "ingredients": "Bột cánh hoa hồng, Mật ong, Dầu Sachi Inchi, Dầu bơ"
+    "ingredients": "Bột cánh hoa hồng, Mật ong, Dầu Sachi Inchi, Dầu bơ",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "mat-na-tia-to",
@@ -397,7 +404,8 @@ export const products: Product[] = [
     "description": "Mặt nạ Tía Tô là sự kết hợp giữa thảo dược truyền thống và các loại dầu thực vật giàu dưỡng chất, giúp làn da được thanh lọc nhẹ nhàng nhưng vẫn duy trì độ ẩm và sự mềm mại tự nhiên.",
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "fullDescription": "Mặt nạ Tía Tô là sự kết hợp giữa thảo dược truyền thống và các loại dầu thực vật giàu dưỡng chất, giúp làn da được thanh lọc nhẹ nhàng nhưng vẫn duy trì độ ẩm và sự mềm mại tự nhiên. Đây là lựa chọn phù hợp cho những làn da đang mệt mỏi, dễ bí tắc hoặc cần được “thở” sau nhiều lớp mỹ phẩm.\n\n✨ Thành phần nổi bật\nBột tía tô: Giúp thanh lọc da, hỗ trợ giảm dầu thừa và làm dịu da mụn\nMật ong: Dưỡng ẩm, hỗ trợ kháng khuẩn và giúp da mềm mại hơn\nDầu Sachi Inchi: Giàu Omega 3-6-9, hỗ trợ phục hồi và củng cố hàng rào bảo vệ da\nDầu bơ: Nuôi dưỡng sâu, giúp da mềm mịn và hạn chế khô căng sau khi đắp mặt nạ\n\n💚 Công dụng nổi bật\n- Hỗ trợ làm sạch và thanh lọc da nhẹ nhàng\n- Giúp giảm cảm giác bí tắc, dầu thừa trên da\n- Làm dịu da mụn, da dễ kích ứng\n- Cấp ẩm và giữ da mềm mại sau khi sử dụng\n- Hỗ trợ cải thiện làn da xỉn màu, thiếu sức sống\n\n🌱 Phù hợp với\n- Da dầu, da hỗn hợp thiên dầu\n- Da dễ nổi mụn, bí tắc lỗ chân lông\n- Da mệt mỏi, xỉn màu cần được làm dịu và phục hồi\n\n✨ Điểm khác biệt\n\nKhông giống các loại mask làm sạch khiến da khô ráp sau khi dùng, Mặt nạ Tía Tô tập trung vào cơ chế “thanh lọc nhưng vẫn nuôi dưỡng” — giúp da được làm sạch nhẹ nhàng mà vẫn giữ được độ ẩm và sự cân bằng tự nhiên.\n\n💧 Từng lớp mặt nạ như một khoảng nghỉ cho làn da — nơi da được thở, được làm dịu và dần trở về trạng thái khỏe khoắn nguyên bản",
-    "ingredients": "Bột tía tô, Mật ong, Dầu Sachi Inchi, Dầu bơ"
+    "ingredients": "Bột tía tô, Mật ong, Dầu Sachi Inchi, Dầu bơ",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "mat-na-nghe-phuc-hoi",
@@ -414,7 +422,8 @@ export const products: Product[] = [
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "flag": "có",
     "fullDescription": "Mặt Nạ Nghệ Phục Hồi là sự kết hợp giữa mật ong nguyên chất, tinh bột nghệ đỏ và dầu hạt chanh — mang đến giải pháp chăm sóc da dịu nhẹ theo hướng phục hồi và nuôi dưỡng tự nhiên. Với kết cấu mềm mịn cùng hương thảo mộc nhẹ nhàng, sản phẩm giúp làn da được thư giãn, làm sạch và tái tạo sau những ngày mệt mỏi hoặc tiếp xúc nhiều với mỹ phẩm và môi trường.\n\n✨ Thành phần nổi bật\n- Mật ong: Giúp dưỡng ẩm, làm mềm và hỗ trợ bảo vệ da\n- Tinh bột nghệ đỏ: Giàu hoạt chất chống oxy hóa tự nhiên, hỗ trợ làm sáng và cải thiện thâm da\n- Dầu hạt chanh: Giúp làm sạch nhẹ nhàng, mang lại cảm giác tươi mát và hỗ trợ cân bằng da\n💛 Công dụng nổi bật\n- Hỗ trợ làm sạch da và loại bỏ tế bào chết nhẹ nhàng\n- Giúp da sáng mịn và đều màu hơn\n- Hỗ trợ giảm thâm và phục hồi làn da mệt mỏi\n- Giúp da mềm mại, ẩm mịn sau khi sử dụng\n- Mang lại cảm giác thư giãn và dễ chịu cho làn da\n🌱 Phù hợp với\n- Mọi loại da, đặc biệt là da xỉn màu hoặc thiếu sức sống\n- Da cần phục hồi và nuôi dưỡng nhẹ nhàng\n\nKhông chỉ là mặt nạ dưỡng da thông thường, Mặt Nạ Nghệ Phục Hồi tập trung vào cơ chế “làm sạch dịu nhẹ kết hợp nuôi dưỡng” — giúp da không bị khô căng sau khi đắp mà vẫn giữ được cảm giác mềm mại và thoải mái tự nhiên.",
-    "ingredients": "Mật ong, tinh bột nghệ đỏ, dầu hạt chanh."
+    "ingredients": "Mật ong, tinh bột nghệ đỏ, dầu hạt chanh.",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "bot-canh-hoa-hong",
@@ -429,7 +438,8 @@ export const products: Product[] = [
     "volume": "25gr",
     "description": "Bột cánh hoa hồng được nghiền mịn từ những cánh hoa hồng tự nhiên, giữ lại hương thơm dịu nhẹ cùng các dưỡng chất thực vật quý giá.",
     "fullDescription": "Bột cánh hoa hồng được nghiền mịn từ những cánh hoa hồng tự nhiên, giữ lại hương thơm dịu nhẹ cùng các dưỡng chất thực vật quý giá. Đây là nguyên liệu chăm sóc da truyền thống giúp làm dịu, cấp ẩm và mang lại vẻ tươi tắn cho làn da theo cách nhẹ nhàng, lành tính.\n\n✨ Công dụng nổi bật\n- Hỗ trợ làm dịu da nhạy cảm, da mệt mỏi\n- Giúp da mềm mại và giữ độ ẩm tự nhiên\n- Hỗ trợ làm sáng và cải thiện làn da xỉn màu\n- Giúp da thư giãn và tươi tắn hơn\n- Mang lại hương thơm hoa hồng tự nhiên dễ chịu\n\n🌱 Phù hợp với\n- Da khô, da thiếu nước\n- Da nhạy cảm cần chăm sóc dịu nhẹ\n- Da xỉn màu, thiếu sức sống",
-    "usage": "💧 Cách sử dụng Bột cánh hoa hồng\n🌸 Làm mặt nạ dưỡng da\n- Trộn bột với nước lọc, nước hoa hồng, sữa chua hoặc mật ong để tạo hỗn hợp sệt\n- Thoa đều lên mặt sạch\n- Thư giãn 10–15 phút rồi rửa lại với nước\n\n👉 Giúp da mềm mại, sáng và ẩm mịn hơn\n\n🌸 Tẩy da chết dịu nhẹ\n- Trộn cùng sữa tươi hoặc mật ong\n- Massage nhẹ nhàng theo chuyển động tròn 1–2 phút\n- Rửa sạch với nước\n\n👉 Giúp làm sạch lớp da chết mà không gây khô căng\n\n🌸 Xông mặt hoặc ngâm tắm\n- Pha bột vào nước ấm để xông mặt hoặc ngâm cơ thể\n- Hương hoa hồng tự nhiên giúp thư giãn và làm dịu tinh thần\n\n✨ Tips sử dụng hiệu quả hơn\nKết hợp cùng mật ong hoặc dầu dưỡng để tăng khả năng cấp ẩm\nDùng 2–3 lần/tuần để da được nuôi dưỡng đều đặn\nBảo quản nơi khô ráo, tránh ánh nắng trực tiếp"
+    "usage": "💧 Cách sử dụng Bột cánh hoa hồng\n🌸 Làm mặt nạ dưỡng da\n- Trộn bột với nước lọc, nước hoa hồng, sữa chua hoặc mật ong để tạo hỗn hợp sệt\n- Thoa đều lên mặt sạch\n- Thư giãn 10–15 phút rồi rửa lại với nước\n\n👉 Giúp da mềm mại, sáng và ẩm mịn hơn\n\n🌸 Tẩy da chết dịu nhẹ\n- Trộn cùng sữa tươi hoặc mật ong\n- Massage nhẹ nhàng theo chuyển động tròn 1–2 phút\n- Rửa sạch với nước\n\n👉 Giúp làm sạch lớp da chết mà không gây khô căng\n\n🌸 Xông mặt hoặc ngâm tắm\n- Pha bột vào nước ấm để xông mặt hoặc ngâm cơ thể\n- Hương hoa hồng tự nhiên giúp thư giãn và làm dịu tinh thần\n\n✨ Tips sử dụng hiệu quả hơn\nKết hợp cùng mật ong hoặc dầu dưỡng để tăng khả năng cấp ẩm\nDùng 2–3 lần/tuần để da được nuôi dưỡng đều đặn\nBảo quản nơi khô ráo, tránh ánh nắng trực tiếp",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "dau-duong-hoa-hong",
@@ -445,7 +455,8 @@ export const products: Product[] = [
     "description": "Dầu dưỡng Hoa Hồng là sự kết hợp tối giản nhưng giàu dưỡng chất giữa cánh hoa hồng tự nhiên và dầu Sachi Inchi nguyên chất.",
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "fullDescription": "Dầu dưỡng Hoa Hồng là sự kết hợp tối giản nhưng giàu dưỡng chất giữa cánh hoa hồng tự nhiên và dầu Sachi Inchi nguyên chất. Từng giọt dầu mang theo độ ẩm, sự dịu dàng của hoa hồng cùng khả năng phục hồi chuyên sâu từ các acid béo thực vật, giúp làn da được nuôi dưỡng khỏe mạnh theo cách tự nhiên nhất.\n\n✨ Thành phần nổi bật\n- Cánh hoa hồng: Giúp làm dịu, hỗ trợ cân bằng và mang lại vẻ tươi tắn cho làn da\n- Dầu Sachi Inchi: Giàu Omega 3-6-9 và chất chống oxy hóa, giúp phục hồi hàng rào bảo vệ da, duy trì độ ẩm và cải thiện độ đàn hồi tự nhiên\n💗 Công dụng nổi bật\n- Cấp ẩm và khóa ẩm cho da mềm mại, căng mịn\n- Hỗ trợ phục hồi da khô, da mỏng yếu hoặc thiếu sức sống\n- Giúp da trông tươi sáng và khỏe khoắn hơn\n- Làm dịu cảm giác khô ráp, căng rít sau khi rửa mặt\n- Mang lại cảm giác thư giãn với hương hoa hồng tự nhiên nhẹ nhàng\n🌱 Phù hợp với\n- Da khô, da thiếu nước\n- Da nhạy cảm, da cần phục hồi\n- Da bắt đầu xuất hiện dấu hiệu lão hóa\n\nKhông chứa silicone hay hương liệu tổng hợp, Dầu dưỡng Hoa Hồng nuôi dưỡng da theo cơ chế “bổ sung lipid tự nhiên”, giúp da dần khỏe lên, mềm hơn và ít phụ thuộc vào các lớp dưỡng dày nặng.",
-    "usage": "🌹 Sử dụng cho da mặt\n- Cách dùng cơ bản\n- Làm sạch da và sử dụng toner/xịt khoáng\n- Lấy 2–3 giọt dầu dưỡng ra lòng bàn tay\n- Xoa nhẹ để làm ấm dầu\n- Áp nhẹ và massage lên da mặt theo hướng từ trong ra ngoài, từ dưới lên trên\n\n👉 Nên dùng ở bước cuối cùng để khóa ẩm và giữ dưỡng chất trên da\n\n🌿 Sử dụng trong các trường hợp\n- Khi da khô, bong tróc hoặc thiếu độ ẩm\n- Khi da mệt mỏi, thiếu sức sống\n- Sau treatment hoặc khi da cần phục hồi nhẹ nhàng\n- Khi ngồi điều hòa nhiều hoặc thời tiết hanh khô\n\n⚠️ Lưu ý\n- Chỉ cần dùng lượng vừa đủ để tránh bí da\n- Với da dầu, nên sử dụng lượng ít vào buổi tối\n- Bảo quản nơi khô ráo, tránh ánh nắng trực tiếp\n\n✨ Có thể kết hợp thêm\nDùng cùng Gua Sha để massage nâng cơ và thư giãn da mặt\nTrộn 1 giọt vào kem dưỡng để tăng độ ẩm\nDùng cho vùng cổ, khóe mắt hoặc vùng da khô ráp cần nuôi dưỡng thêm"
+    "usage": "🌹 Sử dụng cho da mặt\n- Cách dùng cơ bản\n- Làm sạch da và sử dụng toner/xịt khoáng\n- Lấy 2–3 giọt dầu dưỡng ra lòng bàn tay\n- Xoa nhẹ để làm ấm dầu\n- Áp nhẹ và massage lên da mặt theo hướng từ trong ra ngoài, từ dưới lên trên\n\n👉 Nên dùng ở bước cuối cùng để khóa ẩm và giữ dưỡng chất trên da\n\n🌿 Sử dụng trong các trường hợp\n- Khi da khô, bong tróc hoặc thiếu độ ẩm\n- Khi da mệt mỏi, thiếu sức sống\n- Sau treatment hoặc khi da cần phục hồi nhẹ nhàng\n- Khi ngồi điều hòa nhiều hoặc thời tiết hanh khô\n\n⚠️ Lưu ý\n- Chỉ cần dùng lượng vừa đủ để tránh bí da\n- Với da dầu, nên sử dụng lượng ít vào buổi tối\n- Bảo quản nơi khô ráo, tránh ánh nắng trực tiếp\n\n✨ Có thể kết hợp thêm\nDùng cùng Gua Sha để massage nâng cơ và thư giãn da mặt\nTrộn 1 giọt vào kem dưỡng để tăng độ ẩm\nDùng cho vùng cổ, khóe mắt hoặc vùng da khô ráp cần nuôi dưỡng thêm",
+    "subcategory": "Chăm sóc da"
   },
   {
     "id": "dau-massage-hoa-hong",
@@ -460,7 +471,8 @@ export const products: Product[] = [
     "volume": "50ml",
     "description": "Dầu massage Hoa hồng - Sản phẩm chăm sóc an toàn, hiệu quả.",
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
-    "flag": "có"
+    "flag": "có",
+    "subcategory": "Chăm sóc da cơ thể"
   },
   {
     "id": "cao-goi-hoa-hong-2-in-1-goixa",
@@ -476,7 +488,8 @@ export const products: Product[] = [
     "description": "Cao Gội Hoa Hồng – Làm sạch dịu nhẹ, nuôi dưỡng tóc và da đầu từ thảo dược thiên nhiên.",
     "fullDescription": "🌹 Cao Gội Hoa Hồng – Làm sạch dịu nhẹ, nuôi dưỡng tóc và da đầu từ thảo dược thiên nhiên\n\nCao Gội Hoa Hồng là sự hòa quyện giữa cánh hoa hồng cùng nhiều loại thảo dược truyền thống, mang đến trải nghiệm làm sạch tóc theo phương pháp tự nhiên và lành tính. Không chỉ giúp làm sạch tóc và da đầu, sản phẩm còn hỗ trợ nuôi dưỡng mái tóc mềm mại, giảm khô xơ và mang lại cảm giác thư giãn với hương thơm thảo mộc nhẹ nhàng.\n\n✨ Thành phần nổi bật\n- Cánh hoa hồng: Giúp làm dịu da đầu và mang lại hương thơm tự nhiên thư giãn\n- Bồ kết & bồ hòn: Làm sạch tóc và da đầu nhẹ nhàng theo phương pháp truyền thống\n- Vỏ bưởi, hương nhu, hà thủ ô: Hỗ trợ nuôi dưỡng tóc chắc khỏe và giảm gãy rụng\n- Sả chanh, gừng, bạc hà: Giúp làm sạch, tạo cảm giác thông thoáng và thư giãn da đầu\n- Cỏ mần trầu & chè xanh: Hỗ trợ cân bằng dầu và làm dịu da đầu\n- Nha đam & cốt dừa: Giúp cấp ẩm, giảm khô xơ cho tóc\n- Quả chanh & me rừng: Hỗ trợ làm sạch tóc và giúp tóc mềm mượt tự nhiên\n💗 Công dụng nổi bật\n- Làm sạch tóc và da đầu dịu nhẹ mà không gây khô căng\n- Hỗ trợ giảm dầu thừa và giúp da đầu thông thoáng\n- Giúp tóc mềm mại, giảm xơ rối và gãy rụng\n- Hỗ trợ nuôi dưỡng tóc chắc khỏe tự nhiên\n- Mang lại cảm giác thư giãn với hương thơm thảo dược dễ chịu\n🌱 Phù hợp với\n- Da đầu nhạy cảm hoặc dễ kích ứng với dầu gội hóa học\n- Tóc khô xơ, dễ gãy rụng\n- Người yêu thích chăm sóc tóc bằng phương pháp thảo dược truyền thống\n- Người muốn giảm phụ thuộc vào silicone và chất tẩy mạnh\n✨ Điểm khác biệt\n\nKhông tạo cảm giác “bóng mượt tức thì” như dầu gội chứa silicone, Cao Gội Hoa Hồng tập trung vào cơ chế làm sạch và nuôi dưỡng thật sự — giúp tóc và da đầu dần trở về trạng thái khỏe tự nhiên, mềm nhẹ và ít phụ thuộc hơn vào hóa chất.",
     "ingredients": "Cánh hoa hồng, bồ kết, bồ hòn, vỏ bưởi, hương nhu, hà thủ ô, quả chanh, sả chanh, củ gừng, cỏ mần trầu, nha đam, bạc hà, chè xanh, cốt dừa, me rừng.",
-    "usage": "🌿 Hướng dẫn sử dụng\n- Làm ướt tóc và da đầu\n- Lấy một lượng cao gội vừa đủ ra tay, hòa với chút nước để tạo độ loãng nhẹ\n- Thoa đều lên tóc và da đầu\n- Massage nhẹ nhàng bằng đầu ngón tay trong 2–5 phút để dưỡng chất và thảo dược làm sạch da đầu\n- Xả sạch lại với nước\n\n👉 Có thể gội 2 lần nếu tóc nhiều dầu hoặc sau khi vận động nhiều\n\n✨ Để tăng hiệu quả chăm sóc tóc\n- Kết hợp massage da đầu hoặc dùng lược gỗ/Gua Sha da đầu để tăng lưu thông\n- Sau khi gội, nên để tóc khô tự nhiên hoặc sấy ở nhiệt độ thấp\n- Có thể dùng thêm xịt dưỡng hoặc dầu dưỡng tóc ở phần ngọn tóc khô xơ"
+    "usage": "🌿 Hướng dẫn sử dụng\n- Làm ướt tóc và da đầu\n- Lấy một lượng cao gội vừa đủ ra tay, hòa với chút nước để tạo độ loãng nhẹ\n- Thoa đều lên tóc và da đầu\n- Massage nhẹ nhàng bằng đầu ngón tay trong 2–5 phút để dưỡng chất và thảo dược làm sạch da đầu\n- Xả sạch lại với nước\n\n👉 Có thể gội 2 lần nếu tóc nhiều dầu hoặc sau khi vận động nhiều\n\n✨ Để tăng hiệu quả chăm sóc tóc\n- Kết hợp massage da đầu hoặc dùng lược gỗ/Gua Sha da đầu để tăng lưu thông\n- Sau khi gội, nên để tóc khô tự nhiên hoặc sấy ở nhiệt độ thấp\n- Có thể dùng thêm xịt dưỡng hoặc dầu dưỡng tóc ở phần ngọn tóc khô xơ",
+    "subcategory": "Chăm sóc tóc"
   },
   {
     "id": "tinh-chat-hoa-buoi",
@@ -489,7 +502,8 @@ export const products: Product[] = [
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
-    "description": "Tinh chất hoa bưởi - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Tinh chất hoa bưởi - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc tóc"
   },
   {
     "id": "tra-hoa-hong",
@@ -505,7 +519,8 @@ export const products: Product[] = [
     "description": "Được làm từ những bông hoa hồng cổ hữu cơ thu hái tự nhiên, Trà Hoa Hồng mang hương thơm thanh nhẹ và vị trà dịu dàng đặc trưng của hoa tươi.",
     "fullDescription": "Được làm từ những bông hoa hồng cổ hữu cơ thu hái tự nhiên, Trà Hoa Hồng mang hương thơm thanh nhẹ và vị trà dịu dàng đặc trưng của hoa tươi. Không chỉ là một thức uống thư giãn, trà hoa hồng còn là khoảng thời gian để cơ thể được thả lỏng và cân bằng sau những bộn bề mỗi ngày.\n\n✨ Thành phần nổi bật\nHoa hồng cổ hữu cơ: Được trồng tự nhiên, không hóa chất, giữ trọn hương thơm và dưỡng chất nguyên bản của cánh hoa\n💗 Công dụng nổi bật\nGiúp thư giãn tinh thần và giảm cảm giác căng thẳng\nHỗ trợ thanh lọc cơ thể nhẹ nhàng\nGiúp cơ thể cảm thấy dễ chịu và cân bằng hơn\nHỗ trợ làm đẹp da từ bên trong nhờ các chất chống oxy hóa tự nhiên\nMang lại cảm giác nhẹ nhàng với hương hoa tự nhiên thanh dịu\n🌱 Phù hợp với\nNgười thường xuyên căng thẳng, cần thư giãn tinh thần\nNgười yêu thích lối sống chậm và chăm sóc cơ thể tự nhiên\nNgười muốn bổ sung trà thảo mộc nhẹ nhàng mỗi ngày\nNgười yêu hương hoa và các thức uống thiên nhiên",
     "certifications": "Chứng nhận OCOP 3 sao",
-    "usage": "💧 Cách sử dụng Trà Hoa Hồng\n🌸 Pha trà nóng\nCho 3–5 bông hoa hồng vào tách\nRót nước nóng khoảng 80–90°C\nỦ trà 3–5 phút để hoa nở và tiết hương thơm\nThưởng thức khi còn ấm\n\n👉 Có thể thêm mật ong hoặc táo đỏ để tăng hương vị\n\n❄️ Pha trà lạnh\nPha trà đậm hơn một chút rồi để nguội\nThêm đá hoặc trái cây tươi để dùng như trà thanh mát mỗi ngày\n✨ Thời điểm phù hợp để sử dụng\nBuổi sáng nhẹ nhàng để bắt đầu ngày mới\nBuổi tối trước khi ngủ để thư giãn tinh thần\nKhi cần một khoảng nghỉ giữa ngày làm việc\n⚠️ Lưu ý\nKhông dùng nước quá sôi để giữ hương hoa tự nhiên\nBảo quản nơi khô ráo, tránh ẩm để giữ chất lượng hoa"
+    "usage": "💧 Cách sử dụng Trà Hoa Hồng\n🌸 Pha trà nóng\nCho 3–5 bông hoa hồng vào tách\nRót nước nóng khoảng 80–90°C\nỦ trà 3–5 phút để hoa nở và tiết hương thơm\nThưởng thức khi còn ấm\n\n👉 Có thể thêm mật ong hoặc táo đỏ để tăng hương vị\n\n❄️ Pha trà lạnh\nPha trà đậm hơn một chút rồi để nguội\nThêm đá hoặc trái cây tươi để dùng như trà thanh mát mỗi ngày\n✨ Thời điểm phù hợp để sử dụng\nBuổi sáng nhẹ nhàng để bắt đầu ngày mới\nBuổi tối trước khi ngủ để thư giãn tinh thần\nKhi cần một khoảng nghỉ giữa ngày làm việc\n⚠️ Lưu ý\nKhông dùng nước quá sôi để giữ hương hoa tự nhiên\nBảo quản nơi khô ráo, tránh ẩm để giữ chất lượng hoa",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "tra-tia-to",
@@ -521,7 +536,8 @@ export const products: Product[] = [
     "description": "Trà Tía Tô được làm từ những lá tía tô tự nhiên sấy khô, giữ lại hương thơm đặc trưng cùng tinh chất thảo dược vốn quen thuộc trong đời sống Á Đông.",
     "flag": "có",
     "fullDescription": "Trà Tía Tô được làm từ những lá tía tô tự nhiên sấy khô, giữ lại hương thơm đặc trưng cùng tinh chất thảo dược vốn quen thuộc trong đời sống Á Đông. Với vị trà thanh nhẹ, hơi ấm và dễ uống, đây không chỉ là một thức uống thư giãn mà còn là cách để cơ thể được chăm sóc nhẹ nhàng mỗi ngày.\n\n✨ Thành phần nổi bật\nLá tía tô tự nhiên: Giàu tinh dầu và chất chống oxy hóa thực vật, giúp cơ thể cảm thấy nhẹ nhàng và cân bằng hơn\n💚 Công dụng nổi bật\n- Hỗ trợ thanh lọc cơ thể tự nhiên\n- Giúp cơ thể cảm thấy nhẹ nhàng, dễ chịu hơn\n- Hỗ trợ giảm cảm giác đầy bụng, khó chịu sau ăn\n- Giúp thư giãn và làm ấm cơ thể\n- Hỗ trợ làm đẹp da từ bên trong nhờ các hoạt chất chống oxy hóa tự nhiên\n🌱 Phù hợp với\n- Người muốn duy trì thói quen uống trà thảo mộc lành tính\n- Người thường xuyên ăn uống thất thường hoặc thức khuya\n- Người yêu thích các loại trà thiên nhiên dễ uống mỗi ngày\n- Người theo đuổi lối sống thanh lọc và chăm sóc cơ thể tự nhiên\n✨ Điểm khác biệt\n\nKhông hương liệu tổng hợp, không vị ngọt gắt, Trà Tía Tô giữ nguyên hương thơm thảo mộc nhẹ đặc trưng — mang lại cảm giác mộc mạc, dễ chịu như một tách trà được hái từ khu vườn nhà.",
-    "usage": "🌿 Cách pha trà nóng\n- Cho khoảng 3–5g trà vào tách hoặc bình\n- Rót 200–300ml nước nóng khoảng 80–90°C\n- Ủ trà trong 3–5 phút để lá trà tiết hương và dưỡng chất\n- Thưởng thức khi còn ấm\n\n👉 Có thể châm thêm nước 1–2 lần đến khi trà nhạt vị\n\n❄️ Cách pha trà lạnh\n- Pha trà đậm hơn bình thường\n- Để nguội và thêm đá\n- Có thể kết hợp cùng mật ong, lát chanh hoặc táo đỏ để tăng hương vị tự nhiên\n✨ Nên sử dụng khi nào?\n- Buổi sáng để cơ thể cảm thấy nhẹ nhàng, dễ chịu hơn\n- Sau bữa ăn để thư giãn và cân bằng cơ thể\n- Khi cảm thấy mệt mỏi, cần một thức uống thanh mát và thư giãn\n- Buổi tối nhẹ nhàng để thả lỏng tinh thần\n🌱 Phù hợp với ai?\n- Người muốn duy trì thói quen uống trà thảo mộc tự nhiên\n- Người ăn uống thất thường hoặc thường xuyên thức khuya\n- NGười bị sốt, cảm mạo, ho, phong hàn,...\n⚠️ Lưu ý\n- Không dùng nước quá sôi để giữ hương thơm tự nhiên của trà\n- Nên sử dụng trong ngày để cảm nhận hương vị tươi ngon nhất\n- Bảo quản nơi khô ráo, tránh ánh nắng trực tiếp và độ ẩm cao"
+    "usage": "🌿 Cách pha trà nóng\n- Cho khoảng 3–5g trà vào tách hoặc bình\n- Rót 200–300ml nước nóng khoảng 80–90°C\n- Ủ trà trong 3–5 phút để lá trà tiết hương và dưỡng chất\n- Thưởng thức khi còn ấm\n\n👉 Có thể châm thêm nước 1–2 lần đến khi trà nhạt vị\n\n❄️ Cách pha trà lạnh\n- Pha trà đậm hơn bình thường\n- Để nguội và thêm đá\n- Có thể kết hợp cùng mật ong, lát chanh hoặc táo đỏ để tăng hương vị tự nhiên\n✨ Nên sử dụng khi nào?\n- Buổi sáng để cơ thể cảm thấy nhẹ nhàng, dễ chịu hơn\n- Sau bữa ăn để thư giãn và cân bằng cơ thể\n- Khi cảm thấy mệt mỏi, cần một thức uống thanh mát và thư giãn\n- Buổi tối nhẹ nhàng để thả lỏng tinh thần\n🌱 Phù hợp với ai?\n- Người muốn duy trì thói quen uống trà thảo mộc tự nhiên\n- Người ăn uống thất thường hoặc thường xuyên thức khuya\n- NGười bị sốt, cảm mạo, ho, phong hàn,...\n⚠️ Lưu ý\n- Không dùng nước quá sôi để giữ hương thơm tự nhiên của trà\n- Nên sử dụng trong ngày để cảm nhận hương vị tươi ngon nhất\n- Bảo quản nơi khô ráo, tránh ánh nắng trực tiếp và độ ẩm cao",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "tra-hoa-cuc-co",
@@ -536,7 +552,8 @@ export const products: Product[] = [
     "volume": "30gr",
     "description": "Trà Hoa Cúc Cổ được làm từ những bông cúc cổ tự nhiên sấy khô, giữ trọn sắc vàng dịu cùng hương thơm thanh mát đặc trưng.",
     "fullDescription": "Trà Hoa Cúc Cổ được làm từ những bông cúc cổ tự nhiên sấy khô, giữ trọn sắc vàng dịu cùng hương thơm thanh mát đặc trưng. Với vị trà nhẹ nhàng, dễ uống, đây không chỉ là một thức uống thảo mộc mà còn là khoảng thời gian để cơ thể được thư giãn và tái tạo năng lượng sau những ngày mệt mỏi.\n\n✨ Thành phần nổi bật\nHoa cúc cổ tự nhiên: Giàu hoạt chất thực vật và hương thơm tự nhiên giúp cơ thể cảm thấy thư thái, dễ chịu hơn\n\n💛 Công dụng nổi bật\n- Giúp thư giãn tinh thần và giảm cảm giác căng thẳng\n- Hỗ trợ cơ thể cảm thấy nhẹ nhàng, dễ chịu hơn\n- Giúp làm dịu và cân bằng cơ thể sau một ngày dài\n- Hỗ trợ giấc ngủ sâu và thư thái hơn\n- Hỗ trợ làm đẹp da từ bên trong nhờ chất chống oxy hóa tự nhiên\n🌱 Phù hợp với\n- Người thường xuyên căng thẳng, khó thư giãn\n- Người ngủ không sâu giấc hoặc dễ mệt mỏi\n- Người yêu thích trà thảo mộc nhẹ nhàng mỗi ngày\n- Người theo đuổi lối sống chậm và chăm sóc cơ thể tự nhiên\n✨ Điểm khác biệt\n\nKhông hương liệu tổng hợp, không vị đắng gắt, Trà Hoa Cúc Cổ mang hương thơm rất thanh và dịu — tạo cảm giác như được thả lỏng giữa một khu vườn hoa cúc yên bình.",
-    "usage": "🌼 Pha trà nóng\nCho 3–5 bông hoa cúc vào tách hoặc bình\nRót nước nóng khoảng 80–90°C\nỦ trà trong 3–5 phút để hoa nở và tiết hương thơm\nThưởng thức khi còn ấm\n\n👉 Có thể kết hợp cùng mật ong, táo đỏ hoặc kỷ tử để tăng hương vị và cảm giác thư giãn\n\n❄️ Pha trà lạnh\nPha trà đậm hơn bình thường\nĐể nguội rồi thêm đá dùng như trà thanh mát mỗi ngày\n✨ Nên sử dụng khi nào?\nBuổi tối trước khi ngủ để thư giãn tinh thần\nSau giờ làm việc căng thẳng\nKhi cần một khoảng nghỉ nhẹ nhàng cho cơ thể và tâm trí\n⚠️ Lưu ý\nKhông dùng nước quá sôi để giữ hương thơm tự nhiên của hoa\nBảo quản nơi khô ráo, tránh ẩm và ánh nắng trực tiếp"
+    "usage": "🌼 Pha trà nóng\nCho 3–5 bông hoa cúc vào tách hoặc bình\nRót nước nóng khoảng 80–90°C\nỦ trà trong 3–5 phút để hoa nở và tiết hương thơm\nThưởng thức khi còn ấm\n\n👉 Có thể kết hợp cùng mật ong, táo đỏ hoặc kỷ tử để tăng hương vị và cảm giác thư giãn\n\n❄️ Pha trà lạnh\nPha trà đậm hơn bình thường\nĐể nguội rồi thêm đá dùng như trà thanh mát mỗi ngày\n✨ Nên sử dụng khi nào?\nBuổi tối trước khi ngủ để thư giãn tinh thần\nSau giờ làm việc căng thẳng\nKhi cần một khoảng nghỉ nhẹ nhàng cho cơ thể và tâm trí\n⚠️ Lưu ý\nKhông dùng nước quá sôi để giữ hương thơm tự nhiên của hoa\nBảo quản nơi khô ráo, tránh ẩm và ánh nắng trực tiếp",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "mat-ong-nguyen-chat",
@@ -553,7 +570,8 @@ export const products: Product[] = [
     "fullDescription": "Mật ong rừng nguyên chất được thu hoạch tự nhiên từ những đàn ong hút mật giữa rừng hoa hoang dã, giữ trọn hương thơm, màu sắc và dưỡng chất vốn có của mật ong nguyên bản. Không pha tạp, không tinh luyện, từng giọt mật mang theo vị ngọt thanh tự nhiên và nguồn năng lượng dịu lành từ thiên nhiên.\n\n✨ Đặc điểm nổi bật\nMùi thơm tự nhiên đặc trưng của mật ong rừng\nVị ngọt thanh, hậu dịu, không gắt\nMàu sắc có thể thay đổi theo mùa hoa tự nhiên\nKết cấu sánh mịn, có thể kết tinh theo nhiệt độ môi trường — dấu hiệu tự nhiên của mật ong nguyên chất\n💛 Công dụng nổi bật\nBổ sung năng lượng tự nhiên cho cơ thể\nHỗ trợ làm dịu cổ họng và cơ thể khi mệt mỏi\nHỗ trợ tiêu hóa và cân bằng cơ thể nhẹ nhàng\nGiúp làm đẹp da từ bên trong nhờ các chất chống oxy hóa tự nhiên\nCó thể dùng trong chăm sóc da và tóc nhờ đặc tính dưỡng ẩm tự nhiên",
     "ingredients": "Mật ong nguyên chất",
     "certifications": "Chứng nhận OCOP 3 sao",
-    "usage": "Cách sử dụng mật ong:\n\n– Sử dụng mật ong trực tiếp\n\n– Pha loãng với nước ấm\n\n– Dùng như gia vị nấu ăn:gà tẩm mật ong, sườn tẩm mật ong xào chua ngọt,…"
+    "usage": "Cách sử dụng mật ong:\n\n– Sử dụng mật ong trực tiếp\n\n– Pha loãng với nước ấm\n\n– Dùng như gia vị nấu ăn:gà tẩm mật ong, sườn tẩm mật ong xào chua ngọt,…",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "mat-ong-hoa-hong",
@@ -570,7 +588,8 @@ export const products: Product[] = [
     "fullDescription": "Mật ong rừng nguyên chất được thu hoạch tự nhiên từ những đàn ong hút mật giữa rừng hoa hoang dã, giữ trọn hương thơm, màu sắc và dưỡng chất vốn có của mật ong nguyên bản. Không pha tạp, không tinh luyện, từng giọt mật mang theo vị ngọt thanh tự nhiên và nguồn năng lượng dịu lành từ thiên nhiên.\n\n✨ Đặc điểm nổi bật\nMùi thơm tự nhiên đặc trưng của mật ong rừng\nVị ngọt thanh, hậu dịu, không gắt\nMàu sắc có thể thay đổi theo mùa hoa tự nhiên\nKết cấu sánh mịn, có thể kết tinh theo nhiệt độ môi trường — dấu hiệu tự nhiên của mật ong nguyên chất\n💛 Công dụng nổi bật\nBổ sung năng lượng tự nhiên cho cơ thể\nHỗ trợ làm dịu cổ họng và cơ thể khi mệt mỏi\nHỗ trợ tiêu hóa và cân bằng cơ thể nhẹ nhàng\nGiúp làm đẹp da từ bên trong nhờ các chất chống oxy hóa tự nhiên\nCó thể dùng trong chăm sóc da và tóc nhờ đặc tính dưỡng ẩm tự nhiên",
     "ingredients": "Mật ong nguyên chất lên men",
     "certifications": "Chứng nhận OCOP 3 sao",
-    "usage": "Cách sử dụng mật ong:\n\n– Sử dụng mật ong trực tiếp\n\n– Pha loãng với nước ấm\n\n– Dùng như gia vị nấu ăn:gà tẩm mật ong, sườn tẩm mật ong xào chua ngọt,…"
+    "usage": "Cách sử dụng mật ong:\n\n– Sử dụng mật ong trực tiếp\n\n– Pha loãng với nước ấm\n\n– Dùng như gia vị nấu ăn:gà tẩm mật ong, sườn tẩm mật ong xào chua ngọt,…",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "gac-len-men",
@@ -586,7 +605,8 @@ export const products: Product[] = [
     "description": "Gấc Lên Men là sự kết hợp giữa quả gấc chín giàu dưỡng chất và mật ong lên men tự nhiên, tạo nên một sản phẩm vừa thơm dịu, dễ sử dụng, vừa hỗ trợ chăm sóc cơ thể theo hướng lành tính từ bên trong.",
     "fullDescription": "Gấc Lên Men là sự kết hợp giữa quả gấc chín giàu dưỡng chất và mật ong lên men tự nhiên, tạo nên một sản phẩm vừa thơm dịu, dễ sử dụng, vừa hỗ trợ chăm sóc cơ thể theo hướng lành tính từ bên trong. Quá trình lên men giúp nguyên liệu trở nên hài hòa hơn, dễ hấp thụ hơn và giữ được nguồn enzyme tự nhiên có lợi cho cơ thể.\n\n✨ Thành phần nổi bật\n- Gấc tự nhiên: Giàu beta-carotene, lycopene và chất chống oxy hóa thực vật\n- Mật ong lên men: Giúp cân bằng vị, hỗ trợ tiêu hóa và tăng khả năng hấp thụ dưỡng chất tự nhiên\n🧡 Công dụng nổi bật\n- Hỗ trợ làm đẹp da từ bên trong\n- Giúp cơ thể bổ sung chất chống oxy hóa tự nhiên\n- Hỗ trợ cơ thể khỏe khoắn và tươi tắn hơn\n- Giúp cơ thể hấp thụ dưỡng chất dễ dàng hơn nhờ quá trình lên men\n- Giúp sáng mắt, tăng cường thị lực\n- Giàu Lycopene & Beta-Carotene giúp làm đẹp da, chống lão hóa\n- Hỗ trợ tim mạch, giảm cholesterol, ngừa đột quỵ\n- Tăng cường miễn dịch, ngăn ngừa thiếu máu\n- Giàu sắt, tốt cho mẹ bầu & người thiếu máu\n🌱 Phù hợp với\n- Người thiếu máu, thiếu sắt \n- Phụ nữ cần điều hòa nội tiết \n\n\n✨ Điểm khác biệt\n\nKhông chỉ là gấc ngâm mật ong thông thường, sản phẩm được lên men tự nhiên để tạo nên trạng thái dưỡng chất “dịu” hơn với cơ thể — vừa giữ được vị thơm đặc trưng của gấc, vừa mang đến cảm giác dễ chịu khi sử dụng hằng ngày.",
     "ingredients": "Mật ong lên men, Gấc nếp",
-    "usage": "💧 Cách sử dụng Gấc Lên Men\n🍯 Dùng trực tiếp\nDùng 1–2 muỗng mỗi ngày\nCó thể ăn trực tiếp hoặc dùng sau bữa ăn\n🍵 Pha cùng nước ấm\nPha cùng nước ấm để tạo thức uống dễ dùng mỗi sáng\nCó thể kết hợp với chanh hoặc trà thảo mộc\n🥣 Kết hợp cùng thực phẩm\nDùng cùng sữa chua, yến mạch hoặc smoothie\nCó thể dùng như một phần trong chế độ ăn lành mạnh hằng ngày\n⚠️ Lưu ý\nKhông pha với nước quá nóng để giữ enzyme và dưỡng chất tự nhiên\nBảo quản nơi khô ráo hoặc ngăn mát tủ lạnh sau khi mở nắp"
+    "usage": "💧 Cách sử dụng Gấc Lên Men\n🍯 Dùng trực tiếp\nDùng 1–2 muỗng mỗi ngày\nCó thể ăn trực tiếp hoặc dùng sau bữa ăn\n🍵 Pha cùng nước ấm\nPha cùng nước ấm để tạo thức uống dễ dùng mỗi sáng\nCó thể kết hợp với chanh hoặc trà thảo mộc\n🥣 Kết hợp cùng thực phẩm\nDùng cùng sữa chua, yến mạch hoặc smoothie\nCó thể dùng như một phần trong chế độ ăn lành mạnh hằng ngày\n⚠️ Lưu ý\nKhông pha với nước quá nóng để giữ enzyme và dưỡng chất tự nhiên\nBảo quản nơi khô ráo hoặc ngăn mát tủ lạnh sau khi mở nắp",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "mat-ong-gung-quat-muoi",
@@ -603,7 +623,8 @@ export const products: Product[] = [
     "flag": "Bán chạy nhất",
     "fullDescription": "Mật Ong lên men Gừng Quất Muối là sự kết hợp hài hòa giữa vị ngọt dịu của mật ong, vị ấm nồng của gừng tươi, vị thanh chua từ quất và chút mặn nhẹ từ muối tự nhiên. Được làm hoàn toàn từ nguyên liệu thiên nhiên, sản phẩm mang đến giải pháp chăm sóc cổ họng và đường hô hấp theo cách lành tính, dễ dùng hằng ngày cho cả gia đình.\n\n🌿 Thành phần tự nhiên, lành tính\nMật ong nguyên chất: Giúp làm dịu cổ họng và bổ sung dưỡng chất tự nhiên\nCủ gừng tươi: Mang tính ấm, giúp cơ thể dễ chịu hơn trong thời tiết lạnh\nQuả quất: Giàu vitamin tự nhiên, hỗ trợ tăng cường sức đề kháng\nMuối hạt tự nhiên: Giúp làm dịu và hỗ trợ làm sạch vùng họng\n\n👉 Không chất bảo quản – không hương liệu tổng hợp – không hóa chất độc hại\n\n💛 Công dụng nổi bật\n- Hỗ trợ làm dịu cổ họng khô rát\n- Giúp giảm cảm giác khó chịu khi ho hoặc thay đổi thời tiết\n- Hỗ trợ giữ ấm cơ thể và đường hô hấp\n- Giúp cổ họng thông thoáng, dễ chịu hơn\n- Hỗ trợ tăng cường sức đề kháng tự nhiên cho cơ thể\n\n🌱 Phù hợp với\n- Người thường xuyên nói nhiều hoặc làm việc trong môi trường lạnh\n- Người dễ khô họng khi thay đổi thời tiết\n- Người cần bổ sung chất dinh dưỡng \n- Sử dụng như 1 vị thuốc trong gia đình trong các trường hợp sốt, cảm, mệt mỏi \n\nKhông dùng cho trẻ em dưới 1 tuổi",
     "ingredients": "Mật ong lên men, Gừng, Quất, Muối hạt",
-    "usage": "🍵 Pha nước ấm\nPha 1–2 muỗng cùng nước ấm\nUống từ từ để làm dịu cổ họng và giữ ấm cơ thể\n\n👉 Thích hợp dùng vào buổi sáng hoặc tối trước khi ngủ\n\n🍯 Ngậm trực tiếp\n- Dùng trực tiếp 1 muỗng nhỏ\n- Có thể ngậm chậm để hỗn hợp đi qua cổ họng, giúp làm dịu họng tốt hơn\n🌿 Sử dụng khi nào?\n- Khi cổ họng khô rát, khó chịu\n- Khi thời tiết lạnh hoặc thay đổi thất thường\n- Khi cần giữ ấm cơ thể và hỗ trợ đường hô hấp\n⚠️ Lưu ý\n- Không pha với nước quá nóng để giữ dưỡng chất tự nhiên\n- Bảo quản nơi khô ráo hoặc ngăn mát tủ lạnh sau khi mở nắp\n- Không dùng cho trẻ dưới 1 tuổi\n\n🍯 Một hũ mật ong gừng quất muối không chỉ là sản phẩm chăm sóc sức khỏe, mà còn là cảm giác ấm áp quen thuộc như những bài thuốc dịu lành từ căn bếp của gia đình"
+    "usage": "🍵 Pha nước ấm\nPha 1–2 muỗng cùng nước ấm\nUống từ từ để làm dịu cổ họng và giữ ấm cơ thể\n\n👉 Thích hợp dùng vào buổi sáng hoặc tối trước khi ngủ\n\n🍯 Ngậm trực tiếp\n- Dùng trực tiếp 1 muỗng nhỏ\n- Có thể ngậm chậm để hỗn hợp đi qua cổ họng, giúp làm dịu họng tốt hơn\n🌿 Sử dụng khi nào?\n- Khi cổ họng khô rát, khó chịu\n- Khi thời tiết lạnh hoặc thay đổi thất thường\n- Khi cần giữ ấm cơ thể và hỗ trợ đường hô hấp\n⚠️ Lưu ý\n- Không pha với nước quá nóng để giữ dưỡng chất tự nhiên\n- Bảo quản nơi khô ráo hoặc ngăn mát tủ lạnh sau khi mở nắp\n- Không dùng cho trẻ dưới 1 tuổi\n\n🍯 Một hũ mật ong gừng quất muối không chỉ là sản phẩm chăm sóc sức khỏe, mà còn là cảm giác ấm áp quen thuộc như những bài thuốc dịu lành từ căn bếp của gia đình",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "cot-nghe-mat-ong-len-men",
@@ -620,7 +641,8 @@ export const products: Product[] = [
     "flag": "Bán chạy nhất",
     "fullDescription": "Cốt Nghệ Mật Ong Lên Men là sự kết hợp giữa nghệ tự nhiên giàu curcumin và mật ong nguyên chất, được ủ lên men theo phương pháp truyền thống nhằm tăng khả năng hấp thụ và làm dịu vị hăng của nghệ. Sản phẩm hướng đến cơ chế chăm sóc cơ thể từ gốc — hỗ trợ tiêu hóa, làm đẹp da và nuôi dưỡng sức khỏe một cách tự nhiên, lành tính.\n\n✨ Thành phần nổi bật\nNước cốt nghệ đỏ: Giàu curcumin, hỗ trợ chống oxy hóa và giúp cơ thể thanh lọc tự nhiên\nMật ong lên men: Bổ sung dưỡng chất, hỗ trợ làm dịu và cân bằng hệ tiêu hóa\nQuá trình lên men tự nhiên: Giúp dưỡng chất dễ hấp thụ hơn và tạo hệ enzyme có lợi cho cơ thể\n💛 Công dụng nổi bật\n- Cải thiện hệ vi sinh đường ruột \n- Hỗ trợ làm đẹp da từ bên trong\n- Giúp cơ thể chống oxy hóa và giảm cảm giác mệt mỏi\n- Hỗ trợ tiêu hóa và làm dịu dạ dày\n- Giúp cơ thể hấp thụ dưỡng chất tốt hơn\n- Hỗ trợ cải thiện làn da xỉn màu, thiếu sức sống\n\nPhù hợp với người: \n- Mắc các chứng bệnh trào ngược dạ dày, đau dạ dày\n- Người tiêu hóa kém, táo bón, đầy hơi, ợ hơi ợ chua\n- Người cần detox, người bia rượu nhiều cần thải độc gan\n- Người già bị các vấn đề về xương khớp, tiểu đường, mỡ gan, mỡ máu \n\nLưu ý: Không sử dụng cho trẻ em dưới 2 tuổi",
     "ingredients": "Mật ong lên men, Nghệ đỏ",
-    "usage": "🍯 Cách dùng hằng ngày\nPha 15–20ml Cốt Nghệ Mật Ong với khoảng 200ml nước ấm 40–50°C\nKhuấy đều và uống từ từ\n\n👉 Nên sử dụng 2 lần/ngày vào buổi sáng và buổi tối\n👉 Uống trước bữa ăn khoảng 30 phút để cơ thể hấp thụ tốt hơn\n\n🌿 Có thể sử dụng ngoài da\nDùng một lượng nhỏ bôi trực tiếp lên vùng da có:\nVết thương nhỏ\nDa trầy xước nhẹ\nVùng bỏng nhẹ hoặc da cần làm dịu\n\n👉 Nên làm sạch vùng da trước khi sử dụng\n\n⏳ Hạn sử dụng\n24 tháng kể từ ngày sản xuất\n📦 Bảo quản\n- Bảo quản nơi khô ráo, thoáng mát\n- Tránh ánh nắng trực tiếp\n- Có thể bảo quản lạnh để giữ độ tươi ngon và hương vị dễ dùng hơn\n\n⚠️ Lưu ý\n- Không dùng cho:\n- Người dị ứng với mật ong hoặc nghệ\n- Trẻ em dưới 2 tuổi\n- ,Không pha với nước quá nóng để giữ enzyme và dưỡng chất tự nhiên của sản phẩm\n\n💛 Kiên trì sử dụng đều đặn mỗi ngày là cách nhẹ nhàng để cơ thể được nuôi dưỡng, phục hồi và khỏe hơn từ bên trong"
+    "usage": "🍯 Cách dùng hằng ngày\nPha 15–20ml Cốt Nghệ Mật Ong với khoảng 200ml nước ấm 40–50°C\nKhuấy đều và uống từ từ\n\n👉 Nên sử dụng 2 lần/ngày vào buổi sáng và buổi tối\n👉 Uống trước bữa ăn khoảng 30 phút để cơ thể hấp thụ tốt hơn\n\n🌿 Có thể sử dụng ngoài da\nDùng một lượng nhỏ bôi trực tiếp lên vùng da có:\nVết thương nhỏ\nDa trầy xước nhẹ\nVùng bỏng nhẹ hoặc da cần làm dịu\n\n👉 Nên làm sạch vùng da trước khi sử dụng\n\n⏳ Hạn sử dụng\n24 tháng kể từ ngày sản xuất\n📦 Bảo quản\n- Bảo quản nơi khô ráo, thoáng mát\n- Tránh ánh nắng trực tiếp\n- Có thể bảo quản lạnh để giữ độ tươi ngon và hương vị dễ dùng hơn\n\n⚠️ Lưu ý\n- Không dùng cho:\n- Người dị ứng với mật ong hoặc nghệ\n- Trẻ em dưới 2 tuổi\n- ,Không pha với nước quá nóng để giữ enzyme và dưỡng chất tự nhiên của sản phẩm\n\n💛 Kiên trì sử dụng đều đặn mỗi ngày là cách nhẹ nhàng để cơ thể được nuôi dưỡng, phục hồi và khỏe hơn từ bên trong",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "duong-mat-mia-tho",
@@ -633,7 +655,8 @@ export const products: Product[] = [
     "features": [],
     "skinConcerns": [],
     "volume": "1kg",
-    "description": "Đường Mật mía thô - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Đường Mật mía thô - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "tinh-chat-ngu-sac",
@@ -646,7 +669,8 @@ export const products: Product[] = [
     "features": [],
     "skinConcerns": [],
     "volume": "20ml",
-    "description": "Tinh chất ngũ sắc - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Tinh chất ngũ sắc - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "cot-gung-que",
@@ -659,7 +683,8 @@ export const products: Product[] = [
     "features": [],
     "skinConcerns": [],
     "volume": "500ml",
-    "description": "Cốt gừng quế - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Cốt gừng quế - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "cao-la-tre-gai",
@@ -671,7 +696,8 @@ export const products: Product[] = [
     "image": "https://images.unsplash.com/photo-1556228444-2457636e74fc?q=80&w=800",
     "features": [],
     "skinConcerns": [],
-    "description": "Cao lá tre gai - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Cao lá tre gai - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "cao-bo-phoi",
@@ -683,7 +709,8 @@ export const products: Product[] = [
     "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
     "features": [],
     "skinConcerns": [],
-    "description": "Cao bổ phổi - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Cao bổ phổi - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "cao-bo-huyet",
@@ -695,7 +722,8 @@ export const products: Product[] = [
     "image": "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=800",
     "features": [],
     "skinConcerns": [],
-    "description": "Cao bổ huyết - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Cao bổ huyết - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "cao-thong-kinh-lac",
@@ -707,7 +735,8 @@ export const products: Product[] = [
     "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800",
     "features": [],
     "skinConcerns": [],
-    "description": "Cao thông kinh lạc - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Cao thông kinh lạc - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   },
   {
     "id": "cao-bo-than",
@@ -719,6 +748,7 @@ export const products: Product[] = [
     "image": "https://images.unsplash.com/photo-1556228366-2457636e74fc?q=80&w=800",
     "features": [],
     "skinConcerns": [],
-    "description": "Cao bổ thận - Sản phẩm chăm sóc an toàn, hiệu quả."
+    "description": "Cao bổ thận - Sản phẩm chăm sóc an toàn, hiệu quả.",
+    "subcategory": "Chăm sóc sức khỏe"
   }
 ];

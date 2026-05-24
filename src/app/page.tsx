@@ -17,7 +17,7 @@ export default async function Home() {
     },
   });
 
-  const products = dbProducts.map(p => ({
+  const products = dbProducts.map((p: any) => ({
     ...p,
     features: [],
     skinConcerns: [],

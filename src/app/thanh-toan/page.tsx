@@ -1,22 +1,34 @@
 "use client";
 
 import { useCart } from "@/lib/store/useCart";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 type Step = "info" | "shipping" | "payment" | "success";
 
+const FREESHIP_THRESHOLD = 1_000_000; // 1 triệu VND
+const STANDARD_SHIPPING_FEE = 30_000; // 30k VND
+
 export default function CheckoutPage() {
-  const { items, getTotalPrice } = useCart();
+  const { items, getTotalPrice, updateQuantity, removeItem } = useCart();
   const [step, setStep] = useState<Step>("info");
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Shipping fee calculation
+  const subtotal = useMemo(() => (isMounted ? getTotalPrice() : 0), [isMounted, items, getTotalPrice]);
+  const isFreeShipping = subtotal >= FREESHIP_THRESHOLD;
+  const shippingFee = isFreeShipping ? 0 : STANDARD_SHIPPING_FEE;
+  const totalPrice = subtotal + shippingFee;
+  const amountToFreeShip = Math.max(0, FREESHIP_THRESHOLD - subtotal);
+  const freeShipProgress = Math.min(1, subtotal / FREESHIP_THRESHOLD);
 
   if (!isMounted) return null;
 
@@ -83,46 +95,208 @@ export default function CheckoutPage() {
                   className="space-y-8"
                 >
                   {step === "info" && <InfoStep onNext={() => setStep("shipping")} />}
-                  {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} />}
+                  {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} shippingFee={shippingFee} isFreeShipping={isFreeShipping} formatPrice={formatPrice} />}
                   {step === "payment" && <PaymentStep onNext={() => setStep("success")} onBack={() => setStep("shipping")} />}
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Right: Summary */}
+            {/* Right: Order Summary */}
             <div className="lg:col-span-5">
               <div className="bg-surface p-8 rounded-sm sticky top-28">
                 <h2 className="text-xl font-display font-bold mb-8">Tóm tắt đơn hàng</h2>
-                <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 scrollbar-hide">
-                  {items.map((item) => (
-                    <div key={`${item.id}-${item.variant}`} className="flex gap-4">
-                      <div className="relative w-16 aspect-square bg-bg rounded-sm overflow-hidden flex-shrink-0">
-                        <Image src={item.image} alt={item.title} fill className="object-cover" />
-                        <span className="absolute -top-2 -right-2 w-6 h-6 bg-accent text-bg text-[10px] font-bold rounded-full flex items-center justify-center">
-                          {item.quantity}
-                        </span>
-                      </div>
-                      <div className="flex-1 text-sm">
-                        <p className="font-semibold text-text">{item.title}</p>
-                        {item.variant && <p className="text-[11px] text-muted uppercase tracking-wider">{item.variant}</p>}
-                        <p className="mt-1 font-medium">{formatPrice(item.price * item.quantity)}</p>
-                      </div>
-                    </div>
-                  ))}
+
+                {/* Product list with +/- controls */}
+                <div className="space-y-5 max-h-[400px] overflow-y-auto pr-2 scrollbar-hide">
+                  <AnimatePresence initial={false}>
+                    {items.map((item) => (
+                      <motion.div
+                        key={`${item.id}-${item.variant}`}
+                        layout
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, x: -20, height: 0, marginBottom: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="flex gap-4 group"
+                      >
+                        {/* Product image */}
+                        <div className="relative w-16 aspect-square bg-bg rounded-sm overflow-hidden flex-shrink-0">
+                          <Image src={item.image} alt={item.title} fill className="object-cover" />
+                        </div>
+
+                        {/* Product info + controls */}
+                        <div className="flex-1 min-w-0 flex flex-col justify-between">
+                          <div className="flex justify-between items-start gap-2">
+                            <div className="min-w-0">
+                              <p className="font-semibold text-text text-sm line-clamp-1">{item.title}</p>
+                              {item.variant && (
+                                <p className="text-[11px] text-muted uppercase tracking-wider mt-0.5">{item.variant}</p>
+                              )}
+                            </div>
+                            {/* Remove button */}
+                            <button
+                              onClick={() => removeItem(item.id, item.variant)}
+                              className="text-muted hover:text-red-500 transition-colors p-0.5 opacity-0 group-hover:opacity-100 focus:opacity-100 flex-shrink-0"
+                              title="Xóa sản phẩm"
+                              aria-label={`Xóa ${item.title}`}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="3 6 5 6 21 6" />
+                                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                                <line x1="10" y1="11" x2="10" y2="17" />
+                                <line x1="14" y1="11" x2="14" y2="17" />
+                              </svg>
+                            </button>
+                          </div>
+
+                          <div className="flex justify-between items-center mt-2">
+                            {/* Quantity controls */}
+                            <div className="flex items-center border border-bg/60 rounded-sm bg-bg">
+                              <button
+                                onClick={() => {
+                                  if (item.quantity > 1) {
+                                    updateQuantity(item.id, item.quantity - 1, item.variant);
+                                  }
+                                }}
+                                disabled={item.quantity <= 1}
+                                className={cn(
+                                  "w-7 h-7 flex items-center justify-center text-sm transition-colors",
+                                  item.quantity <= 1
+                                    ? "text-muted/40 cursor-not-allowed"
+                                    : "text-text hover:bg-surface"
+                                )}
+                                aria-label="Giảm số lượng"
+                              >
+                                −
+                              </button>
+                              <motion.span
+                                key={item.quantity}
+                                initial={{ scale: 1.3 }}
+                                animate={{ scale: 1 }}
+                                className="w-7 text-center text-xs font-bold select-none"
+                              >
+                                {item.quantity}
+                              </motion.span>
+                              <button
+                                onClick={() => updateQuantity(item.id, item.quantity + 1, item.variant)}
+                                className="w-7 h-7 flex items-center justify-center text-sm text-text hover:bg-surface transition-colors"
+                                aria-label="Tăng số lượng"
+                              >
+                                +
+                              </button>
+                            </div>
+
+                            {/* Item total price */}
+                            <motion.p
+                              key={item.price * item.quantity}
+                              initial={{ scale: 1.05 }}
+                              animate={{ scale: 1 }}
+                              className="text-sm font-bold text-text"
+                            >
+                              {formatPrice(item.price * item.quantity)}
+                            </motion.p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-bg/50 space-y-4">
+                {/* Shipping progress bar */}
+                <div className="mt-6 pt-6 border-t border-bg/50">
+                  <AnimatePresence mode="wait">
+                    {isFreeShipping ? (
+                      <motion.div
+                        key="freeship-achieved"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        className="flex items-center gap-2 p-3 bg-accent/10 rounded-sm"
+                      >
+                        <span className="text-lg">🎉</span>
+                        <p className="text-xs font-semibold text-accent">
+                          Chúc mừng! Đơn hàng của bạn được <span className="uppercase tracking-wider">miễn phí vận chuyển</span>
+                        </p>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="freeship-progress"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        className="space-y-2"
+                      >
+                        <p className="text-xs text-muted">
+                          Mua thêm <span className="font-bold text-accent">{formatPrice(amountToFreeShip)}</span> để được <span className="font-semibold text-accent">miễn phí vận chuyển</span>
+                        </p>
+                        <div className="w-full h-1.5 bg-bg rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full bg-accent rounded-full"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${freeShipProgress * 100}%` }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                          />
+                        </div>
+                        <p className="text-[10px] text-muted/70 italic">
+                          Freeship với đơn hàng trên 1 triệu • Đồng giá 30k toàn quốc dưới 1 triệu
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Price breakdown */}
+                <div className="mt-6 pt-6 border-t border-bg/50 space-y-4">
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-muted">Tạm tính</span>
-                    <span className="font-medium">{formatPrice(getTotalPrice())}</span>
+                    <motion.span
+                      key={subtotal}
+                      initial={{ scale: 1.05 }}
+                      animate={{ scale: 1 }}
+                      className="font-medium"
+                    >
+                      {formatPrice(subtotal)}
+                    </motion.span>
                   </div>
+
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-muted">Giao hàng</span>
-                    <span className="text-accent font-medium uppercase tracking-widest text-[11px]">Miễn phí</span>
+                    <span className="text-muted">Phí vận chuyển</span>
+                    <AnimatePresence mode="wait">
+                      {isFreeShipping ? (
+                        <motion.span
+                          key="free"
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 4 }}
+                          className="text-accent font-medium uppercase tracking-widest text-[11px]"
+                        >
+                          Miễn phí
+                        </motion.span>
+                      ) : (
+                        <motion.span
+                          key="paid"
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 4 }}
+                          className="font-medium text-text"
+                        >
+                          {formatPrice(STANDARD_SHIPPING_FEE)}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <div className="flex justify-between items-center pt-4">
+
+                  <div className="flex justify-between items-center pt-4 border-t border-bg/30">
                     <span className="text-lg font-bold uppercase tracking-wider">Tổng cộng</span>
-                    <span className="text-2xl font-bold text-text">{formatPrice(getTotalPrice())}</span>
+                    <motion.span
+                      key={totalPrice}
+                      initial={{ scale: 1.08 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      className="text-2xl font-bold text-text"
+                    >
+                      {formatPrice(totalPrice)}
+                    </motion.span>
                   </div>
                 </div>
               </div>
@@ -135,6 +309,8 @@ export default function CheckoutPage() {
     </main>
   );
 }
+
+/* ─── Sub-components ────────────────────────────────────────────── */
 
 function InputField({ label, type = "text", placeholder }: { label: string, type?: string, placeholder?: string }) {
   return (
@@ -174,7 +350,13 @@ function InfoStep({ onNext }: { onNext: () => void }) {
   );
 }
 
-function ShippingStep({ onNext, onBack }: { onNext: () => void, onBack: () => void }) {
+function ShippingStep({ onNext, onBack, shippingFee, isFreeShipping, formatPrice }: {
+  onNext: () => void;
+  onBack: () => void;
+  shippingFee: number;
+  isFreeShipping: boolean;
+  formatPrice: (p: number) => string;
+}) {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
@@ -189,7 +371,57 @@ function ShippingStep({ onNext, onBack }: { onNext: () => void, onBack: () => vo
               <p className="text-xs text-muted">2-4 ngày làm việc</p>
             </div>
           </div>
-          <p className="text-sm font-bold uppercase tracking-widest text-accent">Miễn phí</p>
+          <AnimatePresence mode="wait">
+            {isFreeShipping ? (
+              <motion.p
+                key="free-label"
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                className="text-sm font-bold uppercase tracking-widest text-accent"
+              >
+                Miễn phí
+              </motion.p>
+            ) : (
+              <motion.p
+                key="fee-label"
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                className="text-sm font-bold text-text"
+              >
+                {formatPrice(shippingFee)}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Shipping fee policy table */}
+        <div className="rounded-sm overflow-hidden border border-surface">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="bg-bg">
+                <th className="text-left px-4 py-2.5 font-bold text-muted uppercase tracking-wider text-[10px]">Giá trị đơn hàng</th>
+                <th className="text-right px-4 py-2.5 font-bold text-muted uppercase tracking-wider text-[10px]">Phí vận chuyển</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className={cn(
+                "border-t border-surface transition-colors",
+                !isFreeShipping && "bg-accent/5"
+              )}>
+                <td className="px-4 py-3 text-text">Dưới 1.000.000₫</td>
+                <td className="px-4 py-3 text-right font-semibold text-text">30.000₫</td>
+              </tr>
+              <tr className={cn(
+                "border-t border-surface transition-colors",
+                isFreeShipping && "bg-accent/5"
+              )}>
+                <td className="px-4 py-3 text-text">Từ 1.000.000₫ trở lên</td>
+                <td className="px-4 py-3 text-right font-semibold text-accent">Miễn phí ✨</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-4">
@@ -269,5 +501,3 @@ function SuccessStep() {
     </motion.div>
   );
 }
-
-import { cn } from "@/lib/utils";
