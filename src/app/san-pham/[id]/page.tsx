@@ -1,11 +1,17 @@
-import { products } from "@/lib/data";
+import { prisma } from "@/lib/db";
 import ProductDetailView from "./ProductDetailView";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-export function generateStaticParams() {
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({
+    select: { id: true }
+  });
   return products.map((product) => ({
     id: product.id,
   }));
@@ -13,5 +19,22 @@ export function generateStaticParams() {
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params;
-  return <ProductDetailView id={id} />;
+  
+  const dbProduct = await prisma.product.findUnique({
+    where: { id }
+  });
+
+  if (!dbProduct) {
+    notFound();
+  }
+
+  const product = {
+    ...dbProduct,
+    features: [],
+    skinConcerns: [],
+    variants: [],
+    images: [],
+  };
+
+  return <ProductDetailView product={product} />;
 }

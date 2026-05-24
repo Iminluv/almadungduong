@@ -1,4 +1,5 @@
 import { prisma } from "../src/lib/db";
+import { products } from "./products_seed_data";
 
 async function main() {
   console.log("Seeding loyalty data...");
@@ -7,6 +8,7 @@ async function main() {
   await prisma.loyaltyBenefit.deleteMany();
   await prisma.loyaltyTier.deleteMany();
   await prisma.loyaltyConfig.deleteMany();
+  await prisma.product.deleteMany();
 
   // Insert Config
   await prisma.loyaltyConfig.createMany({
@@ -89,6 +91,21 @@ async function main() {
       }))
     });
   }
+
+  console.log("Seeding products...");
+  const productsToSeed = products.map((p, index) => {
+    const { features, skinConcerns, variants, images, rating, reviewsCount, ...rest } = p;
+    return {
+      ...rest,
+      rating: rating ?? 4.9,
+      reviewsCount: reviewsCount ?? 0,
+      sortOrder: index,
+    };
+  });
+
+  await prisma.product.createMany({
+    data: productsToSeed,
+  });
 
   console.log("Seeding complete!");
 }

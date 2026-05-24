@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { products, allReviews } from "@/lib/data";
+import { Product, allReviews } from "@/lib/data";
 import { useCart } from "@/lib/store/useCart";
 import { Button } from "@/components/ui/Button";
 import { ReviewCard } from "@/components/products/ReviewCard";
@@ -10,11 +10,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { notFound } from "next/navigation";
 
 interface Props {
-  id: string;
+  product: Product;
 }
 
-export default function ProductDetailView({ id }: Props) {
-  const product = products.find((p) => p.id === id);
+export default function ProductDetailView({ product }: Props) {
   const { addItem } = useCart();
 
   const [activeImage, setActiveImage] = useState(0);
@@ -129,8 +128,8 @@ export default function ProductDetailView({ id }: Props) {
                       key={v}
                       onClick={() => setSelectedVariant(v)}
                       className={`px-6 py-2.5 text-sm font-medium border transition-all rounded-sm ${selectedVariant === v
-                          ? "bg-text text-bg border-text"
-                          : "bg-bg text-text border-surface hover:border-text/40"
+                        ? "bg-text text-bg border-text"
+                        : "bg-bg text-text border-surface hover:border-text/40"
                         }`}
                     >
                       {v}
@@ -217,7 +216,7 @@ export default function ProductDetailView({ id }: Props) {
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="w-5 text-accent text-center">✓</span>
-                  <p className="text-text">Đổi trả trong 7 ngày nếu không hiệu quả</p>
+                  <p className="text-text">Tặng mặt nạ ủ nilon cho mọi đợn Xịt dưỡng</p>
                 </div>
               </div>
 
@@ -246,8 +245,8 @@ export default function ProductDetailView({ id }: Props) {
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`py-4 px-8 text-sm font-semibold uppercase tracking-widest whitespace-nowrap border-b-2 transition-all ${activeTab === tab || (tab.includes("đánh giá") && activeTab.includes("đánh giá"))
-                      ? "border-text text-text"
-                      : "border-transparent text-muted hover:text-text"
+                    ? "border-text text-text"
+                    : "border-transparent text-muted hover:text-text"
                     }`}
                 >
                   {tab}

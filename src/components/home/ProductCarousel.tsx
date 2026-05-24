@@ -66,11 +66,11 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
                   category={product.category}
                   image={product.image}
                   price={product.price}
-                  originalPrice={product.originalPrice}
+                  originalPrice={product.originalPrice ?? undefined}
                   rating={product.rating}
                   reviewsCount={product.reviewsCount}
-                  flag={product.flag}
-                  volume={product.volume}
+                  flag={product.flag ?? undefined}
+                  volume={product.volume ?? undefined}
                 />
               </div>
             ))}

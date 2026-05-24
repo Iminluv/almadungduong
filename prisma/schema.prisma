@@ -32,3 +32,28 @@ model LoyaltyConfig {
   key   String @unique
   value String
 }
+
+model Product {
+  id              String   @id
+  title           String
+  englishName     String?
+  category        String
+  flag            String?
+  image           String
+  price           Int
+  originalPrice   Int?
+  rating          Float    @default(4.9)
+  reviewsCount    Int      @default(0)
+  description     String
+  fullDescription String?
+  ingredients     String?
+  certifications  String?
+  usage           String?
+  volume          String?
+  gift            String?
+  tagline         String?
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+

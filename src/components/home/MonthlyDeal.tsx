@@ -6,27 +6,33 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 
-import { products } from "@/lib/data";
+import { Product } from "@/lib/data";
 
-const comboDeals = products
-  .filter(p => p.id.startsWith('combo-'))
-  .map(p => {
-    const titles = p.title.split('\n');
-    return {
-      id: p.id,
-      title: titles[0],
-      highlight: titles.slice(1).join(' '),
-      description: p.description,
-      price: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p.price),
-      originalPrice: p.originalPrice ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p.originalPrice) : "",
-      saving: p.originalPrice ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p.originalPrice - p.price) : "",
-      discount: p.originalPrice ? `${Math.round((1 - p.price / p.originalPrice) * 100)}%` : "",
-      image: p.image,
-      gift: p.gift
-    };
-  });
+interface MonthlyDealProps {
+  products: Product[];
+}
 
-export function MonthlyDeal() {
+export function MonthlyDeal({ products }: MonthlyDealProps) {
+  const comboDeals = React.useMemo(() => {
+    return products
+      .filter(p => p.id.startsWith('combo-'))
+      .map(p => {
+        const titles = p.title.split('\n');
+        return {
+          id: p.id,
+          title: titles[0],
+          highlight: titles.slice(1).join(' '),
+          description: p.description,
+          price: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p.price),
+          originalPrice: p.originalPrice ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p.originalPrice) : "",
+          saving: p.originalPrice ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p.originalPrice - p.price) : "",
+          discount: p.originalPrice ? `${Math.round((1 - p.price / p.originalPrice) * 100)}%` : "",
+          image: p.image,
+          gift: p.gift
+        };
+      });
+  }, [products]);
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     align: "start",
     containScroll: "trimSnaps",

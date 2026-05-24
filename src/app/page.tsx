@@ -6,16 +6,32 @@ import { ProductCarousel } from "@/components/home/ProductCarousel";
 import { MicrobialHighlights } from "@/components/home/MicrobialHighlights";
 import { Certifications } from "@/components/home/Certifications";
 import { CustomerFeedback } from "@/components/home/CustomerFeedback";
-import { products } from "@/lib/data";
+import { prisma } from "@/lib/db";
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const dbProducts = await prisma.product.findMany({
+    orderBy: {
+      sortOrder: 'asc',
+    },
+  });
+
+  const products = dbProducts.map(p => ({
+    ...p,
+    features: [],
+    skinConcerns: [],
+    variants: [],
+    images: [],
+  }));
+
   return (
     <main className="flex flex-col">
       <HeroCarousel />
       <TrustStrip />
       <MicrobialHighlights />
       <ProductsFeatures />
-      <MonthlyDeal />
+      <MonthlyDeal products={products} />
       <Certifications />
       <ProductCarousel products={products} title="Gợi ý dành cho bạn" />
       <CustomerFeedback />
