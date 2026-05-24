@@ -94,7 +94,7 @@ async function main() {
 
   console.log("Seeding products...");
   const productsToSeed = products.map((p, index) => {
-    const { features, skinConcerns, variants, images, rating, reviewsCount, ...rest } = p;
+    const { features, skinConcerns, variants, images, rating, reviewsCount, subcategory, ...rest } = p;
     return {
       ...rest,
       rating: rating ?? 4.9,

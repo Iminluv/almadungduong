@@ -21,6 +21,7 @@ export interface Product {
   skinConcerns?: string[];
   variants?: string[] | null;
   tagline?: string | null;
+  subcategory?: string | null;
 }
 
 export interface SkinConcern {
