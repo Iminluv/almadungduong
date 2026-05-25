@@ -9,20 +9,30 @@ interface PageProps {
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const products = await prisma.product.findMany({
-    select: { id: true }
-  });
-  return products.map((product: any) => ({
-    id: product.id,
-  }));
+  try {
+    const products = await prisma.product.findMany({
+      select: { id: true }
+    });
+    return products.map((product: any) => ({
+      id: product.id,
+    }));
+  } catch (error) {
+    console.error("Error generating static params for products:", error);
+    return [];
+  }
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const dbProduct = await prisma.product.findUnique({
-    where: { id }
-  });
+  let dbProduct = null;
+  try {
+    dbProduct = await prisma.product.findUnique({
+      where: { id }
+    });
+  } catch (error) {
+    console.error(`Error fetching product details for ID ${id}:`, error);
+  }
 
   if (!dbProduct) {
     notFound();

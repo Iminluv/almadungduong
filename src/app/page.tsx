@@ -11,11 +11,16 @@ import { prisma } from "@/lib/db";
 export const revalidate = 60;
 
 export default async function Home() {
-  const dbProducts = await prisma.product.findMany({
-    orderBy: {
-      sortOrder: 'asc',
-    },
-  });
+  let dbProducts: any[] = [];
+  try {
+    dbProducts = await prisma.product.findMany({
+      orderBy: {
+        sortOrder: 'asc',
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching products for Home page:", error);
+  }
 
   const products = dbProducts.map((p: any) => ({
     ...p,
