@@ -11,6 +11,8 @@ async function main() {
   await prisma.product.deleteMany();
   await prisma.shippingRate.deleteMany();
   await prisma.shippingZone.deleteMany();
+  await prisma.tag.deleteMany();
+  await prisma.category.deleteMany();
 
   // Insert Config
   await prisma.loyaltyConfig.createMany({
@@ -94,23 +96,96 @@ async function main() {
     });
   }
 
-  console.log("Seeding products...");
-  const productsToSeed = products.map((p, index) => {
-    const { features, skinConcerns, variants, images, rating, reviewsCount, ...rest } = p;
-    return {
-      ...rest,
-      rating: rating ?? 4.9,
-      reviewsCount: reviewsCount ?? 0,
-      sortOrder: index,
-      slug: p.slug ?? p.id,
-      showOnHomepage: p.showOnHomepage ?? false,
-      isPublished: p.isPublished ?? true,
-    };
-  });
+  // 1. Seed Categories & Subcategories
+  console.log("Seeding categories...");
+  const categoriesToSeed = [
+    { name: "Mỹ phẩm vi sinh Hoa Ngân", slug: "my-pham-vi-sinh-hoa-ngan" },
+    { name: "Khuyến mãi", slug: "khuyen-mai" },
+    { name: "Dụng cụ làm đẹp", slug: "dung-cu-lam-dep" },
+    { name: "Sản phẩm dưỡng sinh", slug: "san-pham-duong-sinh" }
+  ];
 
-  await prisma.product.createMany({
-    data: productsToSeed,
-  });
+  const categoryMap: Record<string, string> = {};
+
+  for (const cat of categoriesToSeed) {
+    const created = await prisma.category.create({
+      data: cat
+    });
+    categoryMap[cat.name] = created.id;
+  }
+
+  // Seed subcategories under Sản phẩm dưỡng sinh
+  const subcategoriesToSeed = [
+    { name: "Chăm sóc da", slug: "cham-soc-da", parentName: "Sản phẩm dưỡng sinh" },
+    { name: "Chăm sóc da cơ thể", slug: "cham-soc-da-co-the", parentName: "Sản phẩm dưỡng sinh" },
+    { name: "Chăm sóc sức khỏe", slug: "cham-soc-suc-khoe", parentName: "Sản phẩm dưỡng sinh" },
+    { name: "Chăm sóc tóc", slug: "cham-soc-toc", parentName: "Sản phẩm dưỡng sinh" }
+  ];
+
+  for (const subcat of subcategoriesToSeed) {
+    const parentId = categoryMap[subcat.parentName];
+    const created = await prisma.category.create({
+      data: {
+        name: subcat.name,
+        slug: subcat.slug,
+        parentId: parentId
+      }
+    });
+    categoryMap[`${subcat.parentName} -> ${subcat.name}`] = created.id;
+  }
+
+  // 2. Seed Tags
+  console.log("Seeding tags...");
+  const tagNames = [
+    "Deal tháng",
+    "Bán chạy nhất",
+    "Deal tốt nhất",
+    "Được yêu thích nhất",
+    "Được yêu thích"
+  ];
+
+  for (const name of tagNames) {
+    await prisma.tag.create({
+      data: { name }
+    });
+  }
+
+  // 3. Seed Products
+  console.log("Seeding products...");
+  for (let index = 0; index < products.length; index++) {
+    const p = products[index];
+    const { features, skinConcerns, variants, images, rating, reviewsCount, category, subcategory, flag, ...rest } = p;
+
+    // Resolve categoryId
+    const catLookupKey = subcategory
+      ? `${category} -> ${subcategory}`
+      : category;
+    const categoryId = categoryMap[catLookupKey];
+
+    if (!categoryId) {
+      throw new Error(`Category mapping not found for key: ${catLookupKey}`);
+    }
+
+    // Resolve tags
+    const flagsToParse = flag ? flag.split('/').map(f => f.trim()) : [];
+    const tagsToConnect = flagsToParse.filter(f => tagNames.includes(f));
+
+    await prisma.product.create({
+      data: {
+        ...rest,
+        rating: rating ?? 4.9,
+        reviewsCount: reviewsCount ?? 0,
+        sortOrder: index,
+        slug: p.slug ?? p.id,
+        showOnHomepage: p.showOnHomepage ?? false,
+        isPublished: p.isPublished ?? true,
+        categoryId: categoryId,
+        tags: {
+          connect: tagsToConnect.map(name => ({ name }))
+        }
+      }
+    });
+  }
 
   console.log("Seeding shipping zones and rates...");
   await prisma.shippingZone.create({

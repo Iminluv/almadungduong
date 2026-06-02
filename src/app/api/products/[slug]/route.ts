@@ -9,16 +9,35 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    const product = await prisma.product.findUnique({
+    const dbProduct = await prisma.product.findUnique({
       where: { slug },
+      include: {
+        category: {
+          include: {
+            parent: true,
+          },
+        },
+        tags: true,
+      },
     });
 
-    if (!product) {
+    if (!dbProduct) {
       return NextResponse.json(
         { error: 'Product not found' },
         { status: 404 }
       );
     }
+
+    const product = {
+      ...dbProduct,
+      category: dbProduct.category.parent ? dbProduct.category.parent.name : dbProduct.category.name,
+      subcategory: dbProduct.category.parent ? dbProduct.category.name : null,
+      flag: dbProduct.tags.map((t: any) => t.name).join('/ ') || null,
+      features: [],
+      skinConcerns: [],
+      variants: [],
+      images: [],
+    };
 
     return NextResponse.json(product);
   } catch (error) {

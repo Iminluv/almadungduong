@@ -18,6 +18,14 @@ export default async function Home() {
         showOnHomepage: true,
         isPublished: true,
       },
+      include: {
+        category: {
+          include: {
+            parent: true
+          }
+        },
+        tags: true
+      },
       orderBy: {
         sortOrder: 'asc',
       },
@@ -28,6 +36,9 @@ export default async function Home() {
 
   const products = dbProducts.map((p: any) => ({
     ...p,
+    category: p.category.parent ? p.category.parent.name : p.category.name,
+    subcategory: p.category.parent ? p.category.name : null,
+    flag: p.tags.map((t: any) => t.name).join('/ ') || null,
     features: [],
     skinConcerns: [],
     variants: [],

@@ -29,7 +29,15 @@ export default async function ProductDetailPage({ params }: PageProps) {
   let dbProduct = null;
   try {
     dbProduct = await prisma.product.findUnique({
-      where: { slug }
+      where: { slug },
+      include: {
+        category: {
+          include: {
+            parent: true,
+          },
+        },
+        tags: true,
+      },
     });
   } catch (error) {
     console.error(`Error fetching product details for slug ${slug}:`, error);
@@ -41,6 +49,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   const product = {
     ...dbProduct,
+    category: dbProduct.category.parent ? dbProduct.category.parent.name : dbProduct.category.name,
+    subcategory: dbProduct.category.parent ? dbProduct.category.name : null,
+    flag: dbProduct.tags.map((t: any) => t.name).join('/ ') || null,
     features: [],
     skinConcerns: [],
     variants: [],

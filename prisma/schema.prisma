@@ -38,9 +38,9 @@ model Product {
   slug            String   @unique
   title           String
   englishName     String?
-  category        String
-  subcategory     String?
-  flag            String?
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id])
+  tags            Tag[]
   image           String
   price           Int
   originalPrice   Int?
@@ -59,6 +59,22 @@ model Product {
   isPublished     Boolean  @default(true)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  parentId  String?
+  parent    Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Category[] @relation("CategoryHierarchy")
+  products  Product[]
+}
+
+model Tag {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  products  Product[]
 }
 
 model ShippingZone {

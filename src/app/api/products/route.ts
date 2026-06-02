@@ -10,14 +10,40 @@ export async function GET(request: NextRequest) {
 
     const where: any = { isPublished: true };
     if (category) {
-      where.category = category;
+      where.category = {
+        OR: [
+          { name: category },
+          { slug: category },
+          { parent: { name: category } },
+          { parent: { slug: category } }
+        ]
+      };
     }
-    const products = await prisma.product.findMany({
+    const dbProducts = await prisma.product.findMany({
       where,
+      include: {
+        category: {
+          include: {
+            parent: true,
+          },
+        },
+        tags: true,
+      },
       orderBy: {
         sortOrder: 'asc',
       },
     });
+
+    const products = dbProducts.map((p: any) => ({
+      ...p,
+      category: p.category.parent ? p.category.parent.name : p.category.name,
+      subcategory: p.category.parent ? p.category.name : null,
+      flag: p.tags.map((t: any) => t.name).join('/ ') || null,
+      features: [],
+      skinConcerns: [],
+      variants: [],
+      images: [],
+    }));
 
     return NextResponse.json(products);
   } catch (error) {
