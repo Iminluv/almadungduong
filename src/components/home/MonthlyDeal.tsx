@@ -20,6 +20,7 @@ export function MonthlyDeal({ products }: MonthlyDealProps) {
         const titles = p.title.split('\n');
         return {
           id: p.id,
+          slug: p.slug,
           title: titles[0],
           highlight: titles.slice(1).join(' '),
           description: p.description,
@@ -190,12 +191,12 @@ export function MonthlyDeal({ products }: MonthlyDealProps) {
                           variant="primary" 
                           size="sm" 
                           className="flex-1 py-1.5 text-[11px] font-bold tracking-wider uppercase rounded"
-                          onClick={() => window.location.href = `/san-pham/${deal.id}`}
+                          onClick={() => window.location.href = `/san-pham/${deal.slug ?? deal.id}`}
                         >
                           Sở hữu ngay
                         </Button>
                         <a 
-                          href={`/san-pham/${deal.id}`} 
+                          href={`/san-pham/${deal.slug ?? deal.id}`} 
                           className="text-[11px] font-bold tracking-wider uppercase text-text hover:text-accent transition-colors px-2.5 py-1.5 border border-text/10 rounded flex-shrink-0"
                         >
                           Chi tiết

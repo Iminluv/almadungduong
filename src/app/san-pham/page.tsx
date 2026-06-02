@@ -8,6 +8,9 @@ export default async function ProductsPage() {
   let dbProducts: any[] = [];
   try {
     dbProducts = await prisma.product.findMany({
+      where: {
+        isPublished: true,
+      },
       orderBy: {
         sortOrder: 'asc',
       },

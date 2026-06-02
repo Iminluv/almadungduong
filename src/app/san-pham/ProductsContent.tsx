@@ -113,6 +113,7 @@ export function ProductsContent({ products }: ProductsContentProps) {
                   <ProductCard
                     key={product.id}
                     id={product.id}
+                    slug={product.slug}
                     title={product.title}
                     category={product.category}
                     image={product.image}

@@ -9,6 +9,8 @@ async function main() {
   await prisma.loyaltyTier.deleteMany();
   await prisma.loyaltyConfig.deleteMany();
   await prisma.product.deleteMany();
+  await prisma.shippingRate.deleteMany();
+  await prisma.shippingZone.deleteMany();
 
   // Insert Config
   await prisma.loyaltyConfig.createMany({
@@ -94,17 +96,36 @@ async function main() {
 
   console.log("Seeding products...");
   const productsToSeed = products.map((p, index) => {
-    const { features, skinConcerns, variants, images, rating, reviewsCount, subcategory, ...rest } = p;
+    const { features, skinConcerns, variants, images, rating, reviewsCount, ...rest } = p;
     return {
       ...rest,
       rating: rating ?? 4.9,
       reviewsCount: reviewsCount ?? 0,
       sortOrder: index,
+      slug: p.slug ?? p.id,
+      showOnHomepage: p.showOnHomepage ?? false,
+      isPublished: p.isPublished ?? true,
     };
   });
 
   await prisma.product.createMany({
     data: productsToSeed,
+  });
+
+  console.log("Seeding shipping zones and rates...");
+  await prisma.shippingZone.create({
+    data: {
+      name: "Toàn quốc",
+      code: "VN",
+      rates: {
+        create: {
+          name: "Giao hàng tiêu chuẩn",
+          baseFee: 30000,
+          freeThreshold: 1000000,
+          isActive: true,
+        }
+      }
+    }
   });
 
   console.log("Seeding complete!");

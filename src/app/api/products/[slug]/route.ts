@@ -5,12 +5,12 @@ export const revalidate = 60;
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { slug } = await params;
     const product = await prisma.product.findUnique({
-      where: { id },
+      where: { slug },
     });
 
     if (!product) {

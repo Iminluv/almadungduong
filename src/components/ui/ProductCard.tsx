@@ -9,6 +9,7 @@ import { useCart } from "@/lib/store/useCart";
 
 interface ProductCardProps {
   id: string;
+  slug?: string;
   image: string;
   category?: string;
   title: string;
@@ -23,6 +24,7 @@ interface ProductCardProps {
 
 export function ProductCard({
   id,
+  slug,
   image,
   category,
   title,
@@ -50,7 +52,7 @@ export function ProductCard({
     new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p);
 
   return (
-    <Link href={`/san-pham/${id}`} className="group relative flex flex-col border border-transparent hover:border-[#1C1C1A19] transition-all duration-200">
+    <Link href={`/san-pham/${slug ?? id}`} className="group relative flex flex-col border border-transparent hover:border-[#1C1C1A19] transition-all duration-200">
       {/* Product Image */}
       <div className="aspect-[4/5] bg-surface relative overflow-hidden">
         {flag && (

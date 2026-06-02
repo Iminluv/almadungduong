@@ -10,25 +10,37 @@ import { cn } from "@/lib/utils";
 
 type Step = "info" | "shipping" | "payment" | "success";
 
-const FREESHIP_THRESHOLD = 1_000_000; // 1 triệu VND
-const STANDARD_SHIPPING_FEE = 30_000; // 30k VND
-
 export default function CheckoutPage() {
   const { items, getTotalPrice, updateQuantity, removeItem } = useCart();
   const [step, setStep] = useState<Step>("info");
   const [isMounted, setIsMounted] = useState(false);
+  const [shippingRate, setShippingRate] = useState<{ baseFee: number; freeThreshold: number | null } | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    fetch("/api/shipping")
+      .then((res) => res.json())
+      .then((resData) => {
+        if (resData.success && resData.data) {
+          setShippingRate({
+            baseFee: resData.data.baseFee,
+            freeThreshold: resData.data.freeThreshold,
+          });
+        }
+      })
+      .catch((err) => console.error("Failed to fetch shipping rate:", err));
   }, []);
+
+  const freeThreshold = shippingRate?.freeThreshold ?? 1_000_000;
+  const baseFee = shippingRate?.baseFee ?? 30_000;
 
   // Shipping fee calculation
   const subtotal = useMemo(() => (isMounted ? getTotalPrice() : 0), [isMounted, items, getTotalPrice]);
-  const isFreeShipping = subtotal >= FREESHIP_THRESHOLD;
-  const shippingFee = isFreeShipping ? 0 : STANDARD_SHIPPING_FEE;
+  const isFreeShipping = subtotal >= freeThreshold;
+  const shippingFee = isFreeShipping ? 0 : baseFee;
   const totalPrice = subtotal + shippingFee;
-  const amountToFreeShip = Math.max(0, FREESHIP_THRESHOLD - subtotal);
-  const freeShipProgress = Math.min(1, subtotal / FREESHIP_THRESHOLD);
+  const amountToFreeShip = Math.max(0, freeThreshold - subtotal);
+  const freeShipProgress = Math.min(1, subtotal / freeThreshold);
 
   if (!isMounted) return null;
 
@@ -95,7 +107,7 @@ export default function CheckoutPage() {
                   className="space-y-8"
                 >
                   {step === "info" && <InfoStep onNext={() => setStep("shipping")} />}
-                  {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} shippingFee={shippingFee} isFreeShipping={isFreeShipping} formatPrice={formatPrice} />}
+                  {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} shippingFee={shippingFee} isFreeShipping={isFreeShipping} formatPrice={formatPrice} freeThreshold={freeThreshold} baseFee={baseFee} />}
                   {step === "payment" && <PaymentStep onNext={() => setStep("success")} onBack={() => setStep("shipping")} />}
                 </motion.div>
               </AnimatePresence>
@@ -238,7 +250,7 @@ export default function CheckoutPage() {
                           />
                         </div>
                         <p className="text-[10px] text-muted/70 italic">
-                          Freeship với đơn hàng trên 1 triệu • Đồng giá 30k toàn quốc dưới 1 triệu
+                          Freeship với đơn hàng trên {formatPrice(freeThreshold)} • Đồng giá {formatPrice(baseFee)} toàn quốc
                         </p>
                       </motion.div>
                     )}
@@ -280,7 +292,7 @@ export default function CheckoutPage() {
                           exit={{ opacity: 0, y: 4 }}
                           className="font-medium text-text"
                         >
-                          {formatPrice(STANDARD_SHIPPING_FEE)}
+                          {formatPrice(baseFee)}
                         </motion.span>
                       )}
                     </AnimatePresence>
@@ -350,12 +362,14 @@ function InfoStep({ onNext }: { onNext: () => void }) {
   );
 }
 
-function ShippingStep({ onNext, onBack, shippingFee, isFreeShipping, formatPrice }: {
+function ShippingStep({ onNext, onBack, shippingFee, isFreeShipping, formatPrice, freeThreshold, baseFee }: {
   onNext: () => void;
   onBack: () => void;
   shippingFee: number;
   isFreeShipping: boolean;
   formatPrice: (p: number) => string;
+  freeThreshold: number;
+  baseFee: number;
 }) {
   return (
     <div className="space-y-8">
@@ -410,14 +424,14 @@ function ShippingStep({ onNext, onBack, shippingFee, isFreeShipping, formatPrice
                 "border-t border-surface transition-colors",
                 !isFreeShipping && "bg-accent/5"
               )}>
-                <td className="px-4 py-3 text-text">Dưới 1.000.000₫</td>
-                <td className="px-4 py-3 text-right font-semibold text-text">30.000₫</td>
+                <td className="px-4 py-3 text-text">Dưới {formatPrice(freeThreshold)}</td>
+                <td className="px-4 py-3 text-right font-semibold text-text">{formatPrice(baseFee)}</td>
               </tr>
               <tr className={cn(
                 "border-t border-surface transition-colors",
                 isFreeShipping && "bg-accent/5"
               )}>
-                <td className="px-4 py-3 text-text">Từ 1.000.000₫ trở lên</td>
+                <td className="px-4 py-3 text-text">Từ {formatPrice(freeThreshold)} trở lên</td>
                 <td className="px-4 py-3 text-right font-semibold text-accent">Miễn phí ✨</td>
               </tr>
             </tbody>

@@ -62,6 +62,7 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
               <div key={product.id} className="embla__slide flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_22%] min-w-0">
                 <ProductCard
                   id={product.id}
+                  slug={product.slug}
                   title={product.title}
                   category={product.category}
                   image={product.image}

@@ -14,6 +14,10 @@ export default async function Home() {
   let dbProducts: any[] = [];
   try {
     dbProducts = await prisma.product.findMany({
+      where: {
+        showOnHomepage: true,
+        isPublished: true,
+      },
       orderBy: {
         sortOrder: 'asc',
       },

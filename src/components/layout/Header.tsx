@@ -115,13 +115,7 @@ export function Header() {
                     </AnimatePresence>
                   </div>
                 </div>
-                <button
-                  onClick={handleCloseAnnouncement}
-                  className="text-[18px] leading-none hover:opacity-70 transition-opacity ml-4"
-                  aria-label="Close"
-                >
-                  ×
-                </button>
+
               </div>
             </motion.div>
           )}
