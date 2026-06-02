@@ -14,23 +14,43 @@ interface ProductsContentProps {
 export function ProductsContent({ products }: ProductsContentProps) {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
+  const subcategoryParam = searchParams.get("subcategory");
   
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
   const [activeConcerns, setActiveConcerns] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState("popular");
 
-  // Sync category from URL
+  // Sync category and subcategory from URL
   useEffect(() => {
     if (categoryParam) {
       setActiveCategory(categoryParam);
     } else {
       setActiveCategory(null);
     }
-  }, [categoryParam]);
+
+    if (subcategoryParam) {
+      setActiveSubcategory(subcategoryParam);
+    } else {
+      setActiveSubcategory(null);
+    }
+  }, [categoryParam, subcategoryParam]);
+
+  // Dynamically extract subcategories for the active category (if any)
+  const subcategories = activeCategory 
+    ? Array.from(
+        new Set(
+          products
+            .filter((p) => p.category === activeCategory && p.subcategory)
+            .map((p) => p.subcategory as string)
+        )
+      )
+    : [];
 
   // Filter Logic
   const filteredProducts = products.filter((product) => {
     if (activeCategory && product.category !== activeCategory) return false;
+    if (activeSubcategory && product.subcategory !== activeSubcategory) return false;
     if (activeConcerns.length > 0 && !activeConcerns.some(c => product.skinConcerns?.includes(skinConcerns.find(sc => sc.id === c)?.label || ""))) return false;
     return true;
   });
@@ -70,7 +90,13 @@ export function ProductsContent({ products }: ProductsContentProps) {
               categories={categories}
               concerns={skinConcerns}
               activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
+              setActiveCategory={(cat) => {
+                setActiveCategory(cat);
+                setActiveSubcategory(null);
+              }}
+              activeSubcategory={activeSubcategory}
+              setActiveSubcategory={setActiveSubcategory}
+              subcategories={subcategories}
               activeConcerns={activeConcerns}
               toggleConcern={toggleConcern}
             />
@@ -83,7 +109,13 @@ export function ProductsContent({ products }: ProductsContentProps) {
               categories={categories}
               concerns={skinConcerns}
               activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
+              setActiveCategory={(cat) => {
+                setActiveCategory(cat);
+                setActiveSubcategory(null);
+              }}
+              activeSubcategory={activeSubcategory}
+              setActiveSubcategory={setActiveSubcategory}
+              subcategories={subcategories}
               activeConcerns={activeConcerns}
               toggleConcern={toggleConcern}
             />
@@ -130,7 +162,7 @@ export function ProductsContent({ products }: ProductsContentProps) {
               <div className="py-20 text-center space-y-4">
                 <p className="text-lg text-muted italic font-serif">Không tìm thấy sản phẩm phù hợp.</p>
                 <button 
-                  onClick={() => {setActiveCategory(null); setActiveConcerns([]);}}
+                  onClick={() => {setActiveCategory(null); setActiveSubcategory(null); setActiveConcerns([]);}}
                   className="text-sm underline underline-offset-4 font-medium"
                 >
                   Xoá tất cả bộ lọc

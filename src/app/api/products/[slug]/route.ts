@@ -18,6 +18,8 @@ export async function GET(
           },
         },
         tags: true,
+        images: true,
+        reviews: true,
       },
     });
 
@@ -36,7 +38,8 @@ export async function GET(
       features: [],
       skinConcerns: [],
       variants: [],
-      images: [],
+      images: dbProduct.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => img.url),
+      reviews: dbProduct.reviews,
     };
 
     return NextResponse.json(product);

@@ -37,6 +37,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
           },
         },
         tags: true,
+        images: true,
+        reviews: true,
       },
     });
   } catch (error) {
@@ -55,7 +57,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
     features: [],
     skinConcerns: [],
     variants: [],
-    images: [],
+    images: dbProduct.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => img.url),
+    reviews: dbProduct.reviews,
   };
 
   return <ProductDetailView product={product} />;

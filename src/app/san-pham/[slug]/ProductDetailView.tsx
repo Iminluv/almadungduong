@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Product, allReviews } from "@/lib/data";
+import { Product } from "@/lib/data";
 import { useCart } from "@/lib/store/useCart";
 import { Button } from "@/components/ui/Button";
 import { ReviewCard } from "@/components/products/ReviewCard";
@@ -23,8 +23,7 @@ export default function ProductDetailView({ product }: Props) {
 
   if (!product) return notFound();
 
-  // Mock thumbnails if not present
-  const images = product.images || [product.image, product.image, product.image];
+  const images = product.images && product.images.length > 0 ? product.images : [product.image];
 
   const formatPrice = (p: number) =>
     new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p);
@@ -235,7 +234,7 @@ export default function ProductDetailView({ product }: Props) {
         {/* Tabs Section */}
         <div className="mt-24">
           <div className="flex border-b border-surface overflow-x-auto scrollbar-hide">
-            {["mô tả", "thành phần", "hướng dẫn dùng", "giấy kiểm nghiệm", `đánh giá (${allReviews.length})`].map((tab) => {
+            {["mô tả", "thành phần", "hướng dẫn dùng", "giấy kiểm nghiệm", `đánh giá (${product.reviews?.length || 0})`].map((tab) => {
               // Hide tabs if data is missing
               if (tab === "thành phần" && !product.ingredients) return null;
               if (tab === "giấy kiểm nghiệm" && !product.certifications) return null;
@@ -319,9 +318,9 @@ export default function ProductDetailView({ product }: Props) {
                   <div className="space-y-12">
                     {/* Reviews List */}
                     <div className="space-y-2">
-                      <h3 className="font-display font-bold text-2xl mb-8">Phản hồi khách hàng ({allReviews.length})</h3>
+                      <h3 className="font-display font-bold text-2xl mb-8">Phản hồi khách hàng ({product.reviews?.length || 0})</h3>
                       <div className="divide-y divide-surface">
-                        {allReviews.map((rev) => (
+                        {(product.reviews || []).map((rev) => (
                           <ReviewCard key={rev.id} review={rev} />
                         ))}
                       </div>

@@ -28,6 +28,8 @@ export async function GET(request: NextRequest) {
           },
         },
         tags: true,
+        images: true,
+        reviews: true,
       },
       orderBy: {
         sortOrder: 'asc',
@@ -42,7 +44,8 @@ export async function GET(request: NextRequest) {
       features: [],
       skinConcerns: [],
       variants: [],
-      images: [],
+      images: p.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => img.url),
+      reviews: p.reviews,
     }));
 
     return NextResponse.json(products);

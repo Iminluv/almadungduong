@@ -8,6 +8,8 @@ async function main() {
   await prisma.loyaltyBenefit.deleteMany();
   await prisma.loyaltyTier.deleteMany();
   await prisma.loyaltyConfig.deleteMany();
+  await prisma.productImage.deleteMany();
+  await prisma.review.deleteMany();
   await prisma.product.deleteMany();
   await prisma.shippingRate.deleteMany();
   await prisma.shippingZone.deleteMany();
@@ -116,7 +118,7 @@ async function main() {
 
   // Seed subcategories under Sản phẩm dưỡng sinh
   const subcategoriesToSeed = [
-    { name: "Chăm sóc da", slug: "cham-soc-da", parentName: "Sản phẩm dưỡng sinh" },
+    { name: "Chăm sóc da mặt", slug: "cham-soc-da-mat", parentName: "Sản phẩm dưỡng sinh" },
     { name: "Chăm sóc da cơ thể", slug: "cham-soc-da-co-the", parentName: "Sản phẩm dưỡng sinh" },
     { name: "Chăm sóc sức khỏe", slug: "cham-soc-suc-khoe", parentName: "Sản phẩm dưỡng sinh" },
     { name: "Chăm sóc tóc", slug: "cham-soc-toc", parentName: "Sản phẩm dưỡng sinh" }
@@ -150,8 +152,65 @@ async function main() {
     });
   }
 
+  // Helper to generate 3 themed gallery images for each product based on category
+  const getGalleryImages = (categoryName: string, mainImage: string): string[] => {
+    if (categoryName.includes("Mỹ phẩm")) {
+      return [
+        mainImage,
+        "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?q=80&w=800",
+        "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=800"
+      ];
+    } else if (categoryName.includes("Dụng cụ")) {
+      return [
+        mainImage,
+        "https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=800",
+        "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800"
+      ];
+    } else if (categoryName.includes("dưỡng sinh") || categoryName.includes("dưỡng")) {
+      return [
+        mainImage,
+        "https://images.unsplash.com/photo-1512290923902-8a9f81da236c?q=80&w=800",
+        "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=800"
+      ];
+    }
+    return [
+      mainImage,
+      "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=800",
+      "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800"
+    ];
+  };
+
   // 3. Seed Products
   console.log("Seeding products...");
+  
+  // Dynamic reviews seed data mapping
+  const productReviews = [
+    {
+      productId: "xit-duong-chuyen-sau-miracle",
+      userName: "Huyền My",
+      rating: 5,
+      comment: "Sản phẩm xịt dưỡng Miracle thực sự cứu lấy làn da mỏng yếu của mình. Cảm ơn Alma!",
+      date: "15/04/2026",
+      isVerifiedPurchase: true
+    },
+    {
+      productId: "guasha",
+      userName: "Quốc Khánh",
+      rating: 5,
+      comment: "Guasha rất chất lượng, đá cầm nặng tay và rất mát. Dùng xong thấy mặt nhẹ hẳn.",
+      date: "12/04/2026",
+      isVerifiedPurchase: true
+    },
+    {
+      productId: "sua-rua-mat-nuoc-bang-glacier",
+      userName: "Lan Anh",
+      rating: 4,
+      comment: "Mật ong hoa hồng thơm, dễ uống. Sữa rửa mặt Glacier dùng rất thích, không khô da.",
+      date: "10/04/2026",
+      isVerifiedPurchase: true
+    }
+  ];
+
   for (let index = 0; index < products.length; index++) {
     const p = products[index];
     const { features, skinConcerns, variants, images, rating, reviewsCount, category, subcategory, flag, ...rest } = p;
@@ -170,6 +229,22 @@ async function main() {
     const flagsToParse = flag ? flag.split('/').map(f => f.trim()) : [];
     const tagsToConnect = flagsToParse.filter(f => tagNames.includes(f));
 
+    const galleryUrls = getGalleryImages(category, p.image);
+
+    // Resolve reviews to create
+    const reviewsToCreate = productReviews.filter(r => r.productId === p.id);
+    if (reviewsToCreate.length === 0 && (reviewsCount ?? 0) > 0) {
+      // Seed a high quality placeholder review for other products that have review counts
+      reviewsToCreate.push({
+        productId: p.id,
+        userName: "Khách hàng Alma",
+        rating: 5,
+        comment: "Chất lượng tuyệt vời, da mình cải thiện rõ rệt sau một thời gian sử dụng. Sẽ tiếp tục ủng hộ Alma!",
+        date: "28/04/2026",
+        isVerifiedPurchase: true
+      });
+    }
+
     await prisma.product.create({
       data: {
         ...rest,
@@ -182,6 +257,21 @@ async function main() {
         categoryId: categoryId,
         tags: {
           connect: tagsToConnect.map(name => ({ name }))
+        },
+        images: {
+          create: galleryUrls.map((url, i) => ({
+            url,
+            sortOrder: i
+          }))
+        },
+        reviews: {
+          create: reviewsToCreate.map(r => ({
+            userName: r.userName,
+            rating: r.rating,
+            comment: r.comment,
+            date: r.date,
+            isVerifiedPurchase: r.isVerifiedPurchase
+          }))
         }
       }
     });

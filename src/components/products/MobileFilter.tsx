@@ -9,6 +9,9 @@ interface MobileFilterProps {
   concerns: SkinConcern[];
   activeCategory: string | null;
   setActiveCategory: (cat: string | null) => void;
+  activeSubcategory: string | null;
+  setActiveSubcategory: (subcat: string | null) => void;
+  subcategories: string[];
   activeConcerns: string[];
   toggleConcern: (id: string) => void;
 }
@@ -18,6 +21,9 @@ export function MobileFilter({
   concerns,
   activeCategory,
   setActiveCategory,
+  activeSubcategory,
+  setActiveSubcategory,
+  subcategories,
   activeConcerns,
   toggleConcern,
 }: MobileFilterProps) {
@@ -63,7 +69,10 @@ export function MobileFilter({
                   <p className="text-xs font-bold uppercase tracking-widest text-muted">Danh mục</p>
                   <div className="flex flex-wrap gap-2">
                     <button
-                      onClick={() => setActiveCategory(null)}
+                      onClick={() => {
+                        setActiveCategory(null);
+                        setActiveSubcategory(null);
+                      }}
                       className={`px-4 py-2 rounded-sm text-sm font-medium transition-all ${!activeCategory ? 'bg-text text-bg' : 'bg-surface text-text'}`}
                     >
                       Tất cả
@@ -71,7 +80,10 @@ export function MobileFilter({
                     {categories.map(cat => (
                       <button
                         key={cat}
-                        onClick={() => setActiveCategory(cat)}
+                        onClick={() => {
+                          setActiveCategory(cat);
+                          setActiveSubcategory(null);
+                        }}
                         className={`px-4 py-2 rounded-sm text-sm font-medium transition-all ${activeCategory === cat ? 'bg-text text-bg' : 'bg-surface text-text'}`}
                       >
                         {cat}
@@ -79,6 +91,34 @@ export function MobileFilter({
                     ))}
                   </div>
                 </div>
+
+                {/* Subcategories (e.g. for Sản phẩm dưỡng sinh) */}
+                {activeCategory && subcategories.length > 0 && (
+                  <div className="space-y-4 pt-2 text-left">
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted">Nhóm sản phẩm</p>
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        onClick={() => setActiveSubcategory(null)}
+                        className={`px-4 py-2 rounded-sm text-sm font-medium transition-all ${
+                          activeSubcategory === null ? 'bg-accent text-white' : 'bg-surface text-text'
+                        }`}
+                      >
+                        Tất cả {activeCategory.toLowerCase()}
+                      </button>
+                      {subcategories.map(subcat => (
+                        <button
+                          key={subcat}
+                          onClick={() => setActiveSubcategory(subcat)}
+                          className={`px-4 py-2 rounded-sm text-sm font-medium transition-all ${
+                            activeSubcategory === subcat ? 'bg-accent text-white' : 'bg-surface text-text'
+                          }`}
+                        >
+                          {subcat}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Concerns */}
                 <div className="space-y-4 text-left">
@@ -99,7 +139,12 @@ export function MobileFilter({
 
                 <div className="pt-4 flex gap-4">
                   <button 
-                    onClick={() => {setActiveCategory(null); activeConcerns.forEach(c => toggleConcern(c)); setIsOpen(false);}}
+                    onClick={() => {
+                      setActiveCategory(null);
+                      setActiveSubcategory(null);
+                      activeConcerns.forEach(c => toggleConcern(c));
+                      setIsOpen(false);
+                    }}
                     className="flex-1 py-4 text-sm font-bold uppercase tracking-widest text-muted bg-surface rounded-sm"
                   >
                     Xoá tất cả

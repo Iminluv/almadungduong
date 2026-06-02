@@ -16,6 +16,8 @@ const navLinks = [
       { label: "Mỹ phẩm vi sinh Hoa Ngân", href: "/san-pham?category=Mỹ phẩm vi sinh Hoa Ngân" },
       { label: "Dụng cụ làm đẹp", href: "/san-pham?category=Dụng cụ làm đẹp" },
       { label: "Sản phẩm dưỡng sinh", href: "/san-pham?category=Sản phẩm dưỡng sinh" },
+      { label: "Chăm sóc da mặt", href: "/san-pham?category=Sản phẩm dưỡng sinh&subcategory=Chăm sóc da mặt", isSub: true },
+      { label: "Chăm sóc da cơ thể", href: "/san-pham?category=Sản phẩm dưỡng sinh&subcategory=Chăm sóc da cơ thể", isSub: true },
     ]
   },
   { label: "Kết quả", href: "/ket-qua" },
@@ -156,7 +158,12 @@ export function Header() {
                           <Link
                             key={item.href}
                             href={item.href}
-                            className="px-6 py-2.5 text-sm text-text/70 hover:text-text hover:bg-surface transition-colors first:pt-0 last:pb-0"
+                            className={cn(
+                              "px-6 py-2 transition-colors first:pt-0 last:pb-0 text-left",
+                              (item as any).isSub
+                                ? "pl-9 text-xs text-text/50 hover:text-accent hover:bg-surface/50 font-normal"
+                                : "text-sm text-text/70 hover:text-text hover:bg-surface font-medium"
+                            )}
                           >
                             {item.label}
                           </Link>
@@ -232,7 +239,12 @@ export function Header() {
                           <Link
                             key={item.href}
                             href={item.href}
-                            className="text-lg text-text/60 font-medium"
+                            className={cn(
+                              "font-medium transition-colors text-left",
+                              (item as any).isSub
+                                ? "text-sm text-text/40 pl-4 py-0.5 hover:text-accent"
+                                : "text-lg text-text/60 py-1 hover:text-text"
+                            )}
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.label}

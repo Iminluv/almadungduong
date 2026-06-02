@@ -34,18 +34,20 @@ model LoyaltyConfig {
 }
 
 model Product {
-  id              String   @id
-  slug            String   @unique
+  id              String         @id
+  slug            String         @unique
   title           String
   englishName     String?
   categoryId      String
-  category        Category @relation(fields: [categoryId], references: [id])
+  category        Category       @relation(fields: [categoryId], references: [id])
   tags            Tag[]
   image           String
+  images          ProductImage[]
+  reviews         Review[]
   price           Int
   originalPrice   Int?
-  rating          Float    @default(4.9)
-  reviewsCount    Int      @default(0)
+  rating          Float          @default(4.9)
+  reviewsCount    Int            @default(0)
   description     String
   fullDescription String?
   ingredients     String?
@@ -54,11 +56,11 @@ model Product {
   volume          String?
   gift            String?
   tagline         String?
-  sortOrder       Int      @default(0)
-  showOnHomepage  Boolean  @default(false)
-  isPublished     Boolean  @default(true)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  sortOrder       Int            @default(0)
+  showOnHomepage  Boolean        @default(false)
+  isPublished     Boolean        @default(true)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 }
 
 model Category {
@@ -75,6 +77,26 @@ model Tag {
   id        String    @id @default(cuid())
   name      String    @unique
   products  Product[]
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  sortOrder Int      @default(0)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id                 String   @id @default(cuid())
+  userName           String
+  rating             Int
+  comment            String
+  date               String
+  isVerifiedPurchase Boolean  @default(true)
+  productId          String
+  product            Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt          DateTime @default(now())
 }
 
 model ShippingZone {

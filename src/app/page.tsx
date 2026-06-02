@@ -24,7 +24,9 @@ export default async function Home() {
             parent: true
           }
         },
-        tags: true
+        tags: true,
+        images: true,
+        reviews: true,
       },
       orderBy: {
         sortOrder: 'asc',
@@ -42,7 +44,8 @@ export default async function Home() {
     features: [],
     skinConcerns: [],
     variants: [],
-    images: [],
+    images: p.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => img.url),
+    reviews: p.reviews,
   }));
 
   return (

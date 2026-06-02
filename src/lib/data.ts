@@ -25,6 +25,7 @@ export interface Product {
   slug?: string;
   showOnHomepage?: boolean;
   isPublished?: boolean;
+  reviews?: Review[];
 }
 
 export interface SkinConcern {

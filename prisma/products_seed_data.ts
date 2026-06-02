@@ -325,7 +325,7 @@ export const products: Product[] = [
     "fullDescription": "Xịt khoáng thảo dược không chỉ đơn thuần là “cấp nước”, mà là một bước nuôi dưỡng – làm dịu – cân bằng độ ẩm cho da mỗi ngày. Khi được trồng theo phương pháp hữu cơ, các hoạt chất thực vật giữ được độ tinh khiết cao, giúp làn da hấp thụ trọn vẹn giá trị tự nhiên.\n\nToner Hoa hồng ược chưng cất từ cánh hoa hồng hữu cơ, giàu vitamin và chất chống oxy hóa, giúp làn da luôn mềm mại và tươi tắn.\n\nCông dụng nổi bật:\n\n- Cấp ẩm nhanh, làm dịu da tức thì\n- Cân bằng pH tự nhiên của da\n- Hỗ trợ se khít lỗ chân lông, làm sáng da\n- Mang lại cảm giác thư giãn với hương hoa nhẹ nhàng\n\n👉 Nước hoa hồng tự nhiên thường giúp làm dịu, cân bằng và phục hồi độ ẩm cho da một cách nhẹ nhàng",
     "ingredients": "Nước cất từ cánh hoa hồng hữu cơ",
     "usage": "Cách sử dụng\n- Xịt cách mặt 20–30cm, nhắm mắt và xịt đều 2–3 lần\n- Vỗ nhẹ để dưỡng chất thẩm thấu\n- Có thể dùng sau bước rửa mặt, trước serum hoặc trong ngày\n\nSử dụng khi nào\n- Khi da khô, mất nước, ngồi điều hòa nhiều\n- Sau khi rửa mặt để cân bằng pH\n- Trước makeup để tạo độ ẩm nền, sau makeup để “set” lớp nền\n\nPhù hợp với ai\n- Da thường, da khô, da thiếu sức sống\n- Người muốn dưỡng ẩm nhẹ nhàng mỗi ngày\n- Người làm việc văn phòng, da dễ mất nước",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "toner-hoa-hong",
     "showOnHomepage": true,
     "isPublished": true
@@ -347,7 +347,7 @@ export const products: Product[] = [
     "fullDescription": "Xịt khoáng thảo dược không chỉ đơn thuần là “cấp nước”, mà là một bước nuôi dưỡng – làm dịu – cân bằng độ ẩm cho da mỗi ngày. Khi được trồng theo phương pháp hữu cơ, các hoạt chất thực vật giữ được độ tinh khiết cao, giúp làn da hấp thụ trọn vẹn giá trị tự nhiên.\n\nChiết xuất từ lá tía tô hữu cơ – một loại thảo dược quen thuộc trong y học phương Đông, giàu chất chống oxy hóa và kháng viêm tự nhiên.\n\nCông dụng nổi bật:\n\n- Hỗ trợ kháng viêm, giảm mụn\n- Thanh lọc da, kiểm soát dầu nhờn\n- Làm sáng da và cải thiện sắc tố\n- Giúp da khỏe và ổn định hơn",
     "ingredients": "Nước cất từ cánh hoa hồng tía tô",
     "usage": "Cách sử dụng\n- Xịt 2–3 lần lên toàn mặt hoặc vùng da mụn\n- Có thể dùng nhiều lần trong ngày để kiểm soát dầu\n- Dùng trước serum để tăng khả năng thẩm thấu\n\nSử dụng khi nào\n- Khi da đổ dầu, bí tắc lỗ chân lông\n- Khi da đang có mụn viêm nhẹ, mụn ẩn\n- Khi cần “refresh” da giữa ngày mà không làm bí da\n\nPhù hợp với ai\n- Da dầu, da hỗn hợp thiên dầu\n- Da mụn, da dễ viêm\n- Người sống trong môi trường ô nhiễm, dễ bít tắc lỗ chân lông",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "toner-tia-to",
     "showOnHomepage": false,
     "isPublished": true
@@ -369,7 +369,7 @@ export const products: Product[] = [
     "fullDescription": "Xịt khoáng thảo dược không chỉ đơn thuần là “cấp nước”, mà là một bước nuôi dưỡng – làm dịu – cân bằng độ ẩm cho da mỗi ngày. Khi được trồng theo phương pháp hữu cơ, các hoạt chất thực vật giữ được độ tinh khiết cao, giúp làn da hấp thụ trọn vẹn giá trị tự nhiên.\n\nToner Hoa cúc được Chiết xuất từ giống hoa cúc cổ canh tác hữu cơ, nổi bật với khả năng làm dịu và kháng viêm mạnh mẽ.\n\nCông dụng nổi bật:\n- Làm dịu da kích ứng, giảm đỏ nhanh\n- Hỗ trợ phục hồi da nhạy cảm, da sau treatment\n- Cấp ẩm nhẹ, giúp da mềm mại hơn\n- Tăng cường hàng rào bảo vệ da\n\n👉 Xịt khoáng hoa cúc được biết đến với khả năng làm dịu, dưỡng ẩm và cân bằng da nhạy cảm",
     "ingredients": "Nước cất từ cánh hoa hồng hoa cúc",
     "usage": "Cách sử dụng\n- Xịt trực tiếp lên vùng da cần làm dịu hoặc toàn mặt\n- Có thể xịt nhiều lớp (layer) khi da đang nhạy cảm\n- Kết hợp với bông tẩy trang để làm lotion mask 3–5 phút\n\nSử dụng khi nào\n- Khi da bị kích ứng, đỏ, ngứa hoặc sau nắng\n- Sau các liệu trình treatment (peel, lăn kim nhẹ…)\n- Khi da “biểu tình”, cần làm dịu ngay\n\nPhù hợp với ai\n- Da nhạy cảm, da yếu, da dễ kích ứng\n- Da sau treatment, da đang phục hồi\n- Người theo routine skincare tối giản – lành tính",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "toner-hoa-cuc",
     "showOnHomepage": false,
     "isPublished": true
@@ -390,7 +390,7 @@ export const products: Product[] = [
     "fullDescription": "Công dụng: \n- Làm sạch sâu lỗ chân lông, tẩy tế bào chết trên da, loại bỏ dầu thừa\n- Thư giãn, dưỡng ẩm cho da để làn da trông rạng rỡ, sáng hồng hơn\n- Giúp làm thông thoáng, se khít lỗ chân lông \n- Giúp ngăn ngừa mụn, giảm nếp nhăn cho da, giúp da khỏe hơn, săn chắc hơn",
     "ingredients": "Chiết xuất tía tô, Chiết xuất hoa hồng, muối epsom, dầu hạt chanh",
     "usage": "Nhỏ vào bông tẩy trang sau đó lau sạch lợp bụi bẩn hoặc lớp trang điểm trên da. Có thể dùng thay sữa rửa mặt nếu không trang điểm và dùng như 1 loại toner",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "nuoc-tay-trang-tia-to-hoa-hong",
     "showOnHomepage": false,
     "isPublished": true
@@ -454,7 +454,7 @@ export const products: Product[] = [
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "fullDescription": "Mặt nạ Hoa Hồng là sự kết hợp giữa cánh hoa hồng thiên nhiên và các loại dầu thực vật giàu dưỡng chất, giúp làn da được cấp ẩm, thư giãn và phục hồi nhẹ nhàng. Với hương hoa dịu nhẹ cùng kết cấu giàu dưỡng, sản phẩm mang đến cảm giác chăm sóc da như một nghi thức spa thư giãn tại nhà.\n\n✨ Thành phần nổi bật\nBột cánh hoa hồng: Giúp làm dịu, hỗ trợ cân bằng da và mang lại vẻ tươi tắn tự nhiên\nMật ong: Dưỡng ẩm, làm mềm da và hỗ trợ bảo vệ da khỏi khô ráp\nDầu Sachi Inchi: Giàu Omega 3-6-9 giúp phục hồi và nuôi dưỡng hàng rào bảo vệ da\nDầu bơ: Cấp ẩm sâu, giúp da mềm mại và căng mịn hơn sau khi sử dụng\n💗 Công dụng nổi bật\n- Cấp ẩm và giúp da mềm mại, mịn màng hơn\n- Làm dịu da khô, da mệt mỏi hoặc thiếu sức sống\n- Hỗ trợ cải thiện độ đàn hồi và độ căng bóng tự nhiên của da\n- Giúp da tươi sáng và đều màu hơn\n- Mang lại cảm giác thư giãn với hương hoa hồng tự nhiên nhẹ nhàng\n\n🌱 Phù hợp với\n- Da khô, da thiếu nước\n- Da nhạy cảm cần làm dịu nhẹ nhàng\n- Da xỉn màu, thiếu sức sống\n✨ Điểm khác biệt\n\nKhông đơn thuần là mặt nạ dưỡng ẩm, Mặt nạ Hoa Hồng tập trung vào trải nghiệm “nuôi dưỡng và làm dịu” — giúp làn da không chỉ mềm hơn sau khi dùng, mà còn cảm nhận được sự thư thái và cân bằng tự nhiên.\n\n💧 Từng cánh hoa hồng như mang theo độ ẩm và sự dịu dàng của thiên nhiên, giúp làn da được nghỉ ngơi, phục hồi và tỏa sáng theo cách nhẹ nhàng nhất.",
     "ingredients": "Bột cánh hoa hồng, Mật ong, Dầu Sachi Inchi, Dầu bơ",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "mat-na-hoa-hong",
     "showOnHomepage": false,
     "isPublished": true
@@ -474,7 +474,7 @@ export const products: Product[] = [
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "fullDescription": "Mặt nạ Tía Tô là sự kết hợp giữa thảo dược truyền thống và các loại dầu thực vật giàu dưỡng chất, giúp làn da được thanh lọc nhẹ nhàng nhưng vẫn duy trì độ ẩm và sự mềm mại tự nhiên. Đây là lựa chọn phù hợp cho những làn da đang mệt mỏi, dễ bí tắc hoặc cần được “thở” sau nhiều lớp mỹ phẩm.\n\n✨ Thành phần nổi bật\nBột tía tô: Giúp thanh lọc da, hỗ trợ giảm dầu thừa và làm dịu da mụn\nMật ong: Dưỡng ẩm, hỗ trợ kháng khuẩn và giúp da mềm mại hơn\nDầu Sachi Inchi: Giàu Omega 3-6-9, hỗ trợ phục hồi và củng cố hàng rào bảo vệ da\nDầu bơ: Nuôi dưỡng sâu, giúp da mềm mịn và hạn chế khô căng sau khi đắp mặt nạ\n\n💚 Công dụng nổi bật\n- Hỗ trợ làm sạch và thanh lọc da nhẹ nhàng\n- Giúp giảm cảm giác bí tắc, dầu thừa trên da\n- Làm dịu da mụn, da dễ kích ứng\n- Cấp ẩm và giữ da mềm mại sau khi sử dụng\n- Hỗ trợ cải thiện làn da xỉn màu, thiếu sức sống\n\n🌱 Phù hợp với\n- Da dầu, da hỗn hợp thiên dầu\n- Da dễ nổi mụn, bí tắc lỗ chân lông\n- Da mệt mỏi, xỉn màu cần được làm dịu và phục hồi\n\n✨ Điểm khác biệt\n\nKhông giống các loại mask làm sạch khiến da khô ráp sau khi dùng, Mặt nạ Tía Tô tập trung vào cơ chế “thanh lọc nhưng vẫn nuôi dưỡng” — giúp da được làm sạch nhẹ nhàng mà vẫn giữ được độ ẩm và sự cân bằng tự nhiên.\n\n💧 Từng lớp mặt nạ như một khoảng nghỉ cho làn da — nơi da được thở, được làm dịu và dần trở về trạng thái khỏe khoắn nguyên bản",
     "ingredients": "Bột tía tô, Mật ong, Dầu Sachi Inchi, Dầu bơ",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "mat-na-tia-to",
     "showOnHomepage": false,
     "isPublished": true
@@ -495,7 +495,7 @@ export const products: Product[] = [
     "flag": "có",
     "fullDescription": "Mặt Nạ Nghệ Phục Hồi là sự kết hợp giữa mật ong nguyên chất, tinh bột nghệ đỏ và dầu hạt chanh — mang đến giải pháp chăm sóc da dịu nhẹ theo hướng phục hồi và nuôi dưỡng tự nhiên. Với kết cấu mềm mịn cùng hương thảo mộc nhẹ nhàng, sản phẩm giúp làn da được thư giãn, làm sạch và tái tạo sau những ngày mệt mỏi hoặc tiếp xúc nhiều với mỹ phẩm và môi trường.\n\n✨ Thành phần nổi bật\n- Mật ong: Giúp dưỡng ẩm, làm mềm và hỗ trợ bảo vệ da\n- Tinh bột nghệ đỏ: Giàu hoạt chất chống oxy hóa tự nhiên, hỗ trợ làm sáng và cải thiện thâm da\n- Dầu hạt chanh: Giúp làm sạch nhẹ nhàng, mang lại cảm giác tươi mát và hỗ trợ cân bằng da\n💛 Công dụng nổi bật\n- Hỗ trợ làm sạch da và loại bỏ tế bào chết nhẹ nhàng\n- Giúp da sáng mịn và đều màu hơn\n- Hỗ trợ giảm thâm và phục hồi làn da mệt mỏi\n- Giúp da mềm mại, ẩm mịn sau khi sử dụng\n- Mang lại cảm giác thư giãn và dễ chịu cho làn da\n🌱 Phù hợp với\n- Mọi loại da, đặc biệt là da xỉn màu hoặc thiếu sức sống\n- Da cần phục hồi và nuôi dưỡng nhẹ nhàng\n\nKhông chỉ là mặt nạ dưỡng da thông thường, Mặt Nạ Nghệ Phục Hồi tập trung vào cơ chế “làm sạch dịu nhẹ kết hợp nuôi dưỡng” — giúp da không bị khô căng sau khi đắp mà vẫn giữ được cảm giác mềm mại và thoải mái tự nhiên.",
     "ingredients": "Mật ong, tinh bột nghệ đỏ, dầu hạt chanh.",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "mat-na-nghe-phuc-hoi",
     "showOnHomepage": true,
     "isPublished": true
@@ -514,7 +514,7 @@ export const products: Product[] = [
     "description": "Bột cánh hoa hồng được nghiền mịn từ những cánh hoa hồng tự nhiên, giữ lại hương thơm dịu nhẹ cùng các dưỡng chất thực vật quý giá.",
     "fullDescription": "Bột cánh hoa hồng được nghiền mịn từ những cánh hoa hồng tự nhiên, giữ lại hương thơm dịu nhẹ cùng các dưỡng chất thực vật quý giá. Đây là nguyên liệu chăm sóc da truyền thống giúp làm dịu, cấp ẩm và mang lại vẻ tươi tắn cho làn da theo cách nhẹ nhàng, lành tính.\n\n✨ Công dụng nổi bật\n- Hỗ trợ làm dịu da nhạy cảm, da mệt mỏi\n- Giúp da mềm mại và giữ độ ẩm tự nhiên\n- Hỗ trợ làm sáng và cải thiện làn da xỉn màu\n- Giúp da thư giãn và tươi tắn hơn\n- Mang lại hương thơm hoa hồng tự nhiên dễ chịu\n\n🌱 Phù hợp với\n- Da khô, da thiếu nước\n- Da nhạy cảm cần chăm sóc dịu nhẹ\n- Da xỉn màu, thiếu sức sống",
     "usage": "💧 Cách sử dụng Bột cánh hoa hồng\n🌸 Làm mặt nạ dưỡng da\n- Trộn bột với nước lọc, nước hoa hồng, sữa chua hoặc mật ong để tạo hỗn hợp sệt\n- Thoa đều lên mặt sạch\n- Thư giãn 10–15 phút rồi rửa lại với nước\n\n👉 Giúp da mềm mại, sáng và ẩm mịn hơn\n\n🌸 Tẩy da chết dịu nhẹ\n- Trộn cùng sữa tươi hoặc mật ong\n- Massage nhẹ nhàng theo chuyển động tròn 1–2 phút\n- Rửa sạch với nước\n\n👉 Giúp làm sạch lớp da chết mà không gây khô căng\n\n🌸 Xông mặt hoặc ngâm tắm\n- Pha bột vào nước ấm để xông mặt hoặc ngâm cơ thể\n- Hương hoa hồng tự nhiên giúp thư giãn và làm dịu tinh thần\n\n✨ Tips sử dụng hiệu quả hơn\nKết hợp cùng mật ong hoặc dầu dưỡng để tăng khả năng cấp ẩm\nDùng 2–3 lần/tuần để da được nuôi dưỡng đều đặn\nBảo quản nơi khô ráo, tránh ánh nắng trực tiếp",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "bot-canh-hoa-hong",
     "showOnHomepage": false,
     "isPublished": true
@@ -534,7 +534,7 @@ export const products: Product[] = [
     "tagline": "Mọi loại da/ Dùng được cho phụ nữ có thai & trẻ em/ Không hóa chất độc hại/ Không chất tẩy rửa/ Không hương liệu/ Không chất bảo quản",
     "fullDescription": "Dầu dưỡng Hoa Hồng là sự kết hợp tối giản nhưng giàu dưỡng chất giữa cánh hoa hồng tự nhiên và dầu Sachi Inchi nguyên chất. Từng giọt dầu mang theo độ ẩm, sự dịu dàng của hoa hồng cùng khả năng phục hồi chuyên sâu từ các acid béo thực vật, giúp làn da được nuôi dưỡng khỏe mạnh theo cách tự nhiên nhất.\n\n✨ Thành phần nổi bật\n- Cánh hoa hồng: Giúp làm dịu, hỗ trợ cân bằng và mang lại vẻ tươi tắn cho làn da\n- Dầu Sachi Inchi: Giàu Omega 3-6-9 và chất chống oxy hóa, giúp phục hồi hàng rào bảo vệ da, duy trì độ ẩm và cải thiện độ đàn hồi tự nhiên\n💗 Công dụng nổi bật\n- Cấp ẩm và khóa ẩm cho da mềm mại, căng mịn\n- Hỗ trợ phục hồi da khô, da mỏng yếu hoặc thiếu sức sống\n- Giúp da trông tươi sáng và khỏe khoắn hơn\n- Làm dịu cảm giác khô ráp, căng rít sau khi rửa mặt\n- Mang lại cảm giác thư giãn với hương hoa hồng tự nhiên nhẹ nhàng\n🌱 Phù hợp với\n- Da khô, da thiếu nước\n- Da nhạy cảm, da cần phục hồi\n- Da bắt đầu xuất hiện dấu hiệu lão hóa\n\nKhông chứa silicone hay hương liệu tổng hợp, Dầu dưỡng Hoa Hồng nuôi dưỡng da theo cơ chế “bổ sung lipid tự nhiên”, giúp da dần khỏe lên, mềm hơn và ít phụ thuộc vào các lớp dưỡng dày nặng.",
     "usage": "🌹 Sử dụng cho da mặt\n- Cách dùng cơ bản\n- Làm sạch da và sử dụng toner/xịt khoáng\n- Lấy 2–3 giọt dầu dưỡng ra lòng bàn tay\n- Xoa nhẹ để làm ấm dầu\n- Áp nhẹ và massage lên da mặt theo hướng từ trong ra ngoài, từ dưới lên trên\n\n👉 Nên dùng ở bước cuối cùng để khóa ẩm và giữ dưỡng chất trên da\n\n🌿 Sử dụng trong các trường hợp\n- Khi da khô, bong tróc hoặc thiếu độ ẩm\n- Khi da mệt mỏi, thiếu sức sống\n- Sau treatment hoặc khi da cần phục hồi nhẹ nhàng\n- Khi ngồi điều hòa nhiều hoặc thời tiết hanh khô\n\n⚠️ Lưu ý\n- Chỉ cần dùng lượng vừa đủ để tránh bí da\n- Với da dầu, nên sử dụng lượng ít vào buổi tối\n- Bảo quản nơi khô ráo, tránh ánh nắng trực tiếp\n\n✨ Có thể kết hợp thêm\nDùng cùng Gua Sha để massage nâng cơ và thư giãn da mặt\nTrộn 1 giọt vào kem dưỡng để tăng độ ẩm\nDùng cho vùng cổ, khóe mắt hoặc vùng da khô ráp cần nuôi dưỡng thêm",
-    "subcategory": "Chăm sóc da",
+    "subcategory": "Chăm sóc da mặt",
     "slug": "dau-duong-hoa-hong",
     "showOnHomepage": false,
     "isPublished": true
