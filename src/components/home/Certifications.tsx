@@ -4,188 +4,189 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-const certs = [
-  {
-    name: "Chất lượng FDA",
-    country: "Hoa Kỳ",
-    desc: "Đạt chuẩn an toàn dược mỹ phẩm theo quy định của Cục quản lý Thực phẩm và Dược phẩm Hoa Kỳ.",
-    badge: "US",
-  },
-  {
-    name: "Chuẩn GMP",
-    country: "Quốc tế",
-    desc: "Quy trình sản xuất đạt tiêu chuẩn Thực hành kỹ thuật sản xuất tốt nhất toàn cầu.",
-    badge: "GMP",
-  },
-  {
-    name: "ISO 9001:2015",
-    country: "Hệ thống quản lý",
-    desc: "Hệ thống quản lý chất lượng đạt tiêu chuẩn quốc tế cho quy trình vận hành và kiểm soát.",
-    badge: "ISO",
-  },
-  {
-    name: "Hữu cơ USDA",
-    country: "Nguyên liệu",
-    desc: "Các thành phần thảo dược được canh tác và thu hoạch theo phương pháp hữu cơ nghiêm ngặt.",
-    badge: "USDA",
-  },
-];
-
 const qualityProofs = [
   {
+    id: "01",
+    tag: "Chất lượng",
     title: "Cam kết chất lượng",
     desc: "Mọi sản phẩm Mỹ phẩm vi sinh Hoa Ngân đều trải qua quy trình kiểm soát nghiêm ngặt và đạt các chứng chỉ uy tín trong ngành mỹ phẩm.",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+        />
+      </svg>
+    ),
   },
   {
-    title: "Giấy công bố sản phẩm từ Sở y tế",
-    desc: "Tất cả các sản phẩm của Hoa Ngân đều đủ điều kiện lưu hành trên thị trường.",
+    id: "02",
+    tag: "Pháp lý",
+    title: "Giấy công bố từ Sở Y tế",
+    desc: "Tất cả các sản phẩm của Hoa Ngân đều có đầy đủ phiếu công bố hợp lệ và đủ điều kiện lưu hành tự do trên thị trường.",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+        />
+      </svg>
+    ),
   },
   {
-    title: "Phiếu kết quả thử nghiệm không kích ứng",
-    desc: "Tuân thủ tiêu chí 7 KHÔNG, đảm bảo an toàn tuyệt đối cho người tiêu dùng.",
+    id: "03",
+    tag: "An toàn",
+    title: "Thử nghiệm không kích ứng",
+    desc: "Tuân thủ nghiêm ngặt tiêu chí 7 KHÔNG, được chứng minh lâm sàng an toàn tuyệt đối và 0% gây kích ứng cho da nhạy cảm.",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+          d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+        />
+      </svg>
+    ),
   },
   {
-    title: "Kiểm nghiệm chỉ số chống nắng theo tiêu chuẩn FDA",
-    desc: "Chỉ số SPF và màng lọc chống nắng được kiểm chứng và đạt chuẩn quốc tế.",
+    id: "04",
+    tag: "Hiệu quả",
+    title: "Kiểm nghiệm chống nắng FDA",
+    desc: "Chỉ số SPF và màng lọc chống nắng thế hệ mới được kiểm chứng nghiêm ngặt đạt các tiêu chuẩn quốc tế cao nhất.",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.364 17.636l-.707.707m12.728 0l-.707-.707M6.364 6.364l-.707-.707M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+        />
+      </svg>
+    ),
   },
 ];
 
 export function Certifications() {
   return (
-    <section className="py-24 bg-[#F9F8F6] border-y border-text/5 relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2" />
-      
+    <section className="py-24 bg-[#FAF8F5] border-y border-text/5 relative overflow-hidden">
+      {/* Background glow elements */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/[0.03] rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/[0.02] rounded-full blur-[120px] pointer-events-none" />
+
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 xl:gap-20 items-stretch">
-          
-          {/* Left Panel: Header & Cert Badges (Grid 2x2) */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-12">
-            <div className="space-y-6 max-w-xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="space-y-4"
-              >
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-accent block">
-                  Tiêu chuẩn quốc tế
+        
+        {/* Header Block */}
+        <div className="max-w-2xl mx-auto text-center mb-16 md:mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col items-center"
+          >
+            <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-accent bg-accent/5 px-4 py-1.5 rounded-full mb-4">
+              Kiểm định lâm sàng & Minh bạch
+            </span>
+            <h2 className="text-4xl md:text-5xl font-display font-medium leading-[1.15] text-text">
+              Chất Lượng Vượt Trội.<br />
+              Minh Bạch <span className="text-accent italic font-serif">Tuyệt Đối</span>.
+            </h2>
+            <p className="text-muted text-sm md:text-base leading-relaxed mt-6 max-w-xl">
+              Mọi sản phẩm của Alma Dungduong đều được thử nghiệm nghiêm ngặt, công bố hợp quy và kiểm nghiệm an toàn lành tính tối đa trước khi trao đến tay bạn.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Proof Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+          {qualityProofs.map((proof, idx) => (
+            <motion.div
+              key={proof.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.6 }}
+              className="relative bg-white border border-text/5 p-8 rounded-2xl flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-xl hover:border-accent/20 hover:-translate-y-1 transition-all duration-500 group"
+            >
+              {/* Backlight / Glow Effect on Hover */}
+              <div className="absolute -inset-px bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+              
+              {/* Large editorial watermark background numbering */}
+              <span className="absolute top-4 right-6 text-6xl font-serif font-bold text-accent/[0.03] select-none group-hover:text-accent/[0.06] transition-colors duration-500 pointer-events-none">
+                {proof.id}
+              </span>
+
+              <div className="relative z-10 flex flex-col h-full">
+                {/* Micro badge */}
+                <span className="inline-block text-[9px] uppercase font-bold tracking-wider text-accent bg-accent/5 px-2.5 py-1 rounded-md mb-6 self-start">
+                  {proof.tag}
                 </span>
-                <h2 className="text-4xl md:text-5xl font-display font-medium leading-[1.1] text-text">
-                  Cam Kết <br />
-                  <span className="text-accent italic font-serif">Chất Lượng</span> <br />
-                  Quốc Tế.
-                </h2>
-                <p className="text-muted text-sm leading-relaxed max-w-md">
-                  Mọi sản phẩm của Alma Dungduong đều trải qua quy trình kiểm soát nghiêm ngặt và đạt các chứng chỉ uy tín nhất trong ngành mỹ phẩm.
+
+                {/* Circle Icon Container */}
+                <div className="w-12 h-12 rounded-2xl bg-accent/5 text-accent flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                  {proof.icon}
+                </div>
+
+                {/* Text Details */}
+                <h4 className="text-base font-display font-bold text-text mb-3 group-hover:text-accent transition-colors duration-300">
+                  {proof.title}
+                </h4>
+                <p className="text-xs text-muted leading-relaxed">
+                  {proof.desc}
                 </p>
-              </motion.div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {certs.map((cert, idx) => (
-                <motion.div
-                  key={cert.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.05, duration: 0.5 }}
-                  className="bg-white p-6 rounded-xl border border-text/5 hover:border-accent/20 hover:shadow-md transition-all duration-300 group flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-start">
-                      <div className="px-3 py-1 bg-accent/5 rounded text-[10px] uppercase tracking-wider text-accent font-bold">
-                        {cert.country}
-                      </div>
-                      <div className="w-10 h-10 rounded-full bg-accent/5 flex items-center justify-center text-[10px] font-bold text-accent tracking-wider font-display border border-accent/10">
-                        {cert.badge}
-                      </div>
-                    </div>
-                    <div className="space-y-1.5">
-                      <h4 className="text-base font-display font-bold text-text group-hover:text-accent transition-colors duration-300">
-                        {cert.name}
-                      </h4>
-                      <p className="text-xs text-muted leading-relaxed">
-                        {cert.desc}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Vertical Divider for desktop */}
-          <div className="hidden lg:block lg:col-span-1 py-4 flex justify-center">
-            <div className="w-px h-full bg-text/5" />
-          </div>
-
-          {/* Right Panel: Quality proofs & CTA link */}
-          <div className="lg:col-span-4 flex flex-col justify-between space-y-10">
-            <div className="space-y-6">
-              <div className="flex justify-between items-center pb-4 border-b border-text/5">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-text/80">
-                  Chứng thư kiểm nghiệm
-                </span>
-                <Link
-                  href="/chung-chi"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-accent hover:text-[#1e261f] group transition-colors duration-300"
-                >
-                  <span>Xem thêm</span>
-                  <span className="transform group-hover:translate-x-1 transition-transform duration-300">
-                    ⟶
-                  </span>
-                </Link>
               </div>
 
-              <div className="space-y-8">
-                {qualityProofs.map((proof, idx) => (
-                  <motion.div
-                    key={proof.title}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1, duration: 0.5 }}
-                    className="flex gap-4 group"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-accent/5 border border-accent/10 flex items-center justify-center flex-shrink-0 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div className="space-y-1">
-                      <h5 className="text-sm font-bold text-text group-hover:text-accent transition-colors duration-300">
-                        {proof.title}
-                      </h5>
-                      <p className="text-xs text-muted leading-relaxed">
-                        {proof.desc}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+              {/* Fine Bottom Accent Line */}
+              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left pointer-events-none" />
+            </motion.div>
+          ))}
+        </div>
 
-            <div className="pt-6 border-t border-text/5 bg-accent/5 p-5 rounded-lg border border-accent/10">
-              <p className="text-xs text-accent font-medium leading-relaxed">
-                * Tất cả phiếu công bố và kết quả thử nghiệm được số hóa công khai minh bạch. Quý khách hàng có thể tra cứu chi tiết bằng cách nhấn nút "Xem thêm".
+        {/* Bottom CTA & Notice Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mt-16 md:mt-20 p-6 md:p-8 rounded-2xl bg-white border border-text/5 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 hover:border-accent/20 hover:shadow-md transition-all duration-300"
+        >
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 rounded-full bg-accent/5 border border-accent/10 flex items-center justify-center flex-shrink-0 text-accent">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <div className="space-y-1 text-left">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-accent">
+                Tra cứu công khai
+              </span>
+              <p className="text-xs text-muted leading-relaxed max-w-xl">
+                Tất cả phiếu công bố và kết quả thử nghiệm được số hóa công khai minh bạch. Quý khách hàng có thể tra cứu chi tiết bằng cách xem chứng thư kiểm nghiệm đầy đủ.
               </p>
             </div>
           </div>
+          <Link
+            href="/chung-chi"
+            className="inline-flex h-11 items-center justify-center bg-accent text-white px-6 rounded-lg text-xs font-semibold tracking-wider hover:bg-[#193a2b] shadow-md shadow-accent/10 whitespace-nowrap group transition-all duration-300"
+          >
+            <span>Xem chứng thư đầy đủ</span>
+            <span className="ml-1.5 transform group-hover:translate-x-1 transition-transform duration-300">
+              ⟶
+            </span>
+          </Link>
+        </motion.div>
 
-        </div>
       </div>
     </section>
   );
 }
-

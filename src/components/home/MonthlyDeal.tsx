@@ -131,12 +131,13 @@ export function MonthlyDeal({ products }: MonthlyDealProps) {
                 <div className="relative bg-surface rounded-2xl overflow-hidden shadow-sm border border-text/5 flex flex-col h-[500px] mx-0.5 hover:shadow-md hover:border-accent/20 transition-all duration-300 group">
                   
                   {/* Image Area with Discount Badge */}
-                  <div className="relative w-full h-[185px] bg-accent/5 flex items-center justify-center overflow-hidden">
+                  <div className="relative w-full h-[285px] bg-accent/5 flex items-center justify-center overflow-hidden">
                     <Image 
                       src={deal.image} 
-                      alt={deal.title} 
+                      alt={deal.highlight || deal.title} 
                       fill 
                       className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                      sizes="(max-w-768px) 100vw, 310px"
                     />
                     <div className="absolute top-3 right-3 bg-bg text-accent w-11 h-11 flex flex-col items-center justify-center rounded-full shadow-md border-2 border-surface font-bold leading-none z-10 text-[9px]">
                       <span>OFF</span>
@@ -147,30 +148,17 @@ export function MonthlyDeal({ products }: MonthlyDealProps) {
                   {/* Content Area */}
                   <div className="p-4 flex flex-col flex-grow justify-between space-y-4">
                     <div className="space-y-3">
-                      {/* Tag */}
-                      <div className="inline-flex items-center gap-1.5 bg-bg/60 px-2.5 py-1 rounded-full border border-text/5">
-                        <span className="w-1 h-1 bg-accent rounded-full animate-pulse" />
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-accent">Đặc quyền tháng này</span>
-                      </div>
-
                       {/* Title */}
                       <div className="space-y-1">
                         <h3 className="font-display text-text group-hover:text-accent transition-colors duration-300 leading-snug">
-                          <span className="text-xs md:text-sm font-bold uppercase tracking-wider block">{deal.title}</span>
-                          <span className="text-accent italic font-serif text-xs md:text-sm block min-h-[46px] line-clamp-2 leading-tight mt-0.5">{deal.highlight}</span>
+                          <span className="text-xs md:text-sm font-bold uppercase tracking-wider block min-h-[40px] line-clamp-2 leading-snug text-accent">
+                            {deal.highlight || deal.title}
+                          </span>
                         </h3>
                         <p className="text-muted text-[11px] leading-relaxed line-clamp-2 min-h-[32px]">
                           {deal.description}
                         </p>
                       </div>
-
-                      {/* Gift */}
-                      {deal.gift && (
-                         <div className="bg-accent/5 p-2.5 rounded-lg border border-accent/10 text-left min-h-[72px] flex flex-col justify-center">
-                           <span className="text-[9px] uppercase text-accent font-bold tracking-wider mb-0.5 block">Quà Tặng Tháng</span>
-                           <p className="text-[10px] text-text/80 whitespace-pre-line leading-normal line-clamp-3">{deal.gift}</p>
-                         </div>
-                      )}
                     </div>
 
                     {/* Price and Action Footer */}
