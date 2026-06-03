@@ -79,7 +79,7 @@ export default function RootLayout({
         <CartDrawer />
         <ToastNotification />
         <ChatWidget />
-        <main className="min-h-screen pt-[64px]">
+        <main className="min-h-screen">
           {children}
         </main>
         <Footer />

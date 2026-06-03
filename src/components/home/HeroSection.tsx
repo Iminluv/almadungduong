@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-bg pt-16">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-bg">
       {/* Background Image/Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -16,11 +16,11 @@ export function HeroSection() {
           className="object-cover opacity-20 grayscale-[20%]"
           priority
         />
-        <div 
-          className="absolute inset-0" 
-          style={{ 
-            background: 'linear-gradient(to right, rgba(250,248,245,0.92) 45%, transparent 85%)' 
-          }} 
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to right, rgba(250,248,245,0.92) 45%, transparent 85%)'
+          }}
         />
       </div>
 
@@ -28,21 +28,21 @@ export function HeroSection() {
         {/* Text Content */}
         <div className="max-w-2xl space-y-8">
           <div className="space-y-4">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1]"
             >
               Khoa Học Vi Sinh<br />
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 Cho Làn Da
               </motion.span><br />
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -63,7 +63,7 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.6 }}
@@ -79,7 +79,7 @@ export function HeroSection() {
         </div>
 
         {/* Product Highlight Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
@@ -98,7 +98,7 @@ export function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
         transition={{ delay: 1.4, duration: 0.6 }}

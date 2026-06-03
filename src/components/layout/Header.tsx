@@ -80,8 +80,8 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex flex-col pointer-events-none">
-        {/* Announcement Bar - Now part of the fixed header shell */}
+      <header className="sticky top-0 left-0 right-0 z-50 flex flex-col pointer-events-none -mb-[1px]">
+        {/* Announcement Bar - Now part of the sticky header shell */}
         <AnimatePresence>
           {isAnnouncementVisible && (
             <motion.div
@@ -128,8 +128,8 @@ export function Header() {
           className={cn(
             "w-full transition-all duration-300 ease-in-out pointer-events-auto",
             isScrolled
-              ? "bg-[#FAF8F5F5] backdrop-blur-xl border-b border-surface h-14 md:h-16"
-              : "bg-transparent h-16 md:h-20"
+              ? "bg-[#FAF8F5F5] backdrop-blur-xl border-b border-surface h-12 md:h-14"
+              : "bg-transparent h-14 md:h-16"
           )}
         >
           <div className="container-custom h-full flex items-center justify-between">
