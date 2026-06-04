@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 const navLinks = [
   { label: "Trang chủ", href: "/" },
@@ -33,6 +34,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(false);
 
+  const { data: session } = useSession();
   const { toggleCart, getItemCount } = useCart();
   const [isMounted, setIsMounted] = useState(false);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
@@ -105,6 +107,13 @@ export function Header() {
                       >
                         {currentMessageIndex === 0 ? (
                           messages[0]
+                        ) : session?.user ? (
+                          <>
+                            Chào mừng bạn trở lại, xem ưu đãi thành viên{" "}
+                            <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
+                              tại đây
+                            </Link>
+                          </>
                         ) : (
                           <>
                             Nhận quà ngay khi Đăng ký thành viên{" "}
@@ -186,12 +195,34 @@ export function Header() {
               >
                 GIỎ ({isMounted ? getItemCount() : 0})
               </button>
-              <Link
-                href="/tai-khoan"
-                className="hidden md:block text-[13px] font-semibold tracking-[0.06em] hover:bg-surface px-2 py-1.5 rounded transition-colors"
-              >
-                TÀI KHOẢN
-              </Link>
+              {isMounted && session?.user ? (
+                <Link
+                  href="/tai-khoan"
+                  className="hidden md:flex items-center gap-2 text-[13px] font-semibold tracking-[0.06em] hover:bg-surface px-2 py-1.5 rounded transition-colors"
+                >
+                  {session.user.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || "Avatar"}
+                      className="w-6 h-6 rounded-full object-cover border border-text/10"
+                    />
+                  ) : (
+                    <span className="w-6 h-6 rounded-full bg-accent text-bg flex items-center justify-center text-[10px] font-bold">
+                      {(session.user.name || session.user.email || "A").charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                  <span className="max-w-[80px] truncate">
+                    {(session.user.name || "Thành viên").split(" ").pop()}
+                  </span>
+                </Link>
+              ) : (
+                <Link
+                  href="/tai-khoan"
+                  className="hidden md:block text-[13px] font-semibold tracking-[0.06em] hover:bg-surface px-2 py-1.5 rounded transition-colors"
+                >
+                  TÀI KHOẢN
+                </Link>
+              )}
 
               {/* Mobile Menu Toggle */}
               <button
@@ -255,7 +286,28 @@ export function Header() {
                   </div>
                 ))}
                 <div className="h-px bg-surface my-4" />
-                <Link href="/tai-khoan" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Tài khoản</Link>
+                {session?.user ? (
+                  <Link
+                    href="/tai-khoan"
+                    className="text-lg font-medium flex items-center gap-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {session.user.image ? (
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name || "Avatar"}
+                        className="w-6 h-6 rounded-full object-cover border border-text/10"
+                      />
+                    ) : (
+                      <span className="w-6 h-6 rounded-full bg-accent text-bg flex items-center justify-center text-[10px] font-bold">
+                        {(session.user.name || session.user.email || "A").charAt(0).toUpperCase()}
+                      </span>
+                    )}
+                    Tài khoản ({(session.user.name || "Thành viên").split(" ").pop()})
+                  </Link>
+                ) : (
+                  <Link href="/tai-khoan" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Tài khoản</Link>
+                )}
                 <Link href="/blog" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
               </nav>
             </motion.div>

@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 
 type Step = "info" | "shipping" | "payment" | "success";
 
@@ -15,6 +16,47 @@ export default function CheckoutPage() {
   const [step, setStep] = useState<Step>("info");
   const [isMounted, setIsMounted] = useState(false);
   const [shippingRate, setShippingRate] = useState<{ baseFee: number; freeThreshold: number | null } | null>(null);
+
+  const { data: session, status } = useSession();
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    street: "",
+    city: "",
+    district: "",
+  });
+
+  // Pre-fill profile and default address on auth
+  useEffect(() => {
+    if (status === "authenticated" && session?.user) {
+      setFormData((prev) => ({
+        ...prev,
+        fullName: prev.fullName || session.user.name || "",
+        email: prev.email || session.user.email || "",
+      }));
+
+      // Fetch user addresses to find default address
+      fetch("/api/user/addresses")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.addresses && data.addresses.length > 0) {
+            const defaultAddress = data.addresses.find((a: any) => a.isDefault) || data.addresses[0];
+            if (defaultAddress) {
+              setFormData((prev) => ({
+                ...prev,
+                fullName: defaultAddress.fullName || prev.fullName,
+                phone: defaultAddress.phone || prev.phone,
+                street: defaultAddress.street + (defaultAddress.ward ? `, ${defaultAddress.ward}` : ""),
+                city: defaultAddress.city,
+                district: defaultAddress.district,
+              }));
+            }
+          }
+        })
+        .catch((err) => console.error("Failed to fetch user addresses in checkout:", err));
+    }
+  }, [status, session]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -106,7 +148,13 @@ export default function CheckoutPage() {
                   transition={{ duration: 0.3 }}
                   className="space-y-8"
                 >
-                  {step === "info" && <InfoStep onNext={() => setStep("shipping")} />}
+                  {step === "info" && (
+                    <InfoStep
+                      formData={formData}
+                      setFormData={setFormData}
+                      onNext={() => setStep("shipping")}
+                    />
+                  )}
                   {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} shippingFee={shippingFee} isFreeShipping={isFreeShipping} formatPrice={formatPrice} freeThreshold={freeThreshold} baseFee={baseFee} />}
                   {step === "payment" && <PaymentStep onNext={() => setStep("success")} onBack={() => setStep("shipping")} />}
                 </motion.div>
@@ -324,7 +372,16 @@ export default function CheckoutPage() {
 
 /* ─── Sub-components ────────────────────────────────────────────── */
 
-function InputField({ label, type = "text", placeholder }: { label: string, type?: string, placeholder?: string }) {
+interface InputFieldProps {
+  label: string;
+  type?: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+}
+
+function InputField({ label, type = "text", placeholder, value, onChange, required }: InputFieldProps) {
   return (
     <div className="space-y-2 group">
       <label className="text-[10px] uppercase font-bold tracking-[0.1em] text-muted group-focus-within:text-accent transition-colors">
@@ -333,32 +390,101 @@ function InputField({ label, type = "text", placeholder }: { label: string, type
       <input
         type={type}
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
         className="w-full bg-transparent border-b border-surface py-2 focus:outline-none focus:border-accent transition-all text-sm placeholder:text-muted/40"
       />
     </div>
   );
 }
 
-function InfoStep({ onNext }: { onNext: () => void }) {
+interface InfoStepProps {
+  formData: {
+    fullName: string;
+    phone: string;
+    email: string;
+    street: string;
+    city: string;
+    district: string;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<{
+    fullName: string;
+    phone: string;
+    email: string;
+    street: string;
+    city: string;
+    district: string;
+  }>>;
+  onNext: () => void;
+}
+
+function InfoStep({ formData, setFormData, onNext }: InfoStepProps) {
+  const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onNext();
+  };
+
   return (
-    <div className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <InputField label="Họ & Tên" placeholder="Nguyễn Văn A" />
-        <InputField label="Số điện thoại" placeholder="0901 xxx xxx" />
+        <InputField
+          label="Họ & Tên"
+          placeholder="Nguyễn Văn A"
+          value={formData.fullName}
+          onChange={handleChange("fullName")}
+          required
+        />
+        <InputField
+          label="Số điện thoại"
+          placeholder="0901 xxx xxx"
+          value={formData.phone}
+          onChange={handleChange("phone")}
+          required
+        />
       </div>
-      <InputField label="Email" type="email" placeholder="example@gmail.com" />
+      <InputField
+        label="Email"
+        type="email"
+        placeholder="example@gmail.com"
+        value={formData.email}
+        onChange={handleChange("email")}
+        required
+      />
       <div className="space-y-6 pt-4">
         <h3 className="text-lg font-display font-semibold">Địa chỉ giao hàng</h3>
-        <InputField label="Địa chỉ cụ thể" placeholder="Số nhà, tên đường, phường/xã..." />
+        <InputField
+          label="Địa chỉ cụ thể"
+          placeholder="Số nhà, tên đường, phường/xã..."
+          value={formData.street}
+          onChange={handleChange("street")}
+          required
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <InputField label="Tỉnh / Thành phố" placeholder="Hồ Chí Minh" />
-          <InputField label="Quận / Huyện" placeholder="Quận 1" />
+          <InputField
+            label="Tỉnh / Thành phố"
+            placeholder="Hồ Chí Minh"
+            value={formData.city}
+            onChange={handleChange("city")}
+            required
+          />
+          <InputField
+            label="Quận / Huyện"
+            placeholder="Quận 1"
+            value={formData.district}
+            onChange={handleChange("district")}
+            required
+          />
         </div>
       </div>
-      <Button variant="primary" size="lg" className="w-full md:w-auto px-12" onClick={onNext}>
+      <Button type="submit" variant="primary" size="lg" className="w-full md:w-auto px-12">
         Tiếp tục vận chuyển
       </Button>
-    </div>
+    </form>
   );
 }
 
