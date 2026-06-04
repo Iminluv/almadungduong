@@ -8,14 +8,13 @@ This document provides a comprehensive overview of the file structure and folder
 
 Below is the directory tree highlighting the key source files and configurations:
 
-```text
-almadungduong/
+```tealmadungduong/
 ├── .github/                  # GitHub actions and CI/CD workflows
 ├── .husky/                   # Git hooks for linting & pre-commits
 ├── documentation/            # Implementation details, migrations, and reports
 │   ├── task_report.md        # Comprehensive report of completed tasks
-│   └── 2-6-26/               # Phase-specific design & migration documentations
-│   └── 4-6-26/               
+│   ├── 2-6-26/               # Design & migration docs for products and loyalty configuration
+│   └── 4-6-26/               # Design & migration docs for User Account feature (Phases 1-10)
 ├── prisma/                   # Prisma ORM schema and database seeding
 │   ├── schema.prisma         # Database schema definition
 │   ├── products_seed_data.ts # Normalized products list data for seeding
@@ -30,10 +29,12 @@ almadungduong/
 │   │   └── loyalty.test.tsx  # Loyalty program frontend tests
 │   ├── app/                  # Next.js App Router pages and API routes
 │   │   ├── api/              # Route handlers / backend endpoints
+│   │   │   ├── auth/         # NextAuth registration and catch-all authentication routes
 │   │   │   ├── loyalty/      # Loyalty Program API endpoints
 │   │   │   ├── products/     # Product listing and filter API endpoints
 │   │   │   │   └── [slug]/   # Dynamic product detail API by slug
-│   │   │   └── shipping/     # Shipping rates API endpoint
+│   │   │   ├── shipping/     # Shipping rates API endpoint
+│   │   │   └── user/         # Customer profile, addresses, and favorites API routes
 │   │   ├── blog/             # Brand blog page & article details
 │   │   ├── chung-chi/         # Quality certifications and reports page
 │   │   ├── ket-qua/          # Checkout results / order status
@@ -42,24 +43,30 @@ almadungduong/
 │   │   │   ├── ProductsContent.tsx # Client component for product grids and filters
 │   │   │   ├── page.tsx      # Main products listing server page
 │   │   │   └── [slug]/       # Dynamic product detail views by slug
-│   │   ├── tai-khoan/        # Customer account dashboard
+│   │   ├── tai-khoan/        # Customer account dashboard and auth views
 │   │   ├── thanh-toan/       # Checkout/payment forms
 │   │   ├── ve-chung-toi/     # "About Us" and brand history page
 │   │   ├── globals.css       # Global styles & Tailwind configuration
 │   │   ├── layout.tsx        # Application root layout with components wrappers
+│   │   ├── middleware.ts     # Edge-compatible routing pass-through middleware
 │   │   └── page.tsx          # Homepage view entry point
 │   ├── components/           # Reusable React UI Components
 │   │   ├── cart/             # Shopping cart components (drawer, badge)
 │   │   ├── home/             # Homepage-specific components
 │   │   ├── layout/           # Shared page wrappers (Header, Footer, Chat widget)
 │   │   ├── products/         # Product listing filters, review cards
-│   │   └── ui/               # Core design system atomic elements (button, inputs)
+│   │   ├── providers/        # Application context providers (AuthProvider)
+│   │   └── ui/               # Core design system atomic elements (button, inputs, product cards)
 │   └── lib/                  # Application core services & shared utilities
 │       ├── store/            # Client state stores (Zustand)
+│       │   ├── useCart.ts    # Cart state store
+│       │   └── useFavorites.ts # Wishlist state store
+│       ├── auth.ts           # NextAuth central authentication config
 │       ├── caseStudies.ts    # Scientific skin treatment case studies dataset
 │       ├── data.ts           # Mock & fallback static product data
 │       ├── db.ts             # Prisma Client Postgres singleton adapter
 │       └── utils.ts          # Tailwind styling helpers
+├── commitlint.config.js      # Commitlint configuration rules for Git commits
 ├── eslint.config.mjs         # ESLint configuration
 ├── next.config.ts            # Next.js bundler configuration
 ├── package.json              # Project dependencies, scripts, metadata
@@ -87,6 +94,7 @@ These files govern linting, bundler settings, typing, testing, and database rule
 | `eslint.config.mjs` | [eslint.config.mjs](file:///Users/iminluv/Documents/GitHub/almadungduong/eslint.config.mjs) | ESLint linter configuration rules. |
 | `prettier.config.js` | [prettier.config.js](file:///Users/iminluv/Documents/GitHub/almadungduong/prettier.config.js) | Defines code style standards and spacing formatting. |
 | `postcss.config.mjs` | [postcss.config.mjs](file:///Users/iminluv/Documents/GitHub/almadungduong/postcss.config.mjs) | Configures CSS preprocessing rules. |
+| `commitlint.config.js` | [commitlint.config.js](file:///Users/iminluv/Documents/GitHub/almadungduong/commitlint.config.js) | Defines rules for standardizing Git commit messages. |
 | `test-prisma.ts` | [test-prisma.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/test-prisma.ts) | Quick test diagnostic script verifying Prisma client connectivity. |
 
 ---
@@ -98,13 +106,17 @@ Responsible for schema definitions, migrations, and test data seed populations.
     *   `LoyaltyTier`: Tracks customer tiers (e.g. *Ươm mầm*, *Dung dưỡng*, *Nở rộ*) along with order rules.
     *   `LoyaltyBenefit`: Specific benefits assigned to each tier.
     *   `LoyaltyConfig`: Global key-value store for static loyalty configuration.
-    *   `Product`: Represents items in the catalog (pricing, ratings, slug, etc.).
+    *   `Product`: Represents items in the catalog (pricing, ratings, slug, etc.) and tracks favorites.
     *   `Category`: Hierarchical product category classification (parent/children relationships).
     *   `Tag`: Labels for products (e.g., *Deal tháng*, *Bán chạy nhất*).
     *   `ProductImage`: Product gallery photo URLs with display ordering.
     *   `Review`: Customer ratings, verified purchase status, and reviews comments.
     *   `ShippingZone`: Regional groups (e.g., National `VN` zone) for shipping rates.
     *   `ShippingRate`: Base delivery costs, free tier eligibility threshold, and active states.
+    *   `User`: Customer profile details, total accumulated spend, and loyalty tier bounds.
+    *   `Account` / `Session`: OAuth credentials links and server-side user authentication tracking.
+    *   `Address`: User-owned shipping addresses for auto-filling and checkout.
+    *   `Favorite`: Wishlist tracking correlating users and catalog products.
 *   [products_seed_data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/products_seed_data.ts): Static database seed configuration listing core products, tags, and category keys.
 *   [reviews_seed_data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/reviews_seed_data.ts): Imported review items matching specific product keys.
 *   [extract_reviews.py](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/extract_reviews.py): Python data extraction script to process external feedback worksheets into TypeScript objects.
@@ -116,11 +128,13 @@ Responsible for schema definitions, migrations, and test data seed populations.
 Acts as the central point for shared modules, API fetch instances, and global stores:
 
 *   [db.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/db.ts): Manages server connection pools with Neon Postgres using Prisma's pg adapter (`@prisma/adapter-pg`). Maintains client singleton patterns in development modes.
+*   [auth.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/auth.ts): NextAuth v5 central authentication configuration supporting email Credentials (bcrypt comparison) and Google OAuth providers, mapping callbacks to attach user metadata.
 *   [caseStudies.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/caseStudies.ts): Standard database for before-and-after skin improvement evaluations, categorizing treatments (e.g., *Mỏng yếu*, *Thâm nám*, *Viêm mụn*) alongside drive references.
 *   [data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/data.ts): Local fallback file storing static information such as products list, blog posts, reviews, and categories.
 *   [utils.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/utils.ts): Shared layout utilities like `cn` to cleanly join classnames together.
 *   `store/`:
     *   [useCart.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/store/useCart.ts): **Zustand** client-side cart manager. Handles items additions, deductions, calculations, and cart drawer visibility toggle toggles.
+    *   [useFavorites.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/store/useFavorites.ts): **Zustand** client-side wishlist state manager. Handles optimistic toggling, API synchronization, and state updates across catalog card/details pages.
 
 ---
 
@@ -128,13 +142,16 @@ Acts as the central point for shared modules, API fetch instances, and global st
 Standard Next.js App Router structure. Each subfolder maps to a page endpoint:
 
 *   [globals.css](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/globals.css): Declares Tailwind CSS inputs, CSS variables, and keyframe animations.
-*   [layout.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/layout.tsx): Top-level layout declaring HTML structures, font family loadings, announcement bars, standard header, footer, and chat widget wrapper components.
+*   [layout.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/layout.tsx): Top-level layout declaring HTML structures, font family loadings, announcement bars, standard header, footer, and chat widget wrapper components. Injected with `AuthProvider` for session tracking.
+*   [middleware.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/middleware.ts): Edge-compatible routing pass-through middleware, protecting sessions without database conflicts at the edge.
 *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/page.tsx): Main landing page. Combines hero carousel, scientific information highlights, monthly deals, product carousels, and client testimonials.
 *   `api/`:
-    *   `loyalty/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/loyalty/route.ts): Backend route handler returning loyalty details and structured config mappings for tier rewards display.
+    *   `auth/` -> Contains registration controller (`/api/auth/register`) and NextAuth API catch-all handler (`/api/auth/[...nextauth]`).
+    *   `loyalty/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/loyalty/route.ts): Backend route handler returning loyalty details and config mappings.
     *   `products/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/products/route.ts): Queries and returns all active products including relational tags, images, and reviews.
     *   `products/[slug]/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/products/[slug]/route.ts): Queries and returns details of a single product based on its unique slug.
     *   `shipping/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/shipping/route.ts): Queries and returns current national flat-rate shipping policies.
+    *   `user/` -> Contains secure customer profile handlers (`/api/user/profile`), addresses CRUD operations (`/api/user/addresses`), and favorites wishlist toggles (`/api/user/favorites`).
 *   `blog/`:
     *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/page.tsx) / [BlogView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/BlogView.tsx): Displays published articles list.
     *   `[slug]/`: Dynamic routes displaying full details of individual articles ([page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/page.tsx) / [BlogDetailView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/BlogDetailView.tsx)).
@@ -144,8 +161,8 @@ Standard Next.js App Router structure. Each subfolder maps to a page endpoint:
 *   `san-pham/`:
     *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/page.tsx) / [ProductsContent.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/ProductsContent.tsx): Main catalog display with filter sidebar, product grid, sorting mechanisms, and search capabilities.
     *   `[slug]/`: Dynamic routes detailing specific products, volumes, ingredients, features, and certifications ([page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/[slug]/page.tsx) / [ProductDetailView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/[slug]/ProductDetailView.tsx)).
-*   `tai-khoan/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/tai-khoan/page.tsx) / [AccountView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/tai-khoan/AccountView.tsx): User profile setup, purchase histories, and rewards status.
-*   `thanh-toan/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/thanh-toan/page.tsx): Interactive checkout page gathering customer address, shipping choices, and discount voucher inputs.
+*   `tai-khoan/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/tai-khoan/page.tsx) / [AccountView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/tai-khoan/AccountView.tsx): User authentication tabs (login/signup, Google OAuth) and member dashboard featuring overview tier progress, orders, addresses CRUD, wishlist, and profile details.
+*   `thanh-toan/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/thanh-toan/page.tsx): Interactive checkout page pre-filled automatically with details from the user's active session and default address, supporting unauthenticated guest checkout.
 *   `ve-chung-toi/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ve-chung-toi/page.tsx) / [AboutView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ve-chung-toi/AboutView.tsx): Documents the brand's history and scientific foundations.
 
 ---
@@ -156,7 +173,7 @@ Components are sorted by subdirectories reflecting their application context:
 #### Layout Components (`src/components/layout/`)
 Global visual layouts wrap around multiple views:
 *   [AnnouncementBar.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/layout/AnnouncementBar.tsx): Top promotion banner.
-*   [Header.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/layout/Header.tsx): Fixed top navigation bar. Includes store logo, routing menus, search bars, user profiles, and interactive shopping cart status indicator.
+*   [Header.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/layout/Header.tsx): Fixed top navigation bar. Includes store logo, routing menus, search bars, user profiles (displaying user initials or Google avatars when logged in), and interactive shopping cart status indicator.
 *   [Footer.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/layout/Footer.tsx): Bottom page layout with site links, copyright details, and social channels.
 *   [ChatWidget.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/layout/ChatWidget.tsx): Sticky floating live chat component.
 
@@ -181,12 +198,15 @@ Widgets designed specifically for the front landing page:
 *   [MobileFilter.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/products/MobileFilter.tsx): Mobile-optimized filter slide-up panel.
 *   [ReviewCard.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/products/ReviewCard.tsx): Standardized card displaying ratings, client reviewer names, dates, and comments.
 
+#### Providers (`src/components/providers/`)
+*   [AuthProvider.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/providers/AuthProvider.tsx): React Client Component wrapper for NextAuth `<SessionProvider>`, sharing session context across the DOM.
+
 #### UI Primitives (`src/components/ui/`)
 Standard design system modules reusable across the whole app:
 *   [BeforeAfterSlider.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/ui/BeforeAfterSlider.tsx): Interactive slider to compare before-and-after skin recovery results.
 *   [Button.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/ui/Button.tsx): General customized CTA button.
 *   [Input.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/ui/Input.tsx): Interactive input fields.
-*   [ProductCard.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/ui/ProductCard.tsx): Displays individual items, tags, rating indicators, standard pricing, and "Add to Cart" hooks.
+*   [ProductCard.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/ui/ProductCard.tsx): Displays individual items, tags, rating indicators, standard pricing, and wishlist favorite heart toggles.
 *   [ToastNotification.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/ui/ToastNotification.tsx): Bottom or top toast banner warnings and success statuses.
 
 ---
@@ -204,3 +224,4 @@ Contains system execution plans, migration steps, and development progress repor
 
 *   [task_report.md](file:///Users/iminluv/Documents/GitHub/almadungduong/documentation/task_report.md): Summary report documenting connection configurations, seeding strategies, API development, and unit test logs for Phase 2/3/4 of the Loyalty Program.
 *   `2-6-26/`: Date-stamped implementation blueprints detailing exact steps for schema synchronization, image normalizations, and product data cleaning logs.
+*   `4-6-26/`: Date-stamped reports covering all 10 phases of the User Account feature (dependency management, NextAuth configuration, addresses and favorites APIs, dashboard tabs, layout headers, and autofill checkout).
