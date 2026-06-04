@@ -1,5 +1,6 @@
 import { prisma } from "../src/lib/db";
 import { products } from "./products_seed_data";
+import { reviewsSeedData } from "./reviews_seed_data";
 
 async function main() {
   console.log("Seeding loyalty data...");
@@ -183,33 +184,7 @@ async function main() {
   // 3. Seed Products
   console.log("Seeding products...");
   
-  // Dynamic reviews seed data mapping
-  const productReviews = [
-    {
-      productId: "xit-duong-chuyen-sau-miracle",
-      userName: "Huyền My",
-      rating: 5,
-      comment: "Sản phẩm xịt dưỡng Miracle thực sự cứu lấy làn da mỏng yếu của mình. Cảm ơn Alma!",
-      date: "15/04/2026",
-      isVerifiedPurchase: true
-    },
-    {
-      productId: "guasha",
-      userName: "Quốc Khánh",
-      rating: 5,
-      comment: "Guasha rất chất lượng, đá cầm nặng tay và rất mát. Dùng xong thấy mặt nhẹ hẳn.",
-      date: "12/04/2026",
-      isVerifiedPurchase: true
-    },
-    {
-      productId: "sua-rua-mat-nuoc-bang-glacier",
-      userName: "Lan Anh",
-      rating: 4,
-      comment: "Mật ong hoa hồng thơm, dễ uống. Sữa rửa mặt Glacier dùng rất thích, không khô da.",
-      date: "10/04/2026",
-      isVerifiedPurchase: true
-    }
-  ];
+  // Reviews are imported dynamically from reviews_seed_data.ts
 
   for (let index = 0; index < products.length; index++) {
     const p = products[index];
@@ -232,14 +207,14 @@ async function main() {
     const galleryUrls = getGalleryImages(category, p.image);
 
     // Resolve reviews to create
-    const reviewsToCreate = productReviews.filter(r => r.productId === p.id);
-    if (reviewsToCreate.length === 0 && (reviewsCount ?? 0) > 0) {
-      // Seed a high quality placeholder review for other products that have review counts
+    const reviewsToCreate = reviewsSeedData.filter(r => r.productId === p.id);
+    if (reviewsToCreate.length === 0) {
+      // Seed a high quality placeholder review for products without reviews in spreadsheet
       reviewsToCreate.push({
         productId: p.id,
         userName: "Khách hàng Alma",
         rating: 5,
-        comment: "Chất lượng tuyệt vời, da mình cải thiện rõ rệt sau một thời gian sử dụng. Sẽ tiếp tục ủng hộ Alma!",
+        comment: "Sản phẩm lành tính và rất chất lượng. Sẽ tiếp tục ủng hộ Alma!",
         date: "28/04/2026",
         isVerifiedPurchase: true
       });
@@ -249,7 +224,7 @@ async function main() {
       data: {
         ...rest,
         rating: rating ?? 4.9,
-        reviewsCount: reviewsCount ?? 0,
+        reviewsCount: reviewsToCreate.length,
         sortOrder: index,
         slug: p.slug ?? p.id,
         showOnHomepage: p.showOnHomepage ?? false,
