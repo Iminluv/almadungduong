@@ -12,9 +12,16 @@ Below is the directory tree highlighting the key source files and configurations
 almadungduong/
 ├── .github/                  # GitHub actions and CI/CD workflows
 ├── .husky/                   # Git hooks for linting & pre-commits
+├── documentation/            # Implementation details, migrations, and reports
+│   ├── task_report.md        # Comprehensive report of completed tasks
+│   └── 2-6-26/               # Phase-specific design & migration documentations
+│   └── 4-6-26/               
 ├── prisma/                   # Prisma ORM schema and database seeding
 │   ├── schema.prisma         # Database schema definition
-│   └── seed.ts               # Database seed script for loyalty configuration & tiers
+│   ├── products_seed_data.ts # Normalized products list data for seeding
+│   ├── reviews_seed_data.ts  # Normalized product reviews data for seeding
+│   ├── extract_reviews.py    # Python helper script to extract spreadsheet reviews
+│   └── seed.ts               # Database seed script for loyalty configuration, categories, and products
 ├── public/                   # Public static assets
 │   └── images/               # Image resources (e.g., hero banners)
 ├── src/                      # Application Source Code
@@ -23,12 +30,18 @@ almadungduong/
 │   │   └── loyalty.test.tsx  # Loyalty program frontend tests
 │   ├── app/                  # Next.js App Router pages and API routes
 │   │   ├── api/              # Route handlers / backend endpoints
-│   │   │   └── loyalty/      # Loyalty Program API endpoints
+│   │   │   ├── loyalty/      # Loyalty Program API endpoints
+│   │   │   ├── products/     # Product listing and filter API endpoints
+│   │   │   │   └── [slug]/   # Dynamic product detail API by slug
+│   │   │   └── shipping/     # Shipping rates API endpoint
 │   │   ├── blog/             # Brand blog page & article details
 │   │   ├── chung-chi/         # Quality certifications and reports page
 │   │   ├── ket-qua/          # Checkout results / order status
 │   │   ├── khach-hang-than-thiet/ # Loyalty program views
 │   │   ├── san-pham/         # Product catalog and detail views
+│   │   │   ├── ProductsContent.tsx # Client component for product grids and filters
+│   │   │   ├── page.tsx      # Main products listing server page
+│   │   │   └── [slug]/       # Dynamic product detail views by slug
 │   │   ├── tai-khoan/        # Customer account dashboard
 │   │   ├── thanh-toan/       # Checkout/payment forms
 │   │   ├── ve-chung-toi/     # "About Us" and brand history page
@@ -43,11 +56,10 @@ almadungduong/
 │   │   └── ui/               # Core design system atomic elements (button, inputs)
 │   └── lib/                  # Application core services & shared utilities
 │       ├── store/            # Client state stores (Zustand)
+│       ├── caseStudies.ts    # Scientific skin treatment case studies dataset
 │       ├── data.ts           # Mock & fallback static product data
 │       ├── db.ts             # Prisma Client Postgres singleton adapter
 │       └── utils.ts          # Tailwind styling helpers
-├── task_report/              # Implementation details & logs
-│   └── task_report.md        # Comprehensive report of completed tasks
 ├── eslint.config.mjs         # ESLint configuration
 ├── next.config.ts            # Next.js bundler configuration
 ├── package.json              # Project dependencies, scripts, metadata
@@ -82,11 +94,21 @@ These files govern linting, bundler settings, typing, testing, and database rule
 ### 2. `prisma/` — Database Operations & Schema
 Responsible for schema definitions, migrations, and test data seed populations.
 
-*   [schema.prisma](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/schema.prisma): Outlines three relational models:
+*   [schema.prisma](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/schema.prisma): Outlines the relational models for the database:
     *   `LoyaltyTier`: Tracks customer tiers (e.g. *Ươm mầm*, *Dung dưỡng*, *Nở rộ*) along with order rules.
     *   `LoyaltyBenefit`: Specific benefits assigned to each tier.
-    *   `LoyaltyConfig`: Global key-value store for static textual content.
-*   [seed.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/seed.ts): Cleans the Postgres tables and feeds them baseline configurations, loyalty settings, and rewards descriptions.
+    *   `LoyaltyConfig`: Global key-value store for static loyalty configuration.
+    *   `Product`: Represents items in the catalog (pricing, ratings, slug, etc.).
+    *   `Category`: Hierarchical product category classification (parent/children relationships).
+    *   `Tag`: Labels for products (e.g., *Deal tháng*, *Bán chạy nhất*).
+    *   `ProductImage`: Product gallery photo URLs with display ordering.
+    *   `Review`: Customer ratings, verified purchase status, and reviews comments.
+    *   `ShippingZone`: Regional groups (e.g., National `VN` zone) for shipping rates.
+    *   `ShippingRate`: Base delivery costs, free tier eligibility threshold, and active states.
+*   [products_seed_data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/products_seed_data.ts): Static database seed configuration listing core products, tags, and category keys.
+*   [reviews_seed_data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/reviews_seed_data.ts): Imported review items matching specific product keys.
+*   [extract_reviews.py](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/extract_reviews.py): Python data extraction script to process external feedback worksheets into TypeScript objects.
+*   [seed.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/seed.ts): Cleans the Postgres tables and seeds them with baseline configurations, loyalty settings, product catalogs, categories, tags, product images, reviews, and delivery rates.
 
 ---
 
@@ -94,6 +116,7 @@ Responsible for schema definitions, migrations, and test data seed populations.
 Acts as the central point for shared modules, API fetch instances, and global stores:
 
 *   [db.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/db.ts): Manages server connection pools with Neon Postgres using Prisma's pg adapter (`@prisma/adapter-pg`). Maintains client singleton patterns in development modes.
+*   [caseStudies.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/caseStudies.ts): Standard database for before-and-after skin improvement evaluations, categorizing treatments (e.g., *Mỏng yếu*, *Thâm nám*, *Viêm mụn*) alongside drive references.
 *   [data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/data.ts): Local fallback file storing static information such as products list, blog posts, reviews, and categories.
 *   [utils.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/utils.ts): Shared layout utilities like `cn` to cleanly join classnames together.
 *   `store/`:
@@ -107,7 +130,11 @@ Standard Next.js App Router structure. Each subfolder maps to a page endpoint:
 *   [globals.css](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/globals.css): Declares Tailwind CSS inputs, CSS variables, and keyframe animations.
 *   [layout.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/layout.tsx): Top-level layout declaring HTML structures, font family loadings, announcement bars, standard header, footer, and chat widget wrapper components.
 *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/page.tsx): Main landing page. Combines hero carousel, scientific information highlights, monthly deals, product carousels, and client testimonials.
-*   `api/loyalty/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/loyalty/route.ts): Backend route handler returning loyalty details and structured config mappings for tier rewards display.
+*   `api/`:
+    *   `loyalty/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/loyalty/route.ts): Backend route handler returning loyalty details and structured config mappings for tier rewards display.
+    *   `products/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/products/route.ts): Queries and returns all active products including relational tags, images, and reviews.
+    *   `products/[slug]/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/products/[slug]/route.ts): Queries and returns details of a single product based on its unique slug.
+    *   `shipping/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/shipping/route.ts): Queries and returns current national flat-rate shipping policies.
 *   `blog/`:
     *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/page.tsx) / [BlogView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/BlogView.tsx): Displays published articles list.
     *   `[slug]/`: Dynamic routes displaying full details of individual articles ([page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/page.tsx) / [BlogDetailView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/BlogDetailView.tsx)).
@@ -115,8 +142,8 @@ Standard Next.js App Router structure. Each subfolder maps to a page endpoint:
 *   `ket-qua/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ket-qua/page.tsx) / [ResultsView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ket-qua/ResultsView.tsx): Landing point displaying success banners after transactions.
 *   `khach-hang-than-thiet/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/khach-hang-than-thiet/page.tsx) / [LoyaltyView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/khach-hang-than-thiet/LoyaltyView.tsx): Renders the customer loyalty dashboard, program tier information, points calculations, and benefit lists.
 *   `san-pham/`:
-    *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/page.tsx): Main catalog display with filter sidebar capabilities.
-    *   `[id]/`: Dynamic routes detailing specific products, volumes, ingredients, features, and certifications ([page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/[id]/page.tsx) / [ProductDetailView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/[id]/ProductDetailView.tsx)).
+    *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/page.tsx) / [ProductsContent.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/ProductsContent.tsx): Main catalog display with filter sidebar, product grid, sorting mechanisms, and search capabilities.
+    *   `[slug]/`: Dynamic routes detailing specific products, volumes, ingredients, features, and certifications ([page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/[slug]/page.tsx) / [ProductDetailView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/san-pham/[slug]/ProductDetailView.tsx)).
 *   `tai-khoan/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/tai-khoan/page.tsx) / [AccountView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/tai-khoan/AccountView.tsx): User profile setup, purchase histories, and rewards status.
 *   `thanh-toan/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/thanh-toan/page.tsx): Interactive checkout page gathering customer address, shipping choices, and discount voucher inputs.
 *   `ve-chung-toi/` -> [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ve-chung-toi/page.tsx) / [AboutView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/ve-chung-toi/AboutView.tsx): Documents the brand's history and scientific foundations.
@@ -169,3 +196,11 @@ Uses **Vitest** for frontend element integration testing:
 
 *   [setup.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/__tests__/setup.ts): Extends standard matchers using `@testing-library/jest-dom`.
 *   [loyalty.test.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/__tests__/loyalty.test.tsx): Tests the `LoyaltyView` components. Validates state transition behaviors from loading state spinners up to successful mock API resolutions.
+
+---
+
+### 7. `documentation/` — Quality Assurance & Audit Trails
+Contains system execution plans, migration steps, and development progress reports:
+
+*   [task_report.md](file:///Users/iminluv/Documents/GitHub/almadungduong/documentation/task_report.md): Summary report documenting connection configurations, seeding strategies, API development, and unit test logs for Phase 2/3/4 of the Loyalty Program.
+*   `2-6-26/`: Date-stamped implementation blueprints detailing exact steps for schema synchronization, image normalizations, and product data cleaning logs.
