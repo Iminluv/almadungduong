@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Product } from "@/lib/data";
 import { useCart } from "@/lib/store/useCart";
@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/Button";
 import { ReviewCard } from "@/components/products/ReviewCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { notFound } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useFavorites } from "@/lib/store/useFavorites";
+import { cn } from "@/lib/utils";
 
 interface Props {
   product: Product;
@@ -15,11 +18,32 @@ interface Props {
 
 export default function ProductDetailView({ product }: Props) {
   const { addItem } = useCart();
+  const { data: session } = useSession();
+  const { favoriteIds, toggleFavorite, fetchFavorites } = useFavorites();
+  const [localToast, setLocalToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   const [activeImage, setActiveImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(product?.variants?.[0] || "");
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("mô tả");
+
+  useEffect(() => {
+    if (session?.user) {
+      fetchFavorites();
+    }
+  }, [session, fetchFavorites]);
+
+  const isFavorited = product ? favoriteIds.includes(product.id) : false;
+
+  const handleFavoriteClick = async () => {
+    if (!product) return;
+    const showToast = (message: string, type: "success" | "error") => {
+      setLocalToast({ message, type });
+      setTimeout(() => setLocalToast(null), 3000);
+    };
+
+    await toggleFavorite(product.id, !!session?.user, showToast);
+  };
 
   if (!product) return notFound();
 
@@ -184,7 +208,7 @@ export default function ProductDetailView({ product }: Props) {
                 <Button
                   variant="primary"
                   size="lg"
-                  className="flex-1"
+                  className="flex-3"
                   onClick={() => addItem({ id: product.id, title: product.title, price: product.price, image: product.image, variant: selectedVariant }, quantity)}
                 >
                   Thêm vào giỏ hàng
@@ -192,10 +216,35 @@ export default function ProductDetailView({ product }: Props) {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="flex-1"
+                  className="flex-2"
+                  onClick={() => {
+                    addItem({ id: product.id, title: product.title, price: product.price, image: product.image, variant: selectedVariant }, quantity);
+                    window.location.href = "/thanh-toan";
+                  }}
                 >
-                  Mua ngay / COD
+                  Mua ngay
                 </Button>
+                <button
+                  onClick={handleFavoriteClick}
+                  className={cn(
+                    "w-14 h-14 rounded-sm border flex items-center justify-center transition-all cursor-pointer flex-shrink-0",
+                    isFavorited 
+                      ? "bg-red-50 border-red-200 text-red-500 hover:bg-red-100" 
+                      : "border-surface text-text hover:border-text/40 hover:bg-surface"
+                  )}
+                  title={isFavorited ? "Xóa khỏi yêu thích" : "Thêm vào yêu thích"}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill={isFavorited ? "currentColor" : "none"}
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="w-5 h-5"
+                  >
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                  </svg>
+                </button>
               </div>
 
             </div>
@@ -342,6 +391,24 @@ export default function ProductDetailView({ product }: Props) {
           </div>
         </div>
       </div>
+      {/* Floating Action Toast for Favorites */}
+      <AnimatePresence>
+        {localToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-8 right-8 z-[300]"
+          >
+            <div className={cn(
+              "px-5 py-3 shadow-2xl text-[10px] font-bold uppercase tracking-widest rounded-sm text-white",
+              localToast.type === "success" ? "bg-navy border-l-4 border-accent" : "bg-red-950 border-l-4 border-red-500"
+            )}>
+              {localToast.message}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

@@ -30,10 +30,11 @@ export default function CheckoutPage() {
   // Pre-fill profile and default address on auth
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
+      const user = session.user;
       setFormData((prev) => ({
         ...prev,
-        fullName: prev.fullName || session.user.name || "",
-        email: prev.email || session.user.email || "",
+        fullName: prev.fullName || user.name || "",
+        email: prev.email || user.email || "",
       }));
 
       // Fetch user addresses to find default address
