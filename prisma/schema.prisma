@@ -135,6 +135,7 @@ model User {
   sessions        Session[]
   addresses       Address[]
   favorites       Favorite[]
+  orders          Order[]
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
@@ -188,6 +189,55 @@ model Favorite {
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   @@unique([userId, productId])
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transferCode    String      @unique          // e.g. "ALMA7KX9B2HT"
+  amount          Int                          // total product amount in VND
+  shippingFee     Int         @default(0)
+  totalAmount     Int                          // amount + shippingFee
+  status          String      @default("pending") // pending | completed | expired
+  items           OrderItem[]
+  shippingName    String                       // recipient name
+  shippingPhone   String
+  shippingEmail   String
+  shippingAddress String                       // full formatted address
+  bankAccount     String                       // bank account number (snapshot)
+  bankName        String                       // bank short name (snapshot)
+  accountName     String                       // account holder name (snapshot)
+  qrUrl           String                       // generated QR URL
+  userClaimed     Boolean     @default(false)
+  claimedAt       DateTime?
+  expiresAt       DateTime                     // now + 10 minutes
+  completedAt     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  title       String                // product title (snapshot)
+  price       Int                   // unit price at time of order
+  quantity    Int
+  variant     String?               // e.g. "100ml"
+  image       String                // product image URL (snapshot)
+}
+
+model WebhookLog {
+  id              String    @id @default(cuid())
+  sepayId         Int       @unique             // SePay transaction id — for dedup
+  source          String    @default("sepay")
+  payload         Json                          // raw webhook payload
+  status          String    @default("received") // received | processed | unmatched | amount_mismatch
+  matchedOrderId  String?                       // linked Order ID if matched
+  receivedAt      DateTime  @default(now())
+  processedAt     DateTime?
 }
 
 

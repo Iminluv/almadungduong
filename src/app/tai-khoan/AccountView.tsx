@@ -120,11 +120,9 @@ export default function AccountView() {
     setTimeout(() => setToast(null), 4000);
   };
 
-  // Mock Data
-  const orders = [
-    { id: "DH00234", date: "15/06/2025", total: "570.000₫", status: "Đang giao", items: "2 sản phẩm" },
-    { id: "DH00212", date: "10/05/2025", total: "285.000₫", status: "Hoàn thành", items: "1 sản phẩm" },
-  ];
+  const [orders, setOrders] = useState<any[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+  const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
   // Fetch functions
   const fetchProfile = async () => {
@@ -174,13 +172,35 @@ export default function AccountView() {
     }
   };
 
+  const fetchOrders = async () => {
+    setOrdersLoading(true);
+    try {
+      const res = await fetch("/api/user/orders");
+      const data = await res.json();
+      if (res.ok) {
+        setOrders(data);
+      }
+    } catch (e) {
+      console.error("Fetch orders failed", e);
+    } finally {
+      setOrdersLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (status === "authenticated") {
       fetchProfile();
       fetchAddresses();
       fetchFavorites();
+      fetchOrders();
     }
   }, [status]);
+
+  useEffect(() => {
+    if (activeTab === "orders" && status === "authenticated") {
+      fetchOrders();
+    }
+  }, [activeTab, status]);
 
   // Auth actions
   const handleLogin = async (e: React.FormEvent) => {
@@ -776,40 +796,125 @@ export default function AccountView() {
                   key="orders"
                   className="space-y-6"
                 >
-                  <div className="bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] p-4 text-xs font-medium rounded-sm">
-                    ⚠️ Tính năng quản lý đơn hàng trực tuyến đang được nâng cấp. Dưới đây là dữ liệu giả lập/đồng bộ gần nhất. Vui lòng liên hệ Hotline nếu bạn cần hỗ trợ gấp về đơn hàng thực tế.
-                  </div>
+                  {ordersLoading ? (
+                    <div className="py-12 flex flex-col items-center justify-center space-y-4">
+                      <div className="w-8 h-8 border-4 border-navy border-t-transparent rounded-full animate-spin"></div>
+                      <p className="text-xs text-muted">Đang tải lịch sử đơn hàng...</p>
+                    </div>
+                  ) : orders.length === 0 ? (
+                    <div className="py-12 text-center bg-white border border-surface shadow-sm rounded-sm">
+                      <p className="text-sm text-muted italic">Bạn chưa thực hiện giao dịch mua hàng nào.</p>
+                    </div>
+                  ) : (
+                    <div className="divide-y divide-text/10 bg-white px-6 border border-surface shadow-sm rounded-sm">
+                      {orders.map((order) => {
+                        const dateStr = new Date(order.createdAt).toLocaleDateString("vi-VN");
+                        const statusLabel =
+                          order.status === "completed"
+                            ? "Hoàn thành"
+                            : order.status === "pending"
+                            ? "Chờ thanh toán"
+                            : "Đã hủy/Hết hạn";
+                        
+                        const statusColor =
+                          order.status === "completed"
+                            ? "text-emerald-600"
+                            : order.status === "pending"
+                            ? "text-amber-600 animate-pulse font-bold"
+                            : "text-neutral-400";
 
-                  <div className="divide-y divide-text/10 bg-white px-6 border border-surface shadow-sm">
-                    {orders.map((order) => (
-                      <div key={order.id} className="py-6 flex flex-wrap justify-between items-center gap-6 group">
-                        <div className="space-y-1">
-                          <p className="font-bold text-navy uppercase tracking-widest text-xs">#{order.id}</p>
-                          <p className="text-xs text-muted">
-                            {order.date} · {order.items}
-                          </p>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-8">
-                          <div className="text-right">
-                            <p className="text-sm font-bold text-text">{order.total}</p>
-                            <p
-                              className={`text-[10px] font-bold uppercase tracking-widest ${
-                                order.status === "Đang giao" ? "text-accent" : "text-muted"
-                              }`}
-                            >
-                              {order.status}
-                            </p>
+                        const totalProducts = order.items?.reduce((sum: number, item: any) => sum + item.quantity, 0) || 0;
+
+                        return (
+                          <div key={order.id} className="py-6 flex flex-col gap-4 group">
+                            <div className="flex flex-wrap justify-between items-center gap-6">
+                              <div className="space-y-1">
+                                <div className="flex items-center gap-3">
+                                  <p className="font-bold text-navy uppercase tracking-widest text-xs">#{order.transferCode}</p>
+                                  {order.userClaimed && order.status === "pending" && (
+                                    <span className="text-[9px] px-1.5 py-0.5 bg-blue-50 border border-blue-100 text-blue-600 rounded font-medium">
+                                      Đang kiểm tra thủ công
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-xs text-muted font-serif">
+                                  Ngày đặt: {dateStr} · {totalProducts} sản phẩm
+                                </p>
+                              </div>
+                              <div className="flex flex-wrap items-center gap-8">
+                                <div className="text-right">
+                                  <p className="text-sm font-bold text-text">
+                                    {order.totalAmount.toLocaleString("vi-VN")}đ
+                                  </p>
+                                  <p className={`text-[10px] font-bold uppercase tracking-widest ${statusColor}`}>
+                                    {statusLabel}
+                                  </p>
+                                </div>
+                                <button
+                                  onClick={() => setExpandedOrderId(expandedOrderId === order.id ? null : order.id)}
+                                  className="px-6 py-2 border border-text/10 text-[9px] font-bold uppercase tracking-widest hover:bg-navy hover:text-white hover:border-navy transition-all cursor-pointer"
+                                >
+                                  {expandedOrderId === order.id ? "Đóng" : "Chi tiết"}
+                                </button>
+                              </div>
+                            </div>
+
+                            {expandedOrderId === order.id && (
+                              <div
+                                className="p-4 bg-neutral-50 border border-neutral-100/70 rounded-sm space-y-4 text-xs"
+                              >
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-neutral-600">
+                                  <div className="space-y-1.5">
+                                    <p className="text-[10px] uppercase font-bold tracking-wider text-neutral-400">Thông tin nhận hàng</p>
+                                    <p><strong>Người nhận:</strong> {order.shippingName}</p>
+                                    <p><strong>Số điện thoại:</strong> {order.shippingPhone}</p>
+                                    <p><strong>Địa chỉ:</strong> {order.shippingAddress}</p>
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    <p className="text-[10px] uppercase font-bold tracking-wider text-neutral-400">Chi tiết giao dịch</p>
+                                    <p><strong>Phương thức:</strong> Chuyển khoản ngân hàng (SePay)</p>
+                                    <p><strong>Nội dung:</strong> <span className="font-mono font-bold text-amber-800 bg-amber-50 border border-amber-100/50 px-1.5 py-0.5 rounded">{order.transferCode}</span></p>
+                                    <p><strong>Thời gian tạo đơn:</strong> {new Date(order.createdAt).toLocaleString("vi-VN")}</p>
+                                    {order.completedAt && (
+                                      <p><strong>Thời gian thanh toán:</strong> {new Date(order.completedAt).toLocaleString("vi-VN")}</p>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="border-t border-neutral-200/50 pt-3">
+                                  <p className="font-bold text-neutral-800 mb-2">Chi tiết sản phẩm:</p>
+                                  <div className="space-y-3">
+                                    {order.items?.map((item: any) => (
+                                      <div key={item.id} className="flex justify-between items-center gap-4">
+                                        <div className="flex items-center gap-3">
+                                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                                          <img
+                                            src={item.image}
+                                            alt={item.title}
+                                            className="w-10 h-10 object-cover rounded border border-neutral-200/60 bg-white"
+                                          />
+                                          <div>
+                                            <p className="font-semibold text-neutral-800">{item.title}</p>
+                                            {item.variant && (
+                                              <p className="text-[10px] text-muted">Phân loại: {item.variant}</p>
+                                            )}
+                                          </div>
+                                        </div>
+                                        <div className="text-right">
+                                          <p className="font-medium text-neutral-850">
+                                            {item.price.toLocaleString("vi-VN")}đ x{item.quantity}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
-                          <button
-                            onClick={() => alert(`Chi tiết đơn hàng ${order.id} đang được cập nhật.`)}
-                            className="px-6 py-2 border border-text/10 text-[9px] font-bold uppercase tracking-widest hover:bg-navy hover:text-white hover:border-navy transition-all"
-                          >
-                            Chi tiết
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </motion.div>
               )}
 

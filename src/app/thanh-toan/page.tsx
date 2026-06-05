@@ -8,16 +8,25 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 
 type Step = "info" | "shipping" | "payment" | "success";
 
 export default function CheckoutPage() {
-  const { items, getTotalPrice, updateQuantity, removeItem } = useCart();
+  const { items, getTotalPrice, updateQuantity, removeItem, clearCart } = useCart();
   const [step, setStep] = useState<Step>("info");
   const [isMounted, setIsMounted] = useState(false);
   const [shippingRate, setShippingRate] = useState<{ baseFee: number; freeThreshold: number | null } | null>(null);
 
   const { data: session, status } = useSession();
+  const router = useRouter();
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod");
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+  const [pendingOrderData, setPendingOrderData] = useState<any>(null);
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -26,6 +35,72 @@ export default function CheckoutPage() {
     city: "",
     district: "",
   });
+
+  // Recovery from localstorage
+  useEffect(() => {
+    const cached = localStorage.getItem("alma-pending-payment");
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached);
+        const expiresAt = new Date(parsed.expiresAt).getTime();
+        if (expiresAt > Date.now()) {
+          setSelectedPaymentMethod("bank_transfer");
+          setPendingOrderData(parsed);
+          setIsCheckoutModalOpen(true);
+        } else {
+          localStorage.removeItem("alma-pending-payment");
+        }
+      } catch (e) {
+        console.error("Failed to parse cached pending payment:", e);
+      }
+    }
+  }, []);
+
+  const handleCompleteOrder = async () => {
+    setErrorMsg(null);
+    if (selectedPaymentMethod === "cod") {
+      setStep("success");
+    } else {
+      if (status !== "authenticated") {
+        router.push("/tai-khoan");
+        return;
+      }
+
+      setIsCreatingOrder(true);
+      try {
+        const res = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            items: items.map(item => ({
+              productId: item.id,
+              title: item.title,
+              price: item.price,
+              quantity: item.quantity,
+              variant: item.variant,
+              image: item.image || "",
+            })),
+            shippingInfo: formData,
+            shippingFee,
+          }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || "Tạo đơn hàng thất bại");
+        }
+
+        localStorage.setItem("alma-pending-payment", JSON.stringify(data));
+        setPendingOrderData(data);
+        setIsCheckoutModalOpen(true);
+      } catch (error: any) {
+        console.error(error);
+        setErrorMsg(error.message || "Đã xảy ra lỗi khi tạo đơn hàng.");
+      } finally {
+        setIsCreatingOrder(false);
+      }
+    }
+  };
 
   // Pre-fill profile and default address on auth
   useEffect(() => {
@@ -102,6 +177,7 @@ export default function CheckoutPage() {
     new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(p);
 
   return (
+    <>
     <main className="min-h-screen bg-bg py-12 md:py-20">
       <div className="container-custom max-w-6xl">
         {step !== "success" ? (
@@ -157,7 +233,22 @@ export default function CheckoutPage() {
                     />
                   )}
                   {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} shippingFee={shippingFee} isFreeShipping={isFreeShipping} formatPrice={formatPrice} freeThreshold={freeThreshold} baseFee={baseFee} />}
-                  {step === "payment" && <PaymentStep onNext={() => setStep("success")} onBack={() => setStep("shipping")} />}
+                  {step === "payment" && (
+                    <div className="space-y-4">
+                      {errorMsg && (
+                        <div className="p-3 text-xs bg-rose-50 border border-rose-100 text-rose-700 rounded-sm">
+                          {errorMsg}
+                        </div>
+                      )}
+                      <PaymentStep
+                        onNext={handleCompleteOrder}
+                        onBack={() => setStep("shipping")}
+                        selectedMethod={selectedPaymentMethod}
+                        setSelectedMethod={setSelectedPaymentMethod}
+                        loading={isCreatingOrder}
+                      />
+                    </div>
+                  )}
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -368,6 +459,18 @@ export default function CheckoutPage() {
         )}
       </div>
     </main>
+
+    <CheckoutModal
+      isOpen={isCheckoutModalOpen}
+      onClose={() => setIsCheckoutModalOpen(false)}
+      onSuccess={() => {
+        setIsCheckoutModalOpen(false);
+        clearCart();
+        router.push("/tai-khoan");
+      }}
+      orderData={pendingOrderData}
+    />
+    </>
   );
 }
 
@@ -577,32 +680,63 @@ function ShippingStep({ onNext, onBack, shippingFee, isFreeShipping, formatPrice
   );
 }
 
-function PaymentStep({ onNext, onBack }: { onNext: () => void, onBack: () => void }) {
+interface PaymentStepProps {
+  onNext: () => void;
+  onBack: () => void;
+  selectedMethod: string;
+  setSelectedMethod: (method: string) => void;
+  loading: boolean;
+}
+
+function PaymentStep({ onNext, onBack, selectedMethod, setSelectedMethod, loading }: PaymentStepProps) {
+  const methods = [
+    { id: "cod", label: "COD — Thanh toán khi nhận hàng", desc: "Trả tiền mặt khi Shipper giao hàng đến." },
+    { id: "bank_transfer", label: "Chuyển khoản ngân hàng (SePay)", desc: "Quét mã QR chuyển khoản nhanh qua tài khoản ngân hàng." },
+  ];
+
   return (
     <div className="space-y-8">
       <div className="space-y-4">
         <h3 className="text-lg font-display font-semibold">Phương thức thanh toán</h3>
         <div className="space-y-3">
-          {[
-            { id: "cod", label: "COD — Thanh toán khi nhận hàng", desc: "Trả tiền mặt khi Shipper giao hàng đến." },
-            { id: "vnpay", label: "VNPay", desc: "Quét mã QR hoặc thanh toán qua cổng VNPay." },
-            { id: "momo", label: "Ví MoMo", desc: "Thanh toán nhanh qua ứng dụng MoMo." }
-          ].map((method) => (
-            <div key={method.id} className="p-4 border border-surface hover:border-text/30 rounded-sm cursor-pointer transition-all flex items-start gap-4">
-              <div className="w-4 h-4 rounded-full border border-muted mt-1" />
-              <div>
-                <p className="text-sm font-semibold">{method.label}</p>
-                <p className="text-[12px] text-muted">{method.desc}</p>
+          {methods.map((method) => {
+            const isSelected = selectedMethod === method.id;
+            return (
+              <div
+                key={method.id}
+                onClick={() => setSelectedMethod(method.id)}
+                className={cn(
+                  "p-4 border rounded-sm cursor-pointer transition-all flex items-start gap-4",
+                  isSelected ? "border-accent bg-accent/5" : "border-surface hover:border-text/30"
+                )}
+              >
+                <div className={cn(
+                  "w-4 h-4 rounded-full border flex items-center justify-center mt-1 transition-all",
+                  isSelected ? "border-accent" : "border-muted"
+                )}>
+                  {isSelected && <div className="w-2 h-2 rounded-full bg-accent" />}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">{method.label}</p>
+                  <p className="text-[12px] text-muted">{method.desc}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-4">
-        <Button variant="primary" size="lg" className="px-12" onClick={onNext}>
-          Hoàn tất đặt hàng
+        <Button variant="primary" size="lg" className="px-12 min-w-[200px]" onClick={onNext} disabled={loading}>
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              Đang tạo đơn...
+            </span>
+          ) : (
+            "Hoàn tất đặt hàng"
+          )}
         </Button>
-        <button onClick={onBack} className="text-sm font-bold uppercase tracking-widest text-muted hover:text-text py-4 px-6 transition-colors">
+        <button onClick={onBack} className="text-sm font-bold uppercase tracking-widest text-muted hover:text-text py-4 px-6 transition-colors" disabled={loading}>
           Quay lại
         </button>
       </div>
