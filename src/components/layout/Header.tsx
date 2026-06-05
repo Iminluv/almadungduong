@@ -17,8 +17,6 @@ const navLinks = [
       { label: "Mỹ phẩm vi sinh Hoa Ngân", href: "/san-pham?category=Mỹ phẩm vi sinh Hoa Ngân" },
       { label: "Dụng cụ làm đẹp", href: "/san-pham?category=Dụng cụ làm đẹp" },
       { label: "Sản phẩm dưỡng sinh", href: "/san-pham?category=Sản phẩm dưỡng sinh" },
-      { label: "Chăm sóc da mặt", href: "/san-pham?category=Sản phẩm dưỡng sinh&subcategory=Chăm sóc da mặt", isSub: true },
-      { label: "Chăm sóc da cơ thể", href: "/san-pham?category=Sản phẩm dưỡng sinh&subcategory=Chăm sóc da cơ thể", isSub: true },
     ]
   },
   { label: "Kết quả", href: "/ket-qua" },

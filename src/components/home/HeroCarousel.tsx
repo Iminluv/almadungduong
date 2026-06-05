@@ -118,7 +118,7 @@ export function HeroCarousel() {
                 }}
                 className="max-w-lg space-y-4 sm:space-y-5"
               >
-                <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-cormorant font-normal leading-[1.25] tracking-tight">
+                <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-body font-normal leading-[1.25] tracking-tight">
                   <span className="text-text">{slides[selectedIndex].titleNormal}</span>
                   <br />
                   <span className="text-accent">{slides[selectedIndex].titleHighlight}</span>
@@ -146,11 +146,11 @@ export function HeroCarousel() {
           <div className="container-custom flex items-center justify-end gap-6">
             {/* Fraction pager */}
             <div className="flex items-center gap-2 text-xs tracking-widest font-body text-white/70 whitespace-nowrap">
-              <span className="font-serif italic text-white font-medium text-sm">
+              <span className="italic text-white font-medium text-sm">
                 {String(selectedIndex + 1).padStart(2, "0")}
               </span>
               <span className="opacity-50">/</span>
-              <span className="font-serif text-sm">
+              <span className="text-sm">
                 {String(slides.length).padStart(2, "0")}
               </span>
             </div>
