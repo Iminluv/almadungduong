@@ -44,12 +44,14 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
     const baseUrl = isTestMode ? "https://userapi-sandbox.sepay.vn" : "https://userapi.sepay.vn";
     const url = accountId ? `${baseUrl}/v2/bank-accounts/${accountId}` : `${baseUrl}/v2/bank-accounts`;
 
+    console.log(`[SEPAY DEBUG] Fetching bank account. URL: "${url}", rawAccountId: "${rawAccountId}", resolved accountId: "${accountId}"`);
+
     const res = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      next: { revalidate: 300 } // NextJS fetch cache 5 minutes
+      cache: 'no-store'
     });
 
     if (!res.ok) {
