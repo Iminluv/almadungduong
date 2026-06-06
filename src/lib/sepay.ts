@@ -12,6 +12,7 @@ let cacheExpiry = 0;
 /**
  * Fetch bank account details from SePay API.
  * Uses local caching for 5 minutes and falls back to environment variables/constants on failure.
+ * If SEPAY_BANK_ACCOUNT_ID is not configured, it dynamically fetches the active account list and selects the first active one.
  */
 export async function fetchBankAccount(): Promise<BankAccountInfo> {
   const token = process.env.SEPAY_API_TOKEN;
@@ -29,13 +30,30 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
     account_holder_name: process.env.SEPAY_BANK_ACCOUNT_NAME || "CÔNG TY TNHH ALMA",
   };
 
-  if (!token || !accountId) {
-    console.warn("SePay API Token or Bank Account ID is missing. Using fallback bank credentials.");
+  if (!token) {
+    console.warn("SePay API Token is missing. Using fallback bank credentials.");
     return fallback;
   }
 
+  const isTestMode = process.env.SEPAY_TEST_MODE === 'true' || token.startsWith('KJQ');
+
   try {
-    const res = await fetch(`https://my.sepay.vn/userapi/bankaccounts/details/${accountId}`, {
+    let url = "";
+    if (isTestMode) {
+      if (accountId) {
+        url = `https://userapi-sandbox.sepay.vn/v2/bank-accounts/${accountId}`;
+      } else {
+        url = "https://userapi-sandbox.sepay.vn/v2/bank-accounts";
+      }
+    } else {
+      if (accountId) {
+        url = `https://my.sepay.vn/userapi/bankaccounts/details/${accountId}`;
+      } else {
+        url = "https://my.sepay.vn/userapi/bankaccounts/list";
+      }
+    }
+
+    const res = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -48,8 +66,27 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
     }
 
     const data = await res.json();
-    // SePay API structure can be nested under bankAccount, bankaccount, or data
-    const account = data.bankAccount || data.bankaccount || data.data || data;
+    let account: any = null;
+
+    if (isTestMode) {
+      if (accountId) {
+        account = data.data || data;
+      } else {
+        const list = data.data || [];
+        if (Array.isArray(list) && list.length > 0) {
+          account = list.find((a: any) => String(a.active) === "1" || a.active === true || String(a.status) === "active") || list[0];
+        }
+      }
+    } else {
+      if (accountId) {
+        account = data.bankAccount || data.bankaccount || data.data || data;
+      } else {
+        const list = data.bankaccounts || data.bankAccounts || data.data || [];
+        if (Array.isArray(list) && list.length > 0) {
+          account = list.find((a: any) => String(a.active) === "1" || a.active === true) || list[0];
+        }
+      }
+    }
 
     if (account && (account.account_number || account.accountNumber)) {
       cachedBankInfo = {
@@ -62,8 +99,12 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
     }
 
     return fallback;
-  } catch (err) {
-    console.error("Failed to fetch bank account from SePay API:", err);
+  } catch (err: any) {
+    if (err instanceof Error && (err.message.includes("status 401") || err.message.includes("status 403"))) {
+      console.warn(`SePay API Token is unauthorized or invalid (401/403) for ${isTestMode ? 'Sandbox' : 'Production'} endpoint. Using fallback bank credentials from .env.`);
+    } else {
+      console.error("Failed to fetch bank account from SePay API:", err);
+    }
     return fallback;
   }
 }
@@ -75,13 +116,13 @@ export function generateTransferCode(): string {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const codeLength = 8;
   let code = '';
-  
+
   const bytes = crypto.randomBytes(codeLength);
   for (let i = 0; i < codeLength; i++) {
     const index = bytes[i] % alphabet.length;
     code += alphabet[index];
   }
-  
+
   return `ALMA${code}`;
 }
 

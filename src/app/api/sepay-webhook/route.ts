@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { prisma } from '@/lib/db';
 import { extractTransferCode } from '@/lib/sepay';
 import { notifyNewPayment, notifyUnmatchedWebhook, notifyAmountMismatch } from '@/lib/notifications';
@@ -8,21 +9,68 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
-    // 1. Verify API Key authorization header
-    const authHeader = request.headers.get('Authorization');
-    const expectedApiKey = process.env.SEPAY_WEBHOOK_API_KEY;
+    // 1. Read request body as raw text to verify the signature
+    const rawBody = await request.text();
+    const signatureHeader = request.headers.get('x-sepay-signature');
+    const timestampHeader = request.headers.get('x-sepay-timestamp');
 
-    if (!expectedApiKey) {
-      console.error('SEPAY_WEBHOOK_API_KEY is not configured in .env');
-      return NextResponse.json({ error: 'Webhook key missing' }, { status: 500 });
+    let isAuthorized = false;
+
+    if (signatureHeader && timestampHeader) {
+      // HMAC-SHA256 Webhook Verification
+      const secretKey = process.env.SEPAY_WEBHOOK_SECRET_KEY;
+      if (!secretKey) {
+        console.error('SEPAY_WEBHOOK_SECRET_KEY is not configured in .env');
+        return NextResponse.json({ error: 'Webhook secret key missing' }, { status: 500 });
+      }
+
+      // Check timestamp drift to prevent replay attacks (allow up to 5 minutes drift)
+      const timestamp = Number(timestampHeader);
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      if (isNaN(timestamp) || Math.abs(currentTimestamp - timestamp) > 300) {
+        console.warn(`Webhook signature rejected: timestamp drift too large. Header: ${timestampHeader}, Server: ${currentTimestamp}`);
+        return NextResponse.json({ error: 'Unauthorized: timestamp drift' }, { status: 401 });
+      }
+
+      // Extract the signature hex
+      const signature = signatureHeader.startsWith('sha256=') ? signatureHeader.substring(7) : signatureHeader;
+      const message = `${timestampHeader}.${rawBody}`;
+      const computedSignature = crypto
+        .createHmac('sha256', secretKey)
+        .update(message)
+        .digest('hex');
+
+      try {
+        const bufSignature = Buffer.from(signature, 'hex');
+        const bufComputed = Buffer.from(computedSignature, 'hex');
+        if (bufSignature.length === bufComputed.length && crypto.timingSafeEqual(bufSignature, bufComputed)) {
+          isAuthorized = true;
+        }
+      } catch (err) {
+        console.error('Signature decoding/matching error:', err);
+      }
+    } else {
+      // Fallback: Verify API Key authorization header
+      const authHeader = request.headers.get('Authorization');
+      const expectedApiKey = process.env.SEPAY_WEBHOOK_API_KEY;
+
+      if (!expectedApiKey) {
+        console.error('SEPAY_WEBHOOK_API_KEY is not configured in .env');
+        return NextResponse.json({ error: 'Webhook key missing' }, { status: 500 });
+      }
+
+      if (authHeader === `Apikey ${expectedApiKey}`) {
+        isAuthorized = true;
+      }
     }
 
-    if (authHeader !== `Apikey ${expectedApiKey}`) {
-      console.warn(`Unauthorized webhook access attempt with header: "${authHeader}"`);
+    if (!isAuthorized) {
+      console.warn('Unauthorized webhook access attempt');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const payload = await request.json();
+    // Parse payload from rawBody since stream has been consumed
+    const payload = JSON.parse(rawBody);
     const { id: sepayId, transferType, content, transferAmount } = payload;
 
     if (!sepayId) {
