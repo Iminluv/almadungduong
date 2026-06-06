@@ -178,298 +178,298 @@ export default function CheckoutPage() {
 
   return (
     <>
-    <main className="min-h-screen bg-bg py-12 md:py-20">
-      <div className="container-custom max-w-6xl">
-        {step !== "success" ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-            {/* Left: Main Flow */}
-            <div className="lg:col-span-7 space-y-12">
-              {/* Stepper */}
-              <div className="flex items-center justify-between relative">
-                <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-surface z-0 -translate-y-1/2" />
+      <main className="min-h-screen bg-bg py-12 md:py-20">
+        <div className="container-custom max-w-6xl">
+          {step !== "success" ? (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+              {/* Left: Main Flow */}
+              <div className="lg:col-span-7 space-y-12">
+                {/* Stepper */}
+                <div className="flex items-center justify-between relative">
+                  <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-surface z-0 -translate-y-1/2" />
 
-                {[
-                  { id: "info", label: "Thông tin", stepNum: 1 },
-                  { id: "shipping", label: "Vận chuyển", stepNum: 2 },
-                  { id: "payment", label: "Thanh toán", stepNum: 3 }
-                ].map((s, idx) => {
-                  const isActive = step === s.id;
-                  const isCompleted = ["shipping", "payment", "success"].includes(step) && idx < ["info", "shipping", "payment"].indexOf(step);
+                  {[
+                    { id: "info", label: "Thông tin", stepNum: 1 },
+                    { id: "shipping", label: "Vận chuyển", stepNum: 2 },
+                    { id: "payment", label: "Thanh toán", stepNum: 3 }
+                  ].map((s, idx) => {
+                    const isActive = step === s.id;
+                    const isCompleted = ["shipping", "payment", "success"].includes(step) && idx < ["info", "shipping", "payment"].indexOf(step);
 
-                  return (
-                    <div key={s.id} className="relative z-10 flex flex-col items-center gap-2 bg-bg px-4">
-                      <div className={cn(
-                        "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300",
-                        isActive ? "bg-accent text-white" : isCompleted ? "bg-surface text-text" : "bg-bg border border-surface text-muted"
-                      )}>
-                        {isCompleted ? "✓" : s.stepNum}
+                    return (
+                      <div key={s.id} className="relative z-10 flex flex-col items-center gap-2 bg-bg px-4">
+                        <div className={cn(
+                          "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300",
+                          isActive ? "bg-accent text-white" : isCompleted ? "bg-surface text-text" : "bg-bg border border-surface text-muted"
+                        )}>
+                          {isCompleted ? "✓" : s.stepNum}
+                        </div>
+                        <span className={cn(
+                          "text-[11px] uppercase tracking-widest font-bold",
+                          isActive ? "text-text" : "text-muted"
+                        )}>
+                          {s.label}
+                        </span>
                       </div>
-                      <span className={cn(
-                        "text-[11px] uppercase tracking-widest font-bold",
-                        isActive ? "text-text" : "text-muted"
-                      )}>
-                        {s.label}
-                      </span>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+
+                {/* Form Content */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={step}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-8"
+                  >
+                    {step === "info" && (
+                      <InfoStep
+                        formData={formData}
+                        setFormData={setFormData}
+                        onNext={() => setStep("shipping")}
+                      />
+                    )}
+                    {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} shippingFee={shippingFee} isFreeShipping={isFreeShipping} formatPrice={formatPrice} freeThreshold={freeThreshold} baseFee={baseFee} />}
+                    {step === "payment" && (
+                      <div className="space-y-4">
+                        {errorMsg && (
+                          <div className="p-3 text-xs bg-rose-50 border border-rose-100 text-rose-700 rounded-sm">
+                            {errorMsg}
+                          </div>
+                        )}
+                        <PaymentStep
+                          onNext={handleCompleteOrder}
+                          onBack={() => setStep("shipping")}
+                          selectedMethod={selectedPaymentMethod}
+                          setSelectedMethod={setSelectedPaymentMethod}
+                          loading={isCreatingOrder}
+                        />
+                      </div>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
-              {/* Form Content */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={step}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-8"
-                >
-                  {step === "info" && (
-                    <InfoStep
-                      formData={formData}
-                      setFormData={setFormData}
-                      onNext={() => setStep("shipping")}
-                    />
-                  )}
-                  {step === "shipping" && <ShippingStep onNext={() => setStep("payment")} onBack={() => setStep("info")} shippingFee={shippingFee} isFreeShipping={isFreeShipping} formatPrice={formatPrice} freeThreshold={freeThreshold} baseFee={baseFee} />}
-                  {step === "payment" && (
-                    <div className="space-y-4">
-                      {errorMsg && (
-                        <div className="p-3 text-xs bg-rose-50 border border-rose-100 text-rose-700 rounded-sm">
-                          {errorMsg}
-                        </div>
-                      )}
-                      <PaymentStep
-                        onNext={handleCompleteOrder}
-                        onBack={() => setStep("shipping")}
-                        selectedMethod={selectedPaymentMethod}
-                        setSelectedMethod={setSelectedPaymentMethod}
-                        loading={isCreatingOrder}
-                      />
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+              {/* Right: Order Summary */}
+              <div className="lg:col-span-5">
+                <div className="bg-surface p-8 rounded-sm sticky top-28">
+                  <h2 className="text-xl font-display font-bold mb-8">Tóm tắt đơn hàng</h2>
 
-            {/* Right: Order Summary */}
-            <div className="lg:col-span-5">
-              <div className="bg-surface p-8 rounded-sm sticky top-28">
-                <h2 className="text-xl font-display font-bold mb-8">Tóm tắt đơn hàng</h2>
-
-                {/* Product list with +/- controls */}
-                <div className="space-y-5 max-h-[400px] overflow-y-auto pr-2 scrollbar-hide">
-                  <AnimatePresence initial={false}>
-                    {items.map((item) => (
-                      <motion.div
-                        key={`${item.id}-${item.variant}`}
-                        layout
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, x: -20, height: 0, marginBottom: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="flex gap-4 group"
-                      >
-                        {/* Product image */}
-                        <div className="relative w-16 aspect-square bg-bg rounded-sm overflow-hidden flex-shrink-0">
-                          <Image src={item.image} alt={item.title} fill className="object-cover" />
-                        </div>
-
-                        {/* Product info + controls */}
-                        <div className="flex-1 min-w-0 flex flex-col justify-between">
-                          <div className="flex justify-between items-start gap-2">
-                            <div className="min-w-0">
-                              <p className="font-semibold text-text text-sm line-clamp-1">{item.title}</p>
-                              {item.variant && (
-                                <p className="text-[11px] text-muted uppercase tracking-wider mt-0.5">{item.variant}</p>
-                              )}
-                            </div>
-                            {/* Remove button */}
-                            <button
-                              onClick={() => removeItem(item.id, item.variant)}
-                              className="text-muted hover:text-red-500 transition-colors p-0.5 opacity-0 group-hover:opacity-100 focus:opacity-100 flex-shrink-0"
-                              title="Xóa sản phẩm"
-                              aria-label={`Xóa ${item.title}`}
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="3 6 5 6 21 6" />
-                                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
-                                <line x1="10" y1="11" x2="10" y2="17" />
-                                <line x1="14" y1="11" x2="14" y2="17" />
-                              </svg>
-                            </button>
+                  {/* Product list with +/- controls */}
+                  <div className="space-y-5 max-h-[400px] overflow-y-auto pr-2 scrollbar-hide">
+                    <AnimatePresence initial={false}>
+                      {items.map((item) => (
+                        <motion.div
+                          key={`${item.id}-${item.variant}`}
+                          layout
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, x: -20, height: 0, marginBottom: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="flex gap-4 group"
+                        >
+                          {/* Product image */}
+                          <div className="relative w-16 aspect-square bg-bg rounded-sm overflow-hidden flex-shrink-0">
+                            <Image src={item.image} alt={item.title} fill className="object-cover" />
                           </div>
 
-                          <div className="flex justify-between items-center mt-2">
-                            {/* Quantity controls */}
-                            <div className="flex items-center border border-bg/60 rounded-sm bg-bg">
-                              <button
-                                onClick={() => {
-                                  if (item.quantity > 1) {
-                                    updateQuantity(item.id, item.quantity - 1, item.variant);
-                                  }
-                                }}
-                                disabled={item.quantity <= 1}
-                                className={cn(
-                                  "w-7 h-7 flex items-center justify-center text-sm transition-colors",
-                                  item.quantity <= 1
-                                    ? "text-muted/40 cursor-not-allowed"
-                                    : "text-text hover:bg-surface"
+                          {/* Product info + controls */}
+                          <div className="flex-1 min-w-0 flex flex-col justify-between">
+                            <div className="flex justify-between items-start gap-2">
+                              <div className="min-w-0">
+                                <p className="font-semibold text-text text-sm line-clamp-1">{item.title}</p>
+                                {item.variant && (
+                                  <p className="text-[11px] text-muted uppercase tracking-wider mt-0.5">{item.variant}</p>
                                 )}
-                                aria-label="Giảm số lượng"
-                              >
-                                −
-                              </button>
-                              <motion.span
-                                key={item.quantity}
-                                initial={{ scale: 1.3 }}
-                                animate={{ scale: 1 }}
-                                className="w-7 text-center text-xs font-bold select-none"
-                              >
-                                {item.quantity}
-                              </motion.span>
+                              </div>
+                              {/* Remove button */}
                               <button
-                                onClick={() => updateQuantity(item.id, item.quantity + 1, item.variant)}
-                                className="w-7 h-7 flex items-center justify-center text-sm text-text hover:bg-surface transition-colors"
-                                aria-label="Tăng số lượng"
+                                onClick={() => removeItem(item.id, item.variant)}
+                                className="text-muted hover:text-red-500 transition-colors p-0.5 opacity-0 group-hover:opacity-100 focus:opacity-100 flex-shrink-0"
+                                title="Xóa sản phẩm"
+                                aria-label={`Xóa ${item.title}`}
                               >
-                                +
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="3 6 5 6 21 6" />
+                                  <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                                  <line x1="10" y1="11" x2="10" y2="17" />
+                                  <line x1="14" y1="11" x2="14" y2="17" />
+                                </svg>
                               </button>
                             </div>
 
-                            {/* Item total price */}
-                            <motion.p
-                              key={item.price * item.quantity}
-                              initial={{ scale: 1.05 }}
-                              animate={{ scale: 1 }}
-                              className="text-sm font-bold text-text"
-                            >
-                              {formatPrice(item.price * item.quantity)}
-                            </motion.p>
+                            <div className="flex justify-between items-center mt-2">
+                              {/* Quantity controls */}
+                              <div className="flex items-center border border-bg/60 rounded-sm bg-bg">
+                                <button
+                                  onClick={() => {
+                                    if (item.quantity > 1) {
+                                      updateQuantity(item.id, item.quantity - 1, item.variant);
+                                    }
+                                  }}
+                                  disabled={item.quantity <= 1}
+                                  className={cn(
+                                    "w-7 h-7 flex items-center justify-center text-sm transition-colors",
+                                    item.quantity <= 1
+                                      ? "text-muted/40 cursor-not-allowed"
+                                      : "text-text hover:bg-surface"
+                                  )}
+                                  aria-label="Giảm số lượng"
+                                >
+                                  −
+                                </button>
+                                <motion.span
+                                  key={item.quantity}
+                                  initial={{ scale: 1.3 }}
+                                  animate={{ scale: 1 }}
+                                  className="w-7 text-center text-xs font-bold select-none"
+                                >
+                                  {item.quantity}
+                                </motion.span>
+                                <button
+                                  onClick={() => updateQuantity(item.id, item.quantity + 1, item.variant)}
+                                  className="w-7 h-7 flex items-center justify-center text-sm text-text hover:bg-surface transition-colors"
+                                  aria-label="Tăng số lượng"
+                                >
+                                  +
+                                </button>
+                              </div>
+
+                              {/* Item total price */}
+                              <motion.p
+                                key={item.price * item.quantity}
+                                initial={{ scale: 1.05 }}
+                                animate={{ scale: 1 }}
+                                className="text-sm font-bold text-text"
+                              >
+                                {formatPrice(item.price * item.quantity)}
+                              </motion.p>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
-
-                {/* Shipping progress bar */}
-                <div className="mt-6 pt-6 border-t border-bg/50">
-                  <AnimatePresence mode="wait">
-                    {isFreeShipping ? (
-                      <motion.div
-                        key="freeship-achieved"
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        className="flex items-center gap-2 p-3 bg-accent/10 rounded-sm"
-                      >
-                        <span className="text-lg">🎉</span>
-                        <p className="text-xs font-semibold text-accent">
-                          Chúc mừng! Đơn hàng của bạn được <span className="uppercase tracking-wider">miễn phí vận chuyển</span>
-                        </p>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="freeship-progress"
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        className="space-y-2"
-                      >
-                        <p className="text-xs text-muted">
-                          Mua thêm <span className="font-bold text-accent">{formatPrice(amountToFreeShip)}</span> để được <span className="font-semibold text-accent">miễn phí vận chuyển</span>
-                        </p>
-                        <div className="w-full h-1.5 bg-bg rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-accent rounded-full"
-                            initial={{ width: 0 }}
-                            animate={{ width: `${freeShipProgress * 100}%` }}
-                            transition={{ duration: 0.5, ease: "easeOut" }}
-                          />
-                        </div>
-                        <p className="text-[10px] text-muted/70 italic">
-                          Freeship với đơn hàng trên {formatPrice(freeThreshold)} • Đồng giá {formatPrice(baseFee)} toàn quốc
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Price breakdown */}
-                <div className="mt-6 pt-6 border-t border-bg/50 space-y-4">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-muted">Tạm tính</span>
-                    <motion.span
-                      key={subtotal}
-                      initial={{ scale: 1.05 }}
-                      animate={{ scale: 1 }}
-                      className="font-medium"
-                    >
-                      {formatPrice(subtotal)}
-                    </motion.span>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
                   </div>
 
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-muted">Phí vận chuyển</span>
+                  {/* Shipping progress bar */}
+                  <div className="mt-6 pt-6 border-t border-bg/50">
                     <AnimatePresence mode="wait">
                       {isFreeShipping ? (
-                        <motion.span
-                          key="free"
-                          initial={{ opacity: 0, y: -4 }}
+                        <motion.div
+                          key="freeship-achieved"
+                          initial={{ opacity: 0, y: 4 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 4 }}
-                          className="text-accent font-medium uppercase tracking-widest text-[11px]"
+                          exit={{ opacity: 0, y: -4 }}
+                          className="flex items-center gap-2 p-3 bg-accent/10 rounded-sm"
                         >
-                          Miễn phí
-                        </motion.span>
+                          <span className="text-lg">🎉</span>
+                          <p className="text-xs font-semibold text-accent">
+                            Chúc mừng! Đơn hàng của bạn được <span className="uppercase tracking-wider">miễn phí vận chuyển</span>
+                          </p>
+                        </motion.div>
                       ) : (
-                        <motion.span
-                          key="paid"
-                          initial={{ opacity: 0, y: -4 }}
+                        <motion.div
+                          key="freeship-progress"
+                          initial={{ opacity: 0, y: 4 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 4 }}
-                          className="font-medium text-text"
+                          exit={{ opacity: 0, y: -4 }}
+                          className="space-y-2"
                         >
-                          {formatPrice(baseFee)}
-                        </motion.span>
+                          <p className="text-xs text-muted">
+                            Mua thêm <span className="font-bold text-accent">{formatPrice(amountToFreeShip)}</span> để được <span className="font-semibold text-accent">miễn phí vận chuyển</span>
+                          </p>
+                          <div className="w-full h-1.5 bg-bg rounded-full overflow-hidden">
+                            <motion.div
+                              className="h-full bg-accent rounded-full"
+                              initial={{ width: 0 }}
+                              animate={{ width: `${freeShipProgress * 100}%` }}
+                              transition={{ duration: 0.5, ease: "easeOut" }}
+                            />
+                          </div>
+                          <p className="text-[10px] text-muted/70 italic">
+                            Freeship với đơn hàng trên {formatPrice(freeThreshold)} • Đồng giá {formatPrice(baseFee)} toàn quốc
+                          </p>
+                        </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
 
-                  <div className="flex justify-between items-center pt-4 border-t border-bg/30">
-                    <span className="text-lg font-bold uppercase tracking-wider">Tổng cộng</span>
-                    <motion.span
-                      key={totalPrice}
-                      initial={{ scale: 1.08 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      className="text-2xl font-bold text-text"
-                    >
-                      {formatPrice(totalPrice)}
-                    </motion.span>
+                  {/* Price breakdown */}
+                  <div className="mt-6 pt-6 border-t border-bg/50 space-y-4">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted">Tạm tính</span>
+                      <motion.span
+                        key={subtotal}
+                        initial={{ scale: 1.05 }}
+                        animate={{ scale: 1 }}
+                        className="font-medium"
+                      >
+                        {formatPrice(subtotal)}
+                      </motion.span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted">Phí vận chuyển</span>
+                      <AnimatePresence mode="wait">
+                        {isFreeShipping ? (
+                          <motion.span
+                            key="free"
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 4 }}
+                            className="text-accent font-medium uppercase tracking-widest text-[11px]"
+                          >
+                            Miễn phí
+                          </motion.span>
+                        ) : (
+                          <motion.span
+                            key="paid"
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 4 }}
+                            className="font-medium text-text"
+                          >
+                            {formatPrice(baseFee)}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-bg/30">
+                      <span className="text-lg font-bold uppercase tracking-wider">Tổng cộng</span>
+                      <motion.span
+                        key={totalPrice}
+                        initial={{ scale: 1.08 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="text-2xl font-bold text-text"
+                      >
+                        {formatPrice(totalPrice)}
+                      </motion.span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <SuccessStep />
-        )}
-      </div>
-    </main>
+          ) : (
+            <SuccessStep />
+          )}
+        </div>
+      </main>
 
-    <CheckoutModal
-      isOpen={isCheckoutModalOpen}
-      onClose={() => setIsCheckoutModalOpen(false)}
-      onSuccess={() => {
-        setIsCheckoutModalOpen(false);
-        clearCart();
-        router.push("/tai-khoan");
-      }}
-      orderData={pendingOrderData}
-    />
+      <CheckoutModal
+        isOpen={isCheckoutModalOpen}
+        onClose={() => setIsCheckoutModalOpen(false)}
+        onSuccess={() => {
+          setIsCheckoutModalOpen(false);
+          clearCart();
+          router.push("/tai-khoan");
+        }}
+        orderData={pendingOrderData}
+      />
     </>
   );
 }

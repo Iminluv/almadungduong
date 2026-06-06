@@ -16,7 +16,10 @@ let cacheExpiry = 0;
  */
 export async function fetchBankAccount(): Promise<BankAccountInfo> {
   const token = process.env.SEPAY_API_TOKEN;
-  const accountId = process.env.SEPAY_BANK_ACCOUNT_ID;
+  const rawAccountId = process.env.SEPAY_BANK_ACCOUNT_ID;
+  const accountId = (rawAccountId && rawAccountId.trim() !== '' && rawAccountId.trim() !== 'undefined' && rawAccountId.trim() !== 'null') 
+    ? rawAccountId.trim() 
+    : null;
 
   const now = Date.now();
   if (cachedBankInfo && now < cacheExpiry) {
