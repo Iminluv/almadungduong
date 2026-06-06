@@ -14,7 +14,8 @@ Below is the directory tree highlighting the key source files and configurations
 ├── documentation/            # Implementation details, migrations, and reports
 │   ├── task_report.md        # Comprehensive report of completed tasks
 │   ├── 2-6-26/               # Design & migration docs for products and loyalty configuration
-│   └── 4-6-26/               # Design & migration docs for User Account feature (Phases 1-10)
+│   ├── 4-6-26/               # Design & migration docs for User Account feature (Phases 1-10)
+│   └── 6-6-26/               # Integration docs for SePay payment gateway, webhook validation, and checkout
 ├── prisma/                   # Prisma ORM schema and database seeding
 │   ├── schema.prisma         # Database schema definition
 │   ├── products_seed_data.ts # Normalized products list data for seeding
@@ -30,11 +31,15 @@ Below is the directory tree highlighting the key source files and configurations
 │   ├── app/                  # Next.js App Router pages and API routes
 │   │   ├── api/              # Route handlers / backend endpoints
 │   │   │   ├── auth/         # NextAuth registration and catch-all authentication routes
+│   │   │   ├── checkout/     # Order creation and SePay checkout initiation API
+│   │   │   ├── claim-transfer/ # Manual checkout claim notifications
 │   │   │   ├── loyalty/      # Loyalty Program API endpoints
+│   │   │   ├── payment-status/ # Dynamic status checker API by transaction code
 │   │   │   ├── products/     # Product listing and filter API endpoints
 │   │   │   │   └── [slug]/   # Dynamic product detail API by slug
+│   │   │   ├── sepay-webhook/# Secure callback endpoint validating HMAC signatures
 │   │   │   ├── shipping/     # Shipping rates API endpoint
-│   │   │   └── user/         # Customer profile, addresses, and favorites API routes
+│   │   │   └── user/         # Customer profile, addresses, favorites, and orders API routes
 │   │   ├── blog/             # Brand blog page & article details
 │   │   ├── chung-chi/         # Quality certifications and reports page
 │   │   ├── ket-qua/          # Checkout results / order status
@@ -52,6 +57,7 @@ Below is the directory tree highlighting the key source files and configurations
 │   │   └── page.tsx          # Homepage view entry point
 │   ├── components/           # Reusable React UI Components
 │   │   ├── cart/             # Shopping cart components (drawer, badge)
+│   │   ├── checkout/         # SePay payment QR & polling modal components
 │   │   ├── home/             # Homepage-specific components
 │   │   ├── layout/           # Shared page wrappers (Header, Footer, Chat widget)
 │   │   ├── products/         # Product listing filters, review cards
@@ -65,6 +71,9 @@ Below is the directory tree highlighting the key source files and configurations
 │       ├── caseStudies.ts    # Scientific skin treatment case studies dataset
 │       ├── data.ts           # Mock & fallback static product data
 │       ├── db.ts             # Prisma Client Postgres singleton adapter
+│       ├── email.ts          # Resend transaction email utilities & templates
+│       ├── notifications.ts  # Centralized developer logging/notification service stubs
+│       ├── sepay.ts          # SePay API v2 client integration & QR generator
 │       └── utils.ts          # Tailwind styling helpers
 ├── commitlint.config.js      # Commitlint configuration rules for Git commits
 ├── eslint.config.mjs         # ESLint configuration
@@ -117,6 +126,9 @@ Responsible for schema definitions, migrations, and test data seed populations.
     *   `Account` / `Session`: OAuth credentials links and server-side user authentication tracking.
     *   `Address`: User-owned shipping addresses for auto-filling and checkout.
     *   `Favorite`: Wishlist tracking correlating users and catalog products.
+    *   `Order`: Represents buyer transaction sessions, status indicators (pending/completed/expired), tracking codes, pricing fields, and snapshot shipping/bank logs.
+    *   `OrderItem`: Relates purchased products, prices, and quantities to parent orders.
+    *   `WebhookLog`: Records incoming raw transaction payloads from payment gateway webhooks for HMAC check and idempotent processing.
 *   [products_seed_data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/products_seed_data.ts): Static database seed configuration listing core products, tags, and category keys.
 *   [reviews_seed_data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/reviews_seed_data.ts): Imported review items matching specific product keys.
 *   [extract_reviews.py](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/extract_reviews.py): Python data extraction script to process external feedback worksheets into TypeScript objects.
@@ -131,6 +143,9 @@ Acts as the central point for shared modules, API fetch instances, and global st
 *   [auth.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/auth.ts): NextAuth v5 central authentication configuration supporting email Credentials (bcrypt comparison) and Google OAuth providers, mapping callbacks to attach user metadata.
 *   [caseStudies.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/caseStudies.ts): Standard database for before-and-after skin improvement evaluations, categorizing treatments (e.g., *Mỏng yếu*, *Thâm nám*, *Viêm mụn*) alongside drive references.
 *   [data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/data.ts): Local fallback file storing static information such as products list, blog posts, reviews, and categories.
+*   [sepay.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/sepay.ts): Orchestrates communication with SePay API v2 (automatically routing requests to sandbox or live endpoints based on API Key prefix) and generates VietQR endpoints for client banking transfers.
+*   [notifications.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/notifications.ts): Developer alerts system stub supporting console reporting of critical payment failures or mismatch errors.
+*   [email.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/email.ts): Wraps the **Resend API** to construct transaction invoices and transmit HTML order completion notifications.
 *   [utils.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/utils.ts): Shared layout utilities like `cn` to cleanly join classnames together.
 *   `store/`:
     *   [useCart.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/lib/store/useCart.ts): **Zustand** client-side cart manager. Handles items additions, deductions, calculations, and cart drawer visibility toggle toggles.
@@ -147,11 +162,15 @@ Standard Next.js App Router structure. Each subfolder maps to a page endpoint:
 *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/page.tsx): Main landing page. Combines hero carousel, scientific information highlights, monthly deals, product carousels, and client testimonials.
 *   `api/`:
     *   `auth/` -> Contains registration controller (`/api/auth/register`) and NextAuth API catch-all handler (`/api/auth/[...nextauth]`).
+    *   `checkout/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/checkout/route.ts): Initiates and constructs database `Order` records, calculates totals and shipping fees, fetches bank details from SePay, and supplies the transaction credentials back to the client.
+    *   `claim-transfer/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/claim-transfer/route.ts): Processes user-initiated manual verification claims if an order is unpaid. Sends notifications to the admin system.
     *   `loyalty/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/loyalty/route.ts): Backend route handler returning loyalty details and config mappings.
+    *   `payment-status/` -> `[transferCode]/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/payment-status/%5BtransferCode%5D/route.ts): Pollable status endpoint enabling the checkout page to detect transaction progression (pending to completed/expired).
     *   `products/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/products/route.ts): Queries and returns all active products including relational tags, images, and reviews.
     *   `products/[slug]/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/products/[slug]/route.ts): Queries and returns details of a single product based on its unique slug.
+    *   `sepay-webhook/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/sepay-webhook/route.ts): Processes incoming SePay payment notifications. Employs timing-safe cryptographic SHA256 HMAC verification (with timestamp drift prevention) or bearer-auth matching, transitioning corresponding order rows to `completed`.
     *   `shipping/` -> [route.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/api/shipping/route.ts): Queries and returns current national flat-rate shipping policies.
-    *   `user/` -> Contains secure customer profile handlers (`/api/user/profile`), addresses CRUD operations (`/api/user/addresses`), and favorites wishlist toggles (`/api/user/favorites`).
+    *   `user/` -> Contains secure customer profile handlers (`/api/user/profile`), addresses CRUD operations (`/api/user/addresses`), favorites wishlist toggles (`/api/user/favorites`), and order history query feeds (`/api/user/orders/route.ts`).
 *   `blog/`:
     *   [page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/page.tsx) / [BlogView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/BlogView.tsx): Displays published articles list.
     *   `[slug]/`: Dynamic routes displaying full details of individual articles ([page.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/page.tsx) / [BlogDetailView.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/app/blog/[slug]/BlogDetailView.tsx)).
@@ -179,6 +198,9 @@ Global visual layouts wrap around multiple views:
 
 #### Cart Components (`src/components/cart/`)
 *   [CartDrawer.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/cart/CartDrawer.tsx): A slide-out sidebar from the right displaying items currently added to the cart, options to increment/decrement quantities, total pricing, and quick buttons to proceed to the checkout route.
+
+#### Checkout Components (`src/components/checkout/`)
+*   [CheckoutModal.tsx](file:///Users/iminluv/Documents/GitHub/almadungduong/src/components/checkout/CheckoutModal.tsx): Interactive overlay modal rendered during order completion. Renders dynamic bank transfer QR codes, counts down a 10-minute validity window, listens to transaction changes via status polling, handles user claim submissions, and executes cancellation behaviors.
 
 #### Home Components (`src/components/home/`)
 Widgets designed specifically for the front landing page:
@@ -225,3 +247,4 @@ Contains system execution plans, migration steps, and development progress repor
 *   [task_report.md](file:///Users/iminluv/Documents/GitHub/almadungduong/documentation/task_report.md): Summary report documenting connection configurations, seeding strategies, API development, and unit test logs for Phase 2/3/4 of the Loyalty Program.
 *   `2-6-26/`: Date-stamped implementation blueprints detailing exact steps for schema synchronization, image normalizations, and product data cleaning logs.
 *   `4-6-26/`: Date-stamped reports covering all 10 phases of the User Account feature (dependency management, NextAuth configuration, addresses and favorites APIs, dashboard tabs, layout headers, and autofill checkout).
+*   `6-6-26/`: Date-stamped architectural guides covering the SePay payment system integration (VietQR generation, webhook security with HMAC-SHA256 timing validation, multi-channel admin alerts, and manual claiming mechanisms).

@@ -13,6 +13,7 @@
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
+    "db:sync-custom": "tsx prisma/sync_custom.ts",
     "db:studio": "prisma studio"
   },
   "lint-staged": {

@@ -150,11 +150,11 @@ export default function CheckoutPage() {
   }, []);
 
   const freeThreshold = shippingRate?.freeThreshold ?? 1_000_000;
-  const baseFee = shippingRate?.baseFee ?? 30_000;
+  const baseFee = shippingRate?.baseFee ?? 0;
 
   // Shipping fee calculation
   const subtotal = useMemo(() => (isMounted ? getTotalPrice() : 0), [isMounted, items, getTotalPrice]);
-  const isFreeShipping = subtotal >= freeThreshold;
+  const isFreeShipping = baseFee === 0 || subtotal >= freeThreshold;
   const shippingFee = isFreeShipping ? 0 : baseFee;
   const totalPrice = subtotal + shippingFee;
   const amountToFreeShip = Math.max(0, freeThreshold - subtotal);

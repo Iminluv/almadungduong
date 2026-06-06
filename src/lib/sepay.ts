@@ -38,20 +38,8 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
   const isTestMode = process.env.SEPAY_TEST_MODE === 'true' || token.startsWith('KJQ');
 
   try {
-    let url = "";
-    if (isTestMode) {
-      if (accountId) {
-        url = `https://userapi-sandbox.sepay.vn/v2/bank-accounts/${accountId}`;
-      } else {
-        url = "https://userapi-sandbox.sepay.vn/v2/bank-accounts";
-      }
-    } else {
-      if (accountId) {
-        url = `https://my.sepay.vn/userapi/bankaccounts/details/${accountId}`;
-      } else {
-        url = "https://my.sepay.vn/userapi/bankaccounts/list";
-      }
-    }
+    const baseUrl = isTestMode ? "https://userapi-sandbox.sepay.vn" : "https://userapi.sepay.vn";
+    const url = accountId ? `${baseUrl}/v2/bank-accounts/${accountId}` : `${baseUrl}/v2/bank-accounts`;
 
     const res = await fetch(url, {
       headers: {
@@ -68,23 +56,12 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
     const data = await res.json();
     let account: any = null;
 
-    if (isTestMode) {
-      if (accountId) {
-        account = data.data || data;
-      } else {
-        const list = data.data || [];
-        if (Array.isArray(list) && list.length > 0) {
-          account = list.find((a: any) => String(a.active) === "1" || a.active === true || String(a.status) === "active") || list[0];
-        }
-      }
+    if (accountId) {
+      account = data.data || data;
     } else {
-      if (accountId) {
-        account = data.bankAccount || data.bankaccount || data.data || data;
-      } else {
-        const list = data.bankaccounts || data.bankAccounts || data.data || [];
-        if (Array.isArray(list) && list.length > 0) {
-          account = list.find((a: any) => String(a.active) === "1" || a.active === true) || list[0];
-        }
+      const list = data.data || [];
+      if (Array.isArray(list) && list.length > 0) {
+        account = list.find((a: any) => String(a.active) === "1" || a.active === true || String(a.status) === "active") || list[0];
       }
     }
 
