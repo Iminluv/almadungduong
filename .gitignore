@@ -63,3 +63,5 @@ prisma/generated/
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+almadungduong

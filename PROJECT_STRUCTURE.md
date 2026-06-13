@@ -21,7 +21,9 @@ Below is the directory tree highlighting the key source files and configurations
 │   ├── products_seed_data.ts # Normalized products list data for seeding
 │   ├── reviews_seed_data.ts  # Normalized product reviews data for seeding
 │   ├── extract_reviews.py    # Python helper script to extract spreadsheet reviews
-│   └── seed.ts               # Database seed script for loyalty configuration, categories, and products
+│   ├── seed.ts               # Database seed script for loyalty configuration, categories, and products
+│   ├── sync_custom.ts        # Database custom sync script for free shipping & test product
+│   └── check_db_logs.ts      # Diagnostic utility script to check db logs & order durations
 ├── public/                   # Public static assets
 │   └── images/               # Image resources (e.g., hero banners)
 ├── src/                      # Application Source Code
@@ -133,6 +135,8 @@ Responsible for schema definitions, migrations, and test data seed populations.
 *   [reviews_seed_data.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/reviews_seed_data.ts): Imported review items matching specific product keys.
 *   [extract_reviews.py](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/extract_reviews.py): Python data extraction script to process external feedback worksheets into TypeScript objects.
 *   [seed.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/seed.ts): Cleans the Postgres tables and seeds them with baseline configurations, loyalty settings, product catalogs, categories, tags, product images, reviews, and delivery rates.
+*   [sync_custom.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/sync_custom.ts): Targeted synchronization script that sets the shipping base fee to 0 VND and upserts the 3,000 VND test product without clearing existing user, order, or webhook tables.
+*   [check_db_logs.ts](file:///Users/iminluv/Documents/GitHub/almadungduong/prisma/check_db_logs.ts): Diagnostic helper script that queries recent database orders, calculates average checkout durations for completed orders, and displays raw logs of received webhooks.
 
 ---
 

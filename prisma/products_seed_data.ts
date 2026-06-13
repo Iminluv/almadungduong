@@ -8,7 +8,7 @@ export const products: Product[] = [
     "price": 499000,
     "rating": 4.9,
     "reviewsCount": 103,
-    "image": "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361084/almadungduong/products/xit-duong-chuyen-sau-miracle/1.png",
     "features": [],
     "skinConcerns": [],
     "englishName": "BIO MIRACLE ESSENCE",
@@ -21,7 +21,17 @@ export const products: Product[] = [
     "usage": "Sản phẩm được sử dụng theo 2 cách:\nCách 1: Xịt trực tiếp lên mặt (giống xịt khoáng). Xịt khi da mặt không bôi thoa mỹ phẩm khác. Xịt từ 3-7 lần/ ngày (không giưới hạn lượng xịt trong ngày)\n\nCách 2: Đắp mặt nạ ủ. Làm ướt bông tẩy trang bằng Xịt dưỡng, Tách lớp bông tẩy trang cho mỏng vừa đủ và đắp lên da. Đắp lớp mặt nạ ủ nilon bên ngoài để ngăn bốc hơi. Đắp từ 40-90 phút. Sau khi đắp xong không cần rửa mặt lại với nước. \n\nVui lòng đọc kỹ Hướng Dẫn Sử Dụng trước khi sử dụng tại đây: Cẩm nang hướng dẫn sử dụng \nKhi mua sản phẩm bạn sẽ được đồng hành 1:1 với tư vấn viên, bạn cũng có thể liên hệ tư vấn viên để được giải đáp thắc mắc kịp thời.",
     "slug": "xit-duong-chuyen-sau-miracle",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361084/almadungduong/products/xit-duong-chuyen-sau-miracle/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361085/almadungduong/products/xit-duong-chuyen-sau-miracle/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361086/almadungduong/products/xit-duong-chuyen-sau-miracle/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361087/almadungduong/products/xit-duong-chuyen-sau-miracle/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361089/almadungduong/products/xit-duong-chuyen-sau-miracle/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361091/almadungduong/products/xit-duong-chuyen-sau-miracle/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361093/almadungduong/products/xit-duong-chuyen-sau-miracle/7.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361094/almadungduong/products/xit-duong-chuyen-sau-miracle/656008775_963634109345437_2834143024836360304_n.jpg"
+    ]
   },
   {
     "id": "tinh-chat-tai-sinh-2-0",
@@ -30,7 +40,7 @@ export const products: Product[] = [
     "price": 549000,
     "rating": 4.9,
     "reviewsCount": 104,
-    "image": "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360995/almadungduong/products/tinh-chat-tai-sinh-2-0/1.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "BIO REGENERATING ESSENCE VI SINH 2.0",
@@ -43,7 +53,16 @@ export const products: Product[] = [
     "tagline": "Kiểm nghiệm không kích ứng / Da nhạy cảm / Dùng được cho phụ nữ có thai & trẻ em",
     "slug": "tinh-chat-tai-sinh-2-0",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360995/almadungduong/products/tinh-chat-tai-sinh-2-0/1.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360996/almadungduong/products/tinh-chat-tai-sinh-2-0/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360997/almadungduong/products/tinh-chat-tai-sinh-2-0/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360999/almadungduong/products/tinh-chat-tai-sinh-2-0/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361000/almadungduong/products/tinh-chat-tai-sinh-2-0/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361001/almadungduong/products/tinh-chat-tai-sinh-2-0/7.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361002/almadungduong/products/tinh-chat-tai-sinh-2-0/8.jpg"
+    ]
   },
   {
     "id": "tinh-chat-tai-sinh-2-7",
@@ -52,7 +71,7 @@ export const products: Product[] = [
     "price": 549000,
     "rating": 4.9,
     "reviewsCount": 105,
-    "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361005/almadungduong/products/tinh-chat-tai-sinh-2-7/1.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "BIO REGENERATING ESSENCE VI SINH 2.7",
@@ -65,7 +84,18 @@ export const products: Product[] = [
     "usage": "Sản phẩm được sử dụng theo 2 cách: \nCách 1: Xịt Vi sinh ra lòng bàn tay, sau đó dùng tay còn lại để thoa lên da. Không thoa lên các vùng da mỏng như mí mắt, bọng mắt. Ngày thoa từ 1-2 lần. Nên thoa trước khi đi ngủ \n\nCách 2: Xịt Vi sinh lên tăm bông và thoa đều lên da, những vùng mụn, thâm nám.\n\nVui lòng đọc kỹ Hướng Dẫn Sử Dụng trước khi sử dụng tại đây: Cẩm nang hướng dẫn sử dụng \nKhi mua sản phẩm bạn sẽ được đồng hành 1:1 với tư vấn viên, bạn cũng có thể liên hệ tư vấn viên để được giải đáp thắc mắc kịp thời.",
     "slug": "tinh-chat-tai-sinh-2-7",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361005/almadungduong/products/tinh-chat-tai-sinh-2-7/1.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361006/almadungduong/products/tinh-chat-tai-sinh-2-7/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361007/almadungduong/products/tinh-chat-tai-sinh-2-7/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361009/almadungduong/products/tinh-chat-tai-sinh-2-7/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361010/almadungduong/products/tinh-chat-tai-sinh-2-7/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361011/almadungduong/products/tinh-chat-tai-sinh-2-7/7.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361012/almadungduong/products/tinh-chat-tai-sinh-2-7/8.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361015/almadungduong/products/tinh-chat-tai-sinh-2-7/9.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361016/almadungduong/products/tinh-chat-tai-sinh-2-7/10.jpg"
+    ]
   },
   {
     "id": "sua-rua-mat-nuoc-bang-glacier",
@@ -74,7 +104,7 @@ export const products: Product[] = [
     "price": 449000,
     "rating": 4.9,
     "reviewsCount": 106,
-    "image": "https://images.unsplash.com/photo-1556228444-7164923f1489?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360985/almadungduong/products/sua-rua-mat-nuoc-bang-glacier/1-scaled.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "GLACIER FOAM CLEANSER",
@@ -87,7 +117,10 @@ export const products: Product[] = [
     "tagline": "Dành cho mọi loại da / Dịu nhẹ / Dùng được cho phụ nữ có thai & trẻ em",
     "slug": "sua-rua-mat-nuoc-bang-glacier",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360985/almadungduong/products/sua-rua-mat-nuoc-bang-glacier/1-scaled.jpg"
+    ]
   },
   {
     "id": "kem-chong-nang-smart-suncare",
@@ -96,7 +129,7 @@ export const products: Product[] = [
     "price": 799000,
     "rating": 4.9,
     "reviewsCount": 107,
-    "image": "https://images.unsplash.com/photo-1556228444-2457636e74fc?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361099/almadungduong/products/kem-chong-nang-smart-suncare/7-scaled.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "SMART SUNCARE SPF 123 & UVA-PF 79",
@@ -109,7 +142,12 @@ export const products: Product[] = [
     "tagline": "Dành cho mọi loại da/ Mỏng nhẹ/ Chống nắng phổ rộng",
     "slug": "kem-chong-nang-smart-suncare",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361099/almadungduong/products/kem-chong-nang-smart-suncare/7-scaled.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361100/almadungduong/products/kem-chong-nang-smart-suncare/KIEM-NGHIEM-CHI-SO-SPF-VA-UVA-PF-1-MOI-scaled.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361102/almadungduong/products/kem-chong-nang-smart-suncare/KIEM-NGHIEM-CHONG-NANG-QUANG-PHO-RONG-scaled%20%281%29.jpg"
+    ]
   },
   {
     "id": "combo-1-trang-sang",
@@ -118,7 +156,7 @@ export const products: Product[] = [
     "price": 1747000,
     "rating": 4.9,
     "reviewsCount": 108,
-    "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360779/almadungduong/products/combo-1-trang-sang/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 2246000,
@@ -129,7 +167,23 @@ export const products: Product[] = [
     "usage": "Vui lòng đọc kỹ Hướng Dẫn Sử Dụng trước khi sử dụng tại đây: Cẩm nang hướng dẫn sử dụng \nKhi mua sản phẩm bạn sẽ được đồng hành 1:1 với tư vấn viên, bạn cũng có thể liên hệ tư vấn viên để được giải đáp thắc mắc kịp thời.",
     "slug": "combo-1-trang-sang",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360779/almadungduong/products/combo-1-trang-sang/1.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360780/almadungduong/products/combo-1-trang-sang/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360781/almadungduong/products/combo-1-trang-sang/2.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360783/almadungduong/products/combo-1-trang-sang/3.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360784/almadungduong/products/combo-1-trang-sang/4..png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360785/almadungduong/products/combo-1-trang-sang/4.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360787/almadungduong/products/combo-1-trang-sang/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360788/almadungduong/products/combo-1-trang-sang/5.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360789/almadungduong/products/combo-1-trang-sang/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360791/almadungduong/products/combo-1-trang-sang/7.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360793/almadungduong/products/combo-1-trang-sang/8.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360794/almadungduong/products/combo-1-trang-sang/9.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360795/almadungduong/products/combo-1-trang-sang/10.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360797/almadungduong/products/combo-1-trang-sang/11.jpg"
+    ]
   },
   {
     "id": "combo-2-phuc-hoi",
@@ -138,7 +192,7 @@ export const products: Product[] = [
     "price": 2296000,
     "rating": 4.9,
     "reviewsCount": 109,
-    "image": "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360802/almadungduong/products/combo-2-phuc-hoi/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 2795000,
@@ -149,7 +203,26 @@ export const products: Product[] = [
     "usage": "Vui lòng đọc kỹ Hướng Dẫn Sử Dụng trước khi sử dụng tại đây: Cẩm nang hướng dẫn sử dụng \nKhi mua sản phẩm bạn sẽ được đồng hành 1:1 với tư vấn viên, bạn cũng có thể liên hệ tư vấn viên để được giải đáp thắc mắc kịp thời.",
     "slug": "combo-2-phuc-hoi",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360802/almadungduong/products/combo-2-phuc-hoi/1.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360804/almadungduong/products/combo-2-phuc-hoi/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360807/almadungduong/products/combo-2-phuc-hoi/2%20%281%29.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360808/almadungduong/products/combo-2-phuc-hoi/2.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360810/almadungduong/products/combo-2-phuc-hoi/3%20%281%29.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360811/almadungduong/products/combo-2-phuc-hoi/3.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360813/almadungduong/products/combo-2-phuc-hoi/4%20%281%29.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360814/almadungduong/products/combo-2-phuc-hoi/4.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360815/almadungduong/products/combo-2-phuc-hoi/5%20%281%29.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360817/almadungduong/products/combo-2-phuc-hoi/5.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360818/almadungduong/products/combo-2-phuc-hoi/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360819/almadungduong/products/combo-2-phuc-hoi/7.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360820/almadungduong/products/combo-2-phuc-hoi/8.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360821/almadungduong/products/combo-2-phuc-hoi/9.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360823/almadungduong/products/combo-2-phuc-hoi/10.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360824/almadungduong/products/combo-2-phuc-hoi/11.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360826/almadungduong/products/combo-2-phuc-hoi/12.jpg"
+    ]
   },
   {
     "id": "combo-3-toan-dien",
@@ -158,7 +231,7 @@ export const products: Product[] = [
     "price": 998000,
     "rating": 4.9,
     "reviewsCount": 110,
-    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360834/almadungduong/products/combo-3-toan-dien/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 1497000,
@@ -169,7 +242,20 @@ export const products: Product[] = [
     "usage": "Vui lòng đọc kỹ Hướng Dẫn Sử Dụng trước khi sử dụng tại đây: Cẩm nang hướng dẫn sử dụng \nKhi mua sản phẩm bạn sẽ được đồng hành 1:1 với tư vấn viên, bạn cũng có thể liên hệ tư vấn viên để được giải đáp thắc mắc kịp thời.",
     "slug": "combo-3-toan-dien",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360834/almadungduong/products/combo-3-toan-dien/1.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360835/almadungduong/products/combo-3-toan-dien/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360836/almadungduong/products/combo-3-toan-dien/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360838/almadungduong/products/combo-3-toan-dien/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360839/almadungduong/products/combo-3-toan-dien/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360840/almadungduong/products/combo-3-toan-dien/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360841/almadungduong/products/combo-3-toan-dien/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360843/almadungduong/products/combo-3-toan-dien/7.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360844/almadungduong/products/combo-3-toan-dien/8.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360845/almadungduong/products/combo-3-toan-dien/9.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360846/almadungduong/products/combo-3-toan-dien/10.jpg"
+    ]
   },
   {
     "id": "combo-4-tinh-gon",
@@ -178,7 +264,7 @@ export const products: Product[] = [
     "price": 1547000,
     "rating": 4.9,
     "reviewsCount": 111,
-    "image": "https://images.unsplash.com/photo-1556228366-2457636e74fc?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360851/almadungduong/products/combo-4-tinh-gon/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 2046000,
@@ -189,7 +275,24 @@ export const products: Product[] = [
     "usage": "Vui lòng đọc kỹ Hướng Dẫn Sử Dụng trước khi sử dụng tại đây: Cẩm nang hướng dẫn sử dụng \nKhi mua sản phẩm bạn sẽ được đồng hành 1:1 với tư vấn viên, bạn cũng có thể liên hệ tư vấn viên để được giải đáp thắc mắc kịp thời.",
     "slug": "combo-4-tinh-gon",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360851/almadungduong/products/combo-4-tinh-gon/1.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360853/almadungduong/products/combo-4-tinh-gon/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360854/almadungduong/products/combo-4-tinh-gon/2%20%281%29.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360855/almadungduong/products/combo-4-tinh-gon/2.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360857/almadungduong/products/combo-4-tinh-gon/3%20%281%29.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360858/almadungduong/products/combo-4-tinh-gon/3.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360859/almadungduong/products/combo-4-tinh-gon/4%20%281%29.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360861/almadungduong/products/combo-4-tinh-gon/4.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360863/almadungduong/products/combo-4-tinh-gon/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360864/almadungduong/products/combo-4-tinh-gon/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360867/almadungduong/products/combo-4-tinh-gon/7.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360869/almadungduong/products/combo-4-tinh-gon/8.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360870/almadungduong/products/combo-4-tinh-gon/9.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360871/almadungduong/products/combo-4-tinh-gon/10.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360872/almadungduong/products/combo-4-tinh-gon/11.jpg"
+    ]
   },
   {
     "id": "lan-kim",
@@ -198,7 +301,7 @@ export const products: Product[] = [
     "price": 150000,
     "rating": 4.9,
     "reviewsCount": 112,
-    "image": "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360937/almadungduong/products/lan-kim/cay-lan-kim.webp",
     "features": [],
     "skinConcerns": [],
     "description": "Lăn kim (Dermaroller) – Kích hoạt tái tạo, phục hồi làn da từ gốc.",
@@ -206,7 +309,10 @@ export const products: Product[] = [
     "usage": "Khi mua sản phẩm bạn sẽ được đồng hành 1:1 với tư vấn viên, bạn cũng có thể liên hệ tư vấn viên để được giải đáp thắc mắc kịp thời.",
     "slug": "lan-kim",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360937/almadungduong/products/lan-kim/cay-lan-kim.webp"
+    ]
   },
   {
     "id": "chai-kho-mat",
@@ -215,7 +321,7 @@ export const products: Product[] = [
     "price": 235000,
     "rating": 4.9,
     "reviewsCount": 113,
-    "image": "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360772/almadungduong/products/chai-kho-mat/1.png",
     "features": [],
     "skinConcerns": [],
     "description": "Chải khô da mặt – Làm sạch sâu, đánh thức làn da khỏe tự nhiên.",
@@ -224,7 +330,12 @@ export const products: Product[] = [
     "usage": "Bước 1: Chuẩn bị\nRửa mặt sạch và đảm bảo da khô hoàn toàn\nLàm sạch tay và dụng cụ trước khi dùng\n\nBước 2: Thực hiện chải khô\n\nChải theo nguyên tắc: nhẹ – hướng lên trên – từ trong ra ngoài\n\nVùng cổ:\nChải nhẹ từ dưới lên trên để kích thích lưu thông\nĐường viền hàm:\nChải từ cằm hướng lên tai giúp làm gọn và nâng cơ\nMá:\nChải từ cánh mũi ra hai bên thái dương\nVùng mắt:\nCực kỳ nhẹ nhàng, hoặc có thể bỏ qua nếu da nhạy cảm\nTrán:\nChải từ giữa trán ra hai bên\n\n⏱ Thời gian: 2–5 phút, 2–3 lần/tuần\n\nBước 3: Làm dịu và dưỡng da\nRửa mặt nhẹ nhàng sau khi chải\nThoa toner/serum/dưỡng ẩm để làm dịu và phục hồi da\nLưu ý quan trọng\nKhông chải trên da đang có mụn viêm, trầy xước hoặc kích ứng\nKhông dùng lực mạnh (da mặt rất dễ tổn thương)\nLuôn giữ dụng cụ sạch sẽ, khô ráo\nNếu da nhạy cảm, nên thử ở vùng nhỏ trước\n\n✨ Chải khô không chỉ là làm sạch lớp tế bào chết, mà còn là một nghi thức đánh thức làn da — giúp da thông thoáng, tươi sáng và sẵn sàng hấp thụ dưỡng chất tốt hơn mỗi ngày.",
     "slug": "chai-kho-mat",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360772/almadungduong/products/chai-kho-mat/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360773/almadungduong/products/chai-kho-mat/2.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360775/almadungduong/products/chai-kho-mat/3.png"
+    ]
   },
   {
     "id": "guasha",
@@ -233,7 +344,7 @@ export const products: Product[] = [
     "price": 595000,
     "rating": 4.9,
     "reviewsCount": 114,
-    "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360901/almadungduong/products/guasha/1.png",
     "features": [],
     "skinConcerns": [],
     "description": "Gua sha đá là công cụ massage truyền thống giúp chăm sóc da theo phương pháp tự nhiên, không xâm lấn.",
@@ -242,7 +353,11 @@ export const products: Product[] = [
     "usage": "Bước 1: Làm sạch & chuẩn bị da\nLàm sạch da mặt\nThoa một lớp serum/dầu dưỡng để tạo độ trượt (tránh kéo căng da)\nBước 2: Thực hiện massage với đá Gua Sha\n\nGiữ đá nghiêng khoảng 15–30 độ, massage nhẹ nhàng theo hướng từ trong ra ngoài – từ dưới lên trên\n\nVùng cổ:\nVuốt từ dưới lên trên để kích thích lưu thông và nâng cơ\nĐường viền hàm:\nVuốt từ cằm hướng lên tai giúp làm gọn khuôn mặt\nMá:\nVuốt từ cánh mũi ra thái dương để nâng cơ và giảm tích tụ bạch huyết\nVùng mắt:\nDùng cạnh mỏng, vuốt nhẹ từ đầu mắt ra đuôi mắt để giảm bọng và quầng thâm\nTrán:\nVuốt từ giữa trán ra hai bên thái dương giúp thư giãn cơ và giảm nếp nhăn\nBước 3: Lặp lại & thư giãn\nMỗi động tác lặp lại 5–10 lần\nTổng thời gian: 5–10 phút mỗi ngày\nLưu ý quan trọng\nKhông dùng lực mạnh, tránh gây đỏ rát\nLuôn massage theo một chiều (không kéo qua kéo lại)\nVệ sinh đá sau mỗi lần sử dụng\nCó thể để đá trong tủ lạnh để tăng hiệu quả giảm sưng",
     "slug": "guasha",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360901/almadungduong/products/guasha/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360903/almadungduong/products/guasha/2.png"
+    ]
   },
   {
     "id": "chai-kho-co-the",
@@ -251,7 +366,7 @@ export const products: Product[] = [
     "price": 275000,
     "rating": 4.9,
     "reviewsCount": 115,
-    "image": "https://images.unsplash.com/photo-1556228444-7164923f1489?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360767/almadungduong/products/chai-kho-co-the/1.png",
     "features": [],
     "skinConcerns": [],
     "description": "Chải khô BODY – Làm sạch, detox da và đánh thức năng lượng cơ thể.",
@@ -259,7 +374,11 @@ export const products: Product[] = [
     "usage": "Hướng dẫn sử dụng Chải khô BODY đúng cách\n\nChải khô body là một bước chăm sóc cơ thể đơn giản nhưng mang lại hiệu quả rõ rệt khi thực hiện đúng kỹ thuật và đều đặn.\n\nBước 1: Chuẩn bị\nĐảm bảo cơ thể khô hoàn toàn (trước khi tắm), có thể bôi dầu dưỡng cơ thể. \nSử dụng bàn chải khô dành riêng cho body\nĐứng ở nơi thoải mái, dễ thao tác\n\nBước 2: Thực hiện chải khô\nNguyên tắc: chải hướng về tim – lực vừa phải – chuyển động đều\n\nBàn chân → bắp chân → đùi:\nChải từ dưới lên trên theo chiều lưu thông máu\nTay:\nChải từ bàn tay hướng lên vai\nVùng bụng:\nChải theo chuyển động tròn, chiều kim đồng hồ\nLưng:\nChải từ dưới lên hoặc từ hai bên hướng vào trung tâm\nVùng nhạy cảm (ngực, cổ):\nChải rất nhẹ hoặc tránh nếu da mỏng\n\n⏱ Thời gian: 5–10 phút/lần, 1 lần/ngày (tốt nhất vào buổi sáng)\n\nBước 3: Làm sạch & dưỡng da\n- Tắm lại với nước để loại bỏ tế bào chết\n- Thoa kem dưỡng hoặc dầu dưỡng để cấp ẩm và nuôi dưỡng da\n\nLưu ý quan trọng\n- Không chải lên vùng da trầy xước, viêm, hoặc đang kích ứng\n- Không dùng lực quá mạnh để tránh làm tổn thương da\n- Vệ sinh và phơi khô bàn chải sau mỗi lần sử dụng\n- Người mới bắt đầu nên chải nhẹ để da thích nghi dần\n\n✨ Chải khô body không chỉ là làm sạch — mà là một nghi thức chăm sóc cơ thể mỗi ngày, giúp bạn cảm nhận rõ sự lưu thông, nhẹ nhàng và tươi mới từ làn da đến toàn bộ cơ thể.",
     "slug": "chai-kho-co-the",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360767/almadungduong/products/chai-kho-co-the/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360769/almadungduong/products/chai-kho-co-the/2.png"
+    ]
   },
   {
     "id": "mat-na-u-nilon",
@@ -268,14 +387,17 @@ export const products: Product[] = [
     "price": 10000,
     "rating": 4.9,
     "reviewsCount": 116,
-    "image": "https://images.unsplash.com/photo-1556228444-2457636e74fc?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360972/almadungduong/products/mat-na-u-nilon/0b3c30012cf6695cdba68f46a5e23627.jpg",
     "features": [],
     "skinConcerns": [],
     "description": "Mặt nạ ủ nilon là giải pháp hỗ trợ chăm sóc da chuyên sâu, hoạt động theo cơ chế occlusion (tạo lớp màng khóa ẩm) giúp giữ lại toàn bộ dưỡng chất trên da, từ đó tăng khả năng thẩm thấu và phát huy hiệu quả tối đa của sản phẩm chăm sóc.Sản phẩm này được dùng kèm với Xịt dưỡng chuyên sâu.",
     "fullDescription": "Mặt nạ ủ nilon – Khóa ẩm tối đa, tăng hiệu quả dưỡng da\n\nMặt nạ ủ nilon là giải pháp hỗ trợ chăm sóc da chuyên sâu, hoạt động theo cơ chế occlusion (tạo lớp màng khóa ẩm) giúp giữ lại toàn bộ dưỡng chất trên da, từ đó tăng khả năng thẩm thấu và phát huy hiệu quả tối đa của sản phẩm chăm sóc.Sản phẩm này được dùng kèm với Xịt dưỡng chuyên sâu \n\nSố lượng: 100 miếng/ túi",
     "slug": "mat-na-u-nilon",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360972/almadungduong/products/mat-na-u-nilon/0b3c30012cf6695cdba68f46a5e23627.jpg"
+    ]
   },
   {
     "id": "bong-tay-trang-muji",
@@ -284,14 +406,18 @@ export const products: Product[] = [
     "price": 70000,
     "rating": 4.9,
     "reviewsCount": 117,
-    "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360739/almadungduong/products/bong-tay-trang-muji/1.avif",
     "features": [],
     "skinConcerns": [],
     "description": "Bông tẩy trang Muji được làm từ 100% cotton tự nhiên, không qua xử lý tẩy trắng hóa học, giữ nguyên màu sắc nguyên bản của sợi bông.",
     "fullDescription": "Bông tẩy trang Muji được làm từ 100% cotton tự nhiên, không qua xử lý tẩy trắng hóa học, giữ nguyên màu sắc nguyên bản của sợi bông. Nhờ đó, sản phẩm cực kỳ lành tính, phù hợp ngay cả với làn da nhạy cảm nhất.\n\n💧 Công dụng nổi bật\n- Làm sạch dịu nhẹ: Loại bỏ lớp trang điểm, bụi bẩn mà không gây tổn thương da\n- Không xơ bông: Sợi bông dai, mịn, không để lại vụn trên da khi sử dụng\n- Tiết kiệm dưỡng chất: Thấm hút vừa đủ, không “ăn” quá nhiều toner/serum\n- Đa năng: Có thể tách lớp để làm lotion mask, tối ưu hiệu quả dưỡng da",
     "slug": "bong-tay-trang-muji",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360739/almadungduong/products/bong-tay-trang-muji/1.avif",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360741/almadungduong/products/bong-tay-trang-muji/2.avif"
+    ]
   },
   {
     "id": "combo-chay-kho-mat-body",
@@ -306,7 +432,7 @@ export const products: Product[] = [
     "description": "Bộ đôi chải khô mặt và body - giải pháp chăm sóc da toàn diện theo phương pháp tự nhiên.",
     "slug": "combo-chay-kho-mat-body",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "toner-hoa-hong",
@@ -315,7 +441,7 @@ export const products: Product[] = [
     "price": 168000,
     "rating": 4.9,
     "reviewsCount": 118,
-    "image": "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361036/almadungduong/products/toner-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -328,7 +454,14 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "toner-hoa-hong",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361036/almadungduong/products/toner-hoa-hong/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361037/almadungduong/products/toner-hoa-hong/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361038/almadungduong/products/toner-hoa-hong/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361039/almadungduong/products/toner-hoa-hong/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361040/almadungduong/products/toner-hoa-hong/5.jpg"
+    ]
   },
   {
     "id": "toner-tia-to",
@@ -337,7 +470,7 @@ export const products: Product[] = [
     "price": 138000,
     "rating": 4.9,
     "reviewsCount": 119,
-    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361030/almadungduong/products/toner-tia-to/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -350,7 +483,13 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "toner-tia-to",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361030/almadungduong/products/toner-tia-to/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361031/almadungduong/products/toner-tia-to/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361032/almadungduong/products/toner-tia-to/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361033/almadungduong/products/toner-tia-to/4.jpg"
+    ]
   },
   {
     "id": "toner-hoa-cuc",
@@ -359,7 +498,7 @@ export const products: Product[] = [
     "price": 168000,
     "rating": 4.9,
     "reviewsCount": 120,
-    "image": "https://images.unsplash.com/photo-1556228366-2457636e74fc?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361022/almadungduong/products/toner-hoa-cuc/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -372,7 +511,14 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "toner-hoa-cuc",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361022/almadungduong/products/toner-hoa-cuc/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361023/almadungduong/products/toner-hoa-cuc/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361025/almadungduong/products/toner-hoa-cuc/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361026/almadungduong/products/toner-hoa-cuc/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361027/almadungduong/products/toner-hoa-cuc/5.jpg"
+    ]
   },
   {
     "id": "nuoc-tay-trang-tia-to-hoa-hong",
@@ -381,7 +527,7 @@ export const products: Product[] = [
     "price": 233000,
     "rating": 4.9,
     "reviewsCount": 121,
-    "image": "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360975/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "300ml",
@@ -393,7 +539,14 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "nuoc-tay-trang-tia-to-hoa-hong",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360975/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360977/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360978/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360981/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360982/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/5.jpg"
+    ]
   },
   {
     "id": "xa-bong-nghe-hoa-hong",
@@ -402,7 +555,7 @@ export const products: Product[] = [
     "price": 89000,
     "rating": 4.9,
     "reviewsCount": 122,
-    "image": "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361077/almadungduong/products/xa-bong-nghe-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "105gr",
@@ -415,7 +568,13 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da cơ thể",
     "slug": "xa-bong-nghe-hoa-hong",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361077/almadungduong/products/xa-bong-nghe-hoa-hong/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361079/almadungduong/products/xa-bong-nghe-hoa-hong/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361080/almadungduong/products/xa-bong-nghe-hoa-hong/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361081/almadungduong/products/xa-bong-nghe-hoa-hong/4.jpg"
+    ]
   },
   {
     "id": "xa-bong-gung-tram-que",
@@ -424,7 +583,7 @@ export const products: Product[] = [
     "price": 89000,
     "rating": 4.9,
     "reviewsCount": 123,
-    "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361063/almadungduong/products/xa-bong-gung-tram-que/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "105gr",
@@ -437,7 +596,15 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da cơ thể",
     "slug": "xa-bong-gung-tram-que",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361063/almadungduong/products/xa-bong-gung-tram-que/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361066/almadungduong/products/xa-bong-gung-tram-que/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361067/almadungduong/products/xa-bong-gung-tram-que/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361068/almadungduong/products/xa-bong-gung-tram-que/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361069/almadungduong/products/xa-bong-gung-tram-que/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361071/almadungduong/products/xa-bong-gung-tram-que/6.jpg"
+    ]
   },
   {
     "id": "mat-na-hoa-hong",
@@ -446,7 +613,7 @@ export const products: Product[] = [
     "price": 168000,
     "rating": 4.9,
     "reviewsCount": 124,
-    "image": "https://images.unsplash.com/photo-1556228444-7164923f1489?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360942/almadungduong/products/mat-na-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "50gr",
@@ -457,7 +624,15 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "mat-na-hoa-hong",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360942/almadungduong/products/mat-na-hoa-hong/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360943/almadungduong/products/mat-na-hoa-hong/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360945/almadungduong/products/mat-na-hoa-hong/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360949/almadungduong/products/mat-na-hoa-hong/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360950/almadungduong/products/mat-na-hoa-hong/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360953/almadungduong/products/mat-na-hoa-hong/6.jpg"
+    ]
   },
   {
     "id": "mat-na-tia-to",
@@ -466,7 +641,7 @@ export const products: Product[] = [
     "price": 158000,
     "rating": 4.9,
     "reviewsCount": 125,
-    "image": "https://images.unsplash.com/photo-1556228444-2457636e74fc?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360960/almadungduong/products/mat-na-tia-to/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "50gr",
@@ -477,7 +652,12 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "mat-na-tia-to",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360960/almadungduong/products/mat-na-tia-to/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360962/almadungduong/products/mat-na-tia-to/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360963/almadungduong/products/mat-na-tia-to/3.jpg"
+    ]
   },
   {
     "id": "mat-na-nghe-phuc-hoi",
@@ -486,7 +666,7 @@ export const products: Product[] = [
     "price": 198000,
     "rating": 4.9,
     "reviewsCount": 126,
-    "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360967/almadungduong/products/mat-na-nghe-phuc-hoi/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "120gr",
@@ -498,7 +678,12 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "mat-na-nghe-phuc-hoi",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360967/almadungduong/products/mat-na-nghe-phuc-hoi/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360968/almadungduong/products/mat-na-nghe-phuc-hoi/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360969/almadungduong/products/mat-na-nghe-phuc-hoi/3.jpg"
+    ]
   },
   {
     "id": "bot-canh-hoa-hong",
@@ -517,7 +702,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "bot-canh-hoa-hong",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "dau-duong-hoa-hong",
@@ -526,7 +711,7 @@ export const products: Product[] = [
     "price": 158000,
     "rating": 4.9,
     "reviewsCount": 128,
-    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360889/almadungduong/products/dau-duong-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "20ml",
@@ -537,7 +722,13 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da mặt",
     "slug": "dau-duong-hoa-hong",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360889/almadungduong/products/dau-duong-hoa-hong/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360890/almadungduong/products/dau-duong-hoa-hong/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360891/almadungduong/products/dau-duong-hoa-hong/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360894/almadungduong/products/dau-duong-hoa-hong/4.jpg"
+    ]
   },
   {
     "id": "dau-massage-hoa-hong",
@@ -546,7 +737,7 @@ export const products: Product[] = [
     "price": 236000,
     "rating": 4.9,
     "reviewsCount": 129,
-    "image": "https://images.unsplash.com/photo-1556228366-2457636e74fc?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360898/almadungduong/products/dau-massage-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "50ml",
@@ -556,7 +747,11 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc da cơ thể",
     "slug": "dau-massage-hoa-hong",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360898/almadungduong/products/dau-massage-hoa-hong/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360899/almadungduong/products/dau-massage-hoa-hong/2.jpg"
+    ]
   },
   {
     "id": "cao-goi-hoa-hong-2-in-1-goixa",
@@ -565,7 +760,7 @@ export const products: Product[] = [
     "price": 289000,
     "rating": 4.9,
     "reviewsCount": 130,
-    "image": "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360751/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "300ml",
@@ -576,7 +771,15 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc tóc",
     "slug": "cao-goi-hoa-hong-2-in-1-goixa",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360751/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360752/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360755/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360757/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360758/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360760/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/6.jpg"
+    ]
   },
   {
     "id": "tinh-chat-hoa-buoi",
@@ -585,7 +788,7 @@ export const products: Product[] = [
     "price": 138000,
     "rating": 4.9,
     "reviewsCount": 131,
-    "image": "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360990/almadungduong/products/tinh-chat-hoa-buoi/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -593,7 +796,12 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc tóc",
     "slug": "tinh-chat-hoa-buoi",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360990/almadungduong/products/tinh-chat-hoa-buoi/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360992/almadungduong/products/tinh-chat-hoa-buoi/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360993/almadungduong/products/tinh-chat-hoa-buoi/3.jpg"
+    ]
   },
   {
     "id": "tra-hoa-hong",
@@ -602,7 +810,7 @@ export const products: Product[] = [
     "price": 189000,
     "rating": 4.9,
     "reviewsCount": 132,
-    "image": "https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361043/almadungduong/products/tra-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "60gr",
@@ -613,7 +821,14 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "tra-hoa-hong",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361043/almadungduong/products/tra-hoa-hong/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361044/almadungduong/products/tra-hoa-hong/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361045/almadungduong/products/tra-hoa-hong/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361049/almadungduong/products/tra-hoa-hong/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361051/almadungduong/products/tra-hoa-hong/5.jpg"
+    ]
   },
   {
     "id": "tra-tia-to",
@@ -622,7 +837,7 @@ export const products: Product[] = [
     "price": 99000,
     "rating": 4.9,
     "reviewsCount": 133,
-    "image": "https://images.unsplash.com/photo-1556228444-7164923f1489?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361053/almadungduong/products/tra-tia-to/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "20gr",
@@ -633,7 +848,15 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "tra-tia-to",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361053/almadungduong/products/tra-tia-to/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361054/almadungduong/products/tra-tia-to/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361055/almadungduong/products/tra-tia-to/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361057/almadungduong/products/tra-tia-to/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361058/almadungduong/products/tra-tia-to/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361059/almadungduong/products/tra-tia-to/6.jpg"
+    ]
   },
   {
     "id": "tra-hoa-cuc-co",
@@ -652,7 +875,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "tra-hoa-cuc-co",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "mat-ong-nguyen-chat",
@@ -673,7 +896,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "mat-ong-nguyen-chat",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "mat-ong-hoa-hong",
@@ -694,7 +917,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "mat-ong-hoa-hong",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "gac-len-men",
@@ -703,7 +926,7 @@ export const products: Product[] = [
     "price": 295000,
     "rating": 4.9,
     "reviewsCount": 137,
-    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360906/almadungduong/products/gac-len-men/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "500ml",
@@ -714,7 +937,17 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "gac-len-men",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360906/almadungduong/products/gac-len-men/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360907/almadungduong/products/gac-len-men/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360908/almadungduong/products/gac-len-men/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360910/almadungduong/products/gac-len-men/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360912/almadungduong/products/gac-len-men/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360913/almadungduong/products/gac-len-men/6.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360915/almadungduong/products/gac-len-men/7.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360917/almadungduong/products/gac-len-men/8.jpg"
+    ]
   },
   {
     "id": "mat-ong-gung-quat-muoi",
@@ -723,7 +956,7 @@ export const products: Product[] = [
     "price": 255000,
     "rating": 4.9,
     "reviewsCount": 138,
-    "image": "https://images.unsplash.com/photo-1556228366-2457636e74fc?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360925/almadungduong/products/mat-ong-gung-quat-muoi/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "500ml",
@@ -735,7 +968,15 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "mat-ong-gung-quat-muoi",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360925/almadungduong/products/mat-ong-gung-quat-muoi/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360927/almadungduong/products/mat-ong-gung-quat-muoi/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360928/almadungduong/products/mat-ong-gung-quat-muoi/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360929/almadungduong/products/mat-ong-gung-quat-muoi/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360930/almadungduong/products/mat-ong-gung-quat-muoi/5.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360932/almadungduong/products/mat-ong-gung-quat-muoi/6.jpg"
+    ]
   },
   {
     "id": "cot-nghe-mat-ong-len-men",
@@ -744,7 +985,7 @@ export const products: Product[] = [
     "price": 295000,
     "rating": 4.9,
     "reviewsCount": 139,
-    "image": "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
+    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360878/almadungduong/products/cot-nghe-mat-ong-len-men/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "500ml",
@@ -756,7 +997,14 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "cot-nghe-mat-ong-len-men",
     "showOnHomepage": true,
-    "isPublished": true
+    "isPublished": true,
+    "images": [
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360878/almadungduong/products/cot-nghe-mat-ong-len-men/1.png",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360880/almadungduong/products/cot-nghe-mat-ong-len-men/2.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360882/almadungduong/products/cot-nghe-mat-ong-len-men/3.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360883/almadungduong/products/cot-nghe-mat-ong-len-men/4.jpg",
+      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360886/almadungduong/products/cot-nghe-mat-ong-len-men/5.jpg"
+    ]
   },
   {
     "id": "duong-mat-mia-tho",
@@ -773,7 +1021,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "duong-mat-mia-tho",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "tinh-chat-ngu-sac",
@@ -790,7 +1038,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "tinh-chat-ngu-sac",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "cot-gung-que",
@@ -807,7 +1055,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "cot-gung-que",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "cao-la-tre-gai",
@@ -823,7 +1071,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "cao-la-tre-gai",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "cao-bo-phoi",
@@ -839,7 +1087,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "cao-bo-phoi",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "cao-bo-huyet",
@@ -855,7 +1103,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "cao-bo-huyet",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "cao-thong-kinh-lac",
@@ -871,7 +1119,7 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "cao-thong-kinh-lac",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   },
   {
     "id": "cao-bo-than",
@@ -887,6 +1135,6 @@ export const products: Product[] = [
     "subcategory": "Chăm sóc sức khỏe",
     "slug": "cao-bo-than",
     "showOnHomepage": false,
-    "isPublished": true
+    "isPublished": false
   }
 ];

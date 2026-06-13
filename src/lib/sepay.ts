@@ -17,8 +17,8 @@ let cacheExpiry = 0;
 export async function fetchBankAccount(): Promise<BankAccountInfo> {
   const token = process.env.SEPAY_API_TOKEN;
   const rawAccountId = process.env.SEPAY_BANK_ACCOUNT_ID;
-  const accountId = (rawAccountId && rawAccountId.trim() !== '' && rawAccountId.trim() !== 'undefined' && rawAccountId.trim() !== 'null') 
-    ? rawAccountId.trim() 
+  const accountId = (rawAccountId && rawAccountId.trim() !== '' && rawAccountId.trim() !== 'undefined' && rawAccountId.trim() !== 'null')
+    ? rawAccountId.trim()
     : null;
 
   const now = Date.now();
@@ -28,9 +28,9 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
 
   // Fallback values if API is not configured or fails
   const fallback: BankAccountInfo = {
-    account_number: process.env.SEPAY_BANK_ACCOUNT_NUMBER || "1017588888",
-    bank_short_name: process.env.SEPAY_BANK_NAME || "Vietcombank",
-    account_holder_name: process.env.SEPAY_BANK_ACCOUNT_NAME || "CÔNG TY TNHH ALMA",
+    account_number: process.env.SEPAY_BANK_ACCOUNT_NUMBER || "",
+    bank_short_name: process.env.SEPAY_BANK_NAME || "",
+    account_holder_name: process.env.SEPAY_BANK_ACCOUNT_NAME || "",
   };
 
   if (!token) {
@@ -72,9 +72,9 @@ export async function fetchBankAccount(): Promise<BankAccountInfo> {
 
     if (account && (account.account_number || account.accountNumber)) {
       cachedBankInfo = {
-        account_number: account.account_number || account.accountNumber,
-        bank_short_name: account.bank_short_name || account.bankShortName || account.bank_name || "Vietcombank",
-        account_holder_name: account.account_holder_name || account.accountHolderName || account.accountName || "CÔNG TY TNHH ALMA",
+        account_number: process.env.SEPAY_BANK_ACCOUNT_NUMBER || account.account_number || account.accountNumber,
+        bank_short_name: account.bank_short_name || account.bankShortName || account.bank_name,
+        account_holder_name: account.account_holder_name || account.accountHolderName || account.accountName,
       };
       cacheExpiry = now + 5 * 60 * 1000; // 5 mins cache
       return cachedBankInfo!;

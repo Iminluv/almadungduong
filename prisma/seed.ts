@@ -204,7 +204,9 @@ async function main() {
     const flagsToParse = flag ? flag.split('/').map(f => f.trim()) : [];
     const tagsToConnect = flagsToParse.filter(f => tagNames.includes(f));
 
-    const galleryUrls = getGalleryImages(category, p.image);
+    const galleryUrls = (images && images.length > 0)
+      ? images
+      : getGalleryImages(category, p.image);
 
     // Resolve reviews to create
     const reviewsToCreate = reviewsSeedData.filter(r => r.productId === p.id);
