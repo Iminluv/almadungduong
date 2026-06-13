@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { ProductsContent } from "./ProductsContent";
 import { prisma } from "@/lib/db";
+import { getImageUrl } from "@/lib/utils";
 
 export const revalidate = 60;
 
@@ -31,13 +32,14 @@ export default async function ProductsPage() {
 
   const products = dbProducts.map((p: any) => ({
     ...p,
+    image: getImageUrl(p.image),
     category: p.category.parent ? p.category.parent.name : p.category.name,
     subcategory: p.category.parent ? p.category.name : null,
     flag: p.tags.map((t: any) => t.name).join('/ ') || null,
     features: [],
     skinConcerns: [],
     variants: [],
-    images: p.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => img.url),
+    images: p.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => getImageUrl(img.url)),
     reviews: p.reviews,
   }));
 

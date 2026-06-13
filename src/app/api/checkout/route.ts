@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { fetchBankAccount, generateTransferCode, buildQrUrl } from '@/lib/sepay';
+import { getImageUrl } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
         price: unitPrice,
         quantity: item.quantity,
         variant: item.variant || null,
-        image: dbProduct ? dbProduct.image : item.image || '',
+        image: dbProduct ? getImageUrl(dbProduct.image) : item.image || '',
       };
     });
 

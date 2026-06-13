@@ -8,7 +8,7 @@ export const products: Product[] = [
     "price": 499000,
     "rating": 4.9,
     "reviewsCount": 103,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361084/almadungduong/products/xit-duong-chuyen-sau-miracle/1.png",
+    "image": "almadungduong/products/xit-duong-chuyen-sau-miracle/1.png",
     "features": [],
     "skinConcerns": [],
     "englishName": "BIO MIRACLE ESSENCE",
@@ -23,14 +23,14 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361084/almadungduong/products/xit-duong-chuyen-sau-miracle/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361085/almadungduong/products/xit-duong-chuyen-sau-miracle/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361086/almadungduong/products/xit-duong-chuyen-sau-miracle/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361087/almadungduong/products/xit-duong-chuyen-sau-miracle/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361089/almadungduong/products/xit-duong-chuyen-sau-miracle/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361091/almadungduong/products/xit-duong-chuyen-sau-miracle/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361093/almadungduong/products/xit-duong-chuyen-sau-miracle/7.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361094/almadungduong/products/xit-duong-chuyen-sau-miracle/656008775_963634109345437_2834143024836360304_n.jpg"
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/1.png",
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/2.jpg",
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/3.jpg",
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/4.jpg",
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/5.jpg",
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/6.jpg",
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/7.png",
+      "almadungduong/products/xit-duong-chuyen-sau-miracle/656008775_963634109345437_2834143024836360304_n.jpg"
     ]
   },
   {
@@ -40,7 +40,7 @@ export const products: Product[] = [
     "price": 549000,
     "rating": 4.9,
     "reviewsCount": 104,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360995/almadungduong/products/tinh-chat-tai-sinh-2-0/1.jpg",
+    "image": "almadungduong/products/tinh-chat-tai-sinh-2-0/1.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "BIO REGENERATING ESSENCE VI SINH 2.0",
@@ -55,13 +55,13 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360995/almadungduong/products/tinh-chat-tai-sinh-2-0/1.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360996/almadungduong/products/tinh-chat-tai-sinh-2-0/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360997/almadungduong/products/tinh-chat-tai-sinh-2-0/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360999/almadungduong/products/tinh-chat-tai-sinh-2-0/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361000/almadungduong/products/tinh-chat-tai-sinh-2-0/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361001/almadungduong/products/tinh-chat-tai-sinh-2-0/7.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361002/almadungduong/products/tinh-chat-tai-sinh-2-0/8.jpg"
+      "almadungduong/products/tinh-chat-tai-sinh-2-0/1.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-0/3.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-0/4.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-0/5.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-0/6.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-0/7.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-0/8.jpg"
     ]
   },
   {
@@ -71,7 +71,7 @@ export const products: Product[] = [
     "price": 549000,
     "rating": 4.9,
     "reviewsCount": 105,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361005/almadungduong/products/tinh-chat-tai-sinh-2-7/1.jpg",
+    "image": "almadungduong/products/tinh-chat-tai-sinh-2-7/1.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "BIO REGENERATING ESSENCE VI SINH 2.7",
@@ -86,15 +86,15 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361005/almadungduong/products/tinh-chat-tai-sinh-2-7/1.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361006/almadungduong/products/tinh-chat-tai-sinh-2-7/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361007/almadungduong/products/tinh-chat-tai-sinh-2-7/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361009/almadungduong/products/tinh-chat-tai-sinh-2-7/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361010/almadungduong/products/tinh-chat-tai-sinh-2-7/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361011/almadungduong/products/tinh-chat-tai-sinh-2-7/7.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361012/almadungduong/products/tinh-chat-tai-sinh-2-7/8.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361015/almadungduong/products/tinh-chat-tai-sinh-2-7/9.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361016/almadungduong/products/tinh-chat-tai-sinh-2-7/10.jpg"
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/1.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/3.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/4.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/5.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/6.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/7.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/8.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/9.jpg",
+      "almadungduong/products/tinh-chat-tai-sinh-2-7/10.jpg"
     ]
   },
   {
@@ -104,7 +104,7 @@ export const products: Product[] = [
     "price": 449000,
     "rating": 4.9,
     "reviewsCount": 106,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360985/almadungduong/products/sua-rua-mat-nuoc-bang-glacier/1-scaled.jpg",
+    "image": "almadungduong/products/sua-rua-mat-nuoc-bang-glacier/1-scaled.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "GLACIER FOAM CLEANSER",
@@ -119,7 +119,7 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360985/almadungduong/products/sua-rua-mat-nuoc-bang-glacier/1-scaled.jpg"
+      "almadungduong/products/sua-rua-mat-nuoc-bang-glacier/1-scaled.jpg"
     ]
   },
   {
@@ -129,7 +129,7 @@ export const products: Product[] = [
     "price": 799000,
     "rating": 4.9,
     "reviewsCount": 107,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361099/almadungduong/products/kem-chong-nang-smart-suncare/7-scaled.jpg",
+    "image": "almadungduong/products/kem-chong-nang-smart-suncare/7-scaled.jpg",
     "features": [],
     "skinConcerns": [],
     "englishName": "SMART SUNCARE SPF 123 & UVA-PF 79",
@@ -144,9 +144,9 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361099/almadungduong/products/kem-chong-nang-smart-suncare/7-scaled.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361100/almadungduong/products/kem-chong-nang-smart-suncare/KIEM-NGHIEM-CHI-SO-SPF-VA-UVA-PF-1-MOI-scaled.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361102/almadungduong/products/kem-chong-nang-smart-suncare/KIEM-NGHIEM-CHONG-NANG-QUANG-PHO-RONG-scaled%20%281%29.jpg"
+      "almadungduong/products/kem-chong-nang-smart-suncare/7-scaled.jpg",
+      "almadungduong/products/kem-chong-nang-smart-suncare/KIEM-NGHIEM-CHI-SO-SPF-VA-UVA-PF-1-MOI-scaled.jpg",
+      "almadungduong/products/kem-chong-nang-smart-suncare/KIEM-NGHIEM-CHONG-NANG-QUANG-PHO-RONG-scaled (1).jpg"
     ]
   },
   {
@@ -156,7 +156,7 @@ export const products: Product[] = [
     "price": 1747000,
     "rating": 4.9,
     "reviewsCount": 108,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360779/almadungduong/products/combo-1-trang-sang/1.jpg",
+    "image": "almadungduong/products/combo-1-trang-sang/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 2246000,
@@ -169,20 +169,20 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360779/almadungduong/products/combo-1-trang-sang/1.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360780/almadungduong/products/combo-1-trang-sang/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360781/almadungduong/products/combo-1-trang-sang/2.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360783/almadungduong/products/combo-1-trang-sang/3.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360784/almadungduong/products/combo-1-trang-sang/4..png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360785/almadungduong/products/combo-1-trang-sang/4.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360787/almadungduong/products/combo-1-trang-sang/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360788/almadungduong/products/combo-1-trang-sang/5.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360789/almadungduong/products/combo-1-trang-sang/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360791/almadungduong/products/combo-1-trang-sang/7.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360793/almadungduong/products/combo-1-trang-sang/8.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360794/almadungduong/products/combo-1-trang-sang/9.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360795/almadungduong/products/combo-1-trang-sang/10.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360797/almadungduong/products/combo-1-trang-sang/11.jpg"
+      "almadungduong/products/combo-1-trang-sang/1.jpg",
+      "almadungduong/products/combo-1-trang-sang/1.png",
+      "almadungduong/products/combo-1-trang-sang/2.png",
+      "almadungduong/products/combo-1-trang-sang/3.png",
+      "almadungduong/products/combo-1-trang-sang/4..png",
+      "almadungduong/products/combo-1-trang-sang/4.png",
+      "almadungduong/products/combo-1-trang-sang/5.jpg",
+      "almadungduong/products/combo-1-trang-sang/5.png",
+      "almadungduong/products/combo-1-trang-sang/6.jpg",
+      "almadungduong/products/combo-1-trang-sang/7.jpg",
+      "almadungduong/products/combo-1-trang-sang/8.jpg",
+      "almadungduong/products/combo-1-trang-sang/9.jpg",
+      "almadungduong/products/combo-1-trang-sang/10.jpg",
+      "almadungduong/products/combo-1-trang-sang/11.jpg"
     ]
   },
   {
@@ -192,7 +192,7 @@ export const products: Product[] = [
     "price": 2296000,
     "rating": 4.9,
     "reviewsCount": 109,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360802/almadungduong/products/combo-2-phuc-hoi/1.jpg",
+    "image": "almadungduong/products/combo-2-phuc-hoi/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 2795000,
@@ -205,23 +205,23 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360802/almadungduong/products/combo-2-phuc-hoi/1.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360804/almadungduong/products/combo-2-phuc-hoi/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360807/almadungduong/products/combo-2-phuc-hoi/2%20%281%29.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360808/almadungduong/products/combo-2-phuc-hoi/2.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360810/almadungduong/products/combo-2-phuc-hoi/3%20%281%29.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360811/almadungduong/products/combo-2-phuc-hoi/3.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360813/almadungduong/products/combo-2-phuc-hoi/4%20%281%29.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360814/almadungduong/products/combo-2-phuc-hoi/4.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360815/almadungduong/products/combo-2-phuc-hoi/5%20%281%29.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360817/almadungduong/products/combo-2-phuc-hoi/5.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360818/almadungduong/products/combo-2-phuc-hoi/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360819/almadungduong/products/combo-2-phuc-hoi/7.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360820/almadungduong/products/combo-2-phuc-hoi/8.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360821/almadungduong/products/combo-2-phuc-hoi/9.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360823/almadungduong/products/combo-2-phuc-hoi/10.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360824/almadungduong/products/combo-2-phuc-hoi/11.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360826/almadungduong/products/combo-2-phuc-hoi/12.jpg"
+      "almadungduong/products/combo-2-phuc-hoi/1.jpg",
+      "almadungduong/products/combo-2-phuc-hoi/1.png",
+      "almadungduong/products/combo-2-phuc-hoi/2 (1).png",
+      "almadungduong/products/combo-2-phuc-hoi/2.png",
+      "almadungduong/products/combo-2-phuc-hoi/3 (1).png",
+      "almadungduong/products/combo-2-phuc-hoi/3.png",
+      "almadungduong/products/combo-2-phuc-hoi/4 (1).png",
+      "almadungduong/products/combo-2-phuc-hoi/4.png",
+      "almadungduong/products/combo-2-phuc-hoi/5 (1).png",
+      "almadungduong/products/combo-2-phuc-hoi/5.png",
+      "almadungduong/products/combo-2-phuc-hoi/6.jpg",
+      "almadungduong/products/combo-2-phuc-hoi/7.jpg",
+      "almadungduong/products/combo-2-phuc-hoi/8.jpg",
+      "almadungduong/products/combo-2-phuc-hoi/9.jpg",
+      "almadungduong/products/combo-2-phuc-hoi/10.jpg",
+      "almadungduong/products/combo-2-phuc-hoi/11.jpg",
+      "almadungduong/products/combo-2-phuc-hoi/12.jpg"
     ]
   },
   {
@@ -231,7 +231,7 @@ export const products: Product[] = [
     "price": 998000,
     "rating": 4.9,
     "reviewsCount": 110,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360834/almadungduong/products/combo-3-toan-dien/1.jpg",
+    "image": "almadungduong/products/combo-3-toan-dien/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 1497000,
@@ -244,17 +244,17 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360834/almadungduong/products/combo-3-toan-dien/1.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360835/almadungduong/products/combo-3-toan-dien/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360836/almadungduong/products/combo-3-toan-dien/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360838/almadungduong/products/combo-3-toan-dien/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360839/almadungduong/products/combo-3-toan-dien/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360840/almadungduong/products/combo-3-toan-dien/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360841/almadungduong/products/combo-3-toan-dien/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360843/almadungduong/products/combo-3-toan-dien/7.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360844/almadungduong/products/combo-3-toan-dien/8.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360845/almadungduong/products/combo-3-toan-dien/9.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360846/almadungduong/products/combo-3-toan-dien/10.jpg"
+      "almadungduong/products/combo-3-toan-dien/1.jpg",
+      "almadungduong/products/combo-3-toan-dien/1.png",
+      "almadungduong/products/combo-3-toan-dien/2.jpg",
+      "almadungduong/products/combo-3-toan-dien/3.jpg",
+      "almadungduong/products/combo-3-toan-dien/4.jpg",
+      "almadungduong/products/combo-3-toan-dien/5.jpg",
+      "almadungduong/products/combo-3-toan-dien/6.jpg",
+      "almadungduong/products/combo-3-toan-dien/7.jpg",
+      "almadungduong/products/combo-3-toan-dien/8.jpg",
+      "almadungduong/products/combo-3-toan-dien/9.jpg",
+      "almadungduong/products/combo-3-toan-dien/10.jpg"
     ]
   },
   {
@@ -264,7 +264,7 @@ export const products: Product[] = [
     "price": 1547000,
     "rating": 4.9,
     "reviewsCount": 111,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360851/almadungduong/products/combo-4-tinh-gon/1.jpg",
+    "image": "almadungduong/products/combo-4-tinh-gon/1.jpg",
     "features": [],
     "skinConcerns": [],
     "originalPrice": 2046000,
@@ -277,21 +277,21 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360851/almadungduong/products/combo-4-tinh-gon/1.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360853/almadungduong/products/combo-4-tinh-gon/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360854/almadungduong/products/combo-4-tinh-gon/2%20%281%29.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360855/almadungduong/products/combo-4-tinh-gon/2.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360857/almadungduong/products/combo-4-tinh-gon/3%20%281%29.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360858/almadungduong/products/combo-4-tinh-gon/3.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360859/almadungduong/products/combo-4-tinh-gon/4%20%281%29.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360861/almadungduong/products/combo-4-tinh-gon/4.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360863/almadungduong/products/combo-4-tinh-gon/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360864/almadungduong/products/combo-4-tinh-gon/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360867/almadungduong/products/combo-4-tinh-gon/7.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360869/almadungduong/products/combo-4-tinh-gon/8.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360870/almadungduong/products/combo-4-tinh-gon/9.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360871/almadungduong/products/combo-4-tinh-gon/10.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360872/almadungduong/products/combo-4-tinh-gon/11.jpg"
+      "almadungduong/products/combo-4-tinh-gon/1.jpg",
+      "almadungduong/products/combo-4-tinh-gon/1.png",
+      "almadungduong/products/combo-4-tinh-gon/2 (1).png",
+      "almadungduong/products/combo-4-tinh-gon/2.png",
+      "almadungduong/products/combo-4-tinh-gon/3 (1).png",
+      "almadungduong/products/combo-4-tinh-gon/3.png",
+      "almadungduong/products/combo-4-tinh-gon/4 (1).png",
+      "almadungduong/products/combo-4-tinh-gon/4.png",
+      "almadungduong/products/combo-4-tinh-gon/5.jpg",
+      "almadungduong/products/combo-4-tinh-gon/6.jpg",
+      "almadungduong/products/combo-4-tinh-gon/7.jpg",
+      "almadungduong/products/combo-4-tinh-gon/8.jpg",
+      "almadungduong/products/combo-4-tinh-gon/9.jpg",
+      "almadungduong/products/combo-4-tinh-gon/10.jpg",
+      "almadungduong/products/combo-4-tinh-gon/11.jpg"
     ]
   },
   {
@@ -301,7 +301,7 @@ export const products: Product[] = [
     "price": 150000,
     "rating": 4.9,
     "reviewsCount": 112,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360937/almadungduong/products/lan-kim/cay-lan-kim.webp",
+    "image": "almadungduong/products/lan-kim/cay-lan-kim.webp",
     "features": [],
     "skinConcerns": [],
     "description": "Lăn kim (Dermaroller) – Kích hoạt tái tạo, phục hồi làn da từ gốc.",
@@ -311,7 +311,7 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360937/almadungduong/products/lan-kim/cay-lan-kim.webp"
+      "almadungduong/products/lan-kim/cay-lan-kim.webp"
     ]
   },
   {
@@ -321,7 +321,7 @@ export const products: Product[] = [
     "price": 235000,
     "rating": 4.9,
     "reviewsCount": 113,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360772/almadungduong/products/chai-kho-mat/1.png",
+    "image": "almadungduong/products/chai-kho-mat/1.png",
     "features": [],
     "skinConcerns": [],
     "description": "Chải khô da mặt – Làm sạch sâu, đánh thức làn da khỏe tự nhiên.",
@@ -332,9 +332,9 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360772/almadungduong/products/chai-kho-mat/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360773/almadungduong/products/chai-kho-mat/2.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360775/almadungduong/products/chai-kho-mat/3.png"
+      "almadungduong/products/chai-kho-mat/1.png",
+      "almadungduong/products/chai-kho-mat/2.png",
+      "almadungduong/products/chai-kho-mat/3.png"
     ]
   },
   {
@@ -344,7 +344,7 @@ export const products: Product[] = [
     "price": 595000,
     "rating": 4.9,
     "reviewsCount": 114,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360901/almadungduong/products/guasha/1.png",
+    "image": "almadungduong/products/guasha/1.png",
     "features": [],
     "skinConcerns": [],
     "description": "Gua sha đá là công cụ massage truyền thống giúp chăm sóc da theo phương pháp tự nhiên, không xâm lấn.",
@@ -355,8 +355,8 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360901/almadungduong/products/guasha/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360903/almadungduong/products/guasha/2.png"
+      "almadungduong/products/guasha/1.png",
+      "almadungduong/products/guasha/2.png"
     ]
   },
   {
@@ -366,7 +366,7 @@ export const products: Product[] = [
     "price": 275000,
     "rating": 4.9,
     "reviewsCount": 115,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360767/almadungduong/products/chai-kho-co-the/1.png",
+    "image": "almadungduong/products/chai-kho-co-the/1.png",
     "features": [],
     "skinConcerns": [],
     "description": "Chải khô BODY – Làm sạch, detox da và đánh thức năng lượng cơ thể.",
@@ -376,8 +376,8 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360767/almadungduong/products/chai-kho-co-the/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360769/almadungduong/products/chai-kho-co-the/2.png"
+      "almadungduong/products/chai-kho-co-the/1.png",
+      "almadungduong/products/chai-kho-co-the/2.png"
     ]
   },
   {
@@ -387,7 +387,7 @@ export const products: Product[] = [
     "price": 10000,
     "rating": 4.9,
     "reviewsCount": 116,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360972/almadungduong/products/mat-na-u-nilon/0b3c30012cf6695cdba68f46a5e23627.jpg",
+    "image": "almadungduong/products/mat-na-u-nilon/0b3c30012cf6695cdba68f46a5e23627.jpg",
     "features": [],
     "skinConcerns": [],
     "description": "Mặt nạ ủ nilon là giải pháp hỗ trợ chăm sóc da chuyên sâu, hoạt động theo cơ chế occlusion (tạo lớp màng khóa ẩm) giúp giữ lại toàn bộ dưỡng chất trên da, từ đó tăng khả năng thẩm thấu và phát huy hiệu quả tối đa của sản phẩm chăm sóc.Sản phẩm này được dùng kèm với Xịt dưỡng chuyên sâu.",
@@ -396,7 +396,7 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360972/almadungduong/products/mat-na-u-nilon/0b3c30012cf6695cdba68f46a5e23627.jpg"
+      "almadungduong/products/mat-na-u-nilon/0b3c30012cf6695cdba68f46a5e23627.jpg"
     ]
   },
   {
@@ -406,7 +406,7 @@ export const products: Product[] = [
     "price": 70000,
     "rating": 4.9,
     "reviewsCount": 117,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360739/almadungduong/products/bong-tay-trang-muji/1.avif",
+    "image": "almadungduong/products/bong-tay-trang-muji/1.avif",
     "features": [],
     "skinConcerns": [],
     "description": "Bông tẩy trang Muji được làm từ 100% cotton tự nhiên, không qua xử lý tẩy trắng hóa học, giữ nguyên màu sắc nguyên bản của sợi bông.",
@@ -415,8 +415,8 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360739/almadungduong/products/bong-tay-trang-muji/1.avif",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360741/almadungduong/products/bong-tay-trang-muji/2.avif"
+      "almadungduong/products/bong-tay-trang-muji/1.avif",
+      "almadungduong/products/bong-tay-trang-muji/2.avif"
     ]
   },
   {
@@ -441,7 +441,7 @@ export const products: Product[] = [
     "price": 168000,
     "rating": 4.9,
     "reviewsCount": 118,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361036/almadungduong/products/toner-hoa-hong/1.png",
+    "image": "almadungduong/products/toner-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -456,11 +456,11 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361036/almadungduong/products/toner-hoa-hong/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361037/almadungduong/products/toner-hoa-hong/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361038/almadungduong/products/toner-hoa-hong/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361039/almadungduong/products/toner-hoa-hong/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361040/almadungduong/products/toner-hoa-hong/5.jpg"
+      "almadungduong/products/toner-hoa-hong/1.png",
+      "almadungduong/products/toner-hoa-hong/2.jpg",
+      "almadungduong/products/toner-hoa-hong/3.jpg",
+      "almadungduong/products/toner-hoa-hong/4.jpg",
+      "almadungduong/products/toner-hoa-hong/5.jpg"
     ]
   },
   {
@@ -470,7 +470,7 @@ export const products: Product[] = [
     "price": 138000,
     "rating": 4.9,
     "reviewsCount": 119,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361030/almadungduong/products/toner-tia-to/1.png",
+    "image": "almadungduong/products/toner-tia-to/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -485,10 +485,10 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361030/almadungduong/products/toner-tia-to/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361031/almadungduong/products/toner-tia-to/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361032/almadungduong/products/toner-tia-to/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361033/almadungduong/products/toner-tia-to/4.jpg"
+      "almadungduong/products/toner-tia-to/1.png",
+      "almadungduong/products/toner-tia-to/2.jpg",
+      "almadungduong/products/toner-tia-to/3.jpg",
+      "almadungduong/products/toner-tia-to/4.jpg"
     ]
   },
   {
@@ -498,7 +498,7 @@ export const products: Product[] = [
     "price": 168000,
     "rating": 4.9,
     "reviewsCount": 120,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361022/almadungduong/products/toner-hoa-cuc/1.png",
+    "image": "almadungduong/products/toner-hoa-cuc/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -513,11 +513,11 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361022/almadungduong/products/toner-hoa-cuc/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361023/almadungduong/products/toner-hoa-cuc/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361025/almadungduong/products/toner-hoa-cuc/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361026/almadungduong/products/toner-hoa-cuc/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361027/almadungduong/products/toner-hoa-cuc/5.jpg"
+      "almadungduong/products/toner-hoa-cuc/1.png",
+      "almadungduong/products/toner-hoa-cuc/2.jpg",
+      "almadungduong/products/toner-hoa-cuc/3.jpg",
+      "almadungduong/products/toner-hoa-cuc/4.jpg",
+      "almadungduong/products/toner-hoa-cuc/5.jpg"
     ]
   },
   {
@@ -527,7 +527,7 @@ export const products: Product[] = [
     "price": 233000,
     "rating": 4.9,
     "reviewsCount": 121,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360975/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/1.png",
+    "image": "almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "300ml",
@@ -541,11 +541,11 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360975/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360977/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360978/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360981/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360982/almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/5.jpg"
+      "almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/1.png",
+      "almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/2.jpg",
+      "almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/3.jpg",
+      "almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/4.jpg",
+      "almadungduong/products/nuoc-tay-trang-tia-to-hoa-hong/5.jpg"
     ]
   },
   {
@@ -555,7 +555,7 @@ export const products: Product[] = [
     "price": 89000,
     "rating": 4.9,
     "reviewsCount": 122,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361077/almadungduong/products/xa-bong-nghe-hoa-hong/1.png",
+    "image": "almadungduong/products/xa-bong-nghe-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "105gr",
@@ -570,10 +570,10 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361077/almadungduong/products/xa-bong-nghe-hoa-hong/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361079/almadungduong/products/xa-bong-nghe-hoa-hong/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361080/almadungduong/products/xa-bong-nghe-hoa-hong/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361081/almadungduong/products/xa-bong-nghe-hoa-hong/4.jpg"
+      "almadungduong/products/xa-bong-nghe-hoa-hong/1.png",
+      "almadungduong/products/xa-bong-nghe-hoa-hong/2.jpg",
+      "almadungduong/products/xa-bong-nghe-hoa-hong/3.jpg",
+      "almadungduong/products/xa-bong-nghe-hoa-hong/4.jpg"
     ]
   },
   {
@@ -583,7 +583,7 @@ export const products: Product[] = [
     "price": 89000,
     "rating": 4.9,
     "reviewsCount": 123,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361063/almadungduong/products/xa-bong-gung-tram-que/1.png",
+    "image": "almadungduong/products/xa-bong-gung-tram-que/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "105gr",
@@ -598,12 +598,12 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361063/almadungduong/products/xa-bong-gung-tram-que/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361066/almadungduong/products/xa-bong-gung-tram-que/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361067/almadungduong/products/xa-bong-gung-tram-que/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361068/almadungduong/products/xa-bong-gung-tram-que/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361069/almadungduong/products/xa-bong-gung-tram-que/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361071/almadungduong/products/xa-bong-gung-tram-que/6.jpg"
+      "almadungduong/products/xa-bong-gung-tram-que/1.png",
+      "almadungduong/products/xa-bong-gung-tram-que/2.jpg",
+      "almadungduong/products/xa-bong-gung-tram-que/3.jpg",
+      "almadungduong/products/xa-bong-gung-tram-que/4.jpg",
+      "almadungduong/products/xa-bong-gung-tram-que/5.jpg",
+      "almadungduong/products/xa-bong-gung-tram-que/6.jpg"
     ]
   },
   {
@@ -613,7 +613,7 @@ export const products: Product[] = [
     "price": 168000,
     "rating": 4.9,
     "reviewsCount": 124,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360942/almadungduong/products/mat-na-hoa-hong/1.png",
+    "image": "almadungduong/products/mat-na-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "50gr",
@@ -626,12 +626,12 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360942/almadungduong/products/mat-na-hoa-hong/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360943/almadungduong/products/mat-na-hoa-hong/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360945/almadungduong/products/mat-na-hoa-hong/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360949/almadungduong/products/mat-na-hoa-hong/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360950/almadungduong/products/mat-na-hoa-hong/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360953/almadungduong/products/mat-na-hoa-hong/6.jpg"
+      "almadungduong/products/mat-na-hoa-hong/1.png",
+      "almadungduong/products/mat-na-hoa-hong/2.jpg",
+      "almadungduong/products/mat-na-hoa-hong/3.jpg",
+      "almadungduong/products/mat-na-hoa-hong/4.jpg",
+      "almadungduong/products/mat-na-hoa-hong/5.jpg",
+      "almadungduong/products/mat-na-hoa-hong/6.jpg"
     ]
   },
   {
@@ -641,7 +641,7 @@ export const products: Product[] = [
     "price": 158000,
     "rating": 4.9,
     "reviewsCount": 125,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360960/almadungduong/products/mat-na-tia-to/1.png",
+    "image": "almadungduong/products/mat-na-tia-to/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "50gr",
@@ -654,9 +654,9 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360960/almadungduong/products/mat-na-tia-to/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360962/almadungduong/products/mat-na-tia-to/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360963/almadungduong/products/mat-na-tia-to/3.jpg"
+      "almadungduong/products/mat-na-tia-to/1.png",
+      "almadungduong/products/mat-na-tia-to/2.jpg",
+      "almadungduong/products/mat-na-tia-to/3.jpg"
     ]
   },
   {
@@ -666,7 +666,7 @@ export const products: Product[] = [
     "price": 198000,
     "rating": 4.9,
     "reviewsCount": 126,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360967/almadungduong/products/mat-na-nghe-phuc-hoi/1.png",
+    "image": "almadungduong/products/mat-na-nghe-phuc-hoi/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "120gr",
@@ -680,9 +680,9 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360967/almadungduong/products/mat-na-nghe-phuc-hoi/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360968/almadungduong/products/mat-na-nghe-phuc-hoi/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360969/almadungduong/products/mat-na-nghe-phuc-hoi/3.jpg"
+      "almadungduong/products/mat-na-nghe-phuc-hoi/1.png",
+      "almadungduong/products/mat-na-nghe-phuc-hoi/2.jpg",
+      "almadungduong/products/mat-na-nghe-phuc-hoi/3.jpg"
     ]
   },
   {
@@ -711,7 +711,7 @@ export const products: Product[] = [
     "price": 158000,
     "rating": 4.9,
     "reviewsCount": 128,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360889/almadungduong/products/dau-duong-hoa-hong/1.png",
+    "image": "almadungduong/products/dau-duong-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "20ml",
@@ -724,10 +724,10 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360889/almadungduong/products/dau-duong-hoa-hong/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360890/almadungduong/products/dau-duong-hoa-hong/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360891/almadungduong/products/dau-duong-hoa-hong/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360894/almadungduong/products/dau-duong-hoa-hong/4.jpg"
+      "almadungduong/products/dau-duong-hoa-hong/1.png",
+      "almadungduong/products/dau-duong-hoa-hong/2.jpg",
+      "almadungduong/products/dau-duong-hoa-hong/3.jpg",
+      "almadungduong/products/dau-duong-hoa-hong/4.jpg"
     ]
   },
   {
@@ -737,7 +737,7 @@ export const products: Product[] = [
     "price": 236000,
     "rating": 4.9,
     "reviewsCount": 129,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360898/almadungduong/products/dau-massage-hoa-hong/1.png",
+    "image": "almadungduong/products/dau-massage-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "50ml",
@@ -749,8 +749,8 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360898/almadungduong/products/dau-massage-hoa-hong/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360899/almadungduong/products/dau-massage-hoa-hong/2.jpg"
+      "almadungduong/products/dau-massage-hoa-hong/1.png",
+      "almadungduong/products/dau-massage-hoa-hong/2.jpg"
     ]
   },
   {
@@ -760,7 +760,7 @@ export const products: Product[] = [
     "price": 289000,
     "rating": 4.9,
     "reviewsCount": 130,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360751/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/1.png",
+    "image": "almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "300ml",
@@ -773,12 +773,12 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360751/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360752/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360755/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360757/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360758/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360760/almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/6.jpg"
+      "almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/1.png",
+      "almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/2.jpg",
+      "almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/3.jpg",
+      "almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/4.jpg",
+      "almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/5.jpg",
+      "almadungduong/products/cao-goi-hoa-hong-2-in-1-goixa/6.jpg"
     ]
   },
   {
@@ -788,7 +788,7 @@ export const products: Product[] = [
     "price": 138000,
     "rating": 4.9,
     "reviewsCount": 131,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360990/almadungduong/products/tinh-chat-hoa-buoi/1.png",
+    "image": "almadungduong/products/tinh-chat-hoa-buoi/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "100ml",
@@ -798,9 +798,9 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360990/almadungduong/products/tinh-chat-hoa-buoi/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360992/almadungduong/products/tinh-chat-hoa-buoi/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360993/almadungduong/products/tinh-chat-hoa-buoi/3.jpg"
+      "almadungduong/products/tinh-chat-hoa-buoi/1.png",
+      "almadungduong/products/tinh-chat-hoa-buoi/2.jpg",
+      "almadungduong/products/tinh-chat-hoa-buoi/3.jpg"
     ]
   },
   {
@@ -810,7 +810,7 @@ export const products: Product[] = [
     "price": 189000,
     "rating": 4.9,
     "reviewsCount": 132,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361043/almadungduong/products/tra-hoa-hong/1.png",
+    "image": "almadungduong/products/tra-hoa-hong/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "60gr",
@@ -823,11 +823,11 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361043/almadungduong/products/tra-hoa-hong/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361044/almadungduong/products/tra-hoa-hong/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361045/almadungduong/products/tra-hoa-hong/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361049/almadungduong/products/tra-hoa-hong/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361051/almadungduong/products/tra-hoa-hong/5.jpg"
+      "almadungduong/products/tra-hoa-hong/1.png",
+      "almadungduong/products/tra-hoa-hong/2.jpg",
+      "almadungduong/products/tra-hoa-hong/3.jpg",
+      "almadungduong/products/tra-hoa-hong/4.jpg",
+      "almadungduong/products/tra-hoa-hong/5.jpg"
     ]
   },
   {
@@ -837,7 +837,7 @@ export const products: Product[] = [
     "price": 99000,
     "rating": 4.9,
     "reviewsCount": 133,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361053/almadungduong/products/tra-tia-to/1.png",
+    "image": "almadungduong/products/tra-tia-to/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "20gr",
@@ -850,12 +850,12 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361053/almadungduong/products/tra-tia-to/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361054/almadungduong/products/tra-tia-to/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361055/almadungduong/products/tra-tia-to/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361057/almadungduong/products/tra-tia-to/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361058/almadungduong/products/tra-tia-to/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781361059/almadungduong/products/tra-tia-to/6.jpg"
+      "almadungduong/products/tra-tia-to/1.png",
+      "almadungduong/products/tra-tia-to/2.jpg",
+      "almadungduong/products/tra-tia-to/3.jpg",
+      "almadungduong/products/tra-tia-to/4.jpg",
+      "almadungduong/products/tra-tia-to/5.jpg",
+      "almadungduong/products/tra-tia-to/6.jpg"
     ]
   },
   {
@@ -926,7 +926,7 @@ export const products: Product[] = [
     "price": 295000,
     "rating": 4.9,
     "reviewsCount": 137,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360906/almadungduong/products/gac-len-men/1.png",
+    "image": "almadungduong/products/gac-len-men/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "500ml",
@@ -939,14 +939,14 @@ export const products: Product[] = [
     "showOnHomepage": false,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360906/almadungduong/products/gac-len-men/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360907/almadungduong/products/gac-len-men/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360908/almadungduong/products/gac-len-men/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360910/almadungduong/products/gac-len-men/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360912/almadungduong/products/gac-len-men/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360913/almadungduong/products/gac-len-men/6.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360915/almadungduong/products/gac-len-men/7.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360917/almadungduong/products/gac-len-men/8.jpg"
+      "almadungduong/products/gac-len-men/1.png",
+      "almadungduong/products/gac-len-men/2.jpg",
+      "almadungduong/products/gac-len-men/3.jpg",
+      "almadungduong/products/gac-len-men/4.jpg",
+      "almadungduong/products/gac-len-men/5.jpg",
+      "almadungduong/products/gac-len-men/6.jpg",
+      "almadungduong/products/gac-len-men/7.jpg",
+      "almadungduong/products/gac-len-men/8.jpg"
     ]
   },
   {
@@ -956,7 +956,7 @@ export const products: Product[] = [
     "price": 255000,
     "rating": 4.9,
     "reviewsCount": 138,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360925/almadungduong/products/mat-ong-gung-quat-muoi/1.png",
+    "image": "almadungduong/products/mat-ong-gung-quat-muoi/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "500ml",
@@ -970,12 +970,12 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360925/almadungduong/products/mat-ong-gung-quat-muoi/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360927/almadungduong/products/mat-ong-gung-quat-muoi/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360928/almadungduong/products/mat-ong-gung-quat-muoi/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360929/almadungduong/products/mat-ong-gung-quat-muoi/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360930/almadungduong/products/mat-ong-gung-quat-muoi/5.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360932/almadungduong/products/mat-ong-gung-quat-muoi/6.jpg"
+      "almadungduong/products/mat-ong-gung-quat-muoi/1.png",
+      "almadungduong/products/mat-ong-gung-quat-muoi/2.jpg",
+      "almadungduong/products/mat-ong-gung-quat-muoi/3.jpg",
+      "almadungduong/products/mat-ong-gung-quat-muoi/4.jpg",
+      "almadungduong/products/mat-ong-gung-quat-muoi/5.jpg",
+      "almadungduong/products/mat-ong-gung-quat-muoi/6.jpg"
     ]
   },
   {
@@ -985,7 +985,7 @@ export const products: Product[] = [
     "price": 295000,
     "rating": 4.9,
     "reviewsCount": 139,
-    "image": "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360878/almadungduong/products/cot-nghe-mat-ong-len-men/1.png",
+    "image": "almadungduong/products/cot-nghe-mat-ong-len-men/1.png",
     "features": [],
     "skinConcerns": [],
     "volume": "500ml",
@@ -999,11 +999,11 @@ export const products: Product[] = [
     "showOnHomepage": true,
     "isPublished": true,
     "images": [
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360878/almadungduong/products/cot-nghe-mat-ong-len-men/1.png",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360880/almadungduong/products/cot-nghe-mat-ong-len-men/2.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360882/almadungduong/products/cot-nghe-mat-ong-len-men/3.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360883/almadungduong/products/cot-nghe-mat-ong-len-men/4.jpg",
-      "https://res.cloudinary.com/dxb8eoyf3/image/upload/v1781360886/almadungduong/products/cot-nghe-mat-ong-len-men/5.jpg"
+      "almadungduong/products/cot-nghe-mat-ong-len-men/1.png",
+      "almadungduong/products/cot-nghe-mat-ong-len-men/2.jpg",
+      "almadungduong/products/cot-nghe-mat-ong-len-men/3.jpg",
+      "almadungduong/products/cot-nghe-mat-ong-len-men/4.jpg",
+      "almadungduong/products/cot-nghe-mat-ong-len-men/5.jpg"
     ]
   },
   {

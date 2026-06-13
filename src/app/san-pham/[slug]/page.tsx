@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import ProductDetailView from "./ProductDetailView";
 import { notFound } from "next/navigation";
+import { getImageUrl } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -57,7 +58,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
     features: [],
     skinConcerns: [],
     variants: [],
-    images: dbProduct.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => img.url),
+    image: getImageUrl(dbProduct.image),
+    images: dbProduct.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => getImageUrl(img.url)),
     reviews: dbProduct.reviews,
   };
 

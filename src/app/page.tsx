@@ -1,12 +1,13 @@
-import { HeroCarousel } from "@/components/home/HeroCarousel";
-import { TrustStrip } from "@/components/home/TrustStrip";
-import { ProductsFeatures } from "@/components/home/ProductsFeatures";
-import { MonthlyDeal } from "@/components/home/MonthlyDeal";
-import { ProductCarousel } from "@/components/home/ProductCarousel";
-import { MicrobialHighlights } from "@/components/home/MicrobialHighlights";
-import { Certifications } from "@/components/home/Certifications";
-import { CustomerFeedback } from "@/components/home/CustomerFeedback";
-import { prisma } from "@/lib/db";
+import {HeroCarousel} from "@/components/home/HeroCarousel";
+import {TrustStrip} from "@/components/home/TrustStrip";
+import {ProductsFeatures} from "@/components/home/ProductsFeatures";
+import {MonthlyDeal} from "@/components/home/MonthlyDeal";
+import {ProductCarousel} from "@/components/home/ProductCarousel";
+import {MicrobialHighlights} from "@/components/home/MicrobialHighlights";
+import {Certifications} from "@/components/home/Certifications";
+import {CustomerFeedback} from "@/components/home/CustomerFeedback";
+import {prisma} from "@/lib/db";
+import {getImageUrl} from "@/lib/utils";
 
 export const revalidate = 60;
 
@@ -38,13 +39,14 @@ export default async function Home() {
 
   const products = dbProducts.map((p: any) => ({
     ...p,
+    image: getImageUrl(p.image),
     category: p.category.parent ? p.category.parent.name : p.category.name,
     subcategory: p.category.parent ? p.category.name : null,
     flag: p.tags.map((t: any) => t.name).join('/ ') || null,
     features: [],
     skinConcerns: [],
     variants: [],
-    images: p.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => img.url),
+    images: p.images.sort((a: any, b: any) => a.sortOrder - b.sortOrder).map((img: any) => getImageUrl(img.url)),
     reviews: p.reviews,
   }));
 
