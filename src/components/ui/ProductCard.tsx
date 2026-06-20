@@ -110,6 +110,7 @@ export function ProductCard({
             src={image}
             alt={title}
             fill
+            draggable={false}
             className="object-cover transition-transform duration-400 ease-out group-hover:scale-[1.04]"
           />
           
