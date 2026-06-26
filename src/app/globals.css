@@ -15,6 +15,17 @@
   --font-body: var(--font-inter);
   --font-serif: var(--font-lora);
   --font-cormorant: var(--font-cormorant);
+
+  /* Admin-specific theme extensions */
+  --color-admin-sidebar: #1C1C1A;
+  --color-admin-sidebar-fg: #FAF8F5;
+  --color-admin-active: #1A4331;
+  --color-admin-hover: rgba(250, 248, 245, 0.08);
+
+  /* Status badge colors */
+  --color-status-pending: #D97706;
+  --color-status-completed: #1A4331;
+  --color-status-expired: #6B7280;
 }
 
 @keyframes marquee {

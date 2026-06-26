@@ -13,5 +13,5 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
     redirect("/");
   }
 
-  return <AdminShell>{children}</AdminShell>;
+  return <AdminShell adminEmail={session.user.email ?? undefined}>{children}</AdminShell>;
 }
