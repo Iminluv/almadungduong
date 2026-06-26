@@ -128,6 +128,7 @@ model User {
   phone           String?
   image           String?
   hashedPassword  String?                // null for Google-only users
+  role            String    @default("user")
   loyaltyTierId   String?
   loyaltyTier     LoyaltyTier? @relation(fields: [loyaltyTierId], references: [id])
   totalSpent      Int       @default(0)  // accumulated spend → auto tier upgrade

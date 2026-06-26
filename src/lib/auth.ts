@@ -48,6 +48,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             image: user.image,
             phone: user.phone,
             loyaltyTierId: user.loyaltyTierId,
+            role: user.role,
           };
         } catch (error) {
           console.error("Authorize error:", error);
@@ -128,8 +129,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
-        token.loyaltyTierId = (user as any).loyaltyTierId;
-        token.phone = (user as any).phone;
+        token.loyaltyTierId = user.loyaltyTierId;
+        token.phone = user.phone;
+        token.role = user.role;
       }
 
       if (trigger === "update" && session) {
@@ -138,15 +140,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (session.loyaltyTierId) token.loyaltyTierId = session.loyaltyTierId;
       }
 
-      // Fetch fresh loyaltyTierId on jwt callbacks
+      // Fetch fresh loyaltyTierId and role on jwt callbacks
       if (token.id) {
         try {
           const dbUser = await prisma.user.findUnique({
             where: { id: token.id as string },
-            select: { loyaltyTierId: true },
+            select: { loyaltyTierId: true, role: true },
           });
           if (dbUser) {
             token.loyaltyTierId = dbUser.loyaltyTierId;
+            token.role = dbUser.role;
           }
         } catch (error) {
           console.error("JWT fetch user error:", error);
@@ -158,9 +161,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (token) {
         if (session.user) {
-          (session.user as any).id = token.id;
-          (session.user as any).loyaltyTierId = token.loyaltyTierId;
-          (session.user as any).phone = token.phone;
+          session.user.id = token.id as string;
+          session.user.loyaltyTierId = token.loyaltyTierId as string | null;
+          session.user.phone = token.phone as string | null;
+          session.user.role = token.role as string;
         }
       }
       return session;
