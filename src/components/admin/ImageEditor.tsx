@@ -33,11 +33,100 @@ export default function ImageEditor({
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
+  // Lightbox & Zoom states
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
+  const [panStart, setPanStart] = useState({ x: 0, y: 0 });
+
+  const changeLightboxImage = (newIndex: number) => {
+    setLightboxIndex(newIndex);
+    setZoomLevel(1);
+    setPan({ x: 0, y: 0 });
+  };
+
+  const handleZoomIn = () => {
+    setZoomLevel((prev) => Math.min(prev + 0.25, 5));
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel((prev) => Math.max(prev - 0.25, 0.5));
+  };
+
+  const handleZoomReset = () => {
+    setZoomLevel(1);
+    setPan({ x: 0, y: 0 });
+  };
+
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const zoomFactor = 0.15;
+    const direction = e.deltaY < 0 ? 1 : -1;
+    setZoomLevel((prev) => Math.min(Math.max(prev + direction * zoomFactor, 0.5), 5));
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsPanning(true);
+    setPanStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isPanning) return;
+    setPan({
+      x: e.clientX - panStart.x,
+      y: e.clientY - panStart.y,
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsPanning(false);
+  };
+
   // Sort and set initial images
   useEffect(() => {
     const sorted = [...initialImages].sort((a, b) => a.sortOrder - b.sortOrder);
     setImages(sorted);
   }, [initialImages]);
+
+  // Lock scroll when lightbox is open
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [lightboxIndex]);
+
+  // Handle keyboard events in lightbox
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setLightboxIndex(null);
+        setZoomLevel(1);
+        setPan({ x: 0, y: 0 });
+      } else if (e.key === "ArrowRight") {
+        if (lightboxIndex < images.length - 1) {
+          changeLightboxImage(lightboxIndex + 1);
+        }
+      } else if (e.key === "ArrowLeft") {
+        if (lightboxIndex > 0) {
+          changeLightboxImage(lightboxIndex - 1);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [lightboxIndex, images.length]);
 
   // Handle adding new image
   const handleAddImage = async (e?: React.FormEvent | React.KeyboardEvent) => {
@@ -266,7 +355,7 @@ export default function ImageEditor({
             <p className="text-xs text-[#8A8680]">Thư viện ảnh trống. Hãy dán URL để thêm ảnh đầu tiên.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
             {images.map((img, index) => {
               const isDragSource = draggedIndex === index;
               const isDragTarget = dragOverIndex === index;
@@ -280,70 +369,225 @@ export default function ImageEditor({
                   onDragOver={(e) => handleDragOver(e, index)}
                   onDrop={(e) => handleDrop(e, index)}
                   onDragLeave={() => setDragOverIndex(null)}
-                  className={`relative aspect-square border rounded-[2px] overflow-hidden bg-[#FAF8F5] group select-none transition-all duration-200 cursor-grab active:cursor-grabbing ${
+                  className={`relative flex flex-col border rounded-[2px] overflow-hidden bg-white select-none transition-all duration-200 cursor-grab active:cursor-grabbing ${
                     isDragSource ? "opacity-30 border-dashed border-[#8A8680]" : "border-[#F0EDE8]"
                   } ${isDragTarget ? "border-[#1A4331] ring-2 ring-[#1A4331]/20 scale-95" : ""}`}
                 >
-                  <img
-                    src={getImageUrl(img.url)}
-                    alt={`Gallery ${index + 1}`}
-                    className="object-cover w-full h-full pointer-events-none"
-                  />
+                  {/* Image container */}
+                  <div
+                    onClick={() => changeLightboxImage(index)}
+                    className="relative w-full aspect-[4/3] bg-[#FAF8F5] overflow-hidden cursor-pointer"
+                  >
+                    <img
+                      src={getImageUrl(img.url)}
+                      alt={`Gallery ${index + 1}`}
+                      className="object-cover w-full h-full pointer-events-none transition-transform duration-300 hover:scale-105"
+                    />
 
-                  {/* Order indicator */}
-                  <div className="absolute top-2 left-2 bg-[#1C1C1A]/70 text-white text-[9px] font-mono w-5 h-5 flex items-center justify-center rounded-full">
-                    {index + 1}
+                    {/* Order indicator */}
+                    <div className="absolute top-2 left-2 bg-[#1C1C1A]/70 text-white text-[10px] font-mono w-6 h-6 flex items-center justify-center rounded-full z-10 font-bold">
+                      {index + 1}
+                    </div>
+
+                    {/* Subtle hover icon hint */}
+                    <div className="absolute inset-0 bg-black/5 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-white drop-shadow-sm">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9M20.25 20.25v-4.5m0 4.5h-4.5m4.5 0L15 15" />
+                      </svg>
+                    </div>
+
+                    {deletingId === img.id && (
+                      <div className="absolute inset-0 bg-[#FAF8F5]/80 flex items-center justify-center z-20">
+                        <span className="text-[11px] text-[#8A8680] animate-pulse font-medium">Đang xóa...</span>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Actions overlay */}
-                  <div className="absolute inset-0 bg-[#1C1C1A]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-between p-2">
-                    <div className="flex justify-end">
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteImage(img.id)}
-                        disabled={deletingId === img.id}
-                        className="bg-red-600 hover:bg-red-700 text-white p-1 rounded-[2px] transition-colors cursor-pointer"
-                        title="Xóa hình ảnh"
+                  {/* Action row (always visible) */}
+                  <div className="flex border-t border-[#F0EDE8] bg-[#FAF8F5] text-xs divide-x divide-[#F0EDE8]">
+                    <button
+                      type="button"
+                      onClick={() => changeLightboxImage(index)}
+                      className="flex-1 py-2.5 text-center text-[#8A8680] hover:text-[#1C1C1A] hover:bg-[#F0EDE8]/30 transition-colors font-medium cursor-pointer"
+                      title="Xem ảnh thực tế"
+                    >
+                      Xem ảnh
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onMainImageChange(img.url)}
+                      className={`flex-1 py-2.5 text-center transition-colors font-semibold cursor-pointer ${
+                        mainImage === img.url
+                          ? "text-[#1A4331] bg-[#1A4331]/5 font-bold"
+                          : "text-[#8A8680] hover:text-[#1A4331] hover:bg-[#1A4331]/5"
+                      }`}
+                      title="Chọn làm ảnh đại diện chính"
+                    >
+                      {mainImage === img.url ? "★ Ảnh bìa" : "⭐ Bìa"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteImage(img.id)}
+                      disabled={deletingId === img.id}
+                      className="px-4 py-2.5 text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer flex items-center justify-center"
+                      title="Xóa hình ảnh"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="w-4 h-4"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-3.5 w-3.5"
-                          fill="none"
-                          viewBox="0/0/24/24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-
-                    <div className="space-y-1">
-                      <button
-                        type="button"
-                        onClick={() => onMainImageChange(img.url)}
-                        className="w-full bg-[#1A4331] hover:bg-[#1A4331]/90 text-white py-1 px-1.5 rounded-[2px] text-[10px] font-bold transition-colors cursor-pointer flex items-center justify-center gap-1"
-                      >
-                        <span className="text-xs">⭐</span> Chọn làm ảnh bìa
-                      </button>
-                    </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                        />
+                      </svg>
+                    </button>
                   </div>
-
-                  {deletingId === img.id && (
-                    <div className="absolute inset-0 bg-[#FAF8F5]/80 flex items-center justify-center">
-                      <span className="text-[10px] text-[#8A8680] animate-pulse">Đang xóa...</span>
-                    </div>
-                  )}
                 </div>
               );
             })}
           </div>
         )}
       </div>
+
+      {/* Lightbox Modal */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 flex flex-col justify-between select-none"
+          onClick={() => {
+            setLightboxIndex(null);
+            setZoomLevel(1);
+            setPan({ x: 0, y: 0 });
+          }}
+        >
+          {/* Top Status & Control Bar */}
+          <div
+            className="absolute top-4 left-4 right-4 flex items-center justify-between z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 bg-black/50 px-4 py-2 rounded-full text-white text-xs font-mono backdrop-blur-md border border-white/10">
+              <span>
+                Ảnh {lightboxIndex + 1} / {images.length}
+              </span>
+              <span className="w-px h-3 bg-white/20" />
+              <span>{Math.round(zoomLevel * 100)}%</span>
+            </div>
+
+            <div className="flex items-center gap-2 bg-black/50 px-3 py-1.5 rounded-full text-white backdrop-blur-md border border-white/10">
+              <button
+                type="button"
+                onClick={handleZoomOut}
+                className="p-1 hover:text-[#1A4331] transition-colors cursor-pointer text-white/70 hover:text-white"
+                title="Thu nhỏ"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M18 12H6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={handleZoomReset}
+                className="text-xs px-2 py-0.5 hover:bg-white/10 rounded transition-colors cursor-pointer font-medium text-white/70 hover:text-white"
+                title="Vừa màn hình"
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                onClick={handleZoomIn}
+                className="p-1 hover:text-[#1A4331] transition-colors cursor-pointer text-white/70 hover:text-white"
+                title="Phóng to"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setLightboxIndex(null);
+                setZoomLevel(1);
+                setPan({ x: 0, y: 0 });
+              }}
+              className="bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-colors cursor-pointer border border-white/10"
+              title="Đóng (Esc)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Main View Area */}
+          <div
+            className="flex-1 flex items-center justify-center p-4 overflow-hidden relative cursor-grab active:cursor-grabbing"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onWheel={handleWheel}
+          >
+            <div
+              className="transition-transform duration-75 ease-out select-none"
+              style={{
+                transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoomLevel})`,
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={getImageUrl(images[lightboxIndex].url)}
+                alt={`Gallery ${lightboxIndex + 1}`}
+                className="max-w-[90vw] max-h-[80vh] object-contain pointer-events-none select-none animate-fade-in"
+              />
+            </div>
+          </div>
+
+          {/* Footer Navigation Area */}
+          <div
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-6 z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                if (lightboxIndex > 0) {
+                  changeLightboxImage(lightboxIndex - 1);
+                }
+              }}
+              disabled={lightboxIndex === 0}
+              className="bg-black/50 hover:bg-black/80 disabled:opacity-30 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors cursor-pointer border border-white/10"
+              title="Ảnh trước (←)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                if (lightboxIndex < images.length - 1) {
+                  changeLightboxImage(lightboxIndex + 1);
+                }
+              }}
+              disabled={lightboxIndex === images.length - 1}
+              className="bg-black/50 hover:bg-black/80 disabled:opacity-30 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors cursor-pointer border border-white/10"
+              title="Ảnh sau (→)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
