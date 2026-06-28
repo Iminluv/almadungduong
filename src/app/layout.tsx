@@ -7,6 +7,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { ToastNotification } from "@/components/ui/ToastNotification";
 import { ChatWidget } from "@/components/layout/ChatWidget";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import { ContentProtectionProvider } from "@/components/providers/ContentProtectionProvider";
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -71,20 +72,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
+      <head>
+        <meta name="robots" content="noai, noimageai" />
+      </head>
       <body
         className={`${inter.variable} ${playfair.variable} ${lora.variable} ${cormorant.variable} antialiased bg-bg text-text font-body selection:bg-accent selection:text-white`}
       >
         <AuthProvider>
-          <Header />
-          <CartDrawer />
-          <ToastNotification />
-          <ChatWidget />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
+          <ContentProtectionProvider>
+            <Header />
+            <CartDrawer />
+            <ToastNotification />
+            <ChatWidget />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </ContentProtectionProvider>
         </AuthProvider>
       </body>
     </html>
   );
 }
+
