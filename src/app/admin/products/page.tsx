@@ -5,6 +5,7 @@ import AdminBreadcrumb from "@/components/admin/AdminBreadcrumb";
 import ProductInlineEditor from "@/components/admin/ProductInlineEditor";
 import ProductDeleteButton from "@/components/admin/ProductDeleteButton";
 import Link from "next/link";
+import { getImageUrl } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -87,7 +88,7 @@ export default async function AdminProductsPage({ searchParams }: PageProps) {
       cell: (product: any) => (
         <div className="w-10 h-10 bg-[#FAF8F5] border border-[#F0EDE8] rounded-[2px] overflow-hidden flex-shrink-0 relative">
           <img
-            src={product.image}
+            src={getImageUrl(product.image)}
             alt={product.title}
             className="object-cover w-full h-full"
           />
@@ -239,6 +240,7 @@ export default async function AdminProductsPage({ searchParams }: PageProps) {
         <DataTable
           data={products}
           columns={columns}
+          searchParams={params}
           searchPlaceholder="Tìm tên sản phẩm, tên tiếng Anh..."
           searchParamKey="search"
           filterParamKey="published"

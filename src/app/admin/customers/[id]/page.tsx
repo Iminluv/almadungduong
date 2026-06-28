@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import StatusBadge from "@/components/admin/StatusBadge";
 import AdminBreadcrumb from "@/components/admin/AdminBreadcrumb";
 import Link from "next/link";
+import { getImageUrl } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -257,7 +258,7 @@ export default async function AdminCustomerDetailPage({ params }: PageProps) {
             <div className="mx-auto w-24 h-24 rounded-full bg-[#1A4331] border border-[#F0EDE8] text-white flex items-center justify-center text-3xl font-bold uppercase overflow-hidden shadow-inner">
               {customer.image ? (
                 <img
-                  src={customer.image}
+                  src={getImageUrl(customer.image)}
                   alt={customer.name || customer.email}
                   className="object-cover w-full h-full"
                 />

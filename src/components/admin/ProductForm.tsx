@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ImageEditor from "./ImageEditor";
+import { getImageUrl } from "@/lib/utils";
 
 interface CategoryOption {
   id: string;
@@ -31,7 +33,7 @@ interface ProductFormProps {
     showOnHomepage: boolean;
     isPublished: boolean;
     tags?: { name: string }[];
-    images?: { url: string }[];
+    images?: { id: string; url: string; sortOrder: number }[];
   };
 }
 
@@ -66,12 +68,8 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
     initialData?.tags ? initialData.tags.map((t) => t.name).join(", ") : ""
   );
 
-  // Gallery inputs (up to 4)
-  const initialGallery = initialData?.images ? initialData.images.map((img) => img.url) : [];
-  const [gallery1, setGallery1] = useState(initialGallery[0] || "");
-  const [gallery2, setGallery2] = useState(initialGallery[1] || "");
-  const [gallery3, setGallery3] = useState(initialGallery[2] || "");
-  const [gallery4, setGallery4] = useState(initialGallery[3] || "");
+  // Gallery images from initialData
+  const initialImages = initialData?.images || [];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,14 +80,10 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
 
     setIsLoading(true);
 
-    // Format tags & gallery array
+    // Format tags array
     const parsedTags = tagsInput
       .split(",")
       .map((t) => t.trim())
-      .filter(Boolean);
-
-    const parsedGallery = [gallery1, gallery2, gallery3, gallery4]
-      .map((url) => url.trim())
       .filter(Boolean);
 
     const payload = {
@@ -107,7 +101,6 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
       tagline: tagline.trim() || null,
       gift: gift.trim() || null,
       image: image.trim(),
-      images: parsedGallery,
       tags: parsedTags,
       sortOrder: parseInt(sortOrder, 10) || 0,
       showOnHomepage,
@@ -315,63 +308,43 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
         {/* Right column sidebar form (span 1) */}
         <div className="space-y-6">
           {/* Images block */}
-          <div className="bg-white border border-[#F0EDE8] p-6 rounded-[2px] space-y-4">
-            <h3 className="font-semibold text-sm text-[#1C1C1A] pb-2 border-b border-[#F0EDE8]">
-              Hình ảnh sản phẩm (URL)
-            </h3>
-            <div className="space-y-3 text-xs">
-              <div className="space-y-1">
-                <label className="font-semibold text-[#1C1C1A]">
-                  Ảnh đại diện chính <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                  placeholder="URL ảnh Unsplash/Cloudinary..."
-                  className="w-full bg-white border border-[#F0EDE8] px-3 py-2 rounded-[2px] text-[#1C1C1A] focus:outline-none focus:border-[#1A4331] focus:ring-1 focus:ring-[#1A4331]"
-                  required
-                />
-                {image && (
-                  <div className="mt-2 w-20 h-20 border border-[#F0EDE8] rounded-[2px] overflow-hidden bg-[#FAF8F5]">
-                    <img src={image} alt="Preview" className="object-cover w-full h-full" />
-                  </div>
-                )}
-              </div>
-
-              <div className="pt-2 border-t border-[#F0EDE8] space-y-2">
-                <label className="font-semibold text-[#1C1C1A]">Thư viện ảnh phụ (tối đa 4)</label>
-                <input
-                  type="text"
-                  value={gallery1}
-                  onChange={(e) => setGallery1(e.target.value)}
-                  placeholder="URL thư viện ảnh 1"
-                  className="w-full bg-white border border-[#F0EDE8] px-3 py-1.5 rounded-[2px] text-[#1C1C1A] focus:outline-none"
-                />
-                <input
-                  type="text"
-                  value={gallery2}
-                  onChange={(e) => setGallery2(e.target.value)}
-                  placeholder="URL thư viện ảnh 2"
-                  className="w-full bg-white border border-[#F0EDE8] px-3 py-1.5 rounded-[2px] text-[#1C1C1A] focus:outline-none"
-                />
-                <input
-                  type="text"
-                  value={gallery3}
-                  onChange={(e) => setGallery3(e.target.value)}
-                  placeholder="URL thư viện ảnh 3"
-                  className="w-full bg-white border border-[#F0EDE8] px-3 py-1.5 rounded-[2px] text-[#1C1C1A] focus:outline-none"
-                />
-                <input
-                  type="text"
-                  value={gallery4}
-                  onChange={(e) => setGallery4(e.target.value)}
-                  placeholder="URL thư viện ảnh 4"
-                  className="w-full bg-white border border-[#F0EDE8] px-3 py-1.5 rounded-[2px] text-[#1C1C1A] focus:outline-none"
-                />
+          {isEditMode && initialData ? (
+            <ImageEditor
+              productId={initialData.id}
+              initialImages={initialImages}
+              mainImage={image}
+              onMainImageChange={setImage}
+            />
+          ) : (
+            <div className="bg-white border border-[#F0EDE8] p-6 rounded-[2px] space-y-4">
+              <h3 className="font-semibold text-sm text-[#1C1C1A] pb-2 border-b border-[#F0EDE8]">
+                Hình ảnh sản phẩm (URL)
+              </h3>
+              <div className="space-y-3 text-xs">
+                <div className="space-y-1">
+                  <label className="font-semibold text-[#1C1C1A]">
+                    Ảnh đại diện chính <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
+                    placeholder="URL ảnh Unsplash/Cloudinary..."
+                    className="w-full bg-white border border-[#F0EDE8] px-3 py-2 rounded-[2px] text-[#1C1C1A] focus:outline-none focus:border-[#1A4331] focus:ring-1 focus:ring-[#1A4331]"
+                    required
+                  />
+                  {image && (
+                    <div className="mt-2 w-20 h-20 border border-[#F0EDE8] rounded-[2px] overflow-hidden bg-[#FAF8F5]">
+                      <img src={getImageUrl(image)} alt="Preview" className="object-cover w-full h-full" />
+                    </div>
+                  )}
+                </div>
+                <div className="p-3 bg-[#FAF8F5] border border-[#F0EDE8] rounded-[2px] text-[#8A8680] leading-relaxed">
+                  💡 Thư viện ảnh phụ sẽ khả dụng sau khi sản phẩm được tạo thành công.
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Marketing & Tags block */}
           <div className="bg-white border border-[#F0EDE8] p-6 rounded-[2px] space-y-4">

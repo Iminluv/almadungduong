@@ -5,6 +5,7 @@ import AdminBreadcrumb from "@/components/admin/AdminBreadcrumb";
 import MarkCompletedButton from "@/components/admin/MarkCompletedButton";
 import Link from "next/link";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -119,7 +120,7 @@ export default async function AdminOrderDetailPage({ params }: PageProps) {
                 <div key={item.id} className="p-6 flex items-start gap-4">
                   <div className="relative w-16 h-16 bg-[#FAF8F5] border border-[#F0EDE8] rounded-[2px] flex-shrink-0 overflow-hidden">
                     <img
-                      src={item.image}
+                      src={getImageUrl(item.image)}
                       alt={item.title}
                       className="object-cover w-full h-full"
                     />

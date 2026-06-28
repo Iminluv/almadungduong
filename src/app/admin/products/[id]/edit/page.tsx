@@ -32,7 +32,11 @@ export default async function AdminEditProductPage({ params }: PageProps) {
         },
         images: {
           orderBy: { sortOrder: "asc" },
-          select: { url: true },
+          select: {
+            id: true,
+            url: true,
+            sortOrder: true,
+          },
         },
       },
     }),

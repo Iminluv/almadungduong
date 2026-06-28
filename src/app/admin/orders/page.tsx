@@ -170,6 +170,7 @@ export default async function AdminOrdersPage({ searchParams }: PageProps) {
         <DataTable
           data={orders}
           columns={columns}
+          searchParams={params}
           searchPlaceholder="Tìm mã giao dịch, tên, SĐT..."
           searchParamKey="search"
           filterParamKey="status"

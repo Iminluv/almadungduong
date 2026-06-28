@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { ProductCard, ProductCardSkeleton } from "@/components/ui/ProductCard";
 import { Button } from "@/components/ui/Button";
 
@@ -69,6 +70,7 @@ const colorMap: Record<string, { bg: string; text: string; border: string }> = {
 
 export default function AccountView() {
   const { data: session, status, update: updateSession } = useSession();
+  const router = useRouter();
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "addresses" | "favorites" | "profile">("overview");
 
@@ -195,6 +197,12 @@ export default function AccountView() {
       fetchOrders();
     }
   }, [status]);
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.role === "admin") {
+      router.push("/admin");
+    }
+  }, [status, session, router]);
 
   useEffect(() => {
     if (activeTab === "orders" && status === "authenticated") {

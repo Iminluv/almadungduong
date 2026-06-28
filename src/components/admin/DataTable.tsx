@@ -1,7 +1,5 @@
-"use client";
-
-import React, { Suspense } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import React from "react";
+import Link from "next/link";
 
 export interface ColumnDef<T> {
   header: string;
@@ -26,6 +24,7 @@ interface PaginationInfo {
 interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
+  searchParams?: Record<string, string | string[] | undefined>;
   searchPlaceholder?: string;
   searchParamKey?: string;
   filterParamKey?: string;
@@ -35,9 +34,10 @@ interface DataTableProps<T> {
   emptyDescription?: string;
 }
 
-function TableContent<T>({
+export default function DataTable<T>({
   data,
   columns,
+  searchParams = {},
   searchPlaceholder = "Tìm kiếm...",
   searchParamKey = "search",
   filterParamKey = "status",
@@ -46,44 +46,27 @@ function TableContent<T>({
   emptyTitle = "Không có dữ liệu",
   emptyDescription = "Chưa có bản ghi nào được ghi nhận.",
 }: DataTableProps<T>) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const currentSearch = searchParams.get(searchParamKey) || "";
-  const currentFilter = searchParams.get(filterParamKey) || "";
-
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const query = formData.get("search") as string;
-
-    const params = new URLSearchParams(searchParams.toString());
-    if (query.trim()) {
-      params.set(searchParamKey, query.trim());
-    } else {
-      params.delete(searchParamKey);
+  // Normalize searchParams to Record<string, string>
+  const currentParams: Record<string, string> = {};
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (typeof value === "string") {
+      currentParams[key] = value;
+    } else if (Array.isArray(value) && value.length > 0) {
+      currentParams[key] = value[0];
     }
-    params.set("page", "1");
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  });
 
-  const handleFilterSelect = (value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set(filterParamKey, value);
-    } else {
-      params.delete(filterParamKey);
-    }
-    params.set("page", "1");
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  const currentSearch = currentParams[searchParamKey] || "";
+  const currentFilter = currentParams[filterParamKey] || "";
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage < 1 || (pagination && newPage > pagination.totalPages)) return;
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", newPage.toString());
-    router.push(`${pathname}?${params.toString()}`);
+  // Helper to build page URL
+  const buildPageUrl = (pNum: number) => {
+    const merged = { ...currentParams, page: pNum.toString() };
+    const urlParams = new URLSearchParams();
+    Object.entries(merged).forEach(([k, v]) => {
+      if (v) urlParams.set(k, v);
+    });
+    return `?${urlParams.toString()}`;
   };
 
   return (
@@ -91,13 +74,20 @@ function TableContent<T>({
       {/* Toolbar (Search + Filters) */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         {searchPlaceholder && (
-          <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-sm">
+          <form method="GET" className="relative flex-1 max-w-sm">
+            {/* Retain other parameters like active filters, resetting page to 1 */}
+            {Object.entries(currentParams).map(([key, val]) => {
+              if (key !== searchParamKey && key !== "page") {
+                return <input key={key} type="hidden" name={key} value={val} />;
+              }
+              return null;
+            })}
             <input
               type="text"
-              name="search"
+              name={searchParamKey}
               defaultValue={currentSearch}
               placeholder={searchPlaceholder}
-              className="w-full text-sm bg-white border border-[#F0EDE8] rounded-[2px] pl-10 pr-4 py-2 text-[#1C1C1A] placeholder-[#8A8680] focus:outline-none focus:border-[#1A4331] focus:ring-1 focus:ring-[#1A4331] transition-all"
+              className="w-full text-xs bg-white border border-[#F0EDE8] rounded-[2px] pl-10 pr-4 py-2.5 text-[#1C1C1A] placeholder-[#8A8680] focus:outline-none focus:border-[#1A4331] focus:ring-1 focus:ring-[#1A4331] transition-all"
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#8A8680]">
               <svg
@@ -126,20 +116,27 @@ function TableContent<T>({
           <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Bộ lọc">
             {filterOptions.map((opt) => {
               const isActive = currentFilter === opt.value;
+
+              // Build URL to update filters and reset page to 1
+              const merged = { ...currentParams, [filterParamKey]: opt.value, page: "1" };
+              const urlParams = new URLSearchParams();
+              Object.entries(merged).forEach(([k, v]) => {
+                if (v) urlParams.set(k, v);
+              });
+              const href = `?${urlParams.toString()}`;
+
               return (
-                <button
+                <Link
                   key={opt.value}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => handleFilterSelect(opt.value)}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] border transition-all duration-150 cursor-pointer ${
+                  href={href}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] border transition-all duration-150 ${
                     isActive
                       ? "bg-[#1A4331] border-[#1A4331] text-white"
                       : "bg-white border-[#F0EDE8] text-[#8A8680] hover:text-[#1C1C1A] hover:bg-[#FAF8F5]"
                   }`}
                 >
                   {opt.label}
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -148,7 +145,6 @@ function TableContent<T>({
 
       {/* Table Container */}
       <div className="bg-white border border-[#F0EDE8] rounded-[2px] overflow-hidden">
-        {/* Table layout is block on mobile, table on desktop */}
         <table className="w-full text-left border-collapse block md:table">
           <thead className="hidden md:table-header-group bg-[#F0EDE8] text-[11px] font-semibold text-[#1C1C1A] uppercase tracking-wider sticky top-0 z-10">
             <tr className="md:table-row">
@@ -247,78 +243,96 @@ function TableContent<T>({
             trong <span className="font-semibold text-[#1C1C1A]">{pagination.totalItems}</span> kết quả
           </p>
           <nav aria-label="Phân trang" className="flex items-center space-x-1">
-            <button
-              onClick={() => handlePageChange(pagination.page - 1)}
-              disabled={pagination.page === 1}
-              className={`p-1.5 rounded-[2px] border text-[#1C1C1A] transition-colors cursor-pointer ${
-                pagination.page === 1
-                  ? "bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white border-[#F0EDE8] hover:bg-[#FAF8F5]"
-              }`}
-              aria-label="Trang trước"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="h-3.5 w-3.5"
+            {/* Prev Button */}
+            {pagination.page === 1 ? (
+              <span className="p-1.5 rounded-[2px] border bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="h-3.5 w-3.5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+              </span>
+            ) : (
+              <Link
+                href={buildPageUrl(pagination.page - 1)}
+                className="p-1.5 rounded-[2px] border border-[#F0EDE8] bg-white text-[#1C1C1A] hover:bg-[#FAF8F5] transition-colors"
+                aria-label="Trang trước"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="h-3.5 w-3.5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+              </Link>
+            )}
 
+            {/* Page Numbers */}
             {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((pNum) => {
               const isCurrent = pagination.page === pNum;
-              return (
-                <button
+              return isCurrent ? (
+                <span
                   key={pNum}
-                  onClick={() => handlePageChange(pNum)}
-                  aria-current={isCurrent ? "page" : undefined}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] border transition-colors cursor-pointer ${
-                    isCurrent
-                      ? "bg-[#1A4331] border-[#1A4331] text-white"
-                      : "bg-white border-[#F0EDE8] text-[#8A8680] hover:text-[#1C1C1A] hover:bg-[#FAF8F5]"
-                  }`}
+                  aria-current="page"
+                  className="px-3 py-1.5 text-xs font-semibold rounded-[2px] border bg-[#1A4331] border-[#1A4331] text-white"
                 >
                   {pNum}
-                </button>
+                </span>
+              ) : (
+                <Link
+                  key={pNum}
+                  href={buildPageUrl(pNum)}
+                  className="px-3 py-1.5 text-xs font-semibold rounded-[2px] border border-[#F0EDE8] bg-white text-[#8A8680] hover:text-[#1C1C1A] hover:bg-[#FAF8F5] transition-colors"
+                >
+                  {pNum}
+                </Link>
               );
             })}
 
-            <button
-              onClick={() => handlePageChange(pagination.page + 1)}
-              disabled={pagination.page === pagination.totalPages}
-              className={`p-1.5 rounded-[2px] border text-[#1C1C1A] transition-colors cursor-pointer ${
-                pagination.page === pagination.totalPages
-                  ? "bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white border-[#F0EDE8] hover:bg-[#FAF8F5]"
-              }`}
-              aria-label="Trang sau"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="h-3.5 w-3.5"
+            {/* Next Button */}
+            {pagination.page === pagination.totalPages ? (
+              <span className="p-1.5 rounded-[2px] border bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="h-3.5 w-3.5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </span>
+            ) : (
+              <Link
+                href={buildPageUrl(pagination.page + 1)}
+                className="p-1.5 rounded-[2px] border border-[#F0EDE8] bg-white text-[#1C1C1A] hover:bg-[#FAF8F5] transition-colors"
+                aria-label="Trang sau"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="h-3.5 w-3.5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </Link>
+            )}
           </nav>
         </div>
       )}
     </div>
-  );
-}
-
-export default function DataTable<T>(props: DataTableProps<T>) {
-  return (
-    <Suspense fallback={<div className="h-64 animate-pulse bg-[#F0EDE8] rounded-[2px]" />}>
-      <TableContent {...props} />
-    </Suspense>
   );
 }

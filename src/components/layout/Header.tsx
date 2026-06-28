@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Trang chủ", href: "/" },
@@ -28,6 +29,7 @@ const navLinks = [
 import { useCart } from "@/lib/store/useCart";
 
 export function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(false);
@@ -77,6 +79,10 @@ export function Header() {
     setIsAnnouncementVisible(false);
     sessionStorage.setItem("announcement-closed", "true");
   };
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <>
@@ -195,7 +201,7 @@ export function Header() {
               </button>
               {isMounted && session?.user ? (
                 <Link
-                  href="/tai-khoan"
+                  href={session.user.role === "admin" ? "/admin" : "/tai-khoan"}
                   className="hidden md:flex items-center gap-2 text-[13px] font-semibold tracking-[0.06em] hover:bg-surface px-2 py-1.5 rounded transition-colors"
                 >
                   {session.user.image ? (
@@ -286,7 +292,7 @@ export function Header() {
                 <div className="h-px bg-surface my-4" />
                 {session?.user ? (
                   <Link
-                    href="/tai-khoan"
+                    href={session.user.role === "admin" ? "/admin" : "/tai-khoan"}
                     className="text-lg font-medium flex items-center gap-2"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

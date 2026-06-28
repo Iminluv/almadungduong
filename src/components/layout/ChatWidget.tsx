@@ -2,8 +2,10 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function ChatWidget() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,6 +23,10 @@ export function ChatWidget() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <>

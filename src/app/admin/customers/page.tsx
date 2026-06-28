@@ -182,6 +182,7 @@ export default async function AdminCustomersPage({ searchParams }: PageProps) {
         <DataTable
           data={customers}
           columns={columns}
+          searchParams={params}
           searchPlaceholder="Tìm kiếm tên, email, SĐT..."
           searchParamKey="search"
           filterParamKey="tier"
