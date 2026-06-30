@@ -128,10 +128,10 @@ export function MonthlyDeal({ products }: MonthlyDealProps) {
           <div className="embla__container flex gap-6">
             {comboDeals.map((deal) => (
               <div key={deal.id} className="embla__slide flex-[0_0_310px] min-w-0">
-                <div className="relative bg-surface rounded-2xl overflow-hidden shadow-sm border border-text/5 flex flex-col h-[500px] mx-0.5 hover:shadow-md hover:border-accent/20 transition-all duration-300 group">
+                <div className="relative bg-surface rounded-2xl overflow-hidden shadow-sm border border-text/5 flex flex-col mx-0.5 hover:shadow-md hover:border-accent/20 transition-all duration-300 group">
                   
                   {/* Image Area with Discount Badge */}
-                  <div className="relative w-full h-[285px] bg-accent/5 flex items-center justify-center overflow-hidden">
+                  <div className="relative w-full aspect-square bg-accent/5 flex items-center justify-center overflow-hidden">
                     <Image 
                       src={deal.image} 
                       alt={deal.highlight || deal.title} 

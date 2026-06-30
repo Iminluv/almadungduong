@@ -81,7 +81,7 @@ export function ProductCard({
     <>
       <Link href={`/san-pham/${slug ?? id}`} className="group relative flex flex-col border border-transparent hover:border-[#1C1C1A19] transition-all duration-200">
         {/* Product Image */}
-        <div className="aspect-[4/5] bg-surface relative overflow-hidden">
+        <div className="aspect-square bg-surface relative overflow-hidden">
           {flag && (
             <div className="absolute top-2 left-2 z-10 bg-accent text-bg text-[9px] uppercase font-bold tracking-wider px-2 py-1 rounded-sm">
               {flag}
@@ -179,7 +179,7 @@ export function ProductCard({
 export function ProductCardSkeleton() {
   return (
     <div className="flex flex-col animate-pulse">
-      <div className="aspect-[4/5] bg-surface relative overflow-hidden">
+      <div className="aspect-square bg-surface relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_1.5s_infinite]" />
       </div>
       <div className="flex flex-col p-4 pt-3 gap-2">
