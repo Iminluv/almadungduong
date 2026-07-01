@@ -3,6 +3,7 @@ import { prisma } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { fetchBankAccount, generateTransferCode, buildQrUrl } from '@/lib/sepay';
 import { getImageUrl } from '@/lib/utils';
+import { sendOrderPendingEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -120,6 +121,20 @@ export async function POST(request: NextRequest) {
       });
 
       return order;
+    });
+
+    // Send order pending email asynchronously
+    sendOrderPendingEmail(shippingInfo.email, {
+      transferCode: newOrder.transferCode,
+      totalAmount: newOrder.totalAmount,
+      bankName: newOrder.bankName,
+      bankAccount: newOrder.bankAccount,
+      accountName: newOrder.accountName,
+      expiresAt: newOrder.expiresAt,
+      shippingName: newOrder.shippingName,
+      items: resolvedItems,
+    }).catch((err) => {
+      console.error("Failed to send order pending email asynchronously:", err);
     });
 
     return NextResponse.json({

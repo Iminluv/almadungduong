@@ -77,11 +77,43 @@ export default function AccountView() {
   // Authentication forms
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
 
   const [registerName, setRegisterName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPhone, setRegisterPhone] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!forgotEmail) {
+      showToast("Vui lòng nhập email.", "error");
+      return;
+    }
+    setActionLoading(true);
+    try {
+      const res = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: forgotEmail }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        showToast(data.message || "Đã gửi yêu cầu đặt lại mật khẩu.", "success");
+        setForgotEmail("");
+        setShowForgotPassword(false);
+      } else {
+        showToast(data.error || "Gửi yêu cầu thất bại.", "error");
+      }
+    } catch (e) {
+      showToast("Đã xảy ra lỗi hệ thống.", "error");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
 
   // API loading states
   const [profileLoading, setProfileLoading] = useState(false);
@@ -482,7 +514,45 @@ export default function AccountView() {
                 </button>
               </div>
 
-              {authMode === "login" ? (
+              {showForgotPassword ? (
+                <form className="space-y-5" onSubmit={handleForgotPassword}>
+                  <div className="space-y-4 text-center">
+                    <h3 className="text-sm font-bold uppercase tracking-widest text-navy">Quên mật khẩu?</h3>
+                    <p className="text-xs text-muted leading-relaxed">
+                      Nhập địa chỉ email của bạn dưới đây. Chúng tôi sẽ gửi hướng dẫn đặt lại mật khẩu đến email của bạn nếu nó đã được đăng ký.
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Email</label>
+                    <input
+                      type="email"
+                      className="w-full bg-transparent border-b border-text/20 py-2 focus:border-accent outline-none transition-colors text-sm"
+                      placeholder="email@example.com"
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={actionLoading}
+                    className="w-full bg-navy text-white py-4 text-xs font-bold uppercase tracking-[0.15em] hover:brightness-110 disabled:opacity-50 transition-all mt-4"
+                  >
+                    {actionLoading ? "Đang gửi..." : "Gửi yêu cầu"}
+                  </button>
+
+                  <div className="text-center text-xs mt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowForgotPassword(false)}
+                      className="text-muted hover:text-text font-bold transition-colors uppercase tracking-wider"
+                    >
+                      Quay lại Đăng nhập
+                    </button>
+                  </div>
+                </form>
+              ) : authMode === "login" ? (
                 <form className="space-y-5" onSubmit={handleLogin}>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Email</label>
@@ -505,6 +575,15 @@ export default function AccountView() {
                       onChange={(e) => setLoginPassword(e.target.value)}
                       required
                     />
+                    <div className="text-right">
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className="text-[10px] uppercase tracking-widest text-muted hover:text-text font-bold transition-colors"
+                      >
+                        Quên mật khẩu?
+                      </button>
+                    </div>
                   </div>
 
                   <button

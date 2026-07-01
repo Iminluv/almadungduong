@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import { prisma } from '@/lib/db';
 import { extractTransferCode } from '@/lib/sepay';
 import { notifyNewPayment, notifyUnmatchedWebhook, notifyAmountMismatch } from '@/lib/notifications';
-import { sendOrderConfirmation } from '@/lib/email';
+import { sendOrderConfirmation, sendAdminPaymentAlert, sendLoyaltyTierUpgradeEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -201,6 +201,62 @@ export async function POST(request: NextRequest) {
         console.error('Failed to send order confirmation email asynchronously:', err);
       });
     }
+
+    // Send admin payment alert email
+    sendAdminPaymentAlert({
+      id: order.id,
+      transferCode: order.transferCode,
+      totalAmount: order.totalAmount,
+      shippingName: order.shippingName,
+      shippingPhone: order.shippingPhone,
+    }).catch(err => {
+      console.error('Failed to send admin payment alert email asynchronously:', err);
+    });
+
+    // Check and process loyalty tier upgrade asynchronously (non-blocking)
+    (async () => {
+      try {
+        const updatedUser = await prisma.user.findUnique({
+          where: { id: order.userId },
+          include: { loyaltyTier: true },
+        });
+
+        if (updatedUser) {
+          const tiers = await prisma.loyaltyTier.findMany({
+            orderBy: { sortOrder: 'asc' },
+          });
+
+          let eligibleTier = tiers[0] || null;
+          for (const tier of tiers) {
+            const normalized = tier.condition.toLowerCase();
+            let threshold = 0;
+            if (normalized.includes('triệu')) {
+              const match = normalized.match(/(\d+)\s*triệu/);
+              if (match) {
+                threshold = Number(match[1]) * 1000000;
+              }
+            }
+            if (updatedUser.totalSpent >= threshold) {
+              eligibleTier = tier;
+            }
+          }
+
+          if (eligibleTier && eligibleTier.id !== updatedUser.loyaltyTierId) {
+            // Update user loyalty tier in db
+            await prisma.user.update({
+              where: { id: updatedUser.id },
+              data: { loyaltyTierId: eligibleTier.id },
+            });
+
+            // Send loyalty tier upgrade notification email
+            await sendLoyaltyTierUpgradeEmail(updatedUser.email, updatedUser.name || '', eligibleTier.name);
+            console.log(`[LOYALTY TIER UPGRADE] User: ${updatedUser.email} upgraded to tier: ${eligibleTier.name}`);
+          }
+        }
+      } catch (tierErr) {
+        console.error('Error checking loyalty tier upgrade asynchronously:', tierErr);
+      }
+    })();
 
     return NextResponse.json({ success: true });
 

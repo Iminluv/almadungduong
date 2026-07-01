@@ -2,6 +2,9 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 'dummy_key');
 
+const fromAddress = process.env.RESEND_FROM_EMAIL || 'Alma Dungduong <onboarding@resend.dev>';
+const adminAddress = process.env.ADMIN_EMAIL;
+
 interface OrderEmailData {
   transferCode: string;
   totalAmount: number;
@@ -16,15 +19,118 @@ interface OrderEmailData {
   }>;
 }
 
+interface OrderPendingEmailData {
+  transferCode: string;
+  totalAmount: number;
+  bankName: string;
+  bankAccount: string;
+  accountName: string;
+  expiresAt: Date | string;
+  shippingName: string;
+  items: Array<{
+    title: string;
+    price: number;
+    quantity: number;
+    variant?: string | null;
+  }>;
+}
+
+interface AdminOrderAlertData {
+  id: string;
+  transferCode: string;
+  totalAmount: number;
+  shippingName: string;
+  shippingPhone: string;
+  claimedAt?: Date | string | null;
+}
+
+/**
+ * Shared helper to send email via Resend
+ */
+async function sendEmail(opts: { to: string; subject: string; text?: string; html?: string }) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY is not set. Skipping email sending.");
+    return null;
+  }
+  try {
+    const data = await resend.emails.send({
+      from: fromAddress,
+      ...opts,
+    } as any);
+    return data;
+  } catch (error) {
+    console.error(`Error sending email to ${opts.to}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Sends a welcome email to a newly registered user (Plain Text)
+ */
+export async function sendWelcomeEmail(toEmail: string, name: string) {
+  const text = `Chào ${name || 'bạn'},
+
+Chào mừng bạn đã đăng ký tài khoản thành công tại Alma Dungduong!
+Từ nay bạn có thể dễ dàng quản lý thông tin tài khoản, lưu các sản phẩm yêu thích và tích điểm thành viên khi mua sắm.
+
+Cảm ơn bạn đã đồng hành cùng Alma Dungduong!`;
+
+  return sendEmail({
+    to: toEmail,
+    subject: '[Alma Dungduong] Đăng ký tài khoản thành công',
+    text,
+  });
+}
+
+/**
+ * Sends an email when order is created and waiting for bank transfer (Plain Text)
+ */
+export async function sendOrderPendingEmail(toEmail: string, order: OrderPendingEmailData) {
+  const itemsText = order.items
+    .map(
+      (item) =>
+        `- ${item.title}${item.variant ? ` (${item.variant})` : ''} x${item.quantity} - ${(
+          item.price * item.quantity
+        ).toLocaleString('vi-VN')}đ`
+    )
+    .join('\n');
+
+  const formattedExpiry = new Date(order.expiresAt).toLocaleString('vi-VN', {
+    timeZone: 'Asia/Ho_Chi_Minh',
+  });
+
+  const text = `Chào ${order.shippingName},
+
+Đơn hàng #${order.transferCode} của bạn đã được khởi tạo thành công và đang chờ thanh toán.
+
+Thông tin thanh toán chuyển khoản ngân hàng:
+- Ngân hàng: ${order.bankName}
+- Số tài khoản: ${order.bankAccount}
+- Chủ tài khoản: ${order.accountName}
+- Số tiền: ${order.totalAmount.toLocaleString('vi-VN')}đ
+- Nội dung chuyển khoản: ${order.transferCode}
+
+* Vui lòng chuyển khoản chính xác số tiền và nội dung ở trên. Bạn có thể quét mã QR hiển thị tại trang thanh toán để thực hiện nhanh chóng.
+* Mã thanh toán này sẽ hết hạn vào lúc: ${formattedExpiry}
+
+Danh sách sản phẩm:
+${itemsText}
+
+Tổng tiền thanh toán: ${order.totalAmount.toLocaleString('vi-VN')}đ
+
+Cảm ơn bạn đã mua sắm tại Alma Dungduong!`;
+
+  return sendEmail({
+    to: toEmail,
+    subject: `[Alma Dungduong] Xác nhận đơn hàng #${order.transferCode} đang chờ thanh toán`,
+    text,
+  });
+}
+
 /**
  * Sends a stylized HTML email to verify successful transaction processing.
  */
 export async function sendOrderConfirmation(order: OrderEmailData, toEmail: string) {
-  if (!process.env.RESEND_API_KEY) {
-    console.warn("RESEND_API_KEY is not set. Skipping email confirmation.");
-    return null;
-  }
-
   const itemsHtml = order.items
     .map(
       (item) => `
@@ -83,18 +189,114 @@ export async function sendOrderConfirmation(order: OrderEmailData, toEmail: stri
     </div>
   `;
 
-  try {
-    // Note: By default, Resend onboarding API key only sends to the email used to sign up (or verified domain).
-    const fromAddress = process.env.RESEND_FROM_EMAIL || 'Alma Dungduong <onboarding@resend.dev>';
-    const data = await resend.emails.send({
-      from: fromAddress,
-      to: toEmail,
-      subject: `[Alma Dungduong] Xác nhận đơn hàng #${order.transferCode} thành công`,
-      html: html,
-    });
-    return data;
-  } catch (error) {
-    console.error("Error sending order confirmation email via Resend:", error);
-    return null;
-  }
+  return sendEmail({
+    to: toEmail,
+    subject: `[Alma Dungduong] Xác nhận đơn hàng #${order.transferCode} thành công`,
+    html,
+  });
+}
+
+/**
+ * Sends email when customer claims transfer verifying manually (Plain Text)
+ */
+export async function sendClaimReceivedEmail(toEmail: string, transferCode: string) {
+  const text = `Xin chào,
+
+Chúng tôi đã nhận được yêu cầu xác minh thanh toán thủ công của bạn cho đơn hàng #${transferCode}.
+Đội ngũ hỗ trợ của Alma Dungduong sẽ tiến hành đối soát và xử lý trong vòng 1 giờ làm việc. Bạn sẽ nhận được email xác nhận ngay khi đơn hàng được duyệt hoàn tất.
+
+Cảm ơn sự kiên nhẫn của bạn!`;
+
+  return sendEmail({
+    to: toEmail,
+    subject: `[Alma Dungduong] Nhận yêu cầu xác minh giao dịch thủ công #${transferCode}`,
+    text,
+  });
+}
+
+/**
+ * Sends a password reset request email (Plain Text)
+ */
+export async function sendPasswordResetEmail(toEmail: string, resetUrl: string) {
+  const text = `Xin chào,
+
+Bạn nhận được email này vì có yêu cầu đặt lại mật khẩu cho tài khoản tại Alma Dungduong.
+Vui lòng nhấn vào liên kết dưới đây để tiến hành đặt lại mật khẩu mới cho tài khoản của bạn:
+
+${resetUrl}
+
+Liên kết này chỉ có hiệu lực trong vòng 1 giờ kể từ thời điểm yêu cầu được gửi. Nếu bạn không yêu cầu đặt lại mật khẩu này, bạn có thể an tâm bỏ qua email này.
+
+Alma Dungduong Support Team`;
+
+  return sendEmail({
+    to: toEmail,
+    subject: '[Alma Dungduong] Yêu cầu đặt lại mật khẩu tài khoản',
+    text,
+  });
+}
+
+/**
+ * Sends email when user is upgraded to a higher loyalty tier (Plain Text)
+ */
+export async function sendLoyaltyTierUpgradeEmail(toEmail: string, name: string, tierName: string) {
+  const text = `Chúc mừng ${name || 'bạn'},
+
+Alma Dungduong xin thông báo tài khoản của bạn đã được nâng cấp lên hạng thành viên mới: ${tierName}!
+Cảm ơn bạn đã luôn tin tưởng và đồng hành cùng Alma Dungduong trong hành trình dung dưỡng làn da khỏe đẹp. Bạn có thể kiểm tra các quyền lợi và ưu đãi mới của mình ngay tại trang cá nhân.
+
+Trân trọng,
+Đội ngũ Alma Dungduong`;
+
+  return sendEmail({
+    to: toEmail,
+    subject: `[Alma Dungduong] Nâng cấp hạng thành viên thành công: ${tierName}`,
+    text,
+  });
+}
+
+/**
+ * Send payment notification to Admin email if configured (Plain Text)
+ */
+export async function sendAdminPaymentAlert(order: AdminOrderAlertData) {
+  if (!adminAddress) return null;
+
+  const text = `[ADMIN ALERT] THANH TOÁN MỚI THÀNH CÔNG
+
+- Đơn hàng ID: ${order.id}
+- Mã chuyển khoản: ${order.transferCode}
+- Khách hàng: ${order.shippingName} (${order.shippingPhone})
+- Số tiền: ${order.totalAmount.toLocaleString('vi-VN')}đ
+- Thời gian: ${new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}`;
+
+  return sendEmail({
+    to: adminAddress,
+    subject: `[Alma Admin] Thanh toán đơn hàng #${order.transferCode} thành công`,
+    text,
+  });
+}
+
+/**
+ * Send manual claim notification to Admin email if configured (Plain Text)
+ */
+export async function sendAdminClaimAlert(order: AdminOrderAlertData) {
+  if (!adminAddress) return null;
+
+  const formattedClaimedAt = order.claimedAt
+    ? new Date(order.claimedAt).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
+    : 'N/A';
+
+  const text = `[ADMIN ALERT] YÊU CẦU XÁC MINH GIAO DỊCH THỦ CÔNG
+
+- Đơn hàng ID: ${order.id}
+- Mã chuyển khoản: ${order.transferCode}
+- Khách hàng: ${order.shippingName} (${order.shippingPhone})
+- Số tiền: ${order.totalAmount.toLocaleString('vi-VN')}đ
+- Thời gian yêu cầu: ${formattedClaimedAt}`;
+
+  return sendEmail({
+    to: adminAddress,
+    subject: `[Alma Admin] Yêu cầu xác minh thủ công #${order.transferCode}`,
+    text,
+  });
 }

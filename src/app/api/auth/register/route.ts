@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -43,6 +44,11 @@ export async function POST(request: Request) {
         hashedPassword,
         loyaltyTierId: defaultTier?.id || null,
       },
+    });
+
+    // Send welcome email asynchronously
+    sendWelcomeEmail(user.email, user.name || "").catch((err) => {
+      console.error("Failed to send welcome email asynchronously:", err);
     });
 
     return NextResponse.json(

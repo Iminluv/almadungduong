@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { notifyManualClaim } from '@/lib/notifications';
+import { sendClaimReceivedEmail, sendAdminClaimAlert } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -45,6 +46,23 @@ export async function POST(request: NextRequest) {
     });
 
     notifyManualClaim(updatedOrder);
+
+    // Send claim email to customer asynchronously
+    sendClaimReceivedEmail(order.shippingEmail, order.transferCode).catch((err) => {
+      console.error("Failed to send claim received email asynchronously:", err);
+    });
+
+    // Send claim alert email to admin asynchronously
+    sendAdminClaimAlert({
+      id: updatedOrder.id,
+      transferCode: updatedOrder.transferCode,
+      totalAmount: updatedOrder.totalAmount,
+      shippingName: updatedOrder.shippingName,
+      shippingPhone: updatedOrder.shippingPhone,
+      claimedAt: updatedOrder.claimedAt,
+    }).catch((err) => {
+      console.error("Failed to send admin claim alert email asynchronously:", err);
+    });
 
     return NextResponse.json({
       success: true,
