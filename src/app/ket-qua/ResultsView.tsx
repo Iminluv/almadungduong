@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { BeforeAfterSlider } from "@/components/ui/BeforeAfterSlider";
+import { getImageUrl } from "@/lib/utils";
 import {
   caseStudies,
   caseCategories,
@@ -83,7 +84,7 @@ function CaseImageGallery({
             className="absolute inset-0"
           >
             <Image
-              src={images[activeIndex]}
+              src={getImageUrl(images[activeIndex])}
               alt={`${name} — ảnh ${activeIndex + 1}`}
               fill
               className="object-cover"
@@ -133,14 +134,13 @@ function CaseImageGallery({
             <button
               key={idx}
               onClick={() => setActiveIndex(idx)}
-              className={`relative w-16 h-12 rounded-lg overflow-hidden transition-all duration-200 ${
-                idx === activeIndex
-                  ? "ring-2 ring-accent ring-offset-1 opacity-100"
-                  : "opacity-50 hover:opacity-80"
-              }`}
+              className={`relative w-16 h-12 rounded-lg overflow-hidden transition-all duration-200 ${idx === activeIndex
+                ? "ring-2 ring-accent ring-offset-1 opacity-100"
+                : "opacity-50 hover:opacity-80"
+                }`}
             >
               <Image
-                src={img}
+                src={getImageUrl(img)}
                 alt={`Thumbnail ${idx + 1}`}
                 fill
                 className="object-cover"
@@ -214,11 +214,10 @@ function CaseCard({
             Tình trạng da trước điều trị
           </h4>
           <p
-            className={`text-sm text-text/80 leading-relaxed ${
-              !isExpanded && caseStudy.condition.length > 120
-                ? "line-clamp-3"
-                : ""
-            }`}
+            className={`text-sm text-text/80 leading-relaxed ${!isExpanded && caseStudy.condition.length > 120
+              ? "line-clamp-3"
+              : ""
+              }`}
           >
             {caseStudy.condition}
           </p>
@@ -331,7 +330,7 @@ export default function ResultsPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="grid grid-cols-3 gap-6 py-10 px-8 bg-white rounded-2xl border border-text/5 shadow-xs"
         >
-          <AnimatedStat value={12} suffix="+" label="Ca điều trị" />
+          <AnimatedStat value={100000} suffix="+" label="Ca điều trị" />
           <AnimatedStat value={5} suffix="" label="Nhóm vấn đề da" />
           <AnimatedStat value={100} suffix="%" label="Vi sinh tự nhiên" />
         </motion.div>
@@ -347,11 +346,10 @@ export default function ResultsPage() {
         >
           <button
             onClick={() => setActiveCategory("ALL")}
-            className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 ${
-              activeCategory === "ALL"
-                ? "bg-accent text-white border-accent"
-                : "bg-white text-text/60 border border-text/10 hover:border-text/30"
-            }`}
+            className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 ${activeCategory === "ALL"
+              ? "bg-accent text-white border-accent"
+              : "bg-white text-text/60 border border-text/10 hover:border-text/30"
+              }`}
           >
             Tất cả ({caseStudies.length})
           </button>
@@ -359,11 +357,10 @@ export default function ResultsPage() {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.label)}
-              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center gap-1.5 ${
-                activeCategory === cat.label
-                  ? "bg-accent text-white border-accent"
-                  : "bg-white text-text/60 border border-text/10 hover:border-text/30"
-              }`}
+              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center gap-1.5 ${activeCategory === cat.label
+                ? "bg-accent text-white border-accent"
+                : "bg-white text-text/60 border border-text/10 hover:border-text/30"
+                }`}
             >
               <span>{cat.icon}</span>
               {cat.label} ({cat.count})
@@ -456,22 +453,22 @@ export default function ResultsPage() {
               name: "Glacier Foam Cleanser",
               vn: "Sữa rửa mặt nước băng",
               step: "Bước 1 — Làm sạch",
-              slug: "sua-rua-mat-nuoc-bang-glacier-foam-cleanser",
+              slug: "sua-rua-mat-nuoc-bang-glacier",
               desc: "Làm sạch sâu mà không gây khô da, bảo toàn hàng rào vi sinh tự nhiên.",
             },
             {
-              name: "Miracle Essence",
+              name: "Bio Miracle Essence",
               vn: "Xịt dưỡng chuyên sâu",
               step: "Bước 2 — Cân bằng",
-              slug: "xit-duong-chuyen-sau-miracle-essence",
-              desc: "Cung cấp Postbiotic nồng độ cao, cân bằng hệ vi sinh và pH cho da.",
+              slug: "xit-duong-chuyen-sau-miracle",
+              desc: "Cung cấp chiết xuất lô hội, chiết xuất tổ yến và lợi khuẩn sống giúp dưỡng ẩm và cân bằng hệ vi sinh trên da .",
             },
             {
-              name: "Regenerating Serum 2.0",
+              name: "Bio Regenerating Essence 2.0/2.7",
               vn: "Tinh chất tái sinh",
               step: "Bước 3 — Tái tạo",
-              slug: "tinh-chat-tai-sinh-regenerating-serum",
-              desc: "Kích hoạt cơ chế tự tái tạo, phục hồi tổn thương ở tầng sâu biểu bì.",
+              slug: "tinh-chat-tai-sinh-2-0",
+              desc: "Bổ sung lợi khuẩn nồng độ cao kích hoạt cơ chế tái tạo và phục hồi tổn thương ở tầng sâu biểu bì.",
             },
           ].map((product, idx) => (
             <Link

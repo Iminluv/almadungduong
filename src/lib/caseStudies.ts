@@ -89,15 +89,15 @@ export function getCategoryStyle(category: CaseCategory) {
 const coreProducts: CaseStudyProduct[] = [
   {
     name: "Sữa rửa mặt nước băng — Glacier Foam Cleanser",
-    slug: "sua-rua-mat-nuoc-bang-glacier-foam-cleanser",
+    slug: "sua-rua-mat-nuoc-bang-glacier",
   },
   {
     name: "Xịt dưỡng chuyên sâu — Miracle Essence",
-    slug: "xit-duong-chuyen-sau-miracle-essence",
+    slug: "xit-duong-chuyen-sau-miracle",
   },
   {
     name: "Tinh chất tái sinh — Regenerating Serum 2.0",
-    slug: "tinh-chat-tai-sinh-regenerating-serum",
+    slug: "tinh-chat-tai-sinh-2-0",
   },
 ];
 
@@ -116,8 +116,9 @@ export const caseStudies: CaseStudy[] = [
       "Bôi thoa sản phẩm tại nhà\nKỹ thuật kết hợp: Phi kim",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=800",
-      "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=800",
+      "almadungduong/reviews/case-01/img-01",
+      "almadungduong/reviews/case-01/img-02",
+      "almadungduong/reviews/case-01/img-03"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/10DmvDpYPlKaH-p08u5yd-4LvNkInuxTi",
@@ -133,8 +134,8 @@ export const caseStudies: CaseStudy[] = [
       "Bôi thoa sản phẩm tại nhà\nKỹ thuật kết hợp: Phi kim (8 lần) + Laser (8 lần) tại spa",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=800",
-      "https://images.unsplash.com/photo-1512290923902-8a9f81da236c?q=80&w=800",
+      "almadungduong/reviews/case-02/img-01",
+      "almadungduong/reviews/case-02/img-02"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/18iSaZmybVqgqgmsoPXaYjlip4RaG4_kh",
@@ -150,8 +151,9 @@ export const caseStudies: CaseStudy[] = [
       "Bôi thoa sản phẩm tại nhà\nKỹ thuật kết hợp: Phi kim (2 lần) + Laser (2 lần) tại spa",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1552668693-d0738e00eca8?q=80&w=800",
-      "https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=800",
+      "almadungduong/reviews/case-03/img-01",
+      "almadungduong/reviews/case-03/img-02",
+      "almadungduong/reviews/case-03/img-03"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1hCk8z4s0CKLniLk7DUY2EA4d3YNEzGEL",
@@ -167,8 +169,12 @@ export const caseStudies: CaseStudy[] = [
       "Bôi thoa sản phẩm tại nhà\nKỹ thuật kết hợp: Phi kim + Laser (6 lần) tại spa",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800",
-      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800",
+      "almadungduong/reviews/case-04/img-01",
+      "almadungduong/reviews/case-04/img-02",
+      "almadungduong/reviews/case-04/img-03",
+      "almadungduong/reviews/case-04/img-04",
+      "almadungduong/reviews/case-04/img-05",
+      "almadungduong/reviews/case-04/img-06"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1ZzYMDk2PiiQl_8wwMa_4jJzXK6ZCDOB1",
@@ -184,8 +190,8 @@ export const caseStudies: CaseStudy[] = [
       "Bôi thoa sản phẩm tại nhà\nKỹ thuật kết hợp: Phi kim",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=800",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800",
+      "almadungduong/reviews/case-05/img-01",
+      "almadungduong/reviews/case-05/img-02"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1ucvgL5WujzDG7yj-wVgjDv3UEFg19T_F",
@@ -200,8 +206,8 @@ export const caseStudies: CaseStudy[] = [
     treatment: "Bôi thoa sản phẩm tại nhà",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1594824476967-48c8b964ac31?q=80&w=800",
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800",
+      "almadungduong/reviews/case-06/img-01",
+      "almadungduong/reviews/case-06/img-02"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/17KcSBuNKXDtBS6Ih_72zOzh1tNnkJkIf",
@@ -216,8 +222,9 @@ export const caseStudies: CaseStudy[] = [
     treatment: "Bôi thoa sản phẩm tại nhà",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=800",
-      "https://images.unsplash.com/photo-1512290923902-8a9f81da236c?q=80&w=800",
+      "almadungduong/reviews/case-07/img-01",
+      "almadungduong/reviews/case-07/img-02",
+      "almadungduong/reviews/case-07/img-03"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1WQXINZYwuv2JFz8xVPmk0b6aSolwE8Ud",
@@ -232,8 +239,9 @@ export const caseStudies: CaseStudy[] = [
     treatment: "Bôi thoa sản phẩm tại nhà",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=800",
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800",
+      "almadungduong/reviews/case-08/img-01",
+      "almadungduong/reviews/case-08/img-02",
+      "almadungduong/reviews/case-08/img-03"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/193pvUE0hWupTvA1ST3kK5TItCocNlHVS",
@@ -249,8 +257,9 @@ export const caseStudies: CaseStudy[] = [
       "Bôi thoa sản phẩm tại nhà\nKỹ thuật kết hợp: Lấy nhân mụn tại spa",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800",
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800",
+      "almadungduong/reviews/case-09/img-01",
+      "almadungduong/reviews/case-09/img-02",
+      "almadungduong/reviews/case-09/img-03"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1_PNztQQ9nF_5lj0gn8o8RjBb0eFdWi16",
@@ -266,8 +275,9 @@ export const caseStudies: CaseStudy[] = [
       "Bôi thoa sản phẩm tại nhà\nKỹ thuật kết hợp: Phi kim (3 lần) + Lăn kim (1 lần) + Massage",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800",
+      "almadungduong/reviews/case-10/img-01",
+      "almadungduong/reviews/case-10/img-02",
+      "almadungduong/reviews/case-10/img-03"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1GPsha7qDwf5XKN5HThdmlCYpeX4o2k7b",
@@ -282,8 +292,8 @@ export const caseStudies: CaseStudy[] = [
     treatment: "Bôi thoa sản phẩm tại nhà",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800",
-      "https://images.unsplash.com/photo-1552668693-d0738e00eca8?q=80&w=800",
+      "almadungduong/reviews/case-11/img-01",
+      "almadungduong/reviews/case-11/img-02"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1KZiBCUYBKqdY_h4llGGgVJb9IUPR2uNz",
@@ -298,8 +308,12 @@ export const caseStudies: CaseStudy[] = [
     treatment: "Bôi thoa sản phẩm tại nhà",
     products: coreProducts,
     images: [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800",
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800",
+      "almadungduong/reviews/case-12/img-01",
+      "almadungduong/reviews/case-12/img-02",
+      "almadungduong/reviews/case-12/img-03",
+      "almadungduong/reviews/case-12/img-04",
+      "almadungduong/reviews/case-12/img-05",
+      "almadungduong/reviews/case-12/img-06"
     ],
     driveLink:
       "https://drive.google.com/drive/folders/1uWcyD9A-iDzS21vj066mwaxISbLVEVsw",

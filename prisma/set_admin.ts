@@ -1,12 +1,12 @@
 import { prisma } from "../src/lib/db";
 import bcrypt from "bcryptjs";
-import crypto from "crypto";
 
 async function main() {
   const email = "admin@almadungduong.com";
-  // Generate a random 12-character alphanumeric password
-  const generatedPassword = crypto.randomBytes(6).toString("hex") + "Ad1!";
-  const hashedPassword = bcrypt.hashSync(generatedPassword, 10);
+  
+  // Use stable password or override via environment variable
+  const password = process.env.ADMIN_PASSWORD || "46f532c760faAd1!";
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
   console.log(`Checking if admin user exists: ${email}...`);
 
@@ -15,18 +15,23 @@ async function main() {
   });
 
   if (existingUser) {
-    console.log(`User ${email} already exists. Elevating to admin and resetting password...`);
-    const updatedUser = await prisma.user.update({
-      where: { email },
-      data: {
-        role: "admin",
-        hashedPassword,
-      },
-    });
-    console.log(`Successfully updated admin user:`);
-    console.log(`- Email: ${email}`);
-    console.log(`- Password: ${generatedPassword}`);
-    console.log(`- Role: ${updatedUser.role}`);
+    if (existingUser.role === "admin" && existingUser.hashedPassword) {
+      console.log(`User ${email} is already an admin with a password. No password reset performed.`);
+      console.log(`- Email: ${email}`);
+      console.log(`- Role: ${existingUser.role}`);
+    } else {
+      console.log(`User ${email} exists but is not an admin or lacks a password. Updating...`);
+      const updatedUser = await prisma.user.update({
+        where: { email },
+        data: {
+          role: "admin",
+          hashedPassword: existingUser.hashedPassword || hashedPassword,
+        },
+      });
+      console.log(`Successfully updated admin user:`);
+      console.log(`- Email: ${email}`);
+      console.log(`- Role: ${updatedUser.role}`);
+    }
   } else {
     console.log(`User ${email} does not exist. Creating new admin user...`);
     const newUser = await prisma.user.create({
@@ -39,7 +44,7 @@ async function main() {
     });
     console.log(`Successfully created admin user:`);
     console.log(`- Email: ${email}`);
-    console.log(`- Password: ${generatedPassword}`);
+    console.log(`- Password: ${password}`);
     console.log(`- Role: ${newUser.role}`);
   }
 }
