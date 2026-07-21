@@ -4,7 +4,7 @@ import { blogPosts } from '@/lib/data';
 
 export const revalidate = 86400; // revalidate every 24 hours
 
-const BASE_URL = 'https://almadungduong.vn';
+const BASE_URL = 'https://almadungduong.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // --- Static pages ---
