@@ -19,7 +19,8 @@ almadungduong/
 │   ├── 6-6-26/               # Integration docs for SePay payment gateway, webhook validation, and checkout
 │   ├── 19-6-26/              # Content protection (right-click / F12 blocker) system design
 │   ├── 26-06-26/             # Admin panel specs for dashboard, orders, products, settings, etc.
-│   └── 01-07-26/             # Architectural Decision Records (ADRs) for email and password reset services
+│   ├── 01-07-26/             # Architectural Decision Records (ADRs) for email and password reset services
+│   └── 22-07-26/             # ADR-003: Migration from Resend to Gmail SMTP via Nodemailer
 ├── prisma/                   # Prisma ORM schema and database seeding
 │   ├── schema.prisma         # Relational database schema definition
 │   ├── products_seed_data.ts # Normalized products list data for seeding
@@ -36,6 +37,7 @@ almadungduong/
 ├── src/                      # Application Source Code
 │   ├── __tests__/            # Unit testing suite (Vitest)
 │   │   ├── setup.ts          # Test setup & configuration
+│   │   ├── email.test.ts     # Email library unit tests (Gmail SMTP Nodemailer mock)
 │   │   └── loyalty.test.tsx  # Loyalty program frontend tests
 │   ├── app/                  # Next.js App Router pages and API routes
 │   │   ├── admin/            # Admin Panel frontend views (dashboard, orders, products, etc.)
@@ -88,7 +90,7 @@ almadungduong/
 │       ├── caseStudies.ts    # Scientific skin treatment case studies dataset
 │       ├── data.ts           # Mock & fallback static product data
 │       ├── db.ts             # Prisma Client Postgres singleton adapter
-│       ├── email.ts          # Resend transaction email utilities & templates
+│       ├── email.ts          # Gmail SMTP (Nodemailer) transaction email utilities & templates
 │       ├── notifications.ts  # Centralized developer logging/notification service stubs
 │       ├── sepay.ts          # SePay API v2 client integration & QR generator
 │       ├── use-content-protection.ts # Client hooks managing anti-dev-tools & click restrictions
@@ -166,7 +168,7 @@ Acts as the central point for shared modules, API fetch instances, and global st
 *   [data.ts](file:///d:/Projects/almadungduong/src/lib/data.ts): Local fallback file storing static information such as products list, blog posts, reviews, and categories.
 *   [sepay.ts](file:///d:/Projects/almadungduong/src/lib/sepay.ts): Orchestrates communication with SePay API v2 (automatically routing requests to sandbox or live endpoints based on API Key prefix) and generates VietQR endpoints for client banking transfers.
 *   [notifications.ts](file:///d:/Projects/almadungduong/src/lib/notifications.ts): Developer alerts system stub supporting console reporting of critical payment failures or mismatch errors.
-*   [email.ts](file:///d:/Projects/almadungduong/src/lib/email.ts): Wraps the **Resend API** to construct transaction invoices and transmit HTML order completion notifications.
+*   [email.ts](file:///d:/Projects/almadungduong/src/lib/email.ts): Wraps **Nodemailer (Gmail SMTP)** to construct and transmit order confirmation HTML emails, welcome notes, password reset links, order pending notices, loyalty rank upgrades, and admin alerts.
 *   [use-content-protection.ts](file:///d:/Projects/almadungduong/src/lib/use-content-protection.ts): React client hook implementing anti-dev-tools detection (via viewport dimensions) and event handlers to block copy commands, right clicks, and source view keystrokes.
 *   [utils.ts](file:///d:/Projects/almadungduong/src/lib/utils.ts): Shared layout utilities like `cn` to cleanly join classnames together.
 *   `store/`:

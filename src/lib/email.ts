@@ -1,9 +1,14 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-const resend = new Resend(process.env.RESEND_API_KEY || 'dummy_key');
-
-const fromAddress = process.env.RESEND_FROM_EMAIL || 'Alma Dungduong <onboarding@resend.dev>';
-const adminAddress = process.env.ADMIN_EMAIL;
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // SSL
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+});
 
 interface OrderEmailData {
   transferCode: string;
@@ -45,24 +50,28 @@ interface AdminOrderAlertData {
 }
 
 /**
- * Shared helper to send email via Resend
+ * Shared helper to send email via Gmail SMTP (Nodemailer)
  */
 async function sendEmail(opts: { to: string; subject: string; text?: string; html?: string }) {
-  if (!process.env.RESEND_API_KEY) {
-    console.warn("RESEND_API_KEY is not set. Skipping email sending.");
+  if (!process.env.GMAIL_APP_PASSWORD) {
+    console.warn('GMAIL_APP_PASSWORD is not set. Skipping email sending.');
     return null;
   }
+  const fromAddress = process.env.GMAIL_FROM || 'Alma Dungduong <almadungduong@gmail.com>';
   try {
-    const data = await resend.emails.send({
+    const info = await transporter.sendMail({
       from: fromAddress,
       ...opts,
-    } as any);
-    return data;
+    });
+    return info;
   } catch (error) {
     console.error(`Error sending email to ${opts.to}:`, error);
     return null;
   }
 }
+
+
+
 
 /**
  * Sends a welcome email to a newly registered user (Plain Text)
@@ -259,6 +268,7 @@ Trân trọng,
  * Send payment notification to Admin email if configured (Plain Text)
  */
 export async function sendAdminPaymentAlert(order: AdminOrderAlertData) {
+  const adminAddress = process.env.ADMIN_EMAIL;
   if (!adminAddress) return null;
 
   const text = `[ADMIN ALERT] THANH TOÁN MỚI THÀNH CÔNG
@@ -280,6 +290,7 @@ export async function sendAdminPaymentAlert(order: AdminOrderAlertData) {
  * Send manual claim notification to Admin email if configured (Plain Text)
  */
 export async function sendAdminClaimAlert(order: AdminOrderAlertData) {
+  const adminAddress = process.env.ADMIN_EMAIL;
   if (!adminAddress) return null;
 
   const formattedClaimedAt = order.claimedAt
@@ -300,3 +311,4 @@ export async function sendAdminClaimAlert(order: AdminOrderAlertData) {
     text,
   });
 }
+
