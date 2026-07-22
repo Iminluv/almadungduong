@@ -4,6 +4,10 @@ import bcrypt from 'bcryptjs';
 
 export const dynamic = 'force-dynamic';
 
+export async function GET() {
+  return NextResponse.json({ error: 'Phương thức không được hỗ trợ. Vui lòng sử dụng POST.' }, { status: 405 });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { token, newPassword } = await request.json();
@@ -21,8 +25,12 @@ export async function POST(request: NextRequest) {
       where: { token },
     });
 
-    if (!resetToken || resetToken.usedAt || new Date() > new Date(resetToken.expiresAt)) {
-      return NextResponse.json({ error: 'Mã xác nhận không hợp lệ hoặc đã hết hạn.' }, { status: 400 });
+    if (!resetToken || resetToken.usedAt) {
+      return NextResponse.json({ error: 'Mã xác nhận không hợp lệ hoặc đã được sử dụng.' }, { status: 400 });
+    }
+
+    if (new Date() > new Date(resetToken.expiresAt)) {
+      return NextResponse.json({ error: 'Mã xác nhận đã hết hạn. Vui lòng yêu cầu đặt lại mật khẩu mới.' }, { status: 400 });
     }
 
     // Find the user to verify they exist

@@ -44,7 +44,7 @@ describe('Email Service (Nodemailer Gmail SMTP)', () => {
 
   it('skips email sending if GMAIL_APP_PASSWORD is not set', async () => {
     delete process.env.GMAIL_APP_PASSWORD;
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     const result = await sendWelcomeEmail('user@example.com', 'Test User');
 

@@ -15,6 +15,8 @@ function ResetPasswordForm() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const [isExpired, setIsExpired] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -52,7 +54,11 @@ function ResetPasswordForm() {
           router.push('/tai-khoan');
         }, 3000);
       } else {
-        setError(data.error || 'Đặt lại mật khẩu thất bại.');
+        const msg = data.error || 'Đặt lại mật khẩu thất bại.';
+        setError(msg);
+        if (msg.includes('hết hạn')) {
+          setIsExpired(true);
+        }
       }
     } catch (err) {
       setError('Đã xảy ra lỗi kết nối hệ thống.');
@@ -81,8 +87,16 @@ function ResetPasswordForm() {
       </div>
 
       {error && (
-        <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs rounded">
-          {error}
+        <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs rounded space-y-3">
+          <p>{error}</p>
+          {isExpired && (
+            <Button
+              onClick={() => router.push('/tai-khoan')}
+              className="w-full bg-navy text-white text-xs mt-2 py-2"
+            >
+              Yêu cầu lại liên kết mới
+            </Button>
+          )}
         </div>
       )}
 

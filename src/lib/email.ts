@@ -54,7 +54,7 @@ interface AdminOrderAlertData {
  */
 async function sendEmail(opts: { to: string; subject: string; text?: string; html?: string }) {
   if (!process.env.GMAIL_APP_PASSWORD) {
-    console.warn('GMAIL_APP_PASSWORD is not set. Skipping email sending.');
+    console.error('[Email] GMAIL_APP_PASSWORD is not set — email delivery is disabled in this environment.');
     return null;
   }
   const fromAddress = process.env.GMAIL_FROM || 'Alma Dungduong <almadungduong@gmail.com>';
