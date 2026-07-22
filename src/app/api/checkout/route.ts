@@ -65,10 +65,25 @@ export async function POST(request: NextRequest) {
     const productMap = new Map(dbProducts.map(p => [p.id, p]));
 
     let calculatedAmount = 0;
+    let containsTestProduct = false;
+
     const resolvedItems = items.map((item: any) => {
       const dbProduct = productMap.get(item.productId);
       const unitPrice = dbProduct ? dbProduct.price : item.price;
       calculatedAmount += unitPrice * item.quantity;
+
+      const pId = (dbProduct?.id || item.productId || '').toLowerCase();
+      const pSlug = (dbProduct?.slug || '').toLowerCase();
+      const pTitle = (dbProduct?.title || item.title || '').toLowerCase();
+      if (
+        pId.startsWith('san-pham-thu-nghiem') ||
+        pSlug.startsWith('san-pham-thu-nghiem') ||
+        pTitle.includes('thử nghiệm') ||
+        pTitle.includes('test')
+      ) {
+        containsTestProduct = true;
+      }
+
       return {
         productId: item.productId,
         title: dbProduct ? dbProduct.title : item.title,
@@ -79,7 +94,10 @@ export async function POST(request: NextRequest) {
       };
     });
 
-    const totalAmount = calculatedAmount + shippingFee;
+    // Test items always receive free shipping
+    const finalShippingFee = containsTestProduct ? 0 : shippingFee;
+
+    const totalAmount = calculatedAmount + finalShippingFee;
     const transferCode = generateTransferCode();
     const qrUrl = buildQrUrl(bankInfo.account_number, bankInfo.bank_short_name, totalAmount, transferCode);
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
@@ -93,7 +111,7 @@ export async function POST(request: NextRequest) {
           userId,
           transferCode,
           amount: calculatedAmount,
-          shippingFee,
+          shippingFee: finalShippingFee,
           totalAmount,
           status: 'pending',
           shippingName: shippingInfo.fullName,

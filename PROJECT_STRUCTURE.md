@@ -20,7 +20,7 @@ almadungduong/
 │   ├── 19-6-26/              # Content protection (right-click / F12 blocker) system design
 │   ├── 26-06-26/             # Admin panel specs for dashboard, orders, products, settings, etc.
 │   ├── 01-07-26/             # Architectural Decision Records (ADRs) for email and password reset services
-│   └── 22-07-26/             # ADR-003: Migration from Resend to Gmail SMTP via Nodemailer
+│   └── 22-07-26/             # ADR-003: Gmail SMTP Migration & ADR-004: Cloudinary Direct Image Upload
 ├── prisma/                   # Prisma ORM schema and database seeding
 │   ├── schema.prisma         # Relational database schema definition
 │   ├── products_seed_data.ts # Normalized products list data for seeding
@@ -88,12 +88,14 @@ almadungduong/
 │       │   └── useFavorites.ts # Wishlist state store
 │       ├── auth.ts           # NextAuth central authentication config
 │       ├── caseStudies.ts    # Scientific skin treatment case studies dataset
+│       ├── cloudinary.ts     # Cloudinary SDK configuration & deletion helper
 │       ├── data.ts           # Mock & fallback static product data
 │       ├── db.ts             # Prisma Client Postgres singleton adapter
 │       ├── email.ts          # Gmail SMTP (Nodemailer) transaction email utilities & templates
 │       ├── notifications.ts  # Centralized developer logging/notification service stubs
 │       ├── sepay.ts          # SePay API v2 client integration & QR generator
 │       ├── use-content-protection.ts # Client hooks managing anti-dev-tools & click restrictions
+│       ├── useImageUpload.ts # Client hook managing local device image uploads to Cloudinary
 │       └── utils.ts          # Tailwind styling helpers
 ├── commitlint.config.js      # Commitlint configuration rules for Git commits
 ├── eslint.config.mjs         # ESLint configuration
@@ -165,6 +167,8 @@ Acts as the central point for shared modules, API fetch instances, and global st
 *   [db.ts](file:///d:/Projects/almadungduong/src/lib/db.ts): Manages server connection pools with Neon Postgres using Prisma's pg adapter (`@prisma/adapter-pg`). Maintains client singleton patterns in development modes.
 *   [auth.ts](file:///d:/Projects/almadungduong/src/lib/auth.ts): NextAuth v5 central authentication configuration supporting email Credentials (bcrypt comparison) and Google OAuth providers, mapping callbacks to attach user metadata.
 *   [caseStudies.ts](file:///d:/Projects/almadungduong/src/lib/caseStudies.ts): Standard database for before-and-after skin improvement evaluations, categorizing treatments (e.g., *Mỏng yếu*, *Thâm nám*, *Viêm mụn*) alongside drive references.
+*   [cloudinary.ts](file:///d:/Projects/almadungduong/src/lib/cloudinary.ts): Configures Cloudinary SDK v2 credentials, provides `extractPublicId()` URL parser, and exports `deleteCloudinaryImage()` for automatic asset destruction on Cloudinary upon DB deletion.
+*   [useImageUpload.ts](file:///d:/Projects/almadungduong/src/lib/useImageUpload.ts): Custom React hook managing local device image file selection, client-side validation (MIME types & 5MB size limit), upload state, and API streaming to `/api/admin/upload`.
 *   [data.ts](file:///d:/Projects/almadungduong/src/lib/data.ts): Local fallback file storing static information such as products list, blog posts, reviews, and categories.
 *   [sepay.ts](file:///d:/Projects/almadungduong/src/lib/sepay.ts): Orchestrates communication with SePay API v2 (automatically routing requests to sandbox or live endpoints based on API Key prefix) and generates VietQR endpoints for client banking transfers.
 *   [notifications.ts](file:///d:/Projects/almadungduong/src/lib/notifications.ts): Developer alerts system stub supporting console reporting of critical payment failures or mismatch errors.
@@ -226,12 +230,13 @@ Standard Next.js App Router structure. Each subfolder maps to a page endpoint:
 *   `api/shipping/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/shipping/route.ts): Queries and returns current national flat-rate shipping policies.
 *   `api/user/` -> Contains secure customer profile handlers (`/api/user/profile`), addresses CRUD operations (`/api/user/addresses`), favorites wishlist toggles (`/api/user/favorites`), and order history query feeds (`/api/user/orders/route.ts`).
 *   `api/admin/` (Secured REST controller endpoints):
+    *   `upload/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/upload/route.ts): Accepts multipart image files, validates MIME types & size (≤ 5MB), and streams directly to Cloudinary folder `almadungduong/products/`.
     *   `stats/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/stats/route.ts): Gathers dashboard statistics aggregates (sales, volume, active consumers list).
     *   `orders/[id]/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/orders/%5Bid%5D/route.ts): Updates specific order records or changes order state indicators manually.
     *   `products/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/products/route.ts): Queries products catalog or creates new item structures.
     *   `products/[id]/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/products/%5Bid%5D/route.ts): Retrieves individual product entries, updates existing fields, or removes records completely.
     *   `products/[id]/images/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/products/%5Bid%5D/images/route.ts): Handles image uploads for product galleries.
-    *   `products/[id]/images/[imageId]/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/products/%5Bid%5D/images/%5BimageId%5D/route.ts): Deletes specific photo items or manages layout reordering inside the database.
+    *   `products/[id]/images/[imageId]/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/products/%5Bid%5D/images/%5BimageId%5D/route.ts): Deletes specific photo items from PostgreSQL and automatically purges the asset from Cloudinary storage, or manages layout reordering inside the database.
     *   `settings/loyalty/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/settings/loyalty/route.ts): Reads or updates configuration tiers parameters.
     *   `settings/shipping/` -> [route.ts](file:///d:/Projects/almadungduong/src/app/api/admin/settings/shipping/route.ts): Reads or updates national flat-rate policies.
 
@@ -327,6 +332,9 @@ Contains system execution plans, migration steps, and development progress repor
     *   [phase-6-ui-shell.md](file:///d:/Projects/almadungduong/documentation/26-06-26/phase-6-ui-shell.md): General layout integration guidelines.
 *   `01-07-26/`:
     *   [adr-email-services.md](file:///d:/Projects/almadungduong/documentation/01-07-26/adr-email-services.md): Architectural Decision Record (ADR) detailing design decisions for full lifecycle email services, password reset flow, and expired token cleanup mechanics.
+*   `22-07-26/`:
+    *   [adr-003-gmail-smtp-migration.md](file:///d:/Projects/almadungduong/documentation/22-07-26/adr-003-gmail-smtp-migration.md): Architectural Decision Record (ADR-003) covering migration from Resend to Nodemailer Gmail SMTP.
+    *   [adr-004-cloudinary-image-upload.md](file:///d:/Projects/almadungduong/documentation/22-07-26/adr-004-cloudinary-image-upload.md): Architectural Decision Record (ADR-004) covering direct local device image upload to Cloudinary, server-side streaming, max 10 images limit, and automated asset cleanup upon DB deletion.
 
 ---
 

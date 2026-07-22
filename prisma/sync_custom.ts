@@ -61,41 +61,63 @@ async function main() {
     console.log("Created 'Mỹ phẩm vi sinh Hoa Ngân' category.");
   }
 
-  // 3. Upsert the Test Product
-  const testProductId = "san-pham-thu-nghiem-3k";
-  const testProductData = {
-    id: testProductId,
-    title: "Sản phẩm thử nghiệm 3K",
-    englishName: "TEST PRODUCT 3K",
-    price: 3000,
-    rating: 5.0,
-    reviewsCount: 1,
-    image: "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
-    description: "Sản phẩm thử nghiệm giá 3k",
-    fullDescription: "Sản phẩm thử nghiệm để test tính năng thanh toán và vận chuyển.",
-    ingredients: "Nước, hoạt chất thử nghiệm",
-    certifications: "Không kích ứng",
-    tagline: "Dành cho việc test hệ thống",
-    volume: "10ml",
-    slug: testProductId,
-    showOnHomepage: true,
-    isPublished: true,
-    categoryId: category.id,
-  };
-
-  await prisma.product.upsert({
-    where: { id: testProductId },
-    update: {
-      title: testProductData.title,
-      price: testProductData.price,
-      image: testProductData.image,
-      description: testProductData.description,
-      isPublished: testProductData.isPublished,
-      showOnHomepage: testProductData.showOnHomepage
+  // 3. Upsert the Test Products (1k and 3k)
+  const testProducts = [
+    {
+      id: "san-pham-thu-nghiem-1k",
+      title: "Sản phẩm thử nghiệm 1K",
+      englishName: "TEST PRODUCT 1K",
+      price: 1000,
+      rating: 5.0,
+      reviewsCount: 1,
+      image: "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
+      description: "Sản phẩm thử nghiệm giá 1k",
+      fullDescription: "Sản phẩm thử nghiệm giá 1.000đ để test tính năng thanh toán SePay và vận chuyển.",
+      ingredients: "Nước, hoạt chất thử nghiệm",
+      certifications: "Không kích ứng",
+      tagline: "Dành cho việc test hệ thống",
+      volume: "10ml",
+      slug: "san-pham-thu-nghiem-1k",
+      showOnHomepage: true,
+      isPublished: true,
+      categoryId: category.id,
     },
-    create: testProductData
-  });
-  console.log("Upserted the 3k test product successfully.");
+    {
+      id: "san-pham-thu-nghiem-3k",
+      title: "Sản phẩm thử nghiệm 3K",
+      englishName: "TEST PRODUCT 3K",
+      price: 3000,
+      rating: 5.0,
+      reviewsCount: 1,
+      image: "https://images.unsplash.com/photo-1556228720-195a672e8ff5?q=80&w=800",
+      description: "Sản phẩm thử nghiệm giá 3k",
+      fullDescription: "Sản phẩm thử nghiệm giá 3.000đ để test tính năng thanh toán và vận chuyển.",
+      ingredients: "Nước, hoạt chất thử nghiệm",
+      certifications: "Không kích ứng",
+      tagline: "Dành cho việc test hệ thống",
+      volume: "10ml",
+      slug: "san-pham-thu-nghiem-3k",
+      showOnHomepage: true,
+      isPublished: true,
+      categoryId: category.id,
+    },
+  ];
+
+  for (const productData of testProducts) {
+    await prisma.product.upsert({
+      where: { id: productData.id },
+      update: {
+        title: productData.title,
+        price: productData.price,
+        image: productData.image,
+        description: productData.description,
+        isPublished: productData.isPublished,
+        showOnHomepage: productData.showOnHomepage
+      },
+      create: productData
+    });
+  }
+  console.log("Upserted 1K and 3K test products successfully.");
 
   console.log("Database synchronization complete!");
 }
