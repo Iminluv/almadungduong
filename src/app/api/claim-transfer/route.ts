@@ -47,13 +47,13 @@ export async function POST(request: NextRequest) {
 
     notifyManualClaim(updatedOrder);
 
-    // Send claim email to customer asynchronously
-    sendClaimReceivedEmail(order.shippingEmail, order.transferCode).catch((err) => {
-      console.error("Failed to send claim received email asynchronously:", err);
+    // Send claim email to customer (awaited to prevent Vercel Serverless Function premature context cancellation)
+    await sendClaimReceivedEmail(order.shippingEmail, order.transferCode).catch((err) => {
+      console.error("Failed to send claim received email:", err);
     });
 
-    // Send claim alert email to admin asynchronously
-    sendAdminClaimAlert({
+    // Send claim alert email to admin (awaited to prevent Vercel Serverless Function premature context cancellation)
+    await sendAdminClaimAlert({
       id: updatedOrder.id,
       transferCode: updatedOrder.transferCode,
       totalAmount: updatedOrder.totalAmount,
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       shippingPhone: updatedOrder.shippingPhone,
       claimedAt: updatedOrder.claimedAt,
     }).catch((err) => {
-      console.error("Failed to send admin claim alert email asynchronously:", err);
+      console.error("Failed to send admin claim alert email:", err);
     });
 
     return NextResponse.json({

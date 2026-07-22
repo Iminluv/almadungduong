@@ -186,11 +186,11 @@ export async function POST(request: NextRequest) {
       });
     });
 
-    // 8. Notifications & Email send (non-blocking)
+    // 8. Notifications & Email send (awaited to prevent Vercel Serverless Function premature context cancellation)
     notifyNewPayment(order);
 
     if (order.shippingEmail) {
-      sendOrderConfirmation({
+      await sendOrderConfirmation({
         transferCode: order.transferCode,
         totalAmount: order.totalAmount,
         shippingName: order.shippingName,
@@ -198,23 +198,23 @@ export async function POST(request: NextRequest) {
         shippingPhone: order.shippingPhone,
         items: order.items,
       }, order.shippingEmail).catch(err => {
-        console.error('Failed to send order confirmation email asynchronously:', err);
+        console.error('Failed to send order confirmation email:', err);
       });
     }
 
     // Send admin payment alert email
-    sendAdminPaymentAlert({
+    await sendAdminPaymentAlert({
       id: order.id,
       transferCode: order.transferCode,
       totalAmount: order.totalAmount,
       shippingName: order.shippingName,
       shippingPhone: order.shippingPhone,
     }).catch(err => {
-      console.error('Failed to send admin payment alert email asynchronously:', err);
+      console.error('Failed to send admin payment alert email:', err);
     });
 
-    // Check and process loyalty tier upgrade asynchronously (non-blocking)
-    (async () => {
+    // Check and process loyalty tier upgrade
+    if (order.userId) {
       try {
         const updatedUser = await prisma.user.findUnique({
           where: { id: order.userId },
@@ -254,9 +254,9 @@ export async function POST(request: NextRequest) {
           }
         }
       } catch (tierErr) {
-        console.error('Error checking loyalty tier upgrade asynchronously:', tierErr);
+        console.error('Error checking loyalty tier upgrade:', tierErr);
       }
-    })();
+    }
 
     return NextResponse.json({ success: true });
 

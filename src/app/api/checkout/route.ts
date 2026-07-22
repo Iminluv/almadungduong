@@ -123,8 +123,8 @@ export async function POST(request: NextRequest) {
       return order;
     });
 
-    // Send order pending email asynchronously
-    sendOrderPendingEmail(shippingInfo.email, {
+    // Send order pending email (awaited to prevent Vercel Serverless Function premature context cancellation)
+    await sendOrderPendingEmail(shippingInfo.email, {
       transferCode: newOrder.transferCode,
       totalAmount: newOrder.totalAmount,
       bankName: newOrder.bankName,
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       shippingName: newOrder.shippingName,
       items: resolvedItems,
     }).catch((err) => {
-      console.error("Failed to send order pending email asynchronously:", err);
+      console.error("Failed to send order pending email:", err);
     });
 
     return NextResponse.json({

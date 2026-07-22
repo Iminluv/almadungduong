@@ -14,9 +14,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Thiếu email.' }, { status: 400 });
     }
 
-    // Run lazy cleanup of expired tokens (non-blocking)
-    cleanupExpiredTokens().catch((err) => {
-      console.error('Error during lazy token cleanup:', err);
+    // Run cleanup of expired tokens
+    await cleanupExpiredTokens().catch((err) => {
+      console.error('Error during token cleanup:', err);
     });
 
     const user = await prisma.user.findUnique({
@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || origin;
     const resetUrl = `${baseUrl}/tai-khoan/reset-password?token=${token}`;
 
-    // Send email asynchronously (non-blocking)
-    sendPasswordResetEmail(email, resetUrl).catch((err) => {
+    // Send email (awaited to prevent Vercel Serverless Function premature context cancellation)
+    await sendPasswordResetEmail(email, resetUrl).catch((err) => {
       console.error('Failed to send password reset email:', err);
     });
 

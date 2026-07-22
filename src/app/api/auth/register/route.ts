@@ -46,9 +46,9 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send welcome email asynchronously
-    sendWelcomeEmail(user.email, user.name || "").catch((err) => {
-      console.error("Failed to send welcome email asynchronously:", err);
+    // Send welcome email (awaited to prevent Vercel Serverless Function premature context cancellation)
+    await sendWelcomeEmail(user.email, user.name || "").catch((err) => {
+      console.error("Failed to send welcome email:", err);
     });
 
     return NextResponse.json(
