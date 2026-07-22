@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getImageUrl } from "@/lib/utils";
+import { useImageUpload } from "@/lib/useImageUpload";
 
 interface ProductImage {
   id: string;
@@ -28,6 +29,76 @@ export default function ImageEditor({
   const [isSavingOrder, setIsSavingOrder] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // Upload hooks & refs
+  const mainFileInputRef = useRef<HTMLInputElement>(null);
+  const galleryFileInputRef = useRef<HTMLInputElement>(null);
+
+  const { uploadFile, isUploading: isUploadingFile } = useImageUpload();
+  const [isUploadingGallery, setIsUploadingGallery] = useState(false);
+
+  // Handle uploading main cover image from device
+  const handleMainFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setErrorMsg(null);
+
+    const url = await uploadFile(file);
+    if (url) {
+      onMainImageChange(url);
+    }
+    if (mainFileInputRef.current) {
+      mainFileInputRef.current.value = "";
+    }
+  };
+
+  // Handle uploading gallery images from device (multiple, max 10)
+  const handleGalleryFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    setErrorMsg(null);
+
+    // Limit check: total images cannot exceed 10
+    if (images.length + files.length > 10) {
+      setErrorMsg(`Tổng số ảnh thư viện không được vượt quá 10 ảnh. (Hiện tại: ${images.length}, Đã chọn: ${files.length})`);
+      if (galleryFileInputRef.current) galleryFileInputRef.current.value = "";
+      return;
+    }
+
+    setIsUploadingGallery(true);
+    let successCount = 0;
+
+    for (const file of files) {
+      const url = await uploadFile(file);
+      if (!url) continue;
+
+      try {
+        const res = await fetch(`/api/admin/products/${productId}/images`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url }),
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          setImages((prev) => [...prev, data.image].sort((a, b) => a.sortOrder - b.sortOrder));
+          successCount++;
+        } else {
+          setErrorMsg(data.error || `Lỗi lưu ảnh "${file.name}" vào thư viện`);
+        }
+      } catch (err: any) {
+        console.error(err);
+        setErrorMsg(`Lỗi kết nối khi lưu ảnh "${file.name}"`);
+      }
+    }
+
+    setIsUploadingGallery(false);
+    if (galleryFileInputRef.current) {
+      galleryFileInputRef.current.value = "";
+    }
+  };
 
   // Drag and drop states
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -294,7 +365,30 @@ export default function ImageEditor({
             )}
           </div>
           <div className="flex-1 w-full space-y-2">
-            <label className="text-[11px] font-semibold text-[#8A8680]">URL Ảnh Đại Diện</label>
+            <div className="flex items-center justify-between">
+              <label className="text-[11px] font-semibold text-[#8A8680]">URL Ảnh Đại Diện</label>
+              <div className="flex items-center gap-2">
+                <input
+                  ref={mainFileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                  onChange={handleMainFileChange}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => mainFileInputRef.current?.click()}
+                  disabled={isUploadingFile}
+                  className="px-2.5 py-1 bg-[#1A4331] hover:bg-[#1A4331]/90 text-white text-[11px] font-bold rounded-[2px] transition-colors flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-3.5 h-3.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                  </svg>
+                  {isUploadingFile ? "Đang tải..." : "Tải ảnh từ máy"}
+                </button>
+              </div>
+            </div>
+
             <input
               type="text"
               value={mainImage}
@@ -313,7 +407,12 @@ export default function ImageEditor({
       <div className="bg-white border border-[#F0EDE8] p-6 rounded-[2px] space-y-4">
         <div className="flex items-center justify-between pb-2 border-b border-[#F0EDE8]">
           <div>
-            <h3 className="font-semibold text-sm text-[#1C1C1A]">Thư viện ảnh phụ</h3>
+            <h3 className="font-semibold text-sm text-[#1C1C1A] flex items-center gap-2">
+              Thư viện ảnh phụ
+              <span className={`text-[10px] font-mono px-2 py-0.5 rounded-[2px] ${images.length >= 10 ? "bg-amber-100 text-amber-800 font-bold" : "bg-[#FAF8F5] text-[#8A8680] border border-[#F0EDE8]"}`}>
+                {images.length}/10 ảnh
+              </span>
+            </h3>
             <p className="text-[10px] text-[#8A8680] mt-0.5">Kéo thả để sắp xếp vị trí hiển thị</p>
           </div>
           {isSavingOrder && (
@@ -321,32 +420,77 @@ export default function ImageEditor({
               Đang lưu thứ tự...
             </span>
           )}
+          {isUploadingGallery && (
+            <span className="text-[10px] text-[#1A4331] animate-pulse font-medium">
+              Đang tải ảnh từ máy lên Cloudinary...
+            </span>
+          )}
         </div>
 
-        {/* Input to add image */}
-        <div className="flex gap-2">
+        {/* Action row: File upload + URL add */}
+        <div className="space-y-2.5">
+          {/* File picker button */}
           <input
-            type="text"
-            value={newImageUrl}
-            onChange={(e) => setNewImageUrl(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                handleAddImage();
-              }
-            }}
-            placeholder="Dán URL hình ảnh mới vào đây..."
-            className="flex-1 text-xs bg-white border border-[#F0EDE8] px-3 py-2 rounded-[2px] text-[#1C1C1A] focus:outline-none focus:border-[#1A4331] focus:ring-1 focus:ring-[#1A4331]"
-            disabled={isAdding}
+            ref={galleryFileInputRef}
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+            onChange={handleGalleryFilesChange}
+            className="hidden"
           />
           <button
             type="button"
-            onClick={() => handleAddImage()}
-            disabled={isAdding || !newImageUrl.trim()}
-            className="px-4 py-2 bg-[#1A4331] hover:bg-[#1A4331]/90 text-white text-xs font-bold rounded-[2px] transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => {
+              if (images.length >= 10) {
+                setErrorMsg("Thư viện đã đạt tối đa 10 ảnh. Vui lòng xóa bớt ảnh trước khi thêm mới.");
+                return;
+              }
+              galleryFileInputRef.current?.click();
+            }}
+            disabled={isUploadingGallery || images.length >= 10}
+            className="w-full py-2.5 bg-[#1A4331] hover:bg-[#1A4331]/90 text-white text-xs font-bold rounded-[2px] transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isAdding ? "Đang thêm..." : "Thêm ảnh"}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+            </svg>
+            {isUploadingGallery ? "Đang tải ảnh từ máy lên..." : "Tải ảnh từ máy (Tối đa 10 ảnh)"}
           </button>
+
+          {/* URL Input sub-row */}
+          <div className="flex items-center gap-2 min-w-0">
+            <input
+              type="text"
+              value={newImageUrl}
+              onChange={(e) => setNewImageUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  if (images.length >= 10) {
+                    setErrorMsg("Thư viện đã đạt tối đa 10 ảnh.");
+                    return;
+                  }
+                  handleAddImage();
+                }
+              }}
+              placeholder="Hoặc dán URL ảnh vào đây..."
+              className="min-w-0 flex-1 text-xs bg-white border border-[#F0EDE8] px-3 py-2 rounded-[2px] text-[#1C1C1A] focus:outline-none focus:border-[#1A4331] focus:ring-1 focus:ring-[#1A4331]"
+              disabled={isAdding || isUploadingGallery || images.length >= 10}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                if (images.length >= 10) {
+                  setErrorMsg("Thư viện đã đạt tối đa 10 ảnh.");
+                  return;
+                }
+                handleAddImage();
+              }}
+              disabled={isAdding || isUploadingGallery || !newImageUrl.trim() || images.length >= 10}
+              className="shrink-0 px-3 py-2 bg-[#FAF8F5] border border-[#F0EDE8] hover:border-[#1A4331] text-[#1C1C1A] text-xs font-bold rounded-[2px] transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isAdding ? "Đang thêm..." : "Thêm URL"}
+            </button>
+          </div>
         </div>
 
         {/* Gallery Grid */}

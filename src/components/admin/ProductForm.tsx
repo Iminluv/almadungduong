@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ImageEditor from "./ImageEditor";
 import { getImageUrl } from "@/lib/utils";
+import { useImageUpload } from "@/lib/useImageUpload";
 
 interface CategoryOption {
   id: string;
@@ -70,6 +71,27 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
 
   // Gallery images from initialData
   const initialImages = initialData?.images || [];
+
+  // Upload hook for cover image in create mode
+  const coverFileInputRef = useRef<HTMLInputElement>(null);
+  const {
+    uploadFile: uploadCover,
+    isUploading: isUploadingCover,
+    error: coverUploadError,
+    setError: setCoverUploadError,
+  } = useImageUpload();
+
+  const handleCoverFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = await uploadCover(file);
+    if (url) {
+      setImage(url);
+    }
+    if (coverFileInputRef.current) {
+      coverFileInputRef.current.value = "";
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -318,13 +340,51 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
           ) : (
             <div className="bg-white border border-[#F0EDE8] p-6 rounded-[2px] space-y-4">
               <h3 className="font-semibold text-sm text-[#1C1C1A] pb-2 border-b border-[#F0EDE8]">
-                Hình ảnh sản phẩm (URL)
+                Hình ảnh sản phẩm
               </h3>
+
+              {coverUploadError && (
+                <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-[2px] flex items-center justify-between">
+                  <span>{coverUploadError}</span>
+                  <button
+                    type="button"
+                    onClick={() => setCoverUploadError(null)}
+                    className="text-red-400 hover:text-red-600 font-bold ml-2"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
+
               <div className="space-y-3 text-xs">
-                <div className="space-y-1">
-                  <label className="font-semibold text-[#1C1C1A]">
+                <div className="space-y-2">
+                  <label className="font-semibold text-[#1C1C1A] block">
                     Ảnh đại diện chính <span className="text-red-500">*</span>
                   </label>
+
+                  {/* Direct Device Upload Button */}
+                  <div className="flex gap-2 items-center">
+                    <input
+                      ref={coverFileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                      onChange={handleCoverFileChange}
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => coverFileInputRef.current?.click()}
+                      disabled={isUploadingCover}
+                      className="px-3 py-2 bg-[#1A4331] hover:bg-[#1A4331]/90 text-white text-xs font-bold rounded-[2px] transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                      </svg>
+                      {isUploadingCover ? "Đang tải ảnh..." : "Tải ảnh từ máy"}
+                    </button>
+                    <span className="text-[10px] text-[#8A8680]">hoặc dán URL bên dưới</span>
+                  </div>
+
                   <input
                     type="text"
                     value={image}
@@ -333,14 +393,15 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
                     className="w-full bg-white border border-[#F0EDE8] px-3 py-2 rounded-[2px] text-[#1C1C1A] focus:outline-none focus:border-[#1A4331] focus:ring-1 focus:ring-[#1A4331]"
                     required
                   />
+
                   {image && (
-                    <div className="mt-2 w-20 h-20 border border-[#F0EDE8] rounded-[2px] overflow-hidden bg-[#FAF8F5]">
+                    <div className="mt-2 w-24 h-24 border border-[#F0EDE8] rounded-[2px] overflow-hidden bg-[#FAF8F5] relative group">
                       <img src={getImageUrl(image)} alt="Preview" className="object-cover w-full h-full" />
                     </div>
                   )}
                 </div>
                 <div className="p-3 bg-[#FAF8F5] border border-[#F0EDE8] rounded-[2px] text-[#8A8680] leading-relaxed">
-                  💡 Thư viện ảnh phụ sẽ khả dụng sau khi sản phẩm được tạo thành công.
+                  💡 Thư viện ảnh phụ (tối đa 10 ảnh) sẽ khả dụng sau khi sản phẩm được tạo thành công.
                 </div>
               </div>
             </div>

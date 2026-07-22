@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import { deleteCloudinaryImage } from "@/lib/cloudinary";
 
 export const dynamic = "force-dynamic";
 
@@ -29,11 +30,16 @@ export async function DELETE(
       return NextResponse.json({ error: "Không tìm thấy hình ảnh này trong sản phẩm" }, { status: 404 });
     }
 
-    // Delete the image
+    // Delete from DB
     await prisma.productImage.delete({
       where: {
         id: imageId,
       },
+    });
+
+    // Best-effort delete from Cloudinary if it was stored in Cloudinary
+    deleteCloudinaryImage(image.url).catch((err) => {
+      console.error("Cloudinary delete cleanup error:", err);
     });
 
     return NextResponse.json({ success: true });
@@ -42,3 +48,4 @@ export async function DELETE(
     return NextResponse.json({ error: "Lỗi xóa hình ảnh" }, { status: 500 });
   }
 }
+
