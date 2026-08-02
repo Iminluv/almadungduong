@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // SSL
+  host: 'smtp-relay.brevo.com',
+  port: 587,
+  secure: false, // STARTTLS
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
+    user: process.env.BREVO_SMTP_USER,
+    pass: process.env.BREVO_SMTP_KEY,
   },
 });
 
@@ -50,14 +50,14 @@ interface AdminOrderAlertData {
 }
 
 /**
- * Shared helper to send email via Gmail SMTP (Nodemailer)
+ * Shared helper to send email via Brevo SMTP Relay (Nodemailer)
  */
 async function sendEmail(opts: { to: string; subject: string; text?: string; html?: string }) {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.error('[Email] GMAIL_APP_PASSWORD is not set — email delivery is disabled in this environment.');
+  if (!process.env.BREVO_SMTP_KEY) {
+    console.error('[Email] BREVO_SMTP_KEY is not set — email delivery is disabled in this environment.');
     return null;
   }
-  const fromAddress = process.env.GMAIL_FROM || 'Alma Dungduong <almadungduong@gmail.com>';
+  const fromAddress = process.env.BREVO_FROM || 'Alma Dungduong <cskh@almadungduong.com>';
   try {
     const info = await transporter.sendMail({
       from: fromAddress,
