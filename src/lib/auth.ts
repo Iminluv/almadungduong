@@ -140,8 +140,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (session.loyaltyTierId) token.loyaltyTierId = session.loyaltyTierId;
       }
 
-      // Fetch fresh loyaltyTierId and role on jwt callbacks
-      if (token.id) {
+      // Fetch fresh loyaltyTierId and role on update or initial creation if missing
+      if (token.id && (trigger === "update" || !token.role)) {
         try {
           const dbUser = await prisma.user.findUnique({
             where: { id: token.id as string },

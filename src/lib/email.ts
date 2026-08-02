@@ -24,21 +24,7 @@ interface OrderEmailData {
   }>;
 }
 
-interface OrderPendingEmailData {
-  transferCode: string;
-  totalAmount: number;
-  bankName: string;
-  bankAccount: string;
-  accountName: string;
-  expiresAt: Date | string;
-  shippingName: string;
-  items: Array<{
-    title: string;
-    price: number;
-    quantity: number;
-    variant?: string | null;
-  }>;
-}
+
 
 interface AdminOrderAlertData {
   id: string;
@@ -91,50 +77,7 @@ Cảm ơn bạn đã đồng hành cùng Alma Dungduong!`;
   });
 }
 
-/**
- * Sends an email when order is created and waiting for bank transfer (Plain Text)
- */
-export async function sendOrderPendingEmail(toEmail: string, order: OrderPendingEmailData) {
-  const itemsText = order.items
-    .map(
-      (item) =>
-        `- ${item.title}${item.variant ? ` (${item.variant})` : ''} x${item.quantity} - ${(
-          item.price * item.quantity
-        ).toLocaleString('vi-VN')}đ`
-    )
-    .join('\n');
 
-  const formattedExpiry = new Date(order.expiresAt).toLocaleString('vi-VN', {
-    timeZone: 'Asia/Ho_Chi_Minh',
-  });
-
-  const text = `Chào ${order.shippingName},
-
-Đơn hàng #${order.transferCode} của bạn đã được khởi tạo thành công và đang chờ thanh toán.
-
-Thông tin thanh toán chuyển khoản ngân hàng:
-- Ngân hàng: ${order.bankName}
-- Số tài khoản: ${order.bankAccount}
-- Chủ tài khoản: ${order.accountName}
-- Số tiền: ${order.totalAmount.toLocaleString('vi-VN')}đ
-- Nội dung chuyển khoản: ${order.transferCode}
-
-* Vui lòng chuyển khoản chính xác số tiền và nội dung ở trên. Bạn có thể quét mã QR hiển thị tại trang thanh toán để thực hiện nhanh chóng.
-* Mã thanh toán này sẽ hết hạn vào lúc: ${formattedExpiry}
-
-Danh sách sản phẩm:
-${itemsText}
-
-Tổng tiền thanh toán: ${order.totalAmount.toLocaleString('vi-VN')}đ
-
-Cảm ơn bạn đã mua sắm tại Alma Dungduong!`;
-
-  return sendEmail({
-    to: toEmail,
-    subject: `[Alma Dungduong] Xác nhận đơn hàng #${order.transferCode} đang chờ thanh toán`,
-    text,
-  });
-}
 
 /**
  * Sends a stylized HTML email to verify successful transaction processing.

@@ -17,7 +17,6 @@ vi.mock('nodemailer', () => {
 // Import email library after mocking nodemailer
 import {
   sendWelcomeEmail,
-  sendOrderPendingEmail,
   sendOrderConfirmation,
   sendClaimReceivedEmail,
   sendPasswordResetEmail,
@@ -71,36 +70,7 @@ describe('Email Service (Brevo SMTP Relay)', () => {
     expect(result).toEqual({ messageId: 'test-msg-1' });
   });
 
-  it('sends order pending email correctly', async () => {
-    mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-2' });
 
-    const pendingOrder = {
-      transferCode: 'ALMA123',
-      totalAmount: 500000,
-      bankName: 'BIDV',
-      bankAccount: '96247ALMADUNGDUONG',
-      accountName: 'VU THI KIEU MY',
-      expiresAt: '2026-07-22T12:00:00Z',
-      shippingName: 'Tran Van B',
-      items: [
-        {
-          title: 'Kem dưỡng ẩm',
-          price: 250000,
-          quantity: 2,
-          variant: '50ml',
-        },
-      ],
-    };
-
-    await sendOrderPendingEmail('customer@example.com', pendingOrder);
-
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'customer@example.com',
-      subject: '[Alma Dungduong] Xác nhận đơn hàng #ALMA123 đang chờ thanh toán',
-      text: expect.stringContaining('BIDV'),
-    });
-  });
 
   it('sends order confirmation HTML email', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-3' });

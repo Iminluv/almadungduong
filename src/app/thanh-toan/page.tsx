@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
+import { AddressStep, AddressItem } from "@/components/checkout/AddressStep";
 
 type Step = "info" | "shipping" | "payment" | "success";
 
@@ -26,6 +27,7 @@ export default function CheckoutPage() {
   const [pendingOrderData, setPendingOrderData] = useState<any>(null);
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [savedAddresses, setSavedAddresses] = useState<AddressItem[]>([]);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -102,40 +104,45 @@ export default function CheckoutPage() {
     }
   };
 
-  // Pre-fill profile and default address on auth
+  // Pre-fill user profile info when session is available
   useEffect(() => {
-    if (status === "authenticated" && session?.user) {
+    if (session?.user) {
       const user = session.user;
       setFormData((prev) => ({
         ...prev,
         fullName: prev.fullName || user.name || "",
         email: prev.email || user.email || "",
       }));
-
-      // Fetch user addresses to find default address
-      fetch("/api/user/addresses")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.addresses && data.addresses.length > 0) {
-            const defaultAddress = data.addresses.find((a: any) => a.isDefault) || data.addresses[0];
-            if (defaultAddress) {
-              setFormData((prev) => ({
-                ...prev,
-                fullName: defaultAddress.fullName || prev.fullName,
-                phone: defaultAddress.phone || prev.phone,
-                street: defaultAddress.street + (defaultAddress.ward ? `, ${defaultAddress.ward}` : ""),
-                city: defaultAddress.city,
-                district: defaultAddress.district,
-              }));
-            }
-          }
-        })
-        .catch((err) => console.error("Failed to fetch user addresses in checkout:", err));
     }
-  }, [status, session]);
+  }, [session]);
 
+  // Immediate data fetch on mount (addresses & shipping) without waiting for useSession status
   useEffect(() => {
     setIsMounted(true);
+
+    fetch("/api/user/addresses")
+      .then((res) => {
+        if (!res.ok) return null;
+        return res.json();
+      })
+      .then((data) => {
+        if (data?.addresses && Array.isArray(data.addresses) && data.addresses.length > 0) {
+          setSavedAddresses(data.addresses);
+          const defaultAddress = data.addresses.find((a: any) => a.isDefault) || data.addresses[0];
+          if (defaultAddress) {
+            setFormData((prev) => ({
+              ...prev,
+              fullName: defaultAddress.fullName || prev.fullName,
+              phone: defaultAddress.phone || prev.phone,
+              street: defaultAddress.street + (defaultAddress.ward ? `, ${defaultAddress.ward}` : ""),
+              city: defaultAddress.city,
+              district: defaultAddress.district,
+            }));
+          }
+        }
+      })
+      .catch((err) => console.error("Failed to fetch user addresses in checkout:", err));
+
     fetch("/api/shipping")
       .then((res) => res.json())
       .then((resData) => {
@@ -226,9 +233,11 @@ export default function CheckoutPage() {
                     className="space-y-8"
                   >
                     {step === "info" && (
-                      <InfoStep
+                      <AddressStep
                         formData={formData}
                         setFormData={setFormData}
+                        savedAddresses={savedAddresses}
+                        isAuthenticated={status === "authenticated"}
                         onNext={() => setStep("shipping")}
                       />
                     )}
@@ -474,123 +483,7 @@ export default function CheckoutPage() {
   );
 }
 
-/* ─── Sub-components ────────────────────────────────────────────── */
 
-interface InputFieldProps {
-  label: string;
-  type?: string;
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-}
-
-function InputField({ label, type = "text", placeholder, value, onChange, required }: InputFieldProps) {
-  return (
-    <div className="space-y-2 group">
-      <label className="text-[10px] uppercase font-bold tracking-[0.1em] text-muted group-focus-within:text-accent transition-colors">
-        {label}
-      </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        required={required}
-        className="w-full bg-transparent border-b border-surface py-2 focus:outline-none focus:border-accent transition-all text-sm placeholder:text-muted/40"
-      />
-    </div>
-  );
-}
-
-interface InfoStepProps {
-  formData: {
-    fullName: string;
-    phone: string;
-    email: string;
-    street: string;
-    city: string;
-    district: string;
-  };
-  setFormData: React.Dispatch<React.SetStateAction<{
-    fullName: string;
-    phone: string;
-    email: string;
-    street: string;
-    city: string;
-    district: string;
-  }>>;
-  onNext: () => void;
-}
-
-function InfoStep({ formData, setFormData, onNext }: InfoStepProps) {
-  const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onNext();
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <InputField
-          label="Họ & Tên"
-          placeholder="Nguyễn Văn A"
-          value={formData.fullName}
-          onChange={handleChange("fullName")}
-          required
-        />
-        <InputField
-          label="Số điện thoại"
-          placeholder="0901 xxx xxx"
-          value={formData.phone}
-          onChange={handleChange("phone")}
-          required
-        />
-      </div>
-      <InputField
-        label="Email"
-        type="email"
-        placeholder="example@gmail.com"
-        value={formData.email}
-        onChange={handleChange("email")}
-        required
-      />
-      <div className="space-y-6 pt-4">
-        <h3 className="text-lg font-display font-semibold">Địa chỉ giao hàng</h3>
-        <InputField
-          label="Địa chỉ cụ thể"
-          placeholder="Số nhà, tên đường, phường/xã..."
-          value={formData.street}
-          onChange={handleChange("street")}
-          required
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <InputField
-            label="Tỉnh / Thành phố"
-            placeholder="Hồ Chí Minh"
-            value={formData.city}
-            onChange={handleChange("city")}
-            required
-          />
-          <InputField
-            label="Quận / Huyện"
-            placeholder="Quận 1"
-            value={formData.district}
-            onChange={handleChange("district")}
-            required
-          />
-        </div>
-      </div>
-      <Button type="submit" variant="primary" size="lg" className="w-full md:w-auto px-12">
-        Tiếp tục vận chuyển
-      </Button>
-    </form>
-  );
-}
 
 function ShippingStep({ onNext, onBack, shippingFee, isFreeShipping, formatPrice, freeThreshold, baseFee }: {
   onNext: () => void;
