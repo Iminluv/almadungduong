@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // SSL
+  host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+  port: Number(process.env.SMTP_PORT) || 587,
+  secure: process.env.SMTP_SECURE === 'true', // false for port 587 STARTTLS
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 });
 
@@ -50,22 +50,23 @@ interface AdminOrderAlertData {
 }
 
 /**
- * Shared helper to send email via Gmail SMTP (Nodemailer)
+ * Shared helper to send email via SMTP (Nodemailer)
  */
 async function sendEmail(opts: { to: string; subject: string; text?: string; html?: string }) {
-  if (!process.env.GMAIL_APP_PASSWORD) {
-    console.error('[Email] GMAIL_APP_PASSWORD is not set — email delivery is disabled in this environment.');
+  if (!process.env.SMTP_PASS) {
+    console.error('[Email] SMTP_PASS is not set — email delivery is disabled in this environment.');
     return null;
   }
-  const fromAddress = process.env.GMAIL_FROM || 'Alma Dungduong <almadungduong@gmail.com>';
+  const fromAddress = process.env.EMAIL_FROM || 'Alma Dungduong <cskh@almadungduong.com>';
   try {
     const info = await transporter.sendMail({
       from: fromAddress,
+      replyTo: process.env.EMAIL_REPLY_TO || 'cskh@almadungduong.com',
       ...opts,
     });
     return info;
   } catch (error) {
-    console.error(`Error sending email to ${opts.to}:`, error);
+    console.error(`[Email] Error sending to ${opts.to}:`, error);
     return null;
   }
 }
@@ -202,6 +203,7 @@ export async function sendOrderConfirmation(order: OrderEmailData, toEmail: stri
     to: toEmail,
     subject: `[Alma Dungduong] Xác nhận đơn hàng #${order.transferCode} thành công`,
     html,
+    text: `Đơn hàng #${order.transferCode} đã được thanh toán thành công. Tổng: ${order.totalAmount.toLocaleString('vi-VN')}đ. Giao đến: ${order.shippingName}, ${order.shippingAddress}.`,
   });
 }
 
