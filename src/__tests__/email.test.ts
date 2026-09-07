@@ -26,15 +26,15 @@ import {
   sendAdminClaimAlert,
 } from '@/lib/email';
 
-describe('Email Service (Brevo SMTP Relay)', () => {
+describe('Email Service (Nodemailer Brevo SMTP)', () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
     vi.clearAllMocks();
     process.env = { ...originalEnv };
-    process.env.BREVO_SMTP_USER = 'almadungduong@gmail.com';
-    process.env.BREVO_SMTP_KEY = 'test_smtp_key';
-    process.env.BREVO_FROM = 'Alma Dungduong <cskh@almadungduong.com>';
+    process.env.SMTP_USER = 'almadungduong@gmail.com';
+    process.env.SMTP_PASS = 'test_smtp_key';
+    process.env.EMAIL_FROM = 'Alma Dungduong <cskh@almadungduong.com>';
     process.env.ADMIN_EMAIL = 'almadungduong@gmail.com';
   });
 
@@ -42,8 +42,8 @@ describe('Email Service (Brevo SMTP Relay)', () => {
     process.env = originalEnv;
   });
 
-  it('skips email sending if BREVO_SMTP_KEY is not set', async () => {
-    delete process.env.BREVO_SMTP_KEY;
+  it('skips email sending if SMTP_PASS is not set', async () => {
+    delete process.env.SMTP_PASS;
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     const result = await sendWelcomeEmail('user@example.com', 'Test User');
@@ -51,7 +51,7 @@ describe('Email Service (Brevo SMTP Relay)', () => {
     expect(result).toBeNull();
     expect(mockSendMail).not.toHaveBeenCalled();
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining('BREVO_SMTP_KEY is not set')
+      expect.stringContaining('SMTP_PASS is not set')
     );
 
     consoleSpy.mockRestore();
@@ -62,16 +62,31 @@ describe('Email Service (Brevo SMTP Relay)', () => {
 
     const result = await sendWelcomeEmail('user@example.com', 'Nguyen Van A');
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'user@example.com',
-      subject: '[Alma Dungduong] Đăng ký tài khoản thành công',
-      text: expect.stringContaining('Chào Nguyen Van A'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'user@example.com',
+        subject: '[Alma Dungduong] Đăng ký tài khoản thành công',
+        text: expect.stringContaining('Chào Nguyen Van A'),
+      })
+    );
     expect(result).toEqual({ messageId: 'test-msg-1' });
   });
 
 
+    await sendOrderPendingEmail('customer@example.com', pendingOrder);
+
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'customer@example.com',
+        subject: '[Alma Dungduong] Xác nhận đơn hàng #ALMA123 đang chờ thanh toán',
+        text: expect.stringContaining('BIDV'),
+      })
+    );
+  });
 
   it('sends order confirmation HTML email', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-3' });
@@ -93,12 +108,16 @@ describe('Email Service (Brevo SMTP Relay)', () => {
 
     await sendOrderConfirmation(confirmedOrder, 'customer@example.com');
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'customer@example.com',
-      subject: '[Alma Dungduong] Xác nhận đơn hàng #ALMA456 thành công',
-      html: expect.stringContaining('Serum Sáng Da'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'customer@example.com',
+        subject: '[Alma Dungduong] Xác nhận đơn hàng #ALMA456 thành công',
+        html: expect.stringContaining('Serum Sáng Da'),
+        text: expect.stringContaining('ALMA456'),
+      })
+    );
   });
 
   it('sends claim received email', async () => {
@@ -106,12 +125,15 @@ describe('Email Service (Brevo SMTP Relay)', () => {
 
     await sendClaimReceivedEmail('customer@example.com', 'ALMA789');
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'customer@example.com',
-      subject: '[Alma Dungduong] Nhận yêu cầu xác minh giao dịch thủ công #ALMA789',
-      text: expect.stringContaining('ALMA789'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'customer@example.com',
+        subject: '[Alma Dungduong] Nhận yêu cầu xác minh giao dịch thủ công #ALMA789',
+        text: expect.stringContaining('ALMA789'),
+      })
+    );
   });
 
   it('sends password reset email', async () => {
@@ -119,12 +141,15 @@ describe('Email Service (Brevo SMTP Relay)', () => {
 
     await sendPasswordResetEmail('user@example.com', 'https://almadungduong.com/reset?token=123');
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'user@example.com',
-      subject: '[Alma Dungduong] Yêu cầu đặt lại mật khẩu tài khoản',
-      text: expect.stringContaining('https://almadungduong.com/reset?token=123'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'user@example.com',
+        subject: '[Alma Dungduong] Yêu cầu đặt lại mật khẩu tài khoản',
+        text: expect.stringContaining('https://almadungduong.com/reset?token=123'),
+      })
+    );
   });
 
   it('sends loyalty tier upgrade email', async () => {
@@ -132,12 +157,15 @@ describe('Email Service (Brevo SMTP Relay)', () => {
 
     await sendLoyaltyTierUpgradeEmail('user@example.com', 'Hoang D', 'Vàng');
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'user@example.com',
-      subject: '[Alma Dungduong] Nâng cấp hạng thành viên thành công: Vàng',
-      text: expect.stringContaining('Vàng'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'user@example.com',
+        subject: '[Alma Dungduong] Nâng cấp hạng thành viên thành công: Vàng',
+        text: expect.stringContaining('Vàng'),
+      })
+    );
   });
 
   it('sends email verification email correctly', async () => {
@@ -166,12 +194,15 @@ describe('Email Service (Brevo SMTP Relay)', () => {
 
     await sendAdminPaymentAlert(alertData);
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'almadungduong@gmail.com',
-      subject: '[Alma Admin] Thanh toán đơn hàng #ALMA999 thành công',
-      text: expect.stringContaining('ALMA999'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'almadungduong@gmail.com',
+        subject: '[Alma Admin] Thanh toán đơn hàng #ALMA999 thành công',
+        text: expect.stringContaining('ALMA999'),
+      })
+    );
   });
 
   it('sends admin claim alert', async () => {
@@ -188,11 +219,14 @@ describe('Email Service (Brevo SMTP Relay)', () => {
 
     await sendAdminClaimAlert(claimData);
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'almadungduong@gmail.com',
-      subject: '[Alma Admin] Yêu cầu xác minh thủ công #ALMA888',
-      text: expect.stringContaining('ALMA888'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        replyTo: 'cskh@almadungduong.com',
+        to: 'almadungduong@gmail.com',
+        subject: '[Alma Admin] Yêu cầu xác minh thủ công #ALMA888',
+        text: expect.stringContaining('ALMA888'),
+      })
+    );
   });
 });
