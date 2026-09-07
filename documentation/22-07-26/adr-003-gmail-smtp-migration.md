@@ -1,7 +1,7 @@
 # ADR-003: Migration from Resend to Gmail SMTP via Nodemailer
 
 ## Status
-Accepted (Supersedes Resend transport decision in ADR-002)
+Superseded by ADR-004 (Migrated to Brevo SMTP Relay)
 
 ## Date
 2026-07-22

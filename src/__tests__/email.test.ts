@@ -17,10 +17,10 @@ vi.mock('nodemailer', () => {
 // Import email library after mocking nodemailer
 import {
   sendWelcomeEmail,
-  sendOrderPendingEmail,
   sendOrderConfirmation,
   sendClaimReceivedEmail,
   sendPasswordResetEmail,
+  sendEmailVerificationEmail,
   sendLoyaltyTierUpgradeEmail,
   sendAdminPaymentAlert,
   sendAdminClaimAlert,
@@ -74,26 +74,6 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
     expect(result).toEqual({ messageId: 'test-msg-1' });
   });
 
-  it('sends order pending email correctly', async () => {
-    mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-2' });
-
-    const pendingOrder = {
-      transferCode: 'ALMA123',
-      totalAmount: 500000,
-      bankName: 'BIDV',
-      bankAccount: '96247ALMADUNGDUONG',
-      accountName: 'VU THI KIEU MY',
-      expiresAt: '2026-07-22T12:00:00Z',
-      shippingName: 'Tran Van B',
-      items: [
-        {
-          title: 'Kem dưỡng ẩm',
-          price: 250000,
-          quantity: 2,
-          variant: '50ml',
-        },
-      ],
-    };
 
     await sendOrderPendingEmail('customer@example.com', pendingOrder);
 
@@ -186,6 +166,19 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         text: expect.stringContaining('Vàng'),
       })
     );
+  });
+
+  it('sends email verification email correctly', async () => {
+    mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-verify' });
+
+    await sendEmailVerificationEmail('user@example.com', 'http://localhost:3000/api/auth/verify-email?token=abc');
+
+    expect(mockSendMail).toHaveBeenCalledWith({
+      from: expect.stringContaining('cskh@almadungduong.com'),
+      to: 'user@example.com',
+      subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
+      text: expect.stringContaining('http://localhost:3000/api/auth/verify-email?token=abc'),
+    });
   });
 
   it('sends admin payment alert', async () => {

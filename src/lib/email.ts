@@ -24,21 +24,7 @@ interface OrderEmailData {
   }>;
 }
 
-interface OrderPendingEmailData {
-  transferCode: string;
-  totalAmount: number;
-  bankName: string;
-  bankAccount: string;
-  accountName: string;
-  expiresAt: Date | string;
-  shippingName: string;
-  items: Array<{
-    title: string;
-    price: number;
-    quantity: number;
-    variant?: string | null;
-  }>;
-}
+
 
 interface AdminOrderAlertData {
   id: string;
@@ -92,50 +78,7 @@ Cảm ơn bạn đã đồng hành cùng Alma Dungduong!`;
   });
 }
 
-/**
- * Sends an email when order is created and waiting for bank transfer (Plain Text)
- */
-export async function sendOrderPendingEmail(toEmail: string, order: OrderPendingEmailData) {
-  const itemsText = order.items
-    .map(
-      (item) =>
-        `- ${item.title}${item.variant ? ` (${item.variant})` : ''} x${item.quantity} - ${(
-          item.price * item.quantity
-        ).toLocaleString('vi-VN')}đ`
-    )
-    .join('\n');
 
-  const formattedExpiry = new Date(order.expiresAt).toLocaleString('vi-VN', {
-    timeZone: 'Asia/Ho_Chi_Minh',
-  });
-
-  const text = `Chào ${order.shippingName},
-
-Đơn hàng #${order.transferCode} của bạn đã được khởi tạo thành công và đang chờ thanh toán.
-
-Thông tin thanh toán chuyển khoản ngân hàng:
-- Ngân hàng: ${order.bankName}
-- Số tài khoản: ${order.bankAccount}
-- Chủ tài khoản: ${order.accountName}
-- Số tiền: ${order.totalAmount.toLocaleString('vi-VN')}đ
-- Nội dung chuyển khoản: ${order.transferCode}
-
-* Vui lòng chuyển khoản chính xác số tiền và nội dung ở trên. Bạn có thể quét mã QR hiển thị tại trang thanh toán để thực hiện nhanh chóng.
-* Mã thanh toán này sẽ hết hạn vào lúc: ${formattedExpiry}
-
-Danh sách sản phẩm:
-${itemsText}
-
-Tổng tiền thanh toán: ${order.totalAmount.toLocaleString('vi-VN')}đ
-
-Cảm ơn bạn đã mua sắm tại Alma Dungduong!`;
-
-  return sendEmail({
-    to: toEmail,
-    subject: `[Alma Dungduong] Xác nhận đơn hàng #${order.transferCode} đang chờ thanh toán`,
-    text,
-  });
-}
 
 /**
  * Sends a stylized HTML email to verify successful transaction processing.
@@ -243,6 +186,28 @@ Alma Dungduong Support Team`;
   return sendEmail({
     to: toEmail,
     subject: '[Alma Dungduong] Yêu cầu đặt lại mật khẩu tài khoản',
+    text,
+  });
+}
+
+/**
+ * Sends an email verification link (Plain Text)
+ */
+export async function sendEmailVerificationEmail(toEmail: string, verifyUrl: string) {
+  const text = `Xin chào,
+
+Cảm ơn bạn đã đăng ký tài khoản tại Alma Dungduong!
+Vui lòng nhấn vào liên kết dưới đây để xác thực địa chỉ email và hoàn tất đăng ký tài khoản:
+
+${verifyUrl}
+
+Liên kết này chỉ có hiệu lực trong vòng 1 giờ kể từ thời điểm gửi. Nếu bạn không yêu cầu đăng ký tài khoản này, vui lòng an tâm bỏ qua email này.
+
+Alma Dungduong Support Team`;
+
+  return sendEmail({
+    to: toEmail,
+    subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
     text,
   });
 }

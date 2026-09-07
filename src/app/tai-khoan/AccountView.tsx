@@ -154,6 +154,11 @@ export default function AccountView() {
     setTimeout(() => setToast(null), 4000);
   };
 
+  // Email verification state
+  const [registeredEmailSent, setRegisteredEmailSent] = useState<string | null>(null);
+  const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
+  const [isResending, setIsResending] = useState(false);
+
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersLoading, setOrdersLoading] = useState(false);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
@@ -242,10 +247,47 @@ export default function AccountView() {
     }
   }, [activeTab, status]);
 
+  // Handle URL query parameters for email verification result
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const verified = params.get("verified");
+      if (verified === "true") {
+        showToast("Xác thực email thành công! Bạn có thể đăng nhập ngay.", "success");
+        router.replace("/tai-khoan");
+      } else if (verified === "false") {
+        showToast("Liên kết xác thực không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.", "error");
+        router.replace("/tai-khoan");
+      }
+    }
+  }, [router]);
+
+  const handleResendVerification = async (targetEmail: string) => {
+    setIsResending(true);
+    try {
+      const res = await fetch("/api/auth/send-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: targetEmail }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        showToast(data.error || "Gửi email xác thực thất bại.", "error");
+      } else {
+        showToast(data.message || "Đã gửi lại email xác thực thành công!", "success");
+      }
+    } catch (e) {
+      showToast("Đã xảy ra lỗi hệ thống.", "error");
+    } finally {
+      setIsResending(false);
+    }
+  };
+
   // Auth actions
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setActionLoading(true);
+    setUnverifiedEmail(null);
     try {
       const res = await signIn("credentials", {
         email: loginEmail,
@@ -254,11 +296,17 @@ export default function AccountView() {
       });
 
       if (res?.error) {
-        showToast("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.", "error");
+        if (res.error.includes("EMAIL_NOT_VERIFIED")) {
+          setUnverifiedEmail(loginEmail);
+          showToast("Vui lòng xác thực email của bạn trước khi đăng nhập.", "error");
+        } else {
+          showToast("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.", "error");
+        }
       } else {
         showToast("Đăng nhập thành công!", "success");
         setLoginEmail("");
         setLoginPassword("");
+        setUnverifiedEmail(null);
       }
     } catch (e) {
       showToast("Đã xảy ra lỗi hệ thống.", "error");
@@ -270,6 +318,7 @@ export default function AccountView() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setActionLoading(true);
+    setRegisteredEmailSent(null);
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -286,13 +335,8 @@ export default function AccountView() {
       if (!res.ok) {
         showToast(data.error || "Đăng ký thất bại.", "error");
       } else {
-        showToast("Đăng ký thành công! Đang tự động đăng nhập...", "success");
-        // Log in user automatically
-        await signIn("credentials", {
-          email: registerEmail,
-          password: registerPassword,
-          redirect: false,
-        });
+        showToast("Đăng ký thành công! Vui lòng kiểm tra email để xác thực.", "success");
+        setRegisteredEmailSent(registerEmail);
         setRegisterName("");
         setRegisterEmail("");
         setRegisterPhone("");
@@ -554,6 +598,20 @@ export default function AccountView() {
                 </form>
               ) : authMode === "login" ? (
                 <form className="space-y-5" onSubmit={handleLogin}>
+                  {unverifiedEmail && (
+                    <div className="p-4 bg-amber-50 border border-amber-200 rounded-sm text-xs text-amber-900 space-y-2">
+                      <p className="font-semibold">Tài khoản chưa được xác thực email!</p>
+                      <p>Vui lòng kiểm tra hòm thư ({unverifiedEmail}) và nhấn liên kết xác thực.</p>
+                      <button
+                        type="button"
+                        disabled={isResending}
+                        onClick={() => handleResendVerification(unverifiedEmail)}
+                        className="text-accent hover:underline font-bold uppercase tracking-wider block pt-1"
+                      >
+                        {isResending ? "Đang gửi..." : "Gửi lại email xác thực"}
+                      </button>
+                    </div>
+                  )}
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Email</label>
                     <input
@@ -637,6 +695,41 @@ export default function AccountView() {
                     </button>
                   </div>
                 </form>
+              ) : registeredEmailSent ? (
+                <div className="space-y-6 text-center py-4">
+                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-xl font-bold">
+                    ✓
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-base font-bold text-navy">Kiểm tra hộp thư email của bạn</h3>
+                    <p className="text-xs text-muted leading-relaxed">
+                      Chúng tôi đã gửi một email xác thực đến địa chỉ <strong className="text-text">{registeredEmailSent}</strong>. Vui lòng nhấn vào liên kết trong email để kích hoạt tài khoản.
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t border-surface space-y-3">
+                    <p className="text-[11px] text-muted">Chưa nhận được email?</p>
+                    <button
+                      type="button"
+                      disabled={isResending}
+                      onClick={() => handleResendVerification(registeredEmailSent)}
+                      className="text-xs font-bold uppercase tracking-wider text-accent hover:underline disabled:opacity-50"
+                    >
+                      {isResending ? "Đang gửi..." : "Gửi lại email xác thực"}
+                    </button>
+                  </div>
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRegisteredEmailSent(null);
+                        setAuthMode("login");
+                      }}
+                      className="text-xs text-muted hover:text-text font-bold uppercase tracking-wider"
+                    >
+                      Quay lại Đăng nhập
+                    </button>
+                  </div>
+                </div>
               ) : (
                 <form className="space-y-4" onSubmit={handleRegister}>
                   <div className="space-y-1">
