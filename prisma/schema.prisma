@@ -95,6 +95,7 @@ model Review {
   rating             Int
   comment            String
   date               String
+  images             String[] @default([])
   isVerifiedPurchase Boolean  @default(true)
   productId          String
   product            Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
@@ -252,6 +253,19 @@ model PasswordResetToken {
   @@index([email])
   @@index([expiresAt])
 }
+
+model EmailVerificationToken {
+  id        String    @id @default(cuid())
+  email     String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([email])
+  @@index([expiresAt])
+}
+
 
 
 

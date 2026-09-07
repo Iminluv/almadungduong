@@ -91,6 +91,7 @@ erDiagram
         Int rating
         String comment
         String date
+        StringArray images
         Boolean isVerifiedPurchase
         String productId FK
         DateTime createdAt
@@ -204,6 +205,15 @@ erDiagram
     }
 
     PasswordResetToken {
+        String id PK
+        String email
+        String token UK
+        DateTime expiresAt
+        DateTime usedAt
+        DateTime createdAt
+    }
+
+    EmailVerificationToken {
         String id PK
         String email
         String token UK

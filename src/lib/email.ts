@@ -189,6 +189,28 @@ Alma Dungduong Support Team`;
 }
 
 /**
+ * Sends an email verification link (Plain Text)
+ */
+export async function sendEmailVerificationEmail(toEmail: string, verifyUrl: string) {
+  const text = `Xin chào,
+
+Cảm ơn bạn đã đăng ký tài khoản tại Alma Dungduong!
+Vui lòng nhấn vào liên kết dưới đây để xác thực địa chỉ email và hoàn tất đăng ký tài khoản:
+
+${verifyUrl}
+
+Liên kết này chỉ có hiệu lực trong vòng 1 giờ kể từ thời điểm gửi. Nếu bạn không yêu cầu đăng ký tài khoản này, vui lòng an tâm bỏ qua email này.
+
+Alma Dungduong Support Team`;
+
+  return sendEmail({
+    to: toEmail,
+    subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
+    text,
+  });
+}
+
+/**
  * Sends email when user is upgraded to a higher loyalty tier (Plain Text)
  */
 export async function sendLoyaltyTierUpgradeEmail(toEmail: string, name: string, tierName: string) {

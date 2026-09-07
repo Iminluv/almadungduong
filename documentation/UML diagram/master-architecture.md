@@ -4,9 +4,9 @@ graph TB
         Page_Home["Homepage (page.tsx)<br/>HeroCarousel, MonthlyDeal, Feedback"]
         Page_Catalog["Product Catalog (/san-pham)<br/>ProductsContent & FilterSidebar"]
         Page_Detail["Product Detail (/san-pham/[slug])<br/>ProductDetailView & ReviewCard"]
-        Page_Checkout["Checkout Form (/thanh-toan)<br/>Address autofill & Guest Checkout"]
+        Page_Checkout["Checkout Form (/thanh-toan)<br/>AddressStep, Delivery Info & CheckoutModal"]
         Page_Result["Checkout Result (/ket-qua)<br/>ResultsView & Success Banners"]
-        Page_Account["Customer Dashboard (/tai-khoan)<br/>AccountView, Addresses CRUD, Orders"]
+        Page_Account["Customer Dashboard (/tai-khoan)<br/>AccountView, Addresses CRUD, Orders, Verification Notice"]
         Page_Reset["Password Reset (/tai-khoan/reset-password)<br/>Reset token validation form"]
         Page_Loyalty["Loyalty Program (/khach-hang-than-thiet)<br/>LoyaltyView & Tier benefits"]
         Page_Blog["Blog & Articles (/blog & /blog/[slug])<br/>BlogView & BlogDetailView"]
@@ -23,7 +23,8 @@ graph TB
         Admin_Settings["System Settings (/admin/settings)<br/>SettingsForm for Shipping & Loyalty"]
     end
 
-    subgraph Client_State_Providers ["Client State, Hooks & Context Providers"]
+    subgraph Client_State_Providers ["Client State, Hooks & Context Components"]
+        Comp_AddressStep["AddressStep Component (src/components/checkout)<br/>Saved address cards, selection & save option"]
         Store_Cart["Zustand Cart Store (useCart.ts)<br/>Cart items, quantities & CartDrawer"]
         Store_Fav["Zustand Favorites Store (useFavorites.ts)<br/>Wishlist items & heart toggles"]
         Hook_Upload["Image Upload Hook (useImageUpload.ts)<br/>MIME & size validation"]
@@ -38,6 +39,8 @@ graph TB
 
     subgraph API_Controllers ["API Route Handlers Layer (src/app/api)"]
         API_Auth_Reg["/api/auth/register"]
+        API_Auth_SendVerify["/api/auth/send-verification"]
+        API_Auth_VerifyEmail["/api/auth/verify-email"]
         API_Auth_Forgot["/api/auth/forgot-password"]
         API_Auth_Reset["/api/auth/reset-password"]
         API_Auth_Clean["/api/auth/cleanup-tokens"]
@@ -67,12 +70,12 @@ graph TB
     end
 
     subgraph Core_Services ["Core Services & Domain Libraries (src/lib)"]
-        Lib_Auth["auth.ts<br/>NextAuth v5 Config & Credentials/Google Provider"]
+        Lib_Auth["auth.ts<br/>NextAuth Config & Credentials/Google Provider (Email Verification Gate)"]
         Lib_DB["db.ts<br/>Prisma Client Singleton + Neon PG Adapter"]
         Lib_SePay["sepay.ts<br/>SePay API v2 Client & VietQR Generator"]
-        Lib_Email["email.ts<br/>Nodemailer Gmail SMTP Engine & HTML Templates"]
+        Lib_Email["email.ts<br/>Nodemailer Brevo SMTP Engine & HTML Templates"]
         Lib_Cloudinary["cloudinary.ts<br/>Cloudinary SDK & Image Purge Engine"]
-        Lib_Cleanup["token-cleanup.ts<br/>Expired Password Reset Token Cleanup"]
+        Lib_Cleanup["token-cleanup.ts<br/>Expired PasswordReset & EmailVerification Token Cleanup"]
         Lib_Protection["use-content-protection.ts<br/>DevTools Overlay & Context Menu Blocker"]
     end
 
@@ -96,19 +99,21 @@ graph TB
         DB_OrderItem[("OrderItem Table")]
         DB_WebhookLog[("WebhookLog Table")]
         DB_PasswordResetToken[("PasswordResetToken Table")]
+        DB_EmailVerificationToken[("EmailVerificationToken Table")]
     end
 
     subgraph External_Services ["External Infrastructure & Third-Party APIs"]
         Ext_Neon[("Neon Serverless PostgreSQL")]
         Ext_SePay["SePay Payment Gateway / VietQR"]
         Ext_Cloudinary["Cloudinary Storage CDN"]
-        Ext_Gmail["Gmail SMTP Email Server"]
+        Ext_Brevo["Brevo SMTP Relay (smtp-relay.brevo.com)"]
         Ext_Google["Google OAuth 2.0 Identity Server"]
     end
 
     %% Client UI to State & Context
     Page_Home & Page_Catalog & Page_Detail --> Store_Cart
     Page_Catalog & Page_Detail & Page_Account --> Store_Fav
+    Page_Checkout --> Comp_AddressStep
     Admin_Products --> Hook_Upload
     Client_Storefront & Client_Admin -. Wrapper .-> Prov_Auth
     Client_Storefront & Client_Admin -. Wrapper .-> Prov_Protect
@@ -122,7 +127,8 @@ graph TB
     Page_Checkout --> API_Checkout
     Page_Checkout --> API_PaymentStatus
     Page_Checkout --> API_Claim
-    Page_Account --> API_User_Profile & API_User_Addresses & API_User_Favorites & API_User_Orders
+    Page_Checkout --> API_User_Addresses
+    Page_Account --> API_User_Profile & API_User_Addresses & API_User_Favorites & API_User_Orders & API_Auth_SendVerify
     Page_Reset --> API_Auth_Reset
     Page_Catalog & Page_Home --> API_Products_List
     Page_Detail --> API_Products_Detail
@@ -134,9 +140,9 @@ graph TB
     Admin_Settings --> API_Admin_Settings
 
     %% API Routes to Core Services
-    API_Auth_Reg & API_Auth_Next --> Lib_Auth
-    API_Auth_Forgot --> Lib_Email & Lib_DB
-    API_Auth_Reset --> Lib_DB
+    API_Auth_Reg & API_Auth_SendVerify & API_Auth_Forgot --> Lib_Email & Lib_DB
+    API_Auth_VerifyEmail & API_Auth_Reset --> Lib_DB
+    API_Auth_Next --> Lib_Auth
     API_Auth_Clean --> Lib_Cleanup
     
     API_Checkout --> Lib_SePay & Lib_DB
@@ -158,10 +164,10 @@ graph TB
     Lib_SePay --> Ext_SePay
     Ext_SePay -- "HMAC Post Callback" --> API_Webhook
 
-    Lib_Email --> Ext_Gmail
+    Lib_Email --> Ext_Brevo
     Lib_Cloudinary --> Ext_Cloudinary
 
-    Lib_Cleanup --> DB_PasswordResetToken
+    Lib_Cleanup --> DB_PasswordResetToken & DB_EmailVerificationToken
 
     %% Prisma Models Inter-Relations
     DB_User --- DB_LoyaltyTier

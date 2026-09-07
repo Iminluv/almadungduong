@@ -20,6 +20,7 @@ import {
   sendOrderConfirmation,
   sendClaimReceivedEmail,
   sendPasswordResetEmail,
+  sendEmailVerificationEmail,
   sendLoyaltyTierUpgradeEmail,
   sendAdminPaymentAlert,
   sendAdminClaimAlert,
@@ -136,6 +137,19 @@ describe('Email Service (Brevo SMTP Relay)', () => {
       to: 'user@example.com',
       subject: '[Alma Dungduong] Nâng cấp hạng thành viên thành công: Vàng',
       text: expect.stringContaining('Vàng'),
+    });
+  });
+
+  it('sends email verification email correctly', async () => {
+    mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-verify' });
+
+    await sendEmailVerificationEmail('user@example.com', 'http://localhost:3000/api/auth/verify-email?token=abc');
+
+    expect(mockSendMail).toHaveBeenCalledWith({
+      from: expect.stringContaining('cskh@almadungduong.com'),
+      to: 'user@example.com',
+      subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
+      text: expect.stringContaining('http://localhost:3000/api/auth/verify-email?token=abc'),
     });
   });
 

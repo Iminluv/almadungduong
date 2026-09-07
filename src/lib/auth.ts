@@ -41,6 +41,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             return null;
           }
 
+          // Check if email is verified
+          if (!user.emailVerified) {
+            throw new Error("EMAIL_NOT_VERIFIED");
+          }
+
           return {
             id: user.id,
             name: user.name,
@@ -80,7 +85,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 name: user.name || profile?.name,
                 image: user.image || (profile as any)?.picture,
                 loyaltyTierId: defaultTier?.id || null,
+                emailVerified: new Date(),
               },
+            });
+          } else if (!existingUser.emailVerified) {
+            // Auto-verify existing Google users if not verified
+            await prisma.user.update({
+              where: { id: existingUser.id },
+              data: { emailVerified: new Date() },
             });
           }
 

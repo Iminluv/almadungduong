@@ -3,8 +3,8 @@ graph TB
     subgraph Client_Presentation ["Presentation Layer (Next.js 16 + React 19 Client Components)"]
         UI_Home["Homepage Views & Carousels<br/>(HeroCarousel, MonthlyDeal, Testimonials)"]
         UI_Catalog["Product Catalog Views<br/>(ProductsContent, FilterSidebar, ProductDetailView)"]
-        UI_Checkout["Checkout Interface<br/>(thanh-toan, CheckoutModal, QR View)"]
-        UI_Account["Customer Dashboard<br/>(tai-khoan, Address Book, Favorites, Orders)"]
+        UI_Checkout["Checkout Interface<br/>(AddressStep, thanh-toan, CheckoutModal, QR View)"]
+        UI_Account["Customer Dashboard<br/>(tai-khoan, Address Book, Verification Notice, Favorites, Orders)"]
         UI_Admin["Admin Panel<br/>(AdminShell, DataTable, ImageEditor, SettingsForm)"]
     end
 
@@ -16,7 +16,7 @@ graph TB
     end
 
     subgraph API_Layer ["API Controller Layer (Next.js App Router API Routes)"]
-        API_Auth["/api/auth/*<br/>(register, forgot-password, reset-password, cleanup-tokens)"]
+        API_Auth["/api/auth/*<br/>(register, send-verification, verify-email, forgot-password, reset-password, cleanup-tokens)"]
         API_Checkout["/api/checkout<br/>(Order creation & SePay initialization)"]
         API_Payment["/api/payment-status/[transferCode]<br/>(Order status polling endpoint)"]
         API_Webhook["/api/sepay-webhook<br/>(SePay HMAC SHA256 Webhook Listener)"]
@@ -27,12 +27,12 @@ graph TB
     end
 
     subgraph Core_Services ["Core Services & Domain Libraries (src/lib)"]
-        Lib_Auth["auth.ts<br/>(NextAuth Config, Credentials + Google OAuth)"]
+        Lib_Auth["auth.ts<br/>(NextAuth Config, Credentials Email Verification Gate + Google OAuth)"]
         Lib_DB["db.ts<br/>(Prisma Postgres Singleton Adapter)"]
         Lib_SePay["sepay.ts<br/>(SePay API Client & VietQR Generator)"]
-        Lib_Email["email.ts<br/>(Gmail SMTP Nodemailer Engine)"]
+        Lib_Email["email.ts<br/>(Brevo SMTP Relay Nodemailer Engine)"]
         Lib_Cloudinary["cloudinary.ts<br/>(Cloudinary SDK & Asset Purger)"]
-        Lib_Cleanup["token-cleanup.ts<br/>(Expired Reset Token Purge)"]
+        Lib_Cleanup["token-cleanup.ts<br/>(Expired Reset & Verification Token Purge)"]
         Lib_Protection["use-content-protection.ts<br/>(DevTools detection & event restrictions)"]
     end
 
@@ -40,7 +40,7 @@ graph TB
         DB_Neon[("Neon PostgreSQL<br/>Serverless Database")]
         GW_SePay["SePay Payment Gateway<br/>(Bank Transfer Callback Engine)"]
         Cloud_Cloudinary["Cloudinary CDN<br/>(Product Media Storage)"]
-        SMTP_Gmail["Gmail SMTP Gateway<br/>(Transactional Emails)"]
+        SMTP_Brevo["Brevo SMTP Relay<br/>(cskh@almadungduong.com Transactional Emails)"]
         OAuth_Google["Google OAuth 2.0<br/>(Identity Provider)"]
     end
 
@@ -51,7 +51,9 @@ graph TB
     UI_Checkout --> API_Checkout
     UI_Checkout --> API_Payment
     UI_Checkout --> API_Claim
+    UI_Checkout --> API_User
     UI_Account --> API_User
+    UI_Account --> API_Auth
     UI_Admin --> API_Admin
     UI_Home & UI_Catalog & UI_Checkout & UI_Account & UI_Admin -.-> AuthProvider
     UI_Home & UI_Catalog & UI_Checkout & UI_Account & UI_Admin -.-> ProtProvider
@@ -77,7 +79,7 @@ graph TB
     Lib_Auth --> OAuth_Google
     Lib_DB --> DB_Neon
     Lib_SePay --> GW_SePay
-    Lib_Email --> SMTP_Gmail
+    Lib_Email --> SMTP_Brevo
     Lib_Cloudinary --> Cloud_Cloudinary
     Lib_Cleanup --> DB_Neon
     GW_SePay -- "HMAC Post Callback" --> API_Webhook
