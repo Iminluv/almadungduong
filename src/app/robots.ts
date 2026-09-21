@@ -11,9 +11,10 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           '/admin/',
           '/api/',
+          '/tai-khoan/',
           '/tai-khoan',
+          '/thanh-toan/',
           '/thanh-toan',
-          '/ket-qua',
         ],
       },
     ],
