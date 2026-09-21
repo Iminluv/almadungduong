@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import ProductDetailView from "./ProductDetailView";
 import { notFound } from "next/navigation";
@@ -8,6 +9,74 @@ interface PageProps {
 }
 
 export const revalidate = 60;
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  let product: any = null;
+  try {
+    product = await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        images: { take: 1, orderBy: { sortOrder: "asc" } },
+        category: true,
+      },
+    });
+  } catch (error) {
+    console.error(`Error fetching product for metadata (${slug}):`, error);
+  }
+
+  if (!product) {
+    return {
+      title: "Sản phẩm không tồn tại | Alma Dung Dưỡng",
+      description: "Sản phẩm không tồn tại hoặc đã ngừng kinh doanh.",
+    };
+  }
+
+  const title = `${product.title} — Mỹ phẩm Vi sinh Hoa Ngân | Alma Dung Dưỡng`;
+  const description =
+    product.description && product.description.trim().length > 0
+      ? product.description.slice(0, 155)
+      : `${product.title} — Mỹ phẩm vi sinh Hoa Ngân và mỹ phẩm thiên nhiên chính hãng tại Alma Dung Dưỡng.`;
+  const rawOgImage = product.images?.[0]?.url || product.image;
+  const ogImageUrl = getImageUrl(rawOgImage);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://almadungduong.com/san-pham/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://almadungduong.com/san-pham/${slug}`,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 800,
+          height: 800,
+          alt: `${product.title} — Mỹ phẩm Vi sinh Hoa Ngân`,
+        },
+      ],
+      locale: "vi_VN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
+    keywords: [
+      product.title,
+      "mỹ phẩm vi sinh Hoa Ngân",
+      "mỹ phẩm vi sinh",
+      "mỹ phẩm thiên nhiên",
+      product.category?.name || "chăm sóc da",
+      "Alma Dung Dưỡng",
+    ],
+  };
+}
 
 export async function generateStaticParams() {
   try {
@@ -63,5 +132,72 @@ export default async function ProductDetailPage({ params }: PageProps) {
     reviews: dbProduct.reviews,
   };
 
-  return <ProductDetailView product={product} />;
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description || `${product.title} — Mỹ phẩm Vi sinh Hoa Ngân`,
+    image: product.images.length > 0 ? product.images : [product.image],
+    brand: {
+      "@type": "Brand",
+      name: "Hoa Ngân",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "VND",
+      price: product.price,
+      availability: product.isPublished ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      url: `https://almadungduong.com/san-pham/${product.slug}`,
+    },
+    ...(product.reviews && product.reviews.length > 0 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: product.rating || 5,
+        reviewCount: product.reviewsCount || product.reviews.length,
+      },
+    }),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Trang chủ",
+        item: "https://almadungduong.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Sản phẩm",
+        item: "https://almadungduong.com/san-pham",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.title,
+        item: `https://almadungduong.com/san-pham/${product.slug}`,
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
+      <ProductDetailView product={product} />
+    </>
+  );
 }
