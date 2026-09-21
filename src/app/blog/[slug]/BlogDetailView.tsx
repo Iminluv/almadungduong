@@ -1,22 +1,26 @@
 "use client";
 
-import { blogPosts } from "@/lib/data";
+import { BlogPost, blogPosts } from "@/lib/data";
 import { useParams, notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function BlogDetailView() {
+interface Props {
+  post?: BlogPost;
+}
+
+export default function BlogDetailView({ post: initialPost }: Props) {
   const params = useParams();
-  const slug = params.slug as string;
+  const slug = params?.slug as string;
   
-  const post = blogPosts.find(p => p.id === slug);
+  const post = initialPost || blogPosts.find(p => p.id === slug);
   
   if (!post) {
     return notFound();
   }
 
-  const relatedPosts = blogPosts.filter(p => p.id !== slug).slice(0, 2);
+  const relatedPosts = blogPosts.filter(p => p.id !== (post.id || slug)).slice(0, 2);
 
   return (
     <main className="min-h-screen bg-bg">
