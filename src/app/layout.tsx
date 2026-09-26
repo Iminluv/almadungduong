@@ -35,23 +35,38 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://almadungduong.vn";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Alma Dungduong | Mỹ phẩm Vi sinh Hoa Ngân",
     template: "%s | Alma Dungduong"
   },
   description: "Trải nghiệm mỹ phẩm vi sinh tối giản, khoa học và hiệu quả cho làn da nguyên bản. Đồng hành cùng bạn tìm lại vẻ đẹp tự nhiên.",
   keywords: ["mỹ phẩm vi sinh", "alma dungduong", "chăm sóc da thảo dược", "phục hồi hệ vi sinh", "skincare thuần việt"],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+      { url: "/icons/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icons/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "Alma Dungduong | Mỹ phẩm Vi sinh Hoa Ngân",
     description: "Giải pháp chăm sóc da chuyên sâu dựa trên triết lý hệ vi sinh và thảo dược bản địa.",
-    url: "https://almadungduong.vn",
+    url: siteUrl,
     siteName: "Alma Dungduong",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
+        alt: "Alma Dung Dưỡng - Mỹ phẩm Vi sinh Hoa Ngân",
       },
     ],
     locale: "vi_VN",
@@ -59,8 +74,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alma Dungduong",
-    description: "Mỹ phẩm Vi sinh Hoa Ngân",
+    title: "Alma Dungduong | Mỹ phẩm Vi sinh Hoa Ngân",
+    description: "Giải pháp chăm sóc da chuyên sâu dựa trên triết lý hệ vi sinh và thảo dược bản địa.",
+    images: ["/og-image.jpg"],
   },
 };
 

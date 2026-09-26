@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -147,9 +148,21 @@ export function Header() {
         >
           <div className="container-custom h-full flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <span className="font-display font-bold text-xl md:text-2xl tracking-tight text-text">ALMA</span>
-              <span className="font-body font-normal text-[10px] md:text-sm tracking-[0.15em] text-text opacity-70 group-hover:opacity-100 transition-opacity">DUNGDUONG</span>
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="relative w-7 h-7 md:w-8 md:h-8 rounded-full overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/brand/web-icon-192.png"
+                  alt="Alma Dung Dưỡng"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="font-display font-bold text-xl md:text-2xl tracking-tight text-text">ALMA</span>
+                <span className="font-body font-normal text-[10px] md:text-sm tracking-[0.15em] text-text opacity-70 group-hover:opacity-100 transition-opacity">DUNGDUONG</span>
+              </div>
             </Link>
 
             {/* Desktop Nav */}

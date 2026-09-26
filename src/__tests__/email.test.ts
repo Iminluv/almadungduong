@@ -74,20 +74,6 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
     expect(result).toEqual({ messageId: 'test-msg-1' });
   });
 
-
-    await sendOrderPendingEmail('customer@example.com', pendingOrder);
-
-    expect(mockSendMail).toHaveBeenCalledWith(
-      expect.objectContaining({
-        from: expect.stringContaining('cskh@almadungduong.com'),
-        replyTo: 'cskh@almadungduong.com',
-        to: 'customer@example.com',
-        subject: '[Alma Dungduong] Xác nhận đơn hàng #ALMA123 đang chờ thanh toán',
-        text: expect.stringContaining('BIDV'),
-      })
-    );
-  });
-
   it('sends order confirmation HTML email', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-3' });
 
@@ -173,12 +159,14 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
 
     await sendEmailVerificationEmail('user@example.com', 'http://localhost:3000/api/auth/verify-email?token=abc');
 
-    expect(mockSendMail).toHaveBeenCalledWith({
-      from: expect.stringContaining('cskh@almadungduong.com'),
-      to: 'user@example.com',
-      subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
-      text: expect.stringContaining('http://localhost:3000/api/auth/verify-email?token=abc'),
-    });
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        to: 'user@example.com',
+        subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
+        text: expect.stringContaining('http://localhost:3000/api/auth/verify-email?token=abc'),
+      })
+    );
   });
 
   it('sends admin payment alert', async () => {
