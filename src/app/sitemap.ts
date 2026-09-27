@@ -5,45 +5,52 @@ import { blogPosts } from '@/lib/data';
 export const revalidate = 86400; // revalidate every 24 hours
 
 const BASE_URL = 'https://almadungduong.com';
+const STATIC_LAST_MODIFIED = new Date('2026-09-01');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // --- Static pages ---
+  // --- Static pages with tiered priorities & stable lastModified ---
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${BASE_URL}/san-pham`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
-      url: `${BASE_URL}/ve-chung-toi`,
-      lastModified: new Date(),
+      url: `${BASE_URL}/ket-qua`,
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: 'monthly',
       priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/ve-chung-toi`,
+      lastModified: STATIC_LAST_MODIFIED,
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
     {
       url: `${BASE_URL}/chung-chi`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: 'monthly',
-      priority: 0.6,
+      priority: 0.5,
     },
     {
       url: `${BASE_URL}/khach-hang-than-thiet`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: 'monthly',
-      priority: 0.6,
+      priority: 0.5,
     },
   ];
 
@@ -56,9 +63,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
     productRoutes = products.map((product) => ({
       url: `${BASE_URL}/san-pham/${product.slug}`,
-      lastModified: product.updatedAt,
+      lastModified: product.updatedAt || STATIC_LAST_MODIFIED,
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.8,
     }));
   } catch (error) {
     console.error('[sitemap] Failed to fetch product slugs:', error);
@@ -67,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // --- Static blog posts from data.ts ---
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${BASE_URL}/blog/${post.id}`,
-    lastModified: new Date(),
+    lastModified: STATIC_LAST_MODIFIED,
     changeFrequency: 'monthly',
     priority: 0.7,
   }));

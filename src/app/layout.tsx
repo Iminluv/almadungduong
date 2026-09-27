@@ -35,16 +35,27 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://almadungduong.vn";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://almadungduong.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Alma Dungduong | Mỹ phẩm Vi sinh Hoa Ngân",
-    template: "%s | Alma Dungduong"
+    template: "%s | Alma Dungduong",
   },
-  description: "Trải nghiệm mỹ phẩm vi sinh tối giản, khoa học và hiệu quả cho làn da nguyên bản. Đồng hành cùng bạn tìm lại vẻ đẹp tự nhiên.",
-  keywords: ["mỹ phẩm vi sinh", "alma dungduong", "chăm sóc da thảo dược", "phục hồi hệ vi sinh", "skincare thuần việt"],
+  description: "Trải nghiệm mỹ phẩm vi sinh thiên nhiên Hoa Ngân tối giản, khoa học và hiệu quả cho làn da nguyên bản. Đồng hành cùng bạn tìm lại vẻ đẹp tự nhiên.",
+  keywords: [
+    "mỹ phẩm vi sinh Hoa Ngân",
+    "mỹ phẩm vi sinh",
+    "mỹ phẩm thiên nhiên",
+    "alma dungduong",
+    "chăm sóc da thảo dược",
+    "phục hồi hệ vi sinh",
+    "skincare thuần việt",
+  ],
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -66,7 +77,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Alma Dung Dưỡng - Mỹ phẩm Vi sinh Hoa Ngân",
+        alt: "Alma Dung Dưỡng — Mỹ phẩm Vi sinh Hoa Ngân",
       },
     ],
     locale: "vi_VN",
@@ -80,6 +91,15 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Alma Dung Dưỡng",
+  alternateName: "Mỹ phẩm Vi sinh Hoa Ngân",
+  url: siteUrl,
+  logo: `${siteUrl}/og-image.jpg`,
+  sameAs: [],
+};
 
 export default function RootLayout({
   children,
@@ -90,6 +110,12 @@ export default function RootLayout({
     <html lang="vi">
       <head>
         <meta name="robots" content="noai, noimageai" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${playfair.variable} ${lora.variable} ${cormorant.variable} antialiased bg-bg text-text font-body selection:bg-accent selection:text-white`}
