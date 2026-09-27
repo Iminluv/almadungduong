@@ -57,7 +57,7 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
     consoleSpy.mockRestore();
   });
 
-  it('sends welcome email correctly', async () => {
+  it('sends welcome email correctly with rich HTML and text', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-1' });
 
     const result = await sendWelcomeEmail('user@example.com', 'Nguyen Van A');
@@ -68,13 +68,14 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         replyTo: 'cskh@almadungduong.com',
         to: 'user@example.com',
         subject: '[Alma Dungduong] Đăng ký tài khoản thành công',
-        text: expect.stringContaining('Chào Nguyen Van A'),
+        html: expect.stringContaining('Nguyen Van A'),
+        text: expect.stringContaining('Nguyen Van A'),
       })
     );
     expect(result).toEqual({ messageId: 'test-msg-1' });
   });
 
-  it('sends order pending email correctly', async () => {
+  it('sends order pending email correctly with rich HTML bank instructions', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-2' });
 
     const pendingOrder = {
@@ -103,12 +104,13 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         replyTo: 'cskh@almadungduong.com',
         to: 'customer@example.com',
         subject: '[Alma Dungduong] Xác nhận đơn hàng #ALMA123 đang chờ thanh toán',
+        html: expect.stringContaining('BIDV'),
         text: expect.stringContaining('BIDV'),
       })
     );
   });
 
-  it('sends order confirmation HTML email', async () => {
+  it('sends order confirmation HTML email with botanical layout', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-3' });
 
     const confirmedOrder = {
@@ -140,7 +142,7 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
     );
   });
 
-  it('sends claim received email', async () => {
+  it('sends claim received email with rich HTML and text', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-4' });
 
     await sendClaimReceivedEmail('customer@example.com', 'ALMA789');
@@ -151,12 +153,13 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         replyTo: 'cskh@almadungduong.com',
         to: 'customer@example.com',
         subject: '[Alma Dungduong] Nhận yêu cầu xác minh giao dịch thủ công #ALMA789',
+        html: expect.stringContaining('ALMA789'),
         text: expect.stringContaining('ALMA789'),
       })
     );
   });
 
-  it('sends password reset email', async () => {
+  it('sends password reset email with security styling', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-5' });
 
     await sendPasswordResetEmail('user@example.com', 'https://almadungduong.com/reset?token=123');
@@ -167,12 +170,13 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         replyTo: 'cskh@almadungduong.com',
         to: 'user@example.com',
         subject: '[Alma Dungduong] Yêu cầu đặt lại mật khẩu tài khoản',
+        html: expect.stringContaining('https://almadungduong.com/reset?token=123'),
         text: expect.stringContaining('https://almadungduong.com/reset?token=123'),
       })
     );
   });
 
-  it('sends loyalty tier upgrade email', async () => {
+  it('sends loyalty tier upgrade email with VIP celebration', async () => {
     mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-6' });
 
     await sendLoyaltyTierUpgradeEmail('user@example.com', 'Hoang D', 'Vàng');
@@ -183,6 +187,7 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         replyTo: 'cskh@almadungduong.com',
         to: 'user@example.com',
         subject: '[Alma Dungduong] Nâng cấp hạng thành viên thành công: Vàng',
+        html: expect.stringContaining('Vàng'),
         text: expect.stringContaining('Vàng'),
       })
     );
@@ -207,6 +212,7 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         replyTo: 'cskh@almadungduong.com',
         to: 'almadungduong@gmail.com',
         subject: '[Alma Admin] Thanh toán đơn hàng #ALMA999 thành công',
+        html: expect.stringContaining('ALMA999'),
         text: expect.stringContaining('ALMA999'),
       })
     );
@@ -232,6 +238,7 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         replyTo: 'cskh@almadungduong.com',
         to: 'almadungduong@gmail.com',
         subject: '[Alma Admin] Yêu cầu xác minh thủ công #ALMA888',
+        html: expect.stringContaining('ALMA888'),
         text: expect.stringContaining('ALMA888'),
       })
     );
