@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
+import crypto from "crypto";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
-import { sendWelcomeEmail } from "@/lib/email";
+import { sendEmailVerificationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
       orderBy: { sortOrder: "asc" },
     });
 
-    // Create user
+    // Create user with emailVerified: null
     const user = await prisma.user.create({
       data: {
         name,
@@ -46,14 +47,34 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send welcome email (awaited to prevent Vercel Serverless Function premature context cancellation)
-    await sendWelcomeEmail(user.email, user.name || "").catch((err) => {
-      console.error("Failed to send welcome email:", err);
+    // Generate verification token (expires in 1 hour)
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+
+    await prisma.emailVerificationToken.create({
+      data: {
+        email: user.email,
+        token,
+        expiresAt,
+      },
+    });
+
+    // Build verification URL
+    const host = request.headers.get('host') || 'localhost:3000';
+    const protocol = request.headers.get('x-forwarded-proto') || 'http';
+    const origin = `${protocol}://${host}`;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || origin;
+    const verifyUrl = `${baseUrl}/api/auth/verify-email?token=${token}`;
+
+    // Send email verification link
+    await sendEmailVerificationEmail(user.email, verifyUrl).catch((err) => {
+      console.error("Failed to send email verification email:", err);
     });
 
     return NextResponse.json(
       {
-        message: "Đăng ký tài khoản thành công.",
+        message: "Đăng ký tài khoản thành công. Vui lòng kiểm tra email để xác thực tài khoản.",
+        requiresVerification: true,
         user: {
           id: user.id,
           name: user.name,

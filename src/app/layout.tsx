@@ -35,23 +35,49 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://almadungduong.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Alma Dungduong | Mỹ phẩm Vi sinh Hoa Ngân",
-    template: "%s | Alma Dungduong"
+    template: "%s | Alma Dungduong",
   },
-  description: "Trải nghiệm mỹ phẩm vi sinh tối giản, khoa học và hiệu quả cho làn da nguyên bản. Đồng hành cùng bạn tìm lại vẻ đẹp tự nhiên.",
-  keywords: ["mỹ phẩm vi sinh", "alma dungduong", "chăm sóc da thảo dược", "phục hồi hệ vi sinh", "skincare thuần việt"],
+  description: "Trải nghiệm mỹ phẩm vi sinh thiên nhiên Hoa Ngân tối giản, khoa học và hiệu quả cho làn da nguyên bản. Đồng hành cùng bạn tìm lại vẻ đẹp tự nhiên.",
+  keywords: [
+    "mỹ phẩm vi sinh Hoa Ngân",
+    "mỹ phẩm vi sinh",
+    "mỹ phẩm thiên nhiên",
+    "alma dungduong",
+    "chăm sóc da thảo dược",
+    "phục hồi hệ vi sinh",
+    "skincare thuần việt",
+  ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/icon.png?v=2", type: "image/png", sizes: "32x32" },
+      { url: "/icons/icon-192.png?v=2", type: "image/png", sizes: "192x192" },
+      { url: "/icons/icon-512.png?v=2", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-icon.png?v=2", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "Alma Dungduong | Mỹ phẩm Vi sinh Hoa Ngân",
     description: "Giải pháp chăm sóc da chuyên sâu dựa trên triết lý hệ vi sinh và thảo dược bản địa.",
-    url: "https://almadungduong.vn",
+    url: siteUrl,
     siteName: "Alma Dungduong",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
+        alt: "Alma Dung Dưỡng — Mỹ phẩm Vi sinh Hoa Ngân",
       },
     ],
     locale: "vi_VN",
@@ -59,11 +85,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alma Dungduong",
-    description: "Mỹ phẩm Vi sinh Hoa Ngân",
+    title: "Alma Dungduong | Mỹ phẩm Vi sinh Hoa Ngân",
+    description: "Giải pháp chăm sóc da chuyên sâu dựa trên triết lý hệ vi sinh và thảo dược bản địa.",
+    images: ["/og-image.jpg"],
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Alma Dung Dưỡng",
+  alternateName: "Mỹ phẩm Vi sinh Hoa Ngân",
+  url: siteUrl,
+  logo: `${siteUrl}/og-image.jpg`,
+  sameAs: [],
+};
 
 export default function RootLayout({
   children,
@@ -74,6 +110,12 @@ export default function RootLayout({
     <html lang="vi">
       <head>
         <meta name="robots" content="noai, noimageai" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${playfair.variable} ${lora.variable} ${cormorant.variable} antialiased bg-bg text-text font-body selection:bg-accent selection:text-white`}

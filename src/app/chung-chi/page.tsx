@@ -2,8 +2,17 @@ import { Metadata } from "next";
 import ChungChiView from "./ChungChiView";
 
 export const metadata: Metadata = {
-  title: "Giấy Kiểm Nghiệm & Chứng Nhận Chất Lượng — Alma Dungduong",
-  description: "Minh bạch hóa các giấy công bố sản phẩm từ Sở Y Tế, phiếu kết quả thử nghiệm không kích ứng và kiểm nghiệm chỉ số chống nắng theo tiêu chuẩn FDA.",
+  title: "Chứng Nhận & Kiểm Nghiệm Mỹ phẩm Vi sinh Hoa Ngân | Alma Dung Dưỡng",
+  description: "Minh bạch chứng nhận kiểm nghiệm Sở Y Tế, tiêu chuẩn an toàn cho dòng mỹ phẩm vi sinh và mỹ phẩm thiên nhiên Hoa Ngân.",
+  alternates: {
+    canonical: "https://almadungduong.com/chung-chi",
+  },
+  keywords: [
+    "chứng nhận mỹ phẩm vi sinh",
+    "kiểm nghiệm hoa ngân",
+    "mỹ phẩm vi sinh Hoa Ngân",
+    "mỹ phẩm thiên nhiên an toàn",
+  ],
 };
 
 export default function ChungChiPage() {

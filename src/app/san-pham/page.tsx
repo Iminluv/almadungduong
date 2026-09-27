@@ -1,9 +1,34 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ProductsContent } from "./ProductsContent";
 import { prisma } from "@/lib/db";
 import { getImageUrl } from "@/lib/utils";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Mỹ phẩm Vi sinh Hoa Ngân — Toàn Bộ Sản Phẩm | Alma Dung Dưỡng",
+  description:
+    "Khám phá bộ sưu tập mỹ phẩm vi sinh Hoa Ngân và mỹ phẩm thiên nhiên chính hãng: nước dưỡng, serum phục hồi và kem dưỡng cân bằng hệ vi sinh da.",
+  alternates: {
+    canonical: "https://almadungduong.com/san-pham",
+  },
+  keywords: [
+    "mỹ phẩm vi sinh Hoa Ngân",
+    "mỹ phẩm vi sinh",
+    "mỹ phẩm thiên nhiên",
+    "serum vi sinh",
+    "kem dưỡng vi sinh",
+    "alma dung dưỡng",
+  ],
+  openGraph: {
+    title: "Mỹ phẩm Vi sinh Hoa Ngân — Toàn Bộ Sản Phẩm | Alma Dung Dưỡng",
+    description:
+      "Khám phá bộ sưu tập mỹ phẩm vi sinh Hoa Ngân và mỹ phẩm thiên nhiên chính hãng: nước dưỡng, serum phục hồi và kem dưỡng cân bằng hệ vi sinh da.",
+    url: "https://almadungduong.com/san-pham",
+    type: "website",
+  },
+};
 
 export default async function ProductsPage() {
   let dbProducts: any[] = [];

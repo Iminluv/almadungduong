@@ -17,10 +17,10 @@ vi.mock('nodemailer', () => {
 // Import email library after mocking nodemailer
 import {
   sendWelcomeEmail,
-  sendOrderPendingEmail,
   sendOrderConfirmation,
   sendClaimReceivedEmail,
   sendPasswordResetEmail,
+  sendEmailVerificationEmail,
   sendLoyaltyTierUpgradeEmail,
   sendAdminPaymentAlert,
   sendAdminClaimAlert,
@@ -44,7 +44,7 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
 
   it('skips email sending if SMTP_PASS is not set', async () => {
     delete process.env.SMTP_PASS;
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
 
     const result = await sendWelcomeEmail('user@example.com', 'Test User');
 
@@ -189,6 +189,21 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
         subject: '[Alma Dungduong] Nâng cấp hạng thành viên thành công: Vàng',
         html: expect.stringContaining('Vàng'),
         text: expect.stringContaining('Vàng'),
+      })
+    );
+  });
+
+  it('sends email verification email correctly', async () => {
+    mockSendMail.mockResolvedValueOnce({ messageId: 'test-msg-verify' });
+
+    await sendEmailVerificationEmail('user@example.com', 'http://localhost:3000/api/auth/verify-email?token=abc');
+
+    expect(mockSendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: expect.stringContaining('cskh@almadungduong.com'),
+        to: 'user@example.com',
+        subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
+        text: expect.stringContaining('http://localhost:3000/api/auth/verify-email?token=abc'),
       })
     );
   });

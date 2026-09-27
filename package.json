@@ -16,7 +16,9 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:sync-custom": "tsx prisma/sync_custom.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "generate:brand": "tsx scripts/generate-brand-assets.ts",
+    "sync:brand": "tsx scripts/sync-brand-assets.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

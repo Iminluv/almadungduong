@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 
@@ -143,9 +144,15 @@ export default function AdminSidebar({ isOpen, onClose, adminEmail }: AdminSideb
       <div className="h-16 flex items-center justify-between px-6 border-b border-[#FAF8F5]/10">
         <div className="flex items-center gap-2.5">
           {/* Logo Mark */}
-          <span className="w-5 h-5 bg-[#1A4331] text-[#FAF8F5] flex items-center justify-center font-bold text-xs rounded-[2px]">
-            ◆
-          </span>
+          <div className="relative w-6 h-6 rounded-full overflow-hidden shrink-0">
+            <Image
+              src="/brand/web-icon-192.png"
+              alt="Alma Dung Dưỡng"
+              width={24}
+              height={24}
+              className="w-full h-full object-cover"
+            />
+          </div>
           <span className="font-display font-bold text-sm tracking-widest text-[#FAF8F5] uppercase">
             Alma Admin
           </span>

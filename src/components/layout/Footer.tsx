@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export function Footer() {
@@ -17,9 +18,20 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Brand Info */}
           <div className="lg:col-span-2">
-            <div className="mb-6">
-              <span className="font-display font-bold text-xl tracking-tight text-white block">ALMA DUNGDUONG</span>
-              <span className="text-xs tracking-[0.12em] uppercase opacity-60">Dung dưỡng làn da khỏe mạnh từ bên trong</span>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-white/20">
+                <Image
+                  src="/brand/web-icon-192.png"
+                  alt="Alma Dung Dưỡng"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="font-display font-bold text-xl tracking-tight text-white block">ALMA DUNGDUONG</span>
+                <span className="text-xs tracking-[0.12em] uppercase opacity-60">Dung dưỡng làn da khỏe mạnh từ bên trong</span>
+              </div>
             </div>
 
             <p className="font-serif italic text-lg text-white/60 max-w-sm mb-8">
