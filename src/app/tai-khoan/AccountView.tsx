@@ -55,6 +55,7 @@ interface UserProfile {
   name: string | null;
   email: string;
   phone: string | null;
+  phoneVerified: string | null;
   image: string | null;
   totalSpent: number;
   createdAt: string;
@@ -246,6 +247,39 @@ export default function AccountView() {
       fetchOrders();
     }
   }, [activeTab, status]);
+
+  const openPhoneVerificationPopup = () => {
+    if (typeof window === "undefined") return;
+    const width = 440;
+    const height = 560;
+    const left = Math.max(0, (window.innerWidth - width) / 2 + window.screenX);
+    const top = Math.max(0, (window.innerHeight - height) / 2 + window.screenY);
+    window.open(
+      "/xac-thuc-sdt",
+      "PhoneVerification",
+      `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=no`
+    );
+  };
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.type === "PHONE_VERIFIED") {
+        fetchProfile();
+      }
+    };
+    const handleFocus = () => {
+      if (status === "authenticated") {
+        fetchProfile();
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("focus", handleFocus);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [status]);
 
   // Handle URL query parameters for email verification result
   useEffect(() => {
@@ -950,6 +984,30 @@ export default function AccountView() {
                         )}
                       </div>
 
+                      {/* Phone Verification Nudge Card */}
+                      {!profile?.phoneVerified && (
+                        <div className="bg-amber-50/70 border border-amber-200/80 p-5 shadow-sm md:col-span-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 rounded-[2px]">
+                          <div className="flex items-center gap-3.5">
+                            <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
+                              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <h4 className="text-sm font-semibold text-navy">Xác thực số điện thoại để nhận quà & bảo vệ tài khoản</h4>
+                              <p className="text-xs text-black/60 mt-0.5">Liên kết số điện thoại để kích hoạt voucher ưu đãi và bảo mật tài khoản tốt hơn.</p>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={openPhoneVerificationPopup}
+                            className="bg-[#2D5A27] text-white px-5 py-2.5 text-[10px] font-bold uppercase tracking-wider hover:bg-[#23461e] transition-colors shrink-0 rounded-[2px]"
+                          >
+                            Xác thực ngay
+                          </button>
+                        </div>
+                      )}
+
                       {/* Mini Orders Card */}
                       <div className="bg-white border border-surface p-6 shadow-sm md:col-span-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div className="space-y-1">
@@ -1308,7 +1366,30 @@ export default function AccountView() {
                             />
                           </div>
                           <div className="space-y-1">
-                            <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Số điện thoại</label>
+                            <div className="flex items-center justify-between">
+                              <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Số điện thoại</label>
+                              {profile?.phoneVerified ? (
+                                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#2D5A27] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                  Đã xác thực
+                                </span>
+                              ) : (
+                                <div className="flex items-center gap-2">
+                                  <span className="inline-flex items-center text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                                    Chưa xác thực
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={openPhoneVerificationPopup}
+                                    className="text-[11px] font-semibold text-[#2D5A27] hover:underline cursor-pointer"
+                                  >
+                                    Xác thực ngay
+                                  </button>
+                                </div>
+                              )}
+                            </div>
                             <input
                               type="tel"
                               className="w-full bg-transparent border-b border-text/10 py-2 focus:border-accent outline-none text-sm"
