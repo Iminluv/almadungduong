@@ -6,7 +6,7 @@ import { prisma } from '@/lib/db';
  */
 export async function cleanupExpiredTokens(): Promise<number> {
   try {
-    const [passwordTokens, emailTokens] = await Promise.all([
+    const [passwordTokens, emailTokens, phoneTokens] = await Promise.all([
       prisma.passwordResetToken.deleteMany({
         where: {
           expiresAt: {
@@ -21,8 +21,15 @@ export async function cleanupExpiredTokens(): Promise<number> {
           },
         },
       }),
+      prisma.phoneOtpToken.deleteMany({
+        where: {
+          expiresAt: {
+            lt: new Date(),
+          },
+        },
+      }),
     ]);
-    return passwordTokens.count + emailTokens.count;
+    return passwordTokens.count + emailTokens.count + phoneTokens.count;
   } catch (error) {
     console.error("Error cleaning up expired tokens:", error);
     return 0;
