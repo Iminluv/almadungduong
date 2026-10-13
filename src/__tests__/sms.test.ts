@@ -192,4 +192,78 @@ describe('Provider Sandbox & Error Handling', () => {
 
     process.env.BIRD_API_KEY = originalKey;
   });
+
+  it('eSMS auto-resolves SmsType to 8 when type is invalid or brandname is empty', async () => {
+    const originalSandbox = process.env.ESMS_SANDBOX;
+    const originalApiKey = process.env.ESMS_API_KEY;
+    const originalSecret = process.env.ESMS_SECRET_KEY;
+    const originalType = process.env.ESMS_SMS_TYPE;
+    const originalBrand = process.env.ESMS_BRANDNAME;
+
+    process.env.ESMS_SANDBOX = 'false';
+    process.env.ESMS_API_KEY = 'test-api-key';
+    process.env.ESMS_SECRET_KEY = 'test-secret';
+    process.env.ESMS_SMS_TYPE = '4'; // Deprecated/invalid type 4
+    process.env.ESMS_BRANDNAME = '';
+
+    let capturedPayload: any = null;
+    let capturedUrl: string = '';
+
+    global.fetch = vi.fn().mockImplementation((url, options) => {
+      capturedUrl = url;
+      capturedPayload = JSON.parse(options.body);
+      return Promise.resolve({
+        json: async () => ({ CodeResult: '100', SMSID: 'test-sms-123' }),
+      });
+    }) as any;
+
+    const esmsProvider = new EsmsSmsProvider();
+    const result = await esmsProvider.sendOtp('+84912345678', '123456');
+
+    expect(result.success).toBe(true);
+    expect(capturedUrl).toBe('https://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json');
+    expect(capturedPayload.SmsType).toBe('8'); // Auto-corrected from 4 to 8
+
+    process.env.ESMS_SANDBOX = originalSandbox;
+    process.env.ESMS_API_KEY = originalApiKey;
+    process.env.ESMS_SECRET_KEY = originalSecret;
+    process.env.ESMS_SMS_TYPE = originalType;
+    process.env.ESMS_BRANDNAME = originalBrand;
+  });
+
+  it('eSMS auto-resolves SmsType to 2 when Brandname is configured', async () => {
+    const originalSandbox = process.env.ESMS_SANDBOX;
+    const originalApiKey = process.env.ESMS_API_KEY;
+    const originalSecret = process.env.ESMS_SECRET_KEY;
+    const originalType = process.env.ESMS_SMS_TYPE;
+    const originalBrand = process.env.ESMS_BRANDNAME;
+
+    process.env.ESMS_SANDBOX = 'false';
+    process.env.ESMS_API_KEY = 'test-api-key';
+    process.env.ESMS_SECRET_KEY = 'test-secret';
+    delete process.env.ESMS_SMS_TYPE;
+    process.env.ESMS_BRANDNAME = 'ALMADUNGDUONG';
+
+    let capturedPayload: any = null;
+
+    global.fetch = vi.fn().mockImplementation((_url, options) => {
+      capturedPayload = JSON.parse(options.body);
+      return Promise.resolve({
+        json: async () => ({ CodeResult: '100', SMSID: 'test-sms-456' }),
+      });
+    }) as any;
+
+    const esmsProvider = new EsmsSmsProvider();
+    const result = await esmsProvider.sendOtp('+84912345678', '654321');
+
+    expect(result.success).toBe(true);
+    expect(capturedPayload.SmsType).toBe('2'); // Resolved to 2 for brandname
+    expect(capturedPayload.Brandname).toBe('ALMADUNGDUONG');
+
+    process.env.ESMS_SANDBOX = originalSandbox;
+    process.env.ESMS_API_KEY = originalApiKey;
+    process.env.ESMS_SECRET_KEY = originalSecret;
+    process.env.ESMS_SMS_TYPE = originalType;
+    process.env.ESMS_BRANDNAME = originalBrand;
+  });
 });
