@@ -66,18 +66,7 @@ export async function sendWelcomeEmail(toEmail: string, name: string) {
   });
 }
 
-/**
- * Sends an email when order is created and waiting for bank transfer
- */
-export async function sendOrderPendingEmail(toEmail: string, order: OrderPendingEmailData) {
-  const { html, text } = renderOrderPendingEmail(order);
-  return sendEmail({
-    to: toEmail,
-    subject: `[Alma Dungduong] Xác nhận đơn hàng #${order.transferCode} đang chờ thanh toán`,
-    html,
-    text,
-  });
-}
+
 
 /**
  * Sends a stylized HTML email confirming successful transaction processing.
@@ -113,6 +102,41 @@ export async function sendPasswordResetEmail(toEmail: string, resetUrl: string) 
   return sendEmail({
     to: toEmail,
     subject: '[Alma Dungduong] Yêu cầu đặt lại mật khẩu tài khoản',
+    html,
+    text,
+  });
+}
+
+/**
+ * Sends an email verification link
+ */
+export async function sendEmailVerificationEmail(toEmail: string, verifyUrl: string) {
+  const text = `Xin chào,
+
+Cảm ơn bạn đã đăng ký tài khoản tại Alma Dungduong!
+Vui lòng nhấn vào liên kết dưới đây để xác thực địa chỉ email và hoàn tất đăng ký tài khoản:
+
+${verifyUrl}
+
+Liên kết này chỉ có hiệu lực trong vòng 1 giờ kể từ thời điểm gửi. Nếu bạn không yêu cầu đăng ký tài khoản này, vui lòng an tâm bỏ qua email này.
+
+Alma Dungduong Support Team`;
+
+  const html = `
+    <div style="font-family: 'Inter', system-ui, -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #eaeaea; border-radius: 8px;">
+      <h2 style="color: #1a1a1a; margin-bottom: 16px;">Xác thực tài khoản Alma Dungduong</h2>
+      <p style="color: #4a4a4a; font-size: 15px; line-height: 1.6;">Cảm ơn bạn đã đăng ký tài khoản tại Alma Dungduong. Vui lòng bấm vào nút bên dưới để xác thực địa chỉ email của bạn:</p>
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${verifyUrl}" style="background-color: #2D5A27; color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block;">Xác thực email</a>
+      </div>
+      <p style="color: #777; font-size: 13px; line-height: 1.5;">Hoặc sao chép đường dẫn sau vào trình duyệt:<br/><a href="${verifyUrl}" style="color: #2D5A27; word-break: break-all;">${verifyUrl}</a></p>
+      <p style="color: #999; font-size: 12px; margin-top: 24px; border-top: 1px solid #eee; padding-top: 16px;">Liên kết này có hiệu lực trong vòng 1 giờ. Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email.</p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: toEmail,
+    subject: '[Alma Dungduong] Xác thực địa chỉ email tài khoản',
     html,
     text,
   });

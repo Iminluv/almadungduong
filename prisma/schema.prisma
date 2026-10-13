@@ -127,6 +127,7 @@ model User {
   email           String    @unique
   emailVerified   DateTime?
   phone           String?
+  phoneVerified   DateTime?
   image           String?
   hashedPassword  String?                // null for Google-only users
   role            String    @default("user")
@@ -138,6 +139,7 @@ model User {
   addresses       Address[]
   favorites       Favorite[]
   orders          Order[]
+  phoneOtpTokens  PhoneOtpToken[]
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
@@ -263,6 +265,22 @@ model EmailVerificationToken {
   createdAt DateTime  @default(now())
 
   @@index([email])
+  @@index([expiresAt])
+}
+
+model PhoneOtpToken {
+  id           String    @id @default(cuid())
+  phone        String                      // normalized E.164 (+84...)
+  otp          String                      // bcrypt hash of 6-digit code
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  providerUsed String?                     // 'bird' | 'esms'
+  expiresAt    DateTime                    // now() + 10 minutes
+  usedAt       DateTime?                   // consumed timestamp
+  createdAt    DateTime  @default(now())
+
+  @@index([phone])
+  @@index([userId])
   @@index([expiresAt])
 }
 

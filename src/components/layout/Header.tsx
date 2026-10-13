@@ -42,8 +42,22 @@ export function Header() {
 
   const messages = [
     "FREE SHIP cho đơn từ 1.000.000đ  ·  Đồng hành 1:1 miễn phí đến khi da đẹp",
-    "Nhận quà ngay khi Đăng ký thành viên tại đây"
+    "Nhận quà ngay khi Đăng ký thành viên tại đây",
+    "🎁 Xác thực số điện thoại để nhận quà & bảo vệ tài khoản",
   ];
+
+  const openPhoneVerificationPopup = () => {
+    if (typeof window === "undefined") return;
+    const width = 440;
+    const height = 560;
+    const left = Math.max(0, (window.innerWidth - width) / 2 + window.screenX);
+    const top = Math.max(0, (window.innerHeight - height) / 2 + window.screenY);
+    window.open(
+      "/xac-thuc-sdt",
+      "PhoneVerification",
+      `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=no`
+    );
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -81,7 +95,7 @@ export function Header() {
     sessionStorage.setItem("announcement-closed", "true");
   };
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/admin") || pathname.startsWith("/xac-thuc-sdt")) {
     return null;
   }
 
@@ -112,20 +126,32 @@ export function Header() {
                       >
                         {currentMessageIndex === 0 ? (
                           messages[0]
-                        ) : session?.user ? (
-                          <>
-                            Chào mừng bạn trở lại, xem ưu đãi thành viên{" "}
-                            <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
-                              tại đây
-                            </Link>
-                          </>
+                        ) : currentMessageIndex === 1 ? (
+                          session?.user ? (
+                            <>
+                              Chào mừng bạn trở lại, xem ưu đãi thành viên{" "}
+                              <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
+                                tại đây
+                              </Link>
+                            </>
+                          ) : (
+                            <>
+                              Nhận quà ngay khi Đăng ký thành viên{" "}
+                              <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
+                                tại đây
+                              </Link>
+                            </>
+                          )
                         ) : (
-                          <>
-                            Nhận quà ngay khi Đăng ký thành viên{" "}
-                            <Link href="/tai-khoan" className="underline underline-offset-2 hover:text-accent transition-colors">
-                              tại đây
-                            </Link>
-                          </>
+                          <span className="inline-flex items-center gap-1.5">
+                            <span>🎁 Xác thực số điện thoại để nhận voucher & bảo vệ tài khoản</span>
+                            <button
+                              onClick={openPhoneVerificationPopup}
+                              className="underline underline-offset-2 hover:text-accent font-semibold transition-colors cursor-pointer ml-1"
+                            >
+                              Xác thực ngay
+                            </button>
+                          </span>
                         )}
                       </motion.div>
                     </AnimatePresence>
