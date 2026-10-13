@@ -5,9 +5,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prismaClientSingleton = () => {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-  pool.on('connect', (client) => {
-    client.query("SET timezone='UTC'");
-  });
   const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });
 };

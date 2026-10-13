@@ -173,12 +173,21 @@ export class EsmsSmsProvider implements SmsProvider {
 
     const nationalPhone = toNationalPhone(phone);
     const content = `[Alma Dungduong] Ma OTP cua ban la ${otp}. Ma co hieu luc trong 10 phut.`;
-    const smsType = process.env.ESMS_SMS_TYPE || '4';
-    const brandname = process.env.ESMS_BRANDNAME || '';
+    const brandname = process.env.ESMS_BRANDNAME?.trim() || '';
+
+    // eSMS V4 API:
+    // SmsType '2' = Brandname CSKH/OTP (requires registered Brandname)
+    // SmsType '8' = Generic fixed number (đầu số cố định 10 số, không cần Brandname)
+    // If configured type is '4' (invalid in eSMS API V4) or missing, auto-select based on brandname
+    let configuredType = process.env.ESMS_SMS_TYPE?.trim();
+    if (configuredType === '4' || !configuredType) {
+      configuredType = brandname ? '2' : '8';
+    }
+    const smsType = configuredType;
 
     try {
       const response = await fetch(
-        'http://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json',
+        'https://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json',
         {
           method: 'POST',
           headers: {
