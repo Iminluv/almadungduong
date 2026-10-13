@@ -83,7 +83,6 @@ export default function AccountView() {
 
   const [registerName, setRegisterName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPhone, setRegisterPhone] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
 
   const handleForgotPassword = async (e: React.FormEvent) => {
@@ -360,7 +359,6 @@ export default function AccountView() {
         body: JSON.stringify({
           name: registerName,
           email: registerEmail,
-          phone: registerPhone,
           password: registerPassword,
         }),
       });
@@ -373,7 +371,6 @@ export default function AccountView() {
         setRegisteredEmailSent(registerEmail);
         setRegisterName("");
         setRegisterEmail("");
-        setRegisterPhone("");
         setRegisterPassword("");
       }
     } catch (e) {
@@ -786,16 +783,6 @@ export default function AccountView() {
                       value={registerEmail}
                       onChange={(e) => setRegisterEmail(e.target.value)}
                       required
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Số điện thoại</label>
-                    <input
-                      type="tel"
-                      className="w-full bg-transparent border-b border-text/20 py-2 focus:border-accent outline-none transition-colors text-sm"
-                      placeholder="09XXXXXXXX"
-                      value={registerPhone}
-                      onChange={(e) => setRegisterPhone(e.target.value)}
                     />
                   </div>
                   <div className="space-y-1">

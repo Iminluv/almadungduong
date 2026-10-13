@@ -7,7 +7,7 @@ import { sendEmailVerificationEmail } from "@/lib/email";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, password } = body;
+    const { name, email, password } = body;
 
     if (!email || !password) {
       return NextResponse.json(
@@ -36,12 +36,12 @@ export async function POST(request: Request) {
       orderBy: { sortOrder: "asc" },
     });
 
-    // Create user with emailVerified: null
+    // Create user with emailVerified: null and phone: null
     const user = await prisma.user.create({
       data: {
         name,
         email,
-        phone,
+        phone: null,
         hashedPassword,
         loyaltyTierId: defaultTier?.id || null,
       },
