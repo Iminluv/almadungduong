@@ -24,7 +24,7 @@ export function ChatWidget() {
     };
   }, []);
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/admin") || pathname.startsWith("/xac-thuc-sdt")) {
     return null;
   }
 
