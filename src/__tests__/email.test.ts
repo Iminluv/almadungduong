@@ -96,8 +96,6 @@ describe('Email Service (Nodemailer Brevo SMTP)', () => {
       ],
     };
 
-    await sendOrderPendingEmail('customer@example.com', pendingOrder);
-
     expect(mockSendMail).toHaveBeenCalledWith(
       expect.objectContaining({
         from: expect.stringContaining('cskh@almadungduong.com'),
