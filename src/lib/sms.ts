@@ -91,27 +91,57 @@ export class BirdSmsProvider implements SmsProvider {
     }
 
     const originator = (process.env.BIRD_ORIGINATOR || 'Alma').slice(0, 11);
-    const msisdn = phone.replace('+', ''); // MessageBird accepts MSISDN 84912345678
     const body = `[Alma Dungduong] Ma OTP cua ban la: ${otp}. Ma co hieu luc trong 10 phut.`;
 
     try {
-      const response = await fetch('https://rest.messagebird.com/messages', {
-        method: 'POST',
-        headers: {
-          Authorization: `AccessKey ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          originator,
-          recipients: [msisdn],
-          body,
-        }),
-      });
+      // Determine if this is a new Bird Platform API key (bk_ prefix) or legacy MessageBird key
+      const isNewBirdPlatform = apiKey.startsWith('bk_');
+      let response: Response;
+
+      if (isNewBirdPlatform) {
+        // Route to the appropriate regional data plane
+        let endpoint = 'https://eu1.platform.bird.com/v1/sms/messages';
+        if (apiKey.startsWith('bk_us1_')) {
+          endpoint = 'https://us1.platform.bird.com/v1/sms/messages';
+        } else if (!apiKey.startsWith('bk_eu1_')) {
+          endpoint = 'https://api.bird.com/v1/sms/messages';
+        }
+
+        response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            Authorization: `AccessKey ${apiKey}`,
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            from: originator,
+            to: phone, // Full E.164 (+84...)
+            text: body,
+            category: 'authentication',
+          }),
+        });
+      } else {
+        // Legacy MessageBird REST API
+        const msisdn = phone.replace('+', ''); // MessageBird accepts MSISDN 84912345678
+        response = await fetch('https://rest.messagebird.com/messages', {
+          method: 'POST',
+          headers: {
+            Authorization: `AccessKey ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            originator,
+            recipients: [msisdn],
+            body,
+          }),
+        });
+      }
 
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        // Detect quota/balance errors: 402 Payment Required, 429 Too Many Requests, or specific MessageBird error codes
+        // Detect quota/balance errors: 402 Payment Required, 429 Too Many Requests, or specific error texts
         const isQuotaExceeded =
           response.status === 402 ||
           response.status === 429 ||
@@ -121,6 +151,8 @@ export class BirdSmsProvider implements SmsProvider {
 
         const errorMsg =
           data?.errors?.[0]?.description ||
+          data?.message ||
+          data?.error ||
           `Bird API error: HTTP ${response.status} ${response.statusText}`;
 
         return {
