@@ -193,6 +193,40 @@ describe('Provider Sandbox & Error Handling', () => {
     process.env.BIRD_API_KEY = originalKey;
   });
 
+  it('Bird provider routes to eu1.platform.bird.com when API key starts with bk_eu1_', async () => {
+    const originalKey = process.env.BIRD_API_KEY;
+    process.env.BIRD_API_KEY = 'bk_eu1_test_secret_key_123';
+
+    let capturedUrl = '';
+    let capturedHeaders: any = null;
+    let capturedBody: any = null;
+
+    global.fetch = vi.fn().mockImplementation((url, options) => {
+      capturedUrl = url;
+      capturedHeaders = options.headers;
+      capturedBody = JSON.parse(options.body);
+      return Promise.resolve({
+        ok: true,
+        status: 202,
+        json: async () => ({ id: 'bird-platform-msg-999', status: 'accepted' }),
+      });
+    }) as any;
+
+    const birdProvider = new BirdSmsProvider();
+    const result = await birdProvider.sendOtp('+84912345678', '123456');
+
+    expect(result.success).toBe(true);
+    expect(result.messageId).toBe('bird-platform-msg-999');
+    expect(capturedUrl).toBe('https://eu1.platform.bird.com/v1/sms/messages');
+    expect(capturedHeaders.Authorization).toBe('AccessKey bk_eu1_test_secret_key_123');
+    expect(capturedBody.from).toBe('Alma');
+    expect(capturedBody.to).toBe('+84912345678');
+    expect(capturedBody.text).toContain('123456');
+    expect(capturedBody.category).toBe('authentication');
+
+    process.env.BIRD_API_KEY = originalKey;
+  });
+
   it('eSMS auto-resolves SmsType to 8 when type is invalid or brandname is empty', async () => {
     const originalSandbox = process.env.ESMS_SANDBOX;
     const originalApiKey = process.env.ESMS_API_KEY;
