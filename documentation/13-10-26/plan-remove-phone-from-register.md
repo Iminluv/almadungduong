@@ -128,22 +128,22 @@ graph TD
 
 ## 3. Implementable Tasks (Phase 3)
 
-- [ ] **Task 1: Update Register API Route (`/api/auth/register`)**
+- [x] **Task 1: Update Register API Route (`/api/auth/register`)**
   - **Acceptance:** `/api/auth/register` extracts `{ name, email, password }`, creates user without needing `phone`, and sends verification email.
   - **Verify:** API code compiles cleanly with TypeScript without type errors.
   - **Files:** `src/app/api/auth/register/route.ts`
 
-- [ ] **Task 2: Update Register Form UI (`AccountView.tsx`)**
+- [x] **Task 2: Update Register Form UI (`AccountView.tsx`)**
   - **Acceptance:** `registerPhone` state and the phone number input field are removed from the registration form. Profile phone editing remains intact.
   - **Verify:** Visual layout in `/tai-khoan` shows Name, Email, Password. Form resets and submits cleanly.
   - **Files:** `src/app/tai-khoan/AccountView.tsx`
 
-- [ ] **Task 3: Add Register Unit Test**
+- [x] **Task 3: Add Register Unit Test**
   - **Acceptance:** Test verifies `/api/auth/register` accepts request without phone and creates user with `phone: null`.
   - **Verify:** `npm run test` passes.
   - **Files:** `src/__tests__/register.test.ts`
 
-- [ ] **Task 4: Full Verification and Build Validation**
+- [x] **Task 4: Full Verification and Build Validation**
   - **Acceptance:** Code passes all lints and `npm run build` generates Next.js production bundle without errors.
   - **Verify:** `npm run lint` and `npm run build` succeed.
   - **Files:** None (verification step).
