@@ -17,6 +17,7 @@ export async function GET() {
         name: true,
         email: true,
         phone: true,
+        phoneVerified: true,
         image: true,
         totalSpent: true,
         hashedPassword: true,
@@ -68,7 +69,13 @@ export async function PUT(request: Request) {
 
     const updateData: any = {};
     if (name !== undefined) updateData.name = name;
-    if (phone !== undefined) updateData.phone = phone;
+    if (phone !== undefined) {
+      updateData.phone = phone;
+      // If phone is updated to a different number, reset phoneVerified timestamp
+      if (phone !== user.phone) {
+        updateData.phoneVerified = null;
+      }
+    }
 
     // Check if password change is requested
     if (newPassword) {
@@ -98,6 +105,7 @@ export async function PUT(request: Request) {
         name: true,
         email: true,
         phone: true,
+        phoneVerified: true,
         image: true,
       },
     });
